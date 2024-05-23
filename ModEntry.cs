@@ -50,7 +50,6 @@ namespace ArsVenefici
         public override void Entry(IModHelper helper)
         {
             ModEntry.helper = helper;
-            Log.Monitor = this.Monitor;
 
             InitializeClasses();
 
