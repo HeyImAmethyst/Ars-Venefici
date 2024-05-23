@@ -118,7 +118,7 @@ namespace ArsVenefici
                 var manaBar = modEntryInstance.Helper.ModRegistry.GetApi<IManaBarApi>("spacechase0.ManaBar");
                 if (manaBar == null)
                 {
-                    Log.Error("No mana bar API???");
+                    modEntryInstance.Monitor.Log("No mana bar API???", LogLevel.Error);
                     return;
                 }
 
@@ -130,7 +130,7 @@ namespace ArsVenefici
                 var api = modEntryInstance.Helper.ModRegistry.GetApi<IJsonAssetsApi>("spacechase0.JsonAssets");
                 if (api == null)
                 {
-                    Log.Error("No Json Assets API???");
+                    modEntryInstance.Monitor.Log("No Json Assets API???", LogLevel.Error);
                     return;
                 }
 
@@ -203,7 +203,7 @@ namespace ArsVenefici
         {
             if (Game1.player.itemToEat == null)
             {
-                Log.Warn("No item eaten for the item eat event?!?");
+                modEntryInstance.Monitor.Log("No item eaten for the item eat event?!?", LogLevel.Error);
                 return;
             }
 
