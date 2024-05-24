@@ -123,12 +123,5 @@
 
 	"event.wizard.12": "Good luck on your magic endeavors.",
 
-	"event.wizard.abovehead": "WIZARDRY",
-
-	/*********
-    ** Items
-    *********/
-
-	"objects.mana_potion.name": "Magic Elixir",
-	"objects.mana_potion.description": "Restores health and mana."
+	"event.wizard.abovehead": "WIZARDRY"
 }
