@@ -317,10 +317,10 @@ namespace ArsVenefici
                     }
                 }
 
-                if(e.Button == SButton.G)
-                {
-                    Game1.player.eventsSeen.Remove(modEntryInstance.LearnedWizardryEventId.ToString());
-                }
+                //if(e.Button == SButton.G)
+                //{
+                //    Game1.player.eventsSeen.Remove(modEntryInstance.LearnedWizardryEventId.ToString());
+                //}
             }
         }
 
