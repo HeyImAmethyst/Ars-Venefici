@@ -6,6 +6,7 @@ The functionality for the spell making is a port of the spell making functionali
 Took inspiration from the [Ars Nouveau mod for Minecraft](https://www.curseforge.com/minecraft/mc-mods/ars-nouveau) to make spells using a spell book format.
 
 Some functionality for some spell parts is based on some spells from the [Magic mod by spacechase0](https://www.nexusmods.com/stardewvalley/mods/2007). 
+The cutscene of the wizard giving you a spell book is also based on the learning magic cutscene from the magic mod.
 
 # Install
 
