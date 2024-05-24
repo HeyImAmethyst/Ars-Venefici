@@ -53,3 +53,7 @@ You gain magic XP by casting spells. Leveling up increases your mana regen amoun
 # Replenishing Mana
 
 Your mana will regen over time. Each level you gain for wizardry as well as the Mana Efficiency professions will inrease the mana regen amount. You can also replenish some mana by eating food. The energy recovery amount a food item gives will recover the same amount of mana (this my change in the future once I figure out how to give others the ablitiy to add specific custom items that recover mana)
+
+# Additional Notes
+
+Ars Venefici seems to roughly translates to 'The Art of Wizardry' or 'The Art of Sorcery' based on translating using google and using some latin translation sites to see if the words are acurate. I wanted to use 'Ars' in the name as a refrence to Ars Magica Legacy, the original Ars Magica Mod by AWildCanadianEh, and Ars Nouveau. If there is a more acurate translation of 'The Art of Wizardry' or 'The Art of Sorcery' that includes the word 'Ars' please let me know ^^'
