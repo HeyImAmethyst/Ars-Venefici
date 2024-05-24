@@ -19,7 +19,6 @@ namespace ArsVenefici
         public ModConfig Config;
 
         public static IManaBarApi Mana;
-        public static IJsonAssetsApi Ja;
 
         public SpellPartManager spellPartManager;
         public SpellPartIconManager spellPartIconManager;

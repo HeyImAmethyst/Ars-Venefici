@@ -124,19 +124,6 @@ namespace ArsVenefici
 
                 ModEntry.Mana = manaBar;
             }
-
-            // hook Json Assets
-            {
-                var api = modEntryInstance.Helper.ModRegistry.GetApi<IJsonAssetsApi>("spacechase0.JsonAssets");
-                if (api == null)
-                {
-                    modEntryInstance.Monitor.Log("No Json Assets API???", LogLevel.Error);
-                    return;
-                }
-
-                ModEntry.Ja = api;
-                //api.LoadAssets(Path.Combine(modEntryInstance.Helper.DirectoryPath, "assets", "json_assets"), modEntryInstance.Helper.Translation);
-            }
         }
 
         /// <summary>
