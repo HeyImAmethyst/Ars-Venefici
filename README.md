@@ -19,3 +19,8 @@ The cutscene of the wizard giving you a spell book is also based on the learning
 
 # Uninstall
 - Simply delete the mod from your mods folder.
+
+
+# Learning Wizardry
+
+To gain access to crafting spells and the wizardry skill, you need to be at 4 hearts with the wizard. Then you need to simply enter his tower. If Stardew Valley Expanded is installed, you will need to enter the new custom basement the mod adds to his tower.
