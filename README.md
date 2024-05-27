@@ -2,12 +2,12 @@
 
 Ars Venefici is a Stardew Valley mod that adds the ability to craft and cast spells with a spell book!
 
-The functionality for the spell making is a port of the spell making functionality from the [Ars Magica Legacy Mod for Minecraft](https://www.curseforge.com/minecraft/mc-mods/ars-magica-legacy) to C# (Ported with permission).
+The functionality for the spell making is a port of the spell making functionality from the [Ars Magica Legacy Mod for Minecraft](https://www.curseforge.com/minecraft/mc-mods/ars-magica-legacy) to C# (I asked for permision to turn this into a Stardew Mod and got the okay to do so!).
 Took inspiration from the [Ars Nouveau mod for Minecraft](https://www.curseforge.com/minecraft/mc-mods/ars-nouveau) to make spells using a spell book format.
 
 Some functionality for some spell parts is based on some spells from the [Magic mod by spacechase0](https://www.nexusmods.com/stardewvalley/mods/2007). 
 The cutscene of the wizard giving you a spell book is also based on the learning magic cutscene from the magic mod.
-
+The professions in this mode are also based on the professions from the magic mod.
 
 # Install
 
@@ -36,7 +36,7 @@ To gain access to crafting spells and the wizardry skill, you need to be at 4 he
 - A spell label that show the current selected spell will appear on the screen once the spell book menu is closed. It can be moved with shift + the OemTilde button (~)
 - Use 'Z' and 'X' to move through your list of spells. You can also use shift and 'Z' and shift and 'X' to cycle through a spell's shape groups
 - Once you have the spell you want, you will be able to cast it. To cast a spell, press Q. 
-- These controls can be adjusted in Ars Veneficus's config file or if you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) installed, a section for the Ars Venefici config should appear in its menu, allowing you to edit the config values in game.
+- These controls can be adjusted in Ars Venefici's config file or if you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) installed, a section for the Ars Venefici config should appear in its menu, allowing you to edit the config values in game.
 
 # Professions
 

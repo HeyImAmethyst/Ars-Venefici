@@ -120,7 +120,7 @@ namespace ArsVenefici.Framework.Spells
 
         public SpellCastResult Cast(IEntity caster, GameLocation gameLocation, int castingTicks, bool consume, bool awardXp)
         {
-            float manaValue = Mana((Character)caster.entity);
+            float manaValue = Mana();
 
             if (((Farmer)caster.entity).GetCurrentMana() < manaValue) 
                 return new SpellCastResult(SpellCastResultType.NOT_ENOUGH_MANA);
@@ -227,7 +227,7 @@ namespace ArsVenefici.Framework.Spells
             return shapesWithModifiers.ToList();
         }
 
-        public int Mana(Character caster)
+        public int Mana()
         {
             int cost = 0;
             int multiplier = 1;
@@ -250,6 +250,7 @@ namespace ArsVenefici.Framework.Spells
             {
                 multiplier = 1;
             }
+
             cost *= multiplier;
 
             return cost;

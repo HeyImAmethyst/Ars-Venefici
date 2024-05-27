@@ -411,10 +411,14 @@ namespace ArsVenefici
             string spellName = "";
             int spellShapeGroupIndex;
 
+            int manaCost;
+
             if (spellBook.GetCurrentSpell().GetName() != null)
                 spellName = spellBook.GetCurrentSpell().GetName();
 
             spellShapeGroupIndex = spellBook.GetCurrentSpell().CurrentShapeGroupIndex() + 1;
+
+            manaCost = spellBook.GetCurrentSpell().Mana();
 
             string spellText;
 
@@ -424,7 +428,7 @@ namespace ArsVenefici
             }
             else
             {
-                spellText = spellName + " | Shapegroup: " + spellShapeGroupIndex;
+                spellText = spellName + " | Shapegroup: " + spellShapeGroupIndex + " | Mana Cost: " + manaCost;
             }
 
             string text = spellPageIndex + " : " + spellText;
@@ -441,7 +445,7 @@ namespace ArsVenefici
             Color color = Color.White;
 
             //Utility.drawTextWithShadow(spriteBatch, text, Game1.smallFont, new Vector2(spellNameLable.bounds.X, spellNameLable.bounds.Y - 30), color);
-            Utility.drawTextWithColoredShadow(spriteBatch, text, Game1.smallFont, new Vector2(spellNameLable.bounds.X, spellNameLable.bounds.Y - 30), color, Color.Transparent);
+            Utility.drawTextWithColoredShadow(spriteBatch, text, Game1.smallFont, new Vector2(spellNameLable.bounds.X, spellNameLable.bounds.Y - 30), color, Color.Gray);
 
             //if (text.Length > 0)
             //    Utility.drawTextWithShadow(spriteBatch, text, Game1.smallFont, new Vector2(spellNameLable.bounds.X + Game1.tileSize / 3 - Game1.smallFont.MeasureString(text).X / 2f, spellNameLable.bounds.Y + Game1.tileSize / 2), color);

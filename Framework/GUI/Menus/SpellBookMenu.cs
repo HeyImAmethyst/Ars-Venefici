@@ -54,6 +54,9 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         private readonly List<ClickableComponent> clickables = new List<ClickableComponent>();
 
+        ClickableComponent PageNumberLable;
+        ClickableComponent TotalManaCostLable;
+
         public static int windowWidth = 220 + borderWidth * 2;
         public static int windowHeight = 252 + borderWidth * 2 + Game1.tileSize;
 
@@ -173,7 +176,11 @@ namespace ArsVenefici.Framework.GUI.Menus
                 clickables.Add(nameBoxCC);
 
                 //this.labels.Add(this.nameLabel);
-                labels.Add(new ClickableComponent(new Rectangle(xPositionOnScreen + 50, yPositionOnScreen + 480, 64, 64), "Page Number"));
+                TotalManaCostLable = new ClickableComponent(new Rectangle(xPositionOnScreen + 50, yPositionOnScreen + 430, 64, 64), "Total Mana Cost");
+                labels.Add(TotalManaCostLable);
+
+                PageNumberLable = new ClickableComponent(new Rectangle(xPositionOnScreen + 50, yPositionOnScreen + 480, 64, 64), "Page Number");
+                labels.Add(PageNumberLable);
 
                 currentPageIndex = spellBook.GetCurrentSpellPageIndex();
 
@@ -254,17 +261,37 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             foreach (ClickableComponent label in labels)
             {
-                string text = "";
-                Color color = Game1.textColor;
 
-                int pageNumber = spellBook.GetPages().IndexOf(spellBook.GetCurrentSpellPage()) + 1;
+                if (label == PageNumberLable)
+                {
+                    string text = "";
+                    Color color = Game1.textColor;
 
-                drawTextureBox(spriteBatch, label.bounds.X, label.bounds.Y - 30, label.bounds.Width + 15, label.bounds.Height, Color.White);
+                    int pageNumber = spellBook.GetPages().IndexOf(spellBook.GetCurrentSpellPage()) + 1;
 
-                Utility.drawTextWithShadow(spriteBatch, pageNumber.ToString(), Game1.smallFont, new Vector2(label.bounds.X + 23, label.bounds.Y - 10), color);
+                    drawTextureBox(spriteBatch, PageNumberLable.bounds.X, PageNumberLable.bounds.Y - 30, PageNumberLable.bounds.Width + 15, PageNumberLable.bounds.Height, Color.White);
 
-                if (text.Length > 0)
-                    Utility.drawTextWithShadow(spriteBatch, text, Game1.smallFont, new Vector2(label.bounds.X + Game1.tileSize / 3 - Game1.smallFont.MeasureString(text).X / 2f, label.bounds.Y + Game1.tileSize / 2), color);
+                    Utility.drawTextWithShadow(spriteBatch, pageNumber.ToString(), Game1.smallFont, new Vector2(PageNumberLable.bounds.X + 23, PageNumberLable.bounds.Y - 10), color);
+
+                    if (text.Length > 0)
+                        Utility.drawTextWithShadow(spriteBatch, text, Game1.smallFont, new Vector2(PageNumberLable.bounds.X + Game1.tileSize / 3 - Game1.smallFont.MeasureString(text).X / 2f, PageNumberLable.bounds.Y + Game1.tileSize / 2), color);
+                }
+
+                if(label == TotalManaCostLable)
+                {
+                    //Color color = Game1.textColor;
+                    //Color color = Color.White;
+
+                    //Spell spell = spellBook.CreateSpell(modEntry, currentPageIndex);
+
+                    //if(spell != null)
+                    //{
+                    //    string text = "Total Mana Cost: " + spell.Mana().ToString();
+
+                    //    Utility.drawTextWithColoredShadow(spriteBatch, text, Game1.smallFont, new Vector2(PageNumberLable.bounds.X - 70, PageNumberLable.bounds.Y + 45), color, Color.Gray);
+                    //}
+                }
+                
             }
 
             // draw buttons
@@ -283,7 +310,6 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 dragged.Draw(spriteBatch, pMouseX - SpellPartDraggable.SIZE / 2, pMouseY - SpellPartDraggable.SIZE / 2, 0);
             }
-
             else
             {
                 if (hoveredPart != null)
@@ -300,8 +326,13 @@ namespace ArsVenefici.Framework.GUI.Menus
 
                     int value = Math.Max(val1, (int)Game1.dialogueFont.MeasureString(spellPartNameText == null ? "" : spellPartNameText).X);
 
+                    StringBuilder s = new StringBuilder();
+                    s.AppendLine(Game1.parseText(spellPartDescriptionText, Game1.smallFont, value));
+                    s.AppendLine("");
+                    s.Append("Mana Cost: " + hoveredPart.GetPart().ManaCost());
+
                     if (spellPartNameText != null && spellPartDescriptionText != null)
-                        drawToolTip(spriteBatch, Game1.parseText(spellPartDescriptionText, Game1.smallFont, value), spellPartNameText, null);
+                        drawToolTip(spriteBatch, s.ToString(), spellPartNameText, null);
                 }
             }
 
