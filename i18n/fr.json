@@ -97,6 +97,18 @@
 	"spellpart.healing.description": "Renforce la puissance des composants de guérison.",
 
 	/*********
+	** UI
+	*********/
+
+	"ui.mana_cost.name": "Mana Cost",
+
+	"ui.spell_label.shape_group.name": "Shape Group",
+
+	"ui.spell_book.source_area.name": "Source Area",
+	"ui.spell_book.shape_group_area.name": "Shape Group Area",
+	"ui.spell_book.spell_grammar_area.name": "Spell Grammar Area",
+
+	/*********
     ** Wizard learn-magic event
     *********/
 
@@ -119,7 +131,7 @@
 	"event.wizard.11": "Une fois que tu as le sort que tu veux, tu pourras le lancer.",
 
 	"event.message.3": "Pour lancer un sort, appuie sur Q.",
-	"event.message.4": "Ces contrôles peuvent être ajustés dans le fichier de configuration d'Ars Veneficus.",
+	"event.message.4": "Ces contrôles peuvent être ajustés dans le fichier de configuration d'Ars Venefici.",
 
 	"event.wizard.12": "Bonne chance dans tes aventures magiques.",
 

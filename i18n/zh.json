@@ -97,6 +97,18 @@
     "spellpart.healing.description": "加强治疗效果。",
 
     /*********
+	** UI
+	*********/
+
+    "ui.mana_cost.name": "Mana Cost",
+
+    "ui.spell_label.shape_group.name": "Shape Group",
+
+    "ui.spell_book.source_area.name": "Source Area",
+    "ui.spell_book.shape_group_area.name": "Shape Group Area",
+    "ui.spell_book.spell_grammar_area.name": "Spell Grammar Area",
+
+    /*********
     ** Wizard learn-magic event
     *********/
 
@@ -119,7 +131,7 @@
     "event.wizard.11": "找到想用的魔法，就能开始施法了。",
 
     "event.message.3": "想施法，就按Q。",
-    "event.message.4": "这些按键都能在Ars Veneficus的设置文件里改。",
+    "event.message.4": "这些按键都能在Ars Venefici的设置文件里改。",
 
     "event.wizard.12": "祝你修炼顺利，早日取代邓布利多，成为星露谷最强大的巫师。",
 

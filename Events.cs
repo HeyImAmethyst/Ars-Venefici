@@ -428,7 +428,7 @@ namespace ArsVenefici
             }
             else
             {
-                spellText = spellName + " | Shapegroup: " + spellShapeGroupIndex + " | Mana Cost: " + manaCost;
+                spellText = spellName + " | " + modEntryInstance.Helper.Translation.Get("ui.spell_label.shape_group.name") + ": " + spellShapeGroupIndex + " | " + modEntryInstance.Helper.Translation.Get("ui.mana_cost.name") + ": "  + manaCost;
             }
 
             string text = spellPageIndex + " : " + spellText;

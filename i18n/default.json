@@ -16,10 +16,10 @@
 	"config.move_spell_lable_key.tooltip": "Press Shift and this button to move the spell lable.",
 
 	"config.next_spell_key.name": "Next Spell Button",
-	"config.next_spell_key.tooltip": "The button to move to the next spell.",
+	"config.next_spell_key.tooltip": "The button to move to the next spell. Press Shift and this button to move to the next shape group on the selected spell.",
 
 	"config.previous_spell_key.name": "Previous Spell Button",
-	"config.previous_spell_key.tooltip": "The button to move to the previous spell.",
+	"config.previous_spell_key.tooltip": "The button to move to the previous spell. Press Shift and this button to move to the previous shape group on the selected spell.",
 
 	"config.cast_spell_key.name": "Cast Spell Button",
 	"config.cast_spell_key.tooltip": "The button to cast the current spell.",
@@ -97,6 +97,18 @@
 	"spellpart.healing.description": "Strengthens the potency of healing components.",
 
 	/*********
+	** UI
+	*********/
+
+	"ui.mana_cost.name": "Mana Cost",
+
+	"ui.spell_label.shape_group.name": "Shape Group",
+
+	"ui.spell_book.source_area.name": "Source Area",
+	"ui.spell_book.shape_group_area.name": "Shape Group Area",
+	"ui.spell_book.spell_grammar_area.name": "Spell Grammar Area",
+
+	/*********
     ** Wizard learn-magic event
     *********/
 
@@ -119,7 +131,7 @@
 	"event.wizard.11": "Once you have the spell you want, you will be able to cast it.",
 
 	"event.message.3": "To cast a spell, press Q.",
-	"event.message.4": "These controls can be adjusted in Ars Venefici's's's config file.",
+	"event.message.4": "These controls can be adjusted in Ars Venefici's config file.",
 
 	"event.wizard.12": "Good luck on your magic endeavors.",
 

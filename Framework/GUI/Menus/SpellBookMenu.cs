@@ -121,9 +121,9 @@ namespace ArsVenefici.Framework.GUI.Menus
                 buttons.Clear();
                 labels.Clear();
 
-                sourceArea = new SpellPartSourceArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen - 100, 530, 190), modEntry, "Source Area");
-                shapeGroupArea = new ShapeGroupListArea(xPositionOnScreen - 200, yPositionOnScreen + 150, this, (part, i, j) => OnPartDropped(part), "ShapeGroup Area");
-                spellGrammarArea = new SpellGrammarArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen + 344, 436, 70), (part, i) => OnPartDropped(part), "Spell Grammar Area");
+                sourceArea = new SpellPartSourceArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen - 100, 530, 190), modEntry, modEntry.Helper.Translation.Get("ui.spell_book.source_area.name"));
+                shapeGroupArea = new ShapeGroupListArea(xPositionOnScreen - 200, yPositionOnScreen + 150, this, (part, i, j) => OnPartDropped(part), modEntry.Helper.Translation.Get("ui.spell_book.shape_group_area.name"));
+                spellGrammarArea = new SpellGrammarArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen + 344, 436, 70), (part, i) => OnPartDropped(part), modEntry.Helper.Translation.Get("ui.spell_book.spell_grammar_area.name"));
 
                 dragAreas.Add(sourceArea);
                 dragAreas.Add(spellGrammarArea);
@@ -329,7 +329,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                     StringBuilder s = new StringBuilder();
                     s.AppendLine(Game1.parseText(spellPartDescriptionText, Game1.smallFont, value));
                     s.AppendLine("");
-                    s.Append("Mana Cost: " + hoveredPart.GetPart().ManaCost());
+                    s.Append(modEntry.Helper.Translation.Get("ui.mana_cost.name") + ": " + hoveredPart.GetPart().ManaCost());
 
                     if (spellPartNameText != null && spellPartDescriptionText != null)
                         drawToolTip(spriteBatch, s.ToString(), spellPartNameText, null);
