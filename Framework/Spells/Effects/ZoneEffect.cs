@@ -49,10 +49,10 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             Tex.SetData(data);
 
-            Vector2 tilePos = pos;
+            Vector2 tilePos = new Vector2(pos.X - radius, pos.Y - radius);
             Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
             
-            SetBoundingBox(new Rectangle((int)absolutePos.X, (int)absolutePos.Y, Game1.tileSize * (int)radius, Game1.tileSize * (int)radius));
+            SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), Game1.tileSize * (int)radius, Game1.tileSize * (int)radius));
         }
 
         public override void Update(UpdateTickedEventArgs e)
@@ -81,22 +81,14 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             Rectangle r = new Rectangle((int)this.pos.X, (int)this.pos.Y, (int)radius, (int)radius);
 
-            for (int x = 0; x < r.Width; x++)
+            for (int x = (int)-radius; x <= (int)radius; x++)
             {
-                for (int y = 0; y < r.Height; y++)
+                for (int y = (int)-radius; y <= (int)radius; y++)
                 {
                     Vector2 vec = new Vector2(r.X + x, r.Y + y);
                     list.Add(new Vector2(x, y));
                 }
             }
-
-            //for (int x = (int)absolutePos.X; x < GetBoundingBox().Width; x++)
-            //{
-            //    for (int y = (int)absolutePos.Y; y <  GetBoundingBox().Height; y++)
-            //    {
-            //        list.Add(new Vector2(x, y));
-            //    }
-            //}
 
             foreach (Vector2 vec2 in list)
             {
@@ -126,9 +118,9 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             float speed = -0.5f;
 
-            for (int x = 0; x < r.Width; x++)
+            for (int x = (int)-radius; x <= (int)radius; x++)
             {
-                for (int y = 0; y < r.Height; y++)
+                for (int y = (int)-radius; y <= (int)radius; y++)
                 {
                     Vector2 vec = new Vector2(r.X + x, r.Y + y);
                     Vector2 absPos = Utils.TilePosToAbsolutePos(vec);
