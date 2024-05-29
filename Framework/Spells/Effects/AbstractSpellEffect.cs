@@ -2,6 +2,7 @@
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Monsters;
@@ -15,6 +16,8 @@ namespace ArsVenefici.Framework.Spells.Effects
 {
     public abstract class AbstractSpellEffect : IActiveEffect, IEntity
     {
+        ModEntry modEntry;
+
         protected IEntity owner;
         protected readonly Vector2 pos;
         private Rectangle boundingBox;
@@ -22,13 +25,19 @@ namespace ArsVenefici.Framework.Spells.Effects
 
         public object entity { get { return this; } }
 
-        public AbstractSpellEffect(Vector2 pos, int dur)
+        public bool isActive = true;
+
+        public AbstractSpellEffect(ModEntry modEntry, Vector2 pos, int dur)
         {
+            this.modEntry = modEntry;
+
             this.pos = pos;
             this.duration = dur;
         }
 
-        public abstract bool Update(UpdateTickedEventArgs e);
+        public abstract void Update(UpdateTickedEventArgs e);
+
+        public abstract void OneSecondUpdate(OneSecondUpdateTickingEventArgs e);
 
         public abstract void Draw(SpriteBatch spriteBatch);
 
@@ -48,9 +57,13 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             //var aabb = new AxisAlignedBoundingBox(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
             //var aabb = new Rectangle((int)(x - radius), (int)(y - radius), (int)(x + radius), (int)(y + radius));
-            var aabb = new Rectangle((int)(x), (int)(y), (int)(radius), (int)(radius));
-            
-            foreach (var e in GameLocationUtils.GetCharacters(this, aabb))
+            //var aabb = new Rectangle((int)(x), (int)(y), (int)(radius), (int)(radius));
+
+            List<Character> list = GameLocationUtils.GetCharacters(this, GetBoundingBox());
+            //List<Character> list = GameLocationUtils.GetCharacters(this, GetBoundingBox());
+            //modEntry.Monitor.Log(list.Count.ToString(), LogLevel.Info);
+
+            foreach (var e in list)
             {
                 //if (e == this) 
                 //    continue;
@@ -63,6 +76,7 @@ namespace ArsVenefici.Framework.Spells.Effects
 
                 if (e is Character living)
                 {
+                    //modEntry.Monitor.Log("c", LogLevel.Info);
                     consumer.Invoke(living);
                 }
             }

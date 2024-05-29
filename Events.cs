@@ -176,8 +176,11 @@ namespace ArsVenefici
             {
                 IActiveEffect effect = modEntryInstance.ActiveEffects[i];
 
-                if (!effect.Update(e))
-                    modEntryInstance.ActiveEffects.RemoveAt(i);
+                //if (!effect.Update(e))
+                //    modEntryInstance.ActiveEffects.RemoveAt(i);
+
+                if (effect != null)
+                    effect.Update(e);
             }
         }
 
@@ -197,6 +200,18 @@ namespace ArsVenefici
             int manaRegenValue = (int)(2 * factor);
 
             Game1.player.AddMana(manaRegenValue);
+
+            // update active effects
+            for (int i = modEntryInstance.ActiveEffects.Count - 1; i >= 0; i--)
+            {
+                IActiveEffect effect = modEntryInstance.ActiveEffects[i];
+
+                //if (!effect.OneSecondUpdate(e))
+                //    modEntryInstance.ActiveEffects.RemoveAt(i);
+
+                if (effect != null)
+                    effect.OneSecondUpdate(e);
+            }
         }
 
         public void OnItemEaten(object sender, EventArgs args)
@@ -360,9 +375,9 @@ namespace ArsVenefici
 
             RenderTouchIndicator(e.SpriteBatch);
 
-            //// draw active effects
-            //foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
-            //    effect.Draw(e.SpriteBatch);
+            // draw active effects
+            foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
+                effect.Draw(e.SpriteBatch);
         }
 
         public void RenderTouchIndicator(SpriteBatch spriteBatch)
@@ -379,31 +394,30 @@ namespace ArsVenefici
             {
                 if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer && /*Game1.player.CurrentTool != null &&*/ (Game1.oldKBState.IsKeyDown(Keys.LeftShift) || Game1.options.alwaysShowToolHitLocation) && /*this.CurrentTool.doesShowTileLocationMarker() &&*/ (!Game1.options.hideToolHitLocationWhenInMotion || !Game1.player.isMoving()))
                 {
+                    Vector2 local = Vector2.One;
+                    Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
+
                     if (spell.FirstShape(spell.CurrentShapeGroupIndex()) is Touch)
                     {
-                        //b.Draw(Game1.mouseCursors, local, new Microsoft.Xna.Framework.Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 29)), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
-
-                        Vector2 local = Game1.GlobalToLocal(Game1.viewport, Utility.clampToTile(Game1.player.GetToolLocation(true)));
-                        Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
-
-                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                       //local = Game1.GlobalToLocal(Game1.viewport, Utility.clampToTile(Game1.player.GetToolLocation(true)));
+                       local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
                     }
                     else if(spell.FirstShape(spell.CurrentShapeGroupIndex()) is EtherialTouch)
                     {
-                        Vector2 local = Game1.GlobalToLocal(Game1.viewport, Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));
-                        Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
-
-                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        //local = Game1.GlobalToLocal(Game1.viewport, Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));    
+                        local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));    
                     }
+
+                    spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                 }
             }
         }
 
         public void OnRenderingHud(object sender, RenderingHudEventArgs e)
         {
-            // draw active effects
-            foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
-                effect.Draw(e.SpriteBatch);
+            //// draw active effects
+            //foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
+            //    effect.Draw(e.SpriteBatch);
         }
 
 

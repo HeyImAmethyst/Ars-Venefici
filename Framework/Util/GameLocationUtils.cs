@@ -27,7 +27,7 @@ namespace ArsVenefici.Framework.Util
             }
 
             Rectangle rectangle = entity.GetBoundingBox();
-            rectangle.Inflate(entity.GetHorizontalMovement(), entity.GetVerticalMovement());
+            //rectangle.Inflate(entity.GetHorizontalMovement(), entity.GetVerticalMovement());
 
             //entity.GetBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1)
             HitResult entityHitResult = GetCharacterHitResult(entity, from, to, rectangle, e => true, 0.3);
@@ -40,13 +40,13 @@ namespace ArsVenefici.Framework.Util
             return hitResult;
         }
 
-        public static CharacterHitResult GetCharacterHitResult(IEntity entity, Vector2 vec3, Vector2 vec32, Rectangle aABB, Predicate<Character> predicate, double d)
+        public static CharacterHitResult GetCharacterHitResult(IEntity entity, Vector2 from, Vector2 to, Rectangle aABB, Predicate<Character> predicate, double d)
         {
             GameLocation level = entity.GetGameLocation();
 
             double e = d;
-            Character entity2 = null;
-            Vector2 vec33 = new Vector2();
+            Character character = null;
+            Vector2 location = new Vector2();
 
             var var12 = GetCharacters(entity, aABB, predicate).GetEnumerator();
 
@@ -54,49 +54,50 @@ namespace ArsVenefici.Framework.Util
             {
                 while (var12.MoveNext())
                 {
-                    Character entity3 = var12.Current;
+                    Character currentCharacter = var12.Current;
 
-                    Rectangle aABB2 = entity3.GetBoundingBox();
+                    Rectangle aABB2 = currentCharacter.GetBoundingBox();
                     aABB2.Inflate(0, 0);
 
-                    Vector2 intersectionPoint = new Vector2();
+                    Vector2 intersectionPoint = Vector2.Zero;
                     //Optional<Vec3> optional = aABB2.clip(vec3, vec32);
 
-                    bool optional = LineIntersectsRect(vec3, vec32, aABB2, out intersectionPoint);
+                    bool optional = LineIntersectsRect(from, to, aABB2, out intersectionPoint);
 
-                    if (aABB2.Contains(vec3))
+                    if (aABB2.Contains(from))
                     {
                         if (e >= 0.0)
                         {
-                            entity2 = entity3;
+                            character = currentCharacter;
                             //vec33 = (Vec3)optional.orElse(vec3);
-                            vec33 = intersectionPoint == Vector2.Zero ? vec3 : intersectionPoint;
+                            location = intersectionPoint == Vector2.Zero ? from : intersectionPoint;
                             e = 0.0;
                         }
+
                     }
                     else if (optional)
                     {
                         //Vector2 vec34 = (Vec3)optional.get();
-                        Vector2 vec34 = intersectionPoint;
+                        Vector2 lineIntersection = intersectionPoint;
 
                         //double f = vec3.distanceToSqr(vec34);
-                        double f = Vector2.DistanceSquared(vec3, vec34);
+                        double f = Vector2.DistanceSquared(from, lineIntersection);
 
                         if (f < e || e == 0.0)
                         {
-                            entity2 = entity3;
-                            vec33 = vec34;
+                            character = currentCharacter;
+                            location = lineIntersection;
                             e = f;
                         }
                     }
                 }
 
-                if (entity2 == null)
+                if (character == null)
                 {
                     return null;
                 }
 
-                return new CharacterHitResult(entity2, vec33);
+                return new CharacterHitResult(character, location);
             }
         }
 
@@ -152,21 +153,54 @@ namespace ArsVenefici.Framework.Util
                     if (character.GetBoundingBox().Intersects(aABB))
                     {
 
-                        if(entity.entity is Character)
+                        //if(entity.entity is Character)
+                        //{
+                        //    if (character != entity && predicate != null && predicate.Invoke(character))
+                        //    {
+                        //        list.Add(character);
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (predicate != null && predicate.Invoke(character))
+                        //    {
+                        //        list.Add(character);
+                        //    }
+                        //}
+
+                        if (predicate != null && predicate.Invoke(character))
                         {
-                            if (character != entity && predicate != null && predicate.Invoke(character))
-                            {
-                                list.Add(character);
-                            }
+                            list.Add(character);
                         }
-                        else
+
+                    }
+                }
+
+                foreach (Farmer farmer in location.farmers)
+                {
+                    if (farmer.GetBoundingBox().Intersects(aABB))
+                    {
+
+                        //if (entity.entity is Farmer)
+                        //{
+                        //    if (farmer != entity && predicate != null && predicate.Invoke(farmer))
+                        //    {
+                        //        list.Add(farmer);
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (predicate != null && predicate.Invoke(farmer))
+                        //    {
+                        //        list.Add(farmer);
+                        //    }
+                        //}
+
+                        if (predicate != null && predicate.Invoke(farmer))
                         {
-                            if (predicate != null && predicate.Invoke(character))
-                            {
-                                list.Add(character);
-                            }
+                            list.Add(farmer);
                         }
-                       
+
                     }
                 }
             }
@@ -185,19 +219,30 @@ namespace ArsVenefici.Framework.Util
                 foreach (Character character in location.characters)
                 {
                     if (character.GetBoundingBox().Intersects(aABB))
+                    {
                         list.Add(character);
+                    }
                 }
+
+                foreach (Farmer farmer in location.farmers)
+                {
+                    if (farmer.GetBoundingBox().Intersects(aABB))
+                    {
+                        list.Add(farmer);
+                    }
+                }
+
+                //if (location.isCollidingPosition(entity.GetBoundingBox(), Game1.viewport, entity))
+                //{
+                //    Character character = isCollidingWithCharacter(aABB, location);
+
+                //    if (character != entity)
+                //    {
+                //        list.Add(character);
+                //    }
+                //}
             }
 
-            //if (location.isCollidingPosition(entity.GetBoundingBox(), Game1.viewport, entity))
-            //{
-            //    Character character = isCollidingWithCharacter(aABB, location);
-
-            //    if (character != entity)
-            //    {
-            //        list.Add(character);
-            //    }
-            //}
 
             return list;
         }
