@@ -43,6 +43,9 @@
     "spellpart.aoe.name": "范围效果",
     "spellpart.aoe.description": "会在触发法术的区域周围施放法术。这个形状必须放在最后。",
 
+    "spellpart.zone.name": "Zone",
+    "spellpart.zone.description": "Makes a 'zone' of the spell cast. Needs a target shape after it. This shape will continue ticking the spell effect it was attached to extremely quickly.",
+
 
     "spellpart.dig.name": "掘地三尺",
     "spellpart.dig.description": "可以击碎岩石、清除碎石和砍伐树木。",

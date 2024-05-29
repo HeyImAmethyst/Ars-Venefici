@@ -43,6 +43,9 @@
 	"spellpart.aoe.name": "* Zone d'effet",
 	"spellpart.aoe.description": "Lance le sort dans une zone autour de l'endroit où il est déclenché.\nCette forme doit être placée en dernier.",
 
+	"spellpart.zone.name": "Zone",
+	"spellpart.zone.description": "Makes a 'zone' of the spell cast. Needs a target shape after it. This shape will continue ticking the spell effect it was attached to extremely quickly.",
+
 
 	"spellpart.dig.name": "Creuser",
 	"spellpart.dig.description": "Brise les rochers, les débris et coupe les arbres.",
