@@ -44,7 +44,7 @@
 	"spellpart.aoe.description": "Lance le sort dans une zone autour de l'endroit où il est déclenché.\nCette forme doit être placée en dernier.",
 
 	"spellpart.zone.name": "Zone",
-	"spellpart.zone.description": "Makes a 'zone' of the spell cast. Needs a target shape after it. This shape will continue ticking the spell effect it was attached to extremely quickly.",
+	"spellpart.zone.description": "Makes a 'zone' of the spell cast. This shape must be placed last. This shape will continue ticking the spell effect it was attached to.",
 
 
 	"spellpart.dig.name": "Creuser",
@@ -100,10 +100,10 @@
 	"spellpart.healing.description": "Renforce la puissance des composants de guérison.",
 
 	"spellpart.duration.name": "Duration",
-	"spellpart.duration.description": "Adds additional time to zone spells.",
+	"spellpart.duration.description": "Adds additional time to Zone spells.",
 
 	"spellpart.mining_power.name": "Mining Power",
-	"spellpart.mining_power.description": "Adds +1 Axe/Pickaxe upgrade to Dig Spells.",
+	"spellpart.mining_power.description": "Adds +1 axe/pickaxe upgrade to Dig spells.",
 
 	/*********
 	** UI
@@ -116,6 +116,32 @@
 	"ui.spell_book.source_area.name": "Source Area",
 	"ui.spell_book.shape_group_area.name": "Shape Group Area",
 	"ui.spell_book.spell_grammar_area.name": "Spell Grammar Area",
+
+	/*********
+	** Skill/Professions
+	*********/
+
+	"skill.wizardry.name": "Wizardry",
+	"skill.extra_level_up_info.text": "+1 mana regen",
+	"skill.skill_page_hover_text_mana_regen.text": "mana regen",
+
+	"professions.ManaEfficiency1.name": "Mana Effeciency I",
+	"professions.ManaEfficiency1.description": "Total mana cost of spells is reduced by about a third",
+
+	"professions.ManaEfficiency2.name": "Mana Effeciency II",
+	"professions.ManaEfficiency2.description": "Total mana cost of spells is reduced by about half",
+
+	"professions.ManaRegen1.name": "Mana Regen I",
+	"professions.ManaRegen1.description": "+0.5 mana regen per level",
+
+	"professions.ManaRegen2.name": "Mana Regen II",
+	"professions.ManaRegen2.description": "+1 mana regen per level",
+
+	"professions.ManaConservation.name": "Mana Conservation",
+	"professions.ManaConservation.description": "25% chance of spells not costing any mana",
+
+	"professions.ManaCap.name": "Mana Reserve",
+	"professions.ManaCap.description": "+500 max mana",
 
 	/*********
     ** Wizard learn-magic event

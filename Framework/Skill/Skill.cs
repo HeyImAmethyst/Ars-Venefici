@@ -52,8 +52,8 @@ namespace ArsVenefici.Framework.Skill
             Skill.ManaEfficiencyProfession = new ManaEfficiencyProfession(this, "ManaEfficiency1", 3)
             {
                 Icon = null, // TODO
-                Name = "Mana Effeciency I",
-                Description = "Total mana cost of spells is reduced by about a third"
+                Name = modEntry.Helper.Translation.Get("professions.ManaEfficiency1.name"),
+                Description = modEntry.Helper.Translation.Get("professions.ManaEfficiency1.description")
             };
 
             this.Professions.Add(Skill.ManaEfficiencyProfession);
@@ -61,8 +61,8 @@ namespace ArsVenefici.Framework.Skill
             Skill.ManaRegen1Profession = new GenericProfession(this, "ManaRegen1")
             {
                 Icon = null, // TODO
-                Name = "Mana Regen I",
-                Description = "+0.5 mana regen per level"
+                Name = modEntry.Helper.Translation.Get("professions.ManaRegen1.name"),
+                Description = modEntry.Helper.Translation.Get("professions.ManaRegen1.description")
             };
 
             this.Professions.Add(Skill.ManaRegen1Profession);
@@ -73,8 +73,8 @@ namespace ArsVenefici.Framework.Skill
             Skill.ManaEfficiency2Profession = new ManaEfficiencyProfession(this, "ManaEfficiency2", 2)
             {
                 Icon = null, // TODO
-                Name = "Mana Effeciency II",
-                Description = "Total mana cost of spells is reduced by about half"
+                Name = modEntry.Helper.Translation.Get("professions.ManaEfficiency2.name"),
+                Description = modEntry.Helper.Translation.Get("professions.ManaEfficiency2.description")
             };
 
             this.Professions.Add(Skill.ManaEfficiency2Profession);
@@ -82,8 +82,8 @@ namespace ArsVenefici.Framework.Skill
             Skill.ManaConservationProfession = new GenericProfession(this, "ManaConservation")
             {
                 Icon = null, // TODO
-                Name = "Mana Conservation",
-                Description = "25% chance of spells not costing any mana"
+                Name = modEntry.Helper.Translation.Get("professions.ManaConservation.name"),
+                Description = modEntry.Helper.Translation.Get("professions.ManaConservation.description")
             };
 
             this.Professions.Add(Skill.ManaConservationProfession);
@@ -94,16 +94,16 @@ namespace ArsVenefici.Framework.Skill
             Skill.ManaRegen2Profession = new GenericProfession(this, "ManaRegen2")
             {
                 Icon = null, // TODO
-                Name = "Mana Regen II",
-                Description = "+1 mana regen per level"
+                Name = modEntry.Helper.Translation.Get("professions.ManaRegen2.name"),
+                Description = modEntry.Helper.Translation.Get("professions.ManaRegen2.description")
             };
             this.Professions.Add(Skill.ManaRegen2Profession);
 
             Skill.ManaReserveProfession = new ManaCapProfession(this, "ManaCap")
             {
                 Icon = null, // TODO
-                Name = "Mana Reserve",
-                Description = "+500 max mana"
+                Name = modEntry.Helper.Translation.Get("professions.ManaCap.name"),
+                Description = modEntry.Helper.Translation.Get("professions.ManaCap.description")
             };
             this.Professions.Add(Skill.ManaReserveProfession);
 
@@ -112,20 +112,20 @@ namespace ArsVenefici.Framework.Skill
 
         public override string GetName()
         {
-            return "Wizardry";
+            return modEntry.Helper.Translation.Get("skill.wizardry.name");
         }
 
         public override List<string> GetExtraLevelUpInfo(int level)
         {
             return new()
             {
-                "+1 mana regen"
+                modEntry.Helper.Translation.Get("skill.extra_level_up_info.text")
             };
         }
 
         public override string GetSkillPageHoverText(int level)
         {
-            return "+" + level + " mana regen";
+            return "+" + level + " " + modEntry.Helper.Translation.Get("skill.skill_page_hover_text_mana_regen.text");
         }
 
         public override void DoLevelPerk(int level)
