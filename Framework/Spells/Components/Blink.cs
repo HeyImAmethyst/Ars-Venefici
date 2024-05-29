@@ -37,9 +37,16 @@ namespace ArsVenefici.Framework.Spells.Components
             int radius = (int)helper.GetModifiedStat(5, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, target, index) * 4;
 
             Farmer entity = caster.entity as Farmer;
-            
-            entity.position.X = target.GetTilePos().GetTilePosX() * 64 - entity.GetBoundingBox().Width / 2;
-            entity.position.Y = target.GetTilePos().GetTilePosY() * 64 - entity.GetBoundingBox().Height / 2;
+
+            Vector2 tilePos = target.GetTilePos().GetVector();
+            Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
+
+            entity.position.X = absolutePos.X - entity.GetBoundingBox().Width / 2;
+            entity.position.Y = absolutePos.Y - entity.GetBoundingBox().Height / 2;
+
+            //entity.setTileLocation(tilePos);
+
+
             entity.playNearbySoundLocal("powerup");
 
             return new SpellCastResult(SpellCastResultType.SUCCESS);

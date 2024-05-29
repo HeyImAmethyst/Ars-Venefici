@@ -34,7 +34,7 @@ namespace ArsVenefici.Framework.Spells.Components
 
                 if (gameLocation.damageMonster(living.GetBoundingBox(), (int)damage, (int)(damage * (1f + farmer.buffs.AttackMultiplier)), false, farmer))
                 {
-                    farmer.AddMana((int)(damage * farmer.GetMaxMana()));
+                    farmer.AddMana((int)(damage * (farmer.GetMaxMana() / 25)));
                 }
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
@@ -48,7 +48,7 @@ namespace ArsVenefici.Framework.Spells.Components
                 targetFarmer.health -= (int)damage;
 
                 Farmer farmer = ((Farmer)caster.entity);
-                farmer.AddMana((int)(damage * farmer.GetMaxMana()));
+                farmer.AddMana((int)(damage * (farmer.GetMaxMana() / 25)));
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }

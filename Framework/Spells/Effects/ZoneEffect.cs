@@ -32,9 +32,7 @@ namespace ArsVenefici.Framework.Spells.Effects
             this.spell = spell;
             this.radius = radius;
 
-            //this.Tex = modEntry.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
             this.Tex = new Texture2D(Game1.graphics.GraphicsDevice, Game1.tileSize * (int)radius, Game1.tileSize * (int)radius);
-
 
             int width = Tex.Width;
             int height = Tex.Height;
@@ -49,19 +47,12 @@ namespace ArsVenefici.Framework.Spells.Effects
                 data[pixel] = manaCol;
             }
 
-            //Tex.SetData(new[] { manaCol });
             Tex.SetData(data);
 
-            //SetBoundingBox(new Rectangle((int)(pos.X), (int)(pos.Y), 1, 1);
-            //SetBoundingBox(new Rectangle((int)(this.pos.X - Game1.tileSize), (int)(this.pos.Y - Game1.tileSize), Game1.tileSize / 2, Game1.tileSize / 2));
-            //SetBoundingBox(new Rectangle((int)(this.pos.X), (int)(this.pos.Y), Game1.tileSize * (int)radius, Game1.tileSize * (int)radius));
-            
             Vector2 tilePos = pos;
             Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
             
-            //SetBoundingBox(new Rectangle((int)(absolutePos.X - Game1.tileSize), (int)(absolutePos.Y - Game1.tileSize), Game1.tileSize * (int)radius, Game1.tileSize * (int)radius));
             SetBoundingBox(new Rectangle((int)absolutePos.X, (int)absolutePos.Y, Game1.tileSize * (int)radius, Game1.tileSize * (int)radius));
-            //addCauldronBubbles();
         }
 
         public override void Update(UpdateTickedEventArgs e)
@@ -130,7 +121,6 @@ namespace ArsVenefici.Framework.Spells.Effects
             Vector2 tilePos = new Vector2((int)r.X, (int)r.Y);
             Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
             Vector2 screenPos = Utils.TilePosToScreenPos(tilePos);
-            //Vector2 screenPos = Utils.TilePosToScreenPos(new Vector2(GetBoundingBox().X, GetBoundingBox().Y));
 
             //spriteBatch.Draw(Tex, screenPos, new Rectangle(0, 0, Tex.Width, Tex.Height), Color.White);
 

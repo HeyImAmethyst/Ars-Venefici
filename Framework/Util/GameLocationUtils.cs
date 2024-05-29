@@ -120,10 +120,10 @@ namespace ArsVenefici.Framework.Util
                 {
                     return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
                 }
-                else
-                {
-                    return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
-                }
+                //else
+                //{
+                //    return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
+                //}
             }
 
             return TerrainFeatureHitResult.Miss(from, dir, new TilePos(from));
