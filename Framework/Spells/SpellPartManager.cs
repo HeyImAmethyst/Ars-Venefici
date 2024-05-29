@@ -104,12 +104,20 @@ namespace ArsVenefici.Framework.Spells
             GenericSpellModifier healing = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.HEALING), DefaultSpellPartStatModifier.Multiply(2f));
             healing.SetId("healing");
 
+            GenericSpellModifier duration = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.DURATION), DefaultSpellPartStatModifier.Multiply(2f));
+            duration.SetId("duration");
+
+            GenericSpellModifier miningPower = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.POWER), DefaultSpellPartStatModifier.Add(1f));
+            miningPower.SetId("mining_power");
+
             spellParts.Add(damage.GetId(), damage);
             spellParts.Add(range.GetId(), range);
             spellParts.Add(bounce.GetId(), bounce);
             spellParts.Add(piercing.GetId(), piercing);
             spellParts.Add(velocity.GetId(), velocity);
             spellParts.Add(healing.GetId(), healing);
+            spellParts.Add(duration.GetId(), duration);
+            spellParts.Add(miningPower.GetId(), miningPower);
         }
     }
 }

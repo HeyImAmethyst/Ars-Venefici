@@ -99,6 +99,12 @@
 	"spellpart.healing.name": "Guérison +",
 	"spellpart.healing.description": "Renforce la puissance des composants de guérison.",
 
+	"spellpart.duration.name": "Duration",
+	"spellpart.duration.description": "Adds additional time to zone spells.",
+
+	"spellpart.mining_power.name": "Mining Power",
+	"spellpart.mining_power.description": "Adds +1 Axe/Pickaxe upgrade to Dig Spells.",
+
 	/*********
 	** UI
 	*********/

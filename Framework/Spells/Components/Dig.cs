@@ -67,6 +67,18 @@ namespace ArsVenefici.Framework.Spells.Components
                 toolLevel = 4;
             }
 
+            var helper = SpellHelper.Instance();
+            float miningPower = helper.GetModifiedStat(1, new SpellPartStats(SpellPartStatType.POWER), modifiers, spell, caster, target, index);
+
+            if(toolLevel + (int)miningPower < 4)
+            {
+                toolLevel += (int)miningPower;
+            }
+            else if (toolLevel + (int)miningPower > 4)
+            {
+                toolLevel = 4;
+            }
+
             foreach (var t in new Tool[] { axe, pickaxe })
             {
                 t.UpgradeLevel = toolLevel;
