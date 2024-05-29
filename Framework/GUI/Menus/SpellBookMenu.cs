@@ -57,6 +57,23 @@ namespace ArsVenefici.Framework.GUI.Menus
         ClickableComponent PageNumberLable;
         ClickableComponent TotalManaCostLable;
 
+        private const int BasePlayId = 2000;
+
+        private const int ScrollDownId = 6487; //This was just the first number that popped into my head
+        private const int ScrollUpId = 7846; //Why think of another one when I can reverse the first
+        private const int ExitId = 1;
+        private const int ArrowUpId = 2;
+        private const int ArrowDownId = 3;
+        private const int ScrollThumbId = 4;
+
+        private Rectangle sourceAreaScrollBarTrack;
+        private ClickableTextureComponent sourceAreaScrollBarThumb;
+        private ClickableTextureComponent sourceAreaArrowUp;
+        private ClickableTextureComponent sourceAreaArrowDown;
+
+        private int CurrentOffset = 0;
+        private bool Scrolling;
+
         public static int windowWidth = 220 + borderWidth * 2;
         public static int windowHeight = 252 + borderWidth * 2 + Game1.tileSize;
 
@@ -121,6 +138,8 @@ namespace ArsVenefici.Framework.GUI.Menus
                 buttons.Clear();
                 labels.Clear();
 
+                const int Offset = Game1.tileSize / 4;
+
                 sourceArea = new SpellPartSourceArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen - 100, 530, 190), modEntry, modEntry.Helper.Translation.Get("ui.spell_book.source_area.name"));
                 shapeGroupArea = new ShapeGroupListArea(xPositionOnScreen - 200, yPositionOnScreen + 150, this, (part, i, j) => OnPartDropped(part), modEntry.Helper.Translation.Get("ui.spell_book.shape_group_area.name"));
                 spellGrammarArea = new SpellGrammarArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen + 344, 436, 70), (part, i) => OnPartDropped(part), modEntry.Helper.Translation.Get("ui.spell_book.spell_grammar_area.name"));
@@ -128,6 +147,36 @@ namespace ArsVenefici.Framework.GUI.Menus
                 dragAreas.Add(sourceArea);
                 dragAreas.Add(spellGrammarArea);
                 dragAreas.Add(shapeGroupArea);
+
+                sourceAreaArrowUp = new ClickableTextureComponent(new(xPositionOnScreen + 400 + Offset, yPositionOnScreen - 235 + Game1.tileSize, Game1.pixelZoom * 11, Game1.pixelZoom * 12), Game1.mouseCursors, new(421, 459, 11, 12), Game1.pixelZoom)
+                {
+                    myID = ArrowUpId,
+                    leftNeighborID = BasePlayId + 1,
+                    rightNeighborID = -7777,
+                    downNeighborID = ScrollThumbId,
+                    upNeighborID = ExitId
+                };
+
+                sourceAreaArrowDown = new ClickableTextureComponent(new(xPositionOnScreen + 400 + Offset, yPositionOnScreen - 235 + height - Game1.tileSize, Game1.pixelZoom * 11, Game1.pixelZoom * 12), Game1.mouseCursors, new(421, 472, 11, 12), Game1.pixelZoom)
+                {
+                    myID = ArrowDownId,
+                    leftNeighborID = BasePlayId + 7,
+                    rightNeighborID = -7777,
+                    downNeighborID = ScrollDownId,
+                    upNeighborID = ScrollThumbId
+                };
+
+                sourceAreaScrollBarThumb = new ClickableTextureComponent(new(sourceAreaArrowUp.bounds.X + Game1.pixelZoom * 3, sourceAreaArrowUp.bounds.Y + sourceAreaArrowUp.bounds.Height + Game1.pixelZoom, 24, 40), Game1.mouseCursors, new(435, 463, 6, 10), Game1.pixelZoom)
+                {
+                    myID = ScrollThumbId,
+                    leftNeighborID = BasePlayId + 4,
+                    rightNeighborID = -7777,
+                    downNeighborID = ArrowDownId,
+                    upNeighborID = ArrowUpId
+                };
+
+                sourceAreaScrollBarTrack = new(sourceAreaScrollBarThumb.bounds.X, sourceAreaArrowUp.bounds.Y + sourceAreaArrowUp.bounds.Height + Game1.pixelZoom, sourceAreaScrollBarThumb.bounds.Width, height - Game1.tileSize * 2 - sourceAreaArrowUp.bounds.Height - Game1.pixelZoom * 2);
+                SetScrollBarToCurrentIndex();
 
                 ClickableTextureComponent leftPageButton =
                     new ClickableTextureComponent("LeftPage", new Rectangle(xPositionOnScreen - 250, yPositionOnScreen + 450, 64, 64), null, "", Game1.mouseCursors, Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 44, -1, -1), 1f, false);
@@ -165,7 +214,7 @@ namespace ArsVenefici.Framework.GUI.Menus
 
                 //this.nameLabel = new ClickableComponent(new Rectangle(this.xPositionOnScreen + num1 + 16 + IClickableMenu.spaceToClearSideBorder + IClickableMenu.borderWidth + 192 + 4, this.yPositionOnScreen + IClickableMenu.borderWidth + IClickableMenu.spaceToClearTopBorder - 8, 1, 1), "Spell Name");
 
-                upperRightCloseButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 380, yPositionOnScreen - 150, 48, 48), Game1.mouseCursors, new Rectangle(337, 494, 12, 12), 4f)
+                upperRightCloseButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 500, yPositionOnScreen - 150, 48, 48), Game1.mouseCursors, new Rectangle(337, 494, 12, 12), 4f)
                 {
                     myID = 9175502
                 };
@@ -258,6 +307,11 @@ namespace ArsVenefici.Framework.GUI.Menus
                 if (text.Length > 0)
                     Utility.drawTextWithShadow(spriteBatch, text, Game1.smallFont, new Vector2(area.bounds.X + Game1.tileSize / 3 - Game1.smallFont.MeasureString(text).X / 2f, area.bounds.Y + Game1.tileSize / 2), color);
             }
+
+            sourceAreaArrowUp.draw(spriteBatch);
+            sourceAreaArrowDown.draw(spriteBatch);
+            drawTextureBox(spriteBatch, Game1.mouseCursors, new Rectangle(403, 383, 6, 6), sourceAreaScrollBarTrack.X, sourceAreaScrollBarTrack.Y, sourceAreaScrollBarTrack.Width, sourceAreaScrollBarTrack.Height, Color.White, Game1.pixelZoom);
+            sourceAreaScrollBarThumb.draw(spriteBatch);
 
             foreach (ClickableComponent label in labels)
             {
@@ -505,6 +559,19 @@ namespace ArsVenefici.Framework.GUI.Menus
                 }
             }
 
+            if (sourceAreaArrowUp.containsPoint(x, y))
+                ArrowUpPressed();
+            else if (sourceAreaArrowDown.containsPoint(x, y))
+                ArrowDownPressed();
+            else if (sourceAreaScrollBarThumb.containsPoint(x, y))
+                Scrolling = true;
+            else if (sourceAreaScrollBarTrack.Contains(x, y))
+            {
+                Scrolling = true;
+                leftClickHeld(x, y);
+                releaseLeftClick(x, y);
+            }
+
             nameBox.Update();
 
             //modEntry.Monitor.Log("Mouse clicked at " + x + " , " + y, LogLevel.Info);
@@ -513,12 +580,31 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         public override void leftClickHeld(int x, int y)
         {
+            if (Scrolling)
+            {
+                int initialY = y - (sourceAreaScrollBarTrack.Y + sourceAreaScrollBarThumb.bounds.Height / 2);
+                int scrollHeight = sourceAreaScrollBarTrack.Height - sourceAreaScrollBarThumb.bounds.Height;
+                double ratio = Math.Min(Math.Max(initialY * 1.0 / scrollHeight, 0), 1);
+                int newOffset = (int)Math.Round(ratio * (sourceArea.GetAll().Count - (SpellPartSourceArea.COLUMNS * SpellPartSourceArea.ROWS)));
+                if (newOffset != CurrentOffset)
+                {
+                    CurrentOffset = newOffset;
+
+                    sourceArea.SetCurrentOffset(CurrentOffset);
+
+                    SetScrollBarToCurrentIndex();
+
+                    sourceArea.UpdateVisibility();
+                }
+            }
+
             base.leftClickHeld(x, y);
         }
 
         public override void releaseLeftClick(int x, int y)
         {
             base.releaseLeftClick(x, y);
+            Scrolling = false;
         }
 
         /// <summary>The method invoked when the player right-clicks on the lookup UI.</summary>
@@ -528,6 +614,23 @@ namespace ArsVenefici.Framework.GUI.Menus
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
 
+        }
+
+        public override void receiveScrollWheelAction(int direction)
+        {
+
+            if(hoveredArea != null)
+            {
+                if(hoveredArea is SpellPartSourceArea)
+                {
+                    if (direction > 0)
+                        ArrowUpPressed();
+                    else if (direction < 0)
+                        ArrowDownPressed();
+
+                    base.receiveScrollWheelAction(direction);
+                }
+            }
         }
 
         /// <summary>The method invoked when the player hovers the cursor over the menu.</summary>
@@ -554,6 +657,36 @@ namespace ArsVenefici.Framework.GUI.Menus
             //if (hoveredPart != null)
             //    modEntry.Monitor.Log("Mouse hovering over spell part " + hoveredPart.getPart().GetId(), LogLevel.Info);
         }
+
+        private void SetScrollBarToCurrentIndex()
+        {
+            sourceAreaScrollBarThumb.bounds.Y = (int)((sourceAreaScrollBarTrack.Height - sourceAreaScrollBarThumb.bounds.Height) * 1.0 * CurrentOffset / (sourceArea.GetAll().Count - (SpellPartSourceArea.COLUMNS * SpellPartSourceArea.ROWS)));
+            sourceAreaScrollBarThumb.bounds.Y += sourceAreaScrollBarTrack.Y;
+            Game1.playSound("shiny4");
+        }
+
+        private void ArrowUpPressed()
+        {
+            if (CurrentOffset > 0)
+            {
+                CurrentOffset--;
+                sourceArea.SetCurrentOffset(CurrentOffset);
+                SetScrollBarToCurrentIndex();
+                sourceArea.UpdateVisibility();
+            }
+        }
+
+        private void ArrowDownPressed()
+        {
+            if (CurrentOffset < sourceArea.GetAll().Count - (SpellPartSourceArea.COLUMNS * SpellPartSourceArea.ROWS))
+            {
+                CurrentOffset++;
+                sourceArea.SetCurrentOffset(CurrentOffset);
+                SetScrollBarToCurrentIndex();
+                sourceArea.UpdateVisibility();
+            }
+        }
+
 
         public override void receiveKeyPress(Keys key)
         {

@@ -14,9 +14,11 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 {
     public class SpellPartSourceArea : DragSourceArea<SpellPartDraggable>
     {
+        private int currentOffset = 0;
+
         private static int X_PADDING = 4;
-        private static int ROWS = 3;
-        private static int COLUMNS = 8;
+        public static int ROWS = 3;
+        public static int COLUMNS = 8;
         private List<KeyValuePair<SpellPartDraggable, KeyValuePair<int, int>>> cachedContents = new List<KeyValuePair<SpellPartDraggable, KeyValuePair<int, int>>>();
         private string nameFilter;
         private bool showShapes;
@@ -63,20 +65,6 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
         public override SpellPartDraggable ElementAt(int mouseX, int mouseY)
         {
-            //return cachedContents.stream()
-            //        .filter(e->mouseX >= e.getSecond().getFirst() && mouseX < e.getSecond().getFirst() + SpellPartDraggable.SIZE && mouseY >= e.getSecond().getSecond() && mouseY < e.getSecond().getSecond() + SpellPartDraggable.SIZE)
-            //        .findAny()
-            //        .map(Pair::getFirst)
-            //        .orElse(null);
-
-            //List<KeyValuePair<SpellPartDraggable, KeyValuePair<int, int>>> newList = cachedContents
-            //    .Where(e => mouseX >= e.Value.Key && mouseX < e.Value.Key + SpellPartDraggable.SIZE && mouseY >= e.Value.Value && mouseY < e.Value.Value + SpellPartDraggable.SIZE)
-            //    .ToList();
-
-            ////newList.Select(x => x.Value);
-
-            //return newList.Select(x => x.Key).GetEnumerator().Current;
-
             return cachedContents.AsEnumerable()
                     .Where(e => mouseX >= e.Value.Key && mouseX < e.Value.Key + SpellPartDraggable.SIZE && mouseY >= e.Value.Value && mouseY < e.Value.Value + SpellPartDraggable.SIZE)
                     .FirstOrDefault()
@@ -111,79 +99,59 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
                    .ToList();
         }
 
-        private void UpdateVisibility()
+        public void UpdateVisibility()
         {
             if (modEntry != null)
             {
                 cachedContents.Clear();
 
-                ////List<SpellPartDraggable> list = getAll().stream()
-                ////        .filter(part-> switch (part.getPart().getType())
-                ////{
-                ////    case SHAPE->showShapes;
-                ////    case COMPONENT->showComponents;
-                ////    case MODIFIER-> (showShapes || showComponents) && showModifiers;
-                ////})
-                ////    .filter(part->part.getTranslationKey().getString().toLowerCase().contains(nameFilter))
-                ////    .limit(maxDisplay)
-                ////    .toList();
-
-                //List<SpellPartDraggable> list = getAll()
-                //        .Where(
-                //                delegate (SpellPartDraggable part)
-                //                {
-                //                    switch (part.getPart().GetType())
-                //                    {
-                //                        case SpellPartType.SHAPE:
-                //                            return showShapes;
-                //                        case SpellPartType.COMPONENT:
-                //                            return showComponents;
-                //                        case SpellPartType.MODIFIER:
-                //                            return (showShapes || showComponents) && showModifiers;
-                //                    }
-
-                //                    return false;
-                //                }
-                //        )
-                //        .Where(part => part.getTranslationKey().ToLower().Contains(nameFilter))
-                //        .ToList();
-
-                ////list.Resize(maxDisplay);
-
-                ////SpellPartDraggable[] visible = new SpellPartDraggable[maxDisplay];
-
-                ////for (int i = 0; i < visible.Length; i++)
-                ////{
-                ////    visible[i] = getAll()[i];
-                ////}
-
-                ////list = visible.ToList();
+                //List<SpellPartDraggable> list = GetAll().AsEnumerable()
+                //    .Where(part =>
+                //    {
+                //        switch (part.GetPart().GetType())
+                //        {
+                //            case SpellPartType.SHAPE:
+                //                return showShapes;
+                //            case SpellPartType.COMPONENT:
+                //                return showComponents;
+                //            case SpellPartType.MODIFIER:
+                //                return (showShapes || showComponents) && showModifiers;
+                //            default:
+                //                return false;
+                //        }
+                //    })
+                //    .Where(part => part.GetNameTranslationKey().ToString().ToLower().Contains(nameFilter))
+                //    .Take(maxDisplay)
+                //    .ToList();
 
                 List<SpellPartDraggable> list = GetAll().AsEnumerable()
-                    .Where(part =>
+                .Where(part =>
+                {
+                    switch (part.GetPart().GetType())
                     {
-                        switch (part.GetPart().GetType())
-                        {
-                            case SpellPartType.SHAPE:
-                                return showShapes;
-                            case SpellPartType.COMPONENT:
-                                return showComponents;
-                            case SpellPartType.MODIFIER:
-                                return (showShapes || showComponents) && showModifiers;
-                            default:
-                                return false;
-                        }
-                    })
-                    .Where(part => part.GetNameTranslationKey().ToString().ToLower().Contains(nameFilter))
-                    .Take(maxDisplay)
-                    .ToList();
+                        case SpellPartType.SHAPE:
+                            return showShapes;
+                        case SpellPartType.COMPONENT:
+                            return showComponents;
+                        case SpellPartType.MODIFIER:
+                            return (showShapes || showComponents) && showModifiers;
+                        default:
+                            return false;
+                    }
+                })
+                .Where(part => part.GetNameTranslationKey().ToString().ToLower().Contains(nameFilter))
+                .ToList();
 
                 for (int i = 0; i < ROWS; i++)
                 {
                     for (int j = 0; j < COLUMNS; j++)
                     {
-                        int index = i * COLUMNS + j;
+                        int rowOffset = currentOffset + i;
+
+                        int index = rowOffset * COLUMNS + j;
+
                         if (index >= list.Count()) return;
+
                         cachedContents.Add(KeyValuePair.Create(list[index], KeyValuePair.Create(x + j * SpellPartDraggable.SIZE + X_PADDING, y + i * SpellPartDraggable.SIZE)));
                     }
                 }
@@ -197,6 +165,16 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
             //        .toList();
 
             return modEntry.spellPartManager.spellParts.Values.ToList();
+        }
+
+        public void SetCurrentOffset(int value)
+        {
+            currentOffset = value;
+        }
+
+        public int GetCurrentOffset()
+        {
+            return currentOffset;
         }
     }
 }
