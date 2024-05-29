@@ -33,7 +33,7 @@ namespace ArsVenefici.Framework.Spells.Components
 
             Farmer player = ((Farmer)caster.entity);
 
-            TilePos tile = new TilePos(Utils.ConvertToTilePos(Utility.clampToTile(target.GetCharacter().getStandingPosition())));
+            TilePos tile = new TilePos(Utils.AbsolutePosToTilePos(Utility.clampToTile(target.GetCharacter().getStandingPosition())));
 
             Torch torch = new Torch();
 

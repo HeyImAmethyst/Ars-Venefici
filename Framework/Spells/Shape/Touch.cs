@@ -29,7 +29,7 @@ namespace ArsVenefici.Framework.Spells.Shape
 
             var helper = SpellHelper.Instance();
 
-            return helper.Invoke(modEntry, spell, caster, level, helper.Trace(modEntry, (Character)caster.entity, level, helper.GetModifiedStat(1f, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index), false, false), ticksUsed, index, awardXp);
+            return helper.Invoke(modEntry, spell, caster, level, helper.Trace(modEntry, (Character)caster.entity, level, helper.GetModifiedStat(1f, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index), true, false), ticksUsed, index, awardXp);
             //return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
         }
 

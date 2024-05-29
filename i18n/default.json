@@ -43,6 +43,8 @@
 	"spellpart.aoe.name": "Area of Effect",
 	"spellpart.aoe.description": "Will cast the spell in an area around the place where it's triggered. This shape must be placed last.",
 
+	"spellpart.zone.name": "Zone",
+	"spellpart.zone.description": "Makes a 'zone' of the spell cast. Needs a target shape after it. This shape will continue ticking the spell effect it was attached to extremely quickly.",
 
 	"spellpart.dig.name": "Dig",
 	"spellpart.dig.description": "Breaks rocks, depris, and chops trees.",
@@ -73,6 +75,9 @@
 
 	"spellpart.life_drain.name": "Life Drain",
 	"spellpart.life_drain.description": "Damages the target and heals you based on the damage dealt.",
+
+	"spellpart.life_tap.name": "Life Tap",
+	"spellpart.life_tap.description": "Damages the target and restores your mana based on the damage dealt.",
 
 	"spellpart.physical_damage.name": "Physical Damage",
 	"spellpart.physical_damage.description": "Damages the target.",

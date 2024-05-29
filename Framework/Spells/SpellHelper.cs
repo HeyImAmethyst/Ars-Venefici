@@ -40,45 +40,63 @@ namespace ArsVenefici.Framework.Spells
 
         public Character GetPointedCharacter(Character character, double range)
         {
-            Vector2 from = character.getStandingPosition();
-            //int view = character.FacingDirection;
-            int view = (int)-Math.Atan2(character.getStandingPosition().Y - character.GetToolLocation(true).Y, character.GetToolLocation(true).X - character.getStandingPosition().X);
+            Vector2 from = Utils.AbsolutePosToTilePos(Utility.clampToTile(character.getStandingPosition()));
+            
+            Vector2 toolLocation = Utils.AbsolutePosToTilePos(Utility.clampToTile(character.GetToolLocation(true)));
+            ////int view = character.FacingDirection;
+            int view = (int)-Math.Atan2(from.Y - toolLocation.Y, toolLocation.X - from.X);
+            
             Vector2 to = new Vector2((float)(from.X + (view * range)), (float)(from.Y + (view * range)));
 
             Rectangle aabb = new Rectangle(character.GetBoundingBox().X, character.GetBoundingBox().Y, (int)(character.GetBoundingBox().Width + (view * range)), (int)(character.GetBoundingBox().Height + (view * range)));
 
             //CharacterHitResult hit = ProjectileUtil.getEntityHitResult(entity, from, to, aabb, e-> !e.isSpectator() && e.isPickable(), range * range);
-            CharacterHitResult hit = GameLocationUtils.GetCharacterHitResult(character, from, to, aabb, null, range * range);
+            CharacterHitResult hit = GameLocationUtils.GetCharacterHitResult(new CharacterEntityWrapper(character), from, to, aabb, null, range * range);
 
             //return hit != null && from.distanceTo(hit.getLocation()) < range ? hit.getEntity() : null;
             return hit != null && Vector2.Distance(from, hit.GetLocation()) < range ? hit.GetCharacter() : null;
+
+            //return null;
 
         }
 
         public HitResult Trace(ModEntry modEntry, Character entity, GameLocation level, double range, bool entities, bool mouseCursor)
         {
-            if (entities)
-            {
-                Character pointed = GetPointedCharacter(entity, range);
-                if (pointed != null) return new CharacterHitResult(pointed);
+            //if (entities)
+            //{
+            //    Character pointed = GetPointedCharacter(entity, range);
+            //    if (pointed != null) return new CharacterHitResult(pointed);
 
-            }
+            //}
 
             Vector2 fromTileVec;
 
             if (mouseCursor)
             {
-                fromTileVec = Utils.ConvertToTilePos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));
+                fromTileVec = Utils.AbsolutePosToTilePos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));
             }
             else
             {
-                fromTileVec = Utils.ConvertToTilePos(Utility.clampToTile(entity.GetToolLocation(true)));
+                fromTileVec = Utils.AbsolutePosToTilePos(Utility.clampToTile(entity.GetToolLocation(true)));
             }
 
             TilePos fromTilePos = new TilePos(fromTileVec);
             TilePos toTilePos = new TilePos(Vector2.Multiply(fromTileVec, new Vector2((float)range, (float)range)));
 
-            return GameLocationUtils.Clip(entity, fromTilePos.GetVector(), toTilePos.GetVector());
+            //if (entities)
+            //{
+            //    //Character pointed = GetPointedCharacter(entity, range);
+            //    //if (pointed != null) return new CharacterHitResult(pointed);
+
+            //    float view = (float)-Math.Atan2(entity.getStandingPosition().Y - toTilePos.GetVector().Y, toTilePos.GetVector().X - entity.getStandingPosition().X);
+            //    Rectangle aabb = new Rectangle((int)fromTileVec.X, (int)fromTileVec.Y, (int)(entity.GetBoundingBox().Width + (range)), (int)(entity.GetBoundingBox().Height + (range)));
+            //    CharacterHitResult hit = GameLocationUtils.GetCharacterHitResult(new CharacterEntityWrapper(entity), fromTileVec, toTilePos.GetVector(), aabb, null, range * range);
+
+            //    Character pointed = hit != null && Vector2.Distance(fromTileVec, hit.GetLocation()) < range ? hit.GetCharacter() : null;
+
+            //}
+
+            return GameLocationUtils.Clip(new CharacterEntityWrapper(entity), fromTilePos.GetVector(), toTilePos.GetVector());
         }
 
         public float GetModifiedStat(float baseValue, ISpellPartStat stat, List<ISpellModifier> modifiers, ISpell spell, IEntity caster, HitResult target, int componentIndex)

@@ -38,12 +38,14 @@ namespace ArsVenefici.Framework.Spells
             Touch touch = new Touch();
             EtherialTouch etherialTouch = new EtherialTouch();
             AoE aoE = new AoE();
+            Zone zone = new Zone();
 
             spellParts.Add(self.GetId(), self);
             spellParts.Add(projectile.GetId(), projectile);
             spellParts.Add(touch.GetId(), touch);
             spellParts.Add(etherialTouch.GetId(), etherialTouch);
             spellParts.Add(aoE.GetId(), aoE);
+            spellParts.Add(zone.GetId(), zone);
         }
 
         private void AddComonents()
@@ -59,6 +61,7 @@ namespace ArsVenefici.Framework.Spells
 
             Heal heal = new Heal();
             LifeDrain lifeDrain = new LifeDrain();
+            LifeTap lifeTap = new LifeTap();
 
             // -> e instanceof Player p ? p.damageSources().playerAttack(p) : e.damageSources().mobAttack(e), Config.SERVER.DAMAGE)
             //Func<double> physicalDamageValue = () => 5.0;
@@ -73,6 +76,7 @@ namespace ArsVenefici.Framework.Spells
             spellParts.Add(grow.GetId(), grow);
             spellParts.Add(harvest.GetId(), harvest);
             spellParts.Add(lifeDrain.GetId(), lifeDrain);
+            spellParts.Add(lifeTap.GetId(), lifeTap);
             spellParts.Add(explosion.GetId(), explosion);
             spellParts.Add(blink.GetId(), blink);
             spellParts.Add(light.GetId(), light);

@@ -27,7 +27,7 @@ namespace ArsVenefici.Framework.Util
 
         public TilePos(Character character)
         {
-            Vector2 tilePos = Utils.ConvertToTilePos(Utility.clampToTile(character.getStandingPosition()));
+            Vector2 tilePos = Utils.AbsolutePosToTilePos(Utility.clampToTile(character.getStandingPosition()));
 
             tilePosX = (int)tilePos.X;
             tilePosY = (int)tilePos.Y;

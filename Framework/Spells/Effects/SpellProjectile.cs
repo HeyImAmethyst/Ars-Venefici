@@ -572,5 +572,30 @@ namespace ArsVenefici.Framework.Spells.Effects
                 return projectile.destroyMe;
             }));
         }
+
+        public GameLocation GetGameLocation()
+        {
+            return Source.GetGameLocation();
+        }
+
+        public Vector2 GetPosition()
+        {
+            return position.Get();
+        }
+
+        public Rectangle GetBoundingBox()
+        {
+            return getBoundingBox();
+        }
+
+        public int GetHorizontalMovement()
+        {
+            return 1;
+        }
+
+        public int GetVerticalMovement()
+        {
+            return 1;
+        }
     }
 }

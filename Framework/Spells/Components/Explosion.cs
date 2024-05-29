@@ -28,7 +28,7 @@ namespace ArsVenefici.Framework.Spells.Components
             var helper = SpellHelper.Instance();
             int radius = (int)helper.GetModifiedStat(2, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, target, index);
 
-            gameLocation.explode(Utils.ConvertToTilePos(Utility.clampToTile(target.GetCharacter().getStandingPosition())), radius, caster.entity as Farmer);
+            gameLocation.explode(Utils.AbsolutePosToTilePos(Utility.clampToTile(target.GetCharacter().getStandingPosition())), radius, caster.entity as Farmer);
 
             return new SpellCastResult(SpellCastResultType.SUCCESS);
         }

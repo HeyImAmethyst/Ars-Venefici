@@ -44,7 +44,7 @@ namespace ArsVenefici.Framework.Spells.Shape
 
             Rectangle rectangle = new Rectangle((int)hit.GetLocation().X, (int)hit.GetLocation().Y, (int)(radius * 2), (int)(radius * 2));
 
-            foreach (Character e in GameLocationUtils.GetCharacters((Character)caster.entity, rectangle, null))
+            foreach (Character e in GameLocationUtils.GetCharacters(caster, rectangle, null))
             {
                 if (helper.Invoke(modEntry, spell, caster, gameLocation, new CharacterHitResult(e), ticksUsed, index, awardXp) == new SpellCastResult(SpellCastResultType.SUCCESS))
                 {

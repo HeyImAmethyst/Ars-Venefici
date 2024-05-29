@@ -9,6 +9,8 @@ using SpaceCore;
 using ArsVenefici.Framework.Skill;
 using SpaceShared.APIs;
 using SpaceCore.Events;
+using ArsVenefici.Framework.Spells.Effects;
+using System.Reflection.PortableExecutable;
 
 namespace ArsVenefici
 {
@@ -27,6 +29,9 @@ namespace ArsVenefici
 
         private static Texture2D ManaBg;
         private static Texture2D ManaFg;
+
+        /// <summary>The active effects, spells, or projectiles which should be updated or drawn.</summary>
+        public readonly IList<IActiveEffect> ActiveEffects = new List<IActiveEffect>();
 
         /// <remarks>This should only be accessed through <see cref="GetSpellBook"/> or <see cref="Extensions.GetSpellBook"/> to make sure an updated instance is retrieved.</remarks>
         private static readonly IDictionary<long, SpellBook> SpellBookCache = new Dictionary<long, SpellBook>();
@@ -87,13 +92,15 @@ namespace ArsVenefici
         private void SetUpEvents()
         {
             helper.Events.Input.ButtonPressed += eventsHandler.OnButtonPressed;
-            
+
+            helper.Events.Display.RenderingHud += eventsHandler.OnRenderingHud;
             helper.Events.Display.RenderedHud += eventsHandler.OnRenderedHud;
             helper.Events.Display.MenuChanged += eventsHandler.OnMenuChanged;
             helper.Events.Display.RenderedWorld += eventsHandler.OnRenderedWorld;
 
             helper.Events.GameLoop.GameLaunched += eventsHandler.OnGameLaunched;
             helper.Events.GameLoop.DayStarted += eventsHandler.OnDayStarted;
+            helper.Events.GameLoop.UpdateTicked += eventsHandler.OnUpdateTicked;
             helper.Events.GameLoop.OneSecondUpdateTicking += eventsHandler.OnOneSecondUpdateTicking;
 
             helper.Events.Player.Warped += eventsHandler.OnWarped;

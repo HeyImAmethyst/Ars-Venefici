@@ -6,6 +6,7 @@ using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace ArsVenefici.Framework.Spells.Shape
             //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
 
             var helper = SpellHelper.Instance();
-            return helper.Invoke(modEntry, spell, caster, level, helper.Trace(modEntry, (Character)caster.entity, level, helper.GetModifiedStat(1f, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index), false, true), ticksUsed, index, awardXp);
+            return helper.Invoke(modEntry, spell, caster, level, helper.Trace(modEntry, (Character)caster.entity, level, helper.GetModifiedStat(1f, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index), true, true), ticksUsed, index, awardXp);
         }
 
         public override bool NeedsToComeFirst()

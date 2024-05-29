@@ -37,14 +37,90 @@ namespace ArsVenefici.Framework.Util
             return GetFirstMatching(l, predicate);
         }
 
-        public static Vector2 ConvertToTilePos(int x ,int y)
+        /*
+         * 
+         *  conversion          formula
+            ------------------  --------------------------------------------------------------------------------
+            absolute => screen  x - Game1.viewport.X, y - Game1.viewport.Y
+            absolute => tile    x / Game1.tileSize,   y / Game1.tileSize
+
+            screen => absolute  x + Game1.viewport.X, y + Game1.viewport.Y
+            screen => tile      (x + Game1.viewport.X) / Game1.tileSize, (y + Game1.viewport.Y) / Game1.tileSize
+
+            tile => absolute    x * Game1.tileSize, y * Game1.tileSize
+            tile => screen      (x * Game1.tileSize) - Game1.viewport.X, (y * Game1.tileSize) - Game1.viewport.Y
+        */
+
+        //---------------------------------------
+        // Absolute Position Conversions
+        //---------------------------------------
+
+        public static Vector2 AbsolutePosToScreenPos(int x, int y)
+        {
+            return new Vector2(x - Game1.viewport.X, y - Game1.viewport.Y);
+        }
+
+        public static Vector2 AbsolutePosToScreenPos(Vector2 pos)
+        {
+            return new Vector2(pos.X - Game1.viewport.X, pos.Y - Game1.viewport.Y);
+        }
+
+        public static Vector2 AbsolutePosToTilePos(int x ,int y)
         {
             return new Vector2(x / Game1.tileSize, y / Game1.tileSize);
         }
 
-        public static Vector2 ConvertToTilePos(Vector2 pos)
+        public static Vector2 AbsolutePosToTilePos(Vector2 pos)
         {
             return new Vector2(pos.X / Game1.tileSize, pos.Y / Game1.tileSize);
+        }
+
+        //---------------------------------------
+        // Screen Position Conversions
+        //---------------------------------------
+
+        public static Vector2 ScreenPosToAbsolutePos(int x, int y)
+        {
+            return new Vector2(x + Game1.viewport.X, y + Game1.viewport.Y);
+        }
+
+        public static Vector2 ScreenPosToAbsolutePos(Vector2 pos)
+        {
+            return new Vector2(pos.X + Game1.viewport.X, pos.Y + Game1.viewport.Y);
+        }
+
+        public static Vector2 ScreenPosToTilePos(int x, int y)
+        {
+            return new Vector2((x + Game1.viewport.X) / Game1.tileSize, (y + Game1.viewport.Y) / Game1.tileSize);
+        }
+
+        public static Vector2 ScreenPosToTilePos(Vector2 pos)
+        {
+            return new Vector2((pos.X + Game1.viewport.X) / Game1.tileSize, (pos.Y + Game1.viewport.Y) / Game1.tileSize);
+        }
+
+        //---------------------------------------
+        // Tile Position Conversions
+        //---------------------------------------
+
+        public static Vector2 TilePosToAbsolutePos(int x, int y)
+        {
+            return new Vector2(x * Game1.tileSize, y * Game1.tileSize);
+        }
+
+        public static Vector2 TilePosToAbsolutePos(Vector2 pos)
+        {
+            return new Vector2(pos.X * Game1.tileSize, pos.Y * Game1.tileSize);
+        }
+
+        public static Vector2 TilePosToScreenPos(int x, int y)
+        {
+            return new Vector2((x * Game1.tileSize) - Game1.viewport.X, (y * Game1.tileSize) - Game1.viewport.Y);
+        }
+
+        public static Vector2 TilePosToScreenPos(Vector2 pos)
+        {
+            return new Vector2((pos.X * Game1.tileSize) - Game1.viewport.X, (pos.Y * Game1.tileSize) - Game1.viewport.Y);
         }
     }
 }

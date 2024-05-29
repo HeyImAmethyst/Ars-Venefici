@@ -89,10 +89,12 @@ namespace ArsVenefici.Framework.Spells.Components
                     //    return new SpellCastResult(SpellCastResultType.SUCCESS);
                     //}
 
-                    if (gameLocation.damageMonster(monster.GetBoundingBox(), (int)damage, (int)(damage * (1f + f.buffs.AttackMultiplier)), false, f))
-                    {
-                        return new SpellCastResult(SpellCastResultType.SUCCESS);
-                    }
+                    //if (gameLocation.damageMonster(monster.GetBoundingBox(), (int)damage, (int)(damage * (1f + f.buffs.AttackMultiplier)), false, f))
+                    //{
+                    //    return new SpellCastResult(SpellCastResultType.SUCCESS);
+                    //}
+
+                    return gameLocation.damageMonster(monster.GetBoundingBox(), (int)damage, (int)(damage * (1f + f.buffs.AttackMultiplier)), false, f) ? new SpellCastResult(SpellCastResultType.SUCCESS) : new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
                 }
 
             }

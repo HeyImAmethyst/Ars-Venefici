@@ -1,4 +1,5 @@
-﻿using StardewValley;
+﻿using Microsoft.Xna.Framework;
+using StardewValley;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,31 @@ namespace ArsVenefici.Framework.Interfaces
         public CharacterEntityWrapper(Character character)
         {
             _entity = character;
+        }
+
+        public GameLocation GetGameLocation()
+        {
+            return ((Character)_entity).currentLocation;
+        }
+
+        public Vector2 GetPosition()
+        {
+            return ((Character)_entity).getStandingPosition();
+        }
+
+        public Rectangle GetBoundingBox()
+        {
+            return ((Character)_entity).GetBoundingBox();
+        }
+
+        public int GetHorizontalMovement()
+        {
+            return ((Character)_entity).getHorizontalMovement();
+        }
+
+        public int GetVerticalMovement()
+        {
+            return ((Character)_entity).getVerticalMovement();
         }
     }
 }

@@ -7,13 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using ArsVenefici.Framework.Spells.Effects;
+using ArsVenefici.Framework.Interfaces;
+using static HarmonyLib.Code;
+using StardewModdingAPI.Events;
+using StardewValley.Objects;
 
 namespace ArsVenefici.Framework.Util
 {
     public static class GameLocationUtils
     {
 
-        public static HitResult GetHitResult(Vector2 from, Vector2 to, Character entity)
+        public static HitResult GetHitResult(Vector2 from, Vector2 to, IEntity entity)
         {
             HitResult hitResult = Clip(entity, from, to);
 
@@ -23,7 +27,7 @@ namespace ArsVenefici.Framework.Util
             }
 
             Rectangle rectangle = entity.GetBoundingBox();
-            rectangle.Inflate(entity.getHorizontalMovement(), entity.getVerticalMovement());
+            rectangle.Inflate(entity.GetHorizontalMovement(), entity.GetVerticalMovement());
 
             //entity.GetBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1)
             HitResult entityHitResult = GetCharacterHitResult(entity, from, to, rectangle, e => true, 0.3);
@@ -36,9 +40,9 @@ namespace ArsVenefici.Framework.Util
             return hitResult;
         }
 
-        public static CharacterHitResult GetCharacterHitResult(Character entity, Vector2 vec3, Vector2 vec32, Rectangle aABB, Predicate<Character> predicate, double d)
+        public static CharacterHitResult GetCharacterHitResult(IEntity entity, Vector2 vec3, Vector2 vec32, Rectangle aABB, Predicate<Character> predicate, double d)
         {
-            GameLocation level = entity.currentLocation;
+            GameLocation level = entity.GetGameLocation();
 
             double e = d;
             Character entity2 = null;
@@ -96,14 +100,14 @@ namespace ArsVenefici.Framework.Util
             }
         }
 
-        public static TerrainFeatureHitResult Clip(Character entity, Vector2 from, Vector2 to)
+        public static TerrainFeatureHitResult Clip(IEntity entity, Vector2 from, Vector2 to)
         {
-            GameLocation level = entity.currentLocation;
+            GameLocation level = entity.GetGameLocation();
 
             VectorLine vectorLine = new VectorLine(from, to);
             Vector2[] points = vectorLine.GetPoints(100);
 
-            float dir = (float)-Math.Atan2(entity.getStandingPosition().Y - to.Y, to.X - entity.getStandingPosition().X);
+            float dir = (float)-Math.Atan2(entity.GetPosition().Y - to.Y, to.X - entity.GetPosition().X);
 
             foreach (var item in points)
             {
@@ -111,8 +115,11 @@ namespace ArsVenefici.Framework.Util
                 {
                     return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
                 }
-
-                if (level.objects.TryGetValue(item, out StardewValley.Object obj))
+                else if (level.objects.TryGetValue(item, out StardewValley.Object obj))
+                {
+                    return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
+                }
+                else
                 {
                     return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
                 }
@@ -121,35 +128,90 @@ namespace ArsVenefici.Framework.Util
             return TerrainFeatureHitResult.Miss(from, dir, new TilePos(from));
         }
 
-        public static List<Character> GetCharacters(Character entity, Rectangle aABB, Predicate<Character> predicate)
+        public static List<Character> GetCharacters(IEntity entity, Rectangle aABB, Predicate<Character> predicate)
         {
             List<Character> list = new List<Character>();
 
-            GameLocation location = entity.currentLocation;
+            GameLocation location = entity.GetGameLocation();
 
-            if (location.isCollidingPosition(entity.GetBoundingBox(), Game1.viewport, entity))
+            //if (location.isCollidingPosition(entity.GetBoundingBox(), Game1.viewport, entity))
+            //{
+            //    Character character = isCollidingWithCharacter(aABB, location);
+
+            //    if (character != entity && predicate != null && predicate.Invoke(character))
+            //    {
+            //        list.Add(character);
+            //    }
+            //}
+
+
+            if (location != null)
             {
-                Character character = isCollidingWithCharacter(aABB, location);
-
-                if (character != entity && predicate != null && predicate.Invoke(character))
+                foreach (Character character in location.characters)
                 {
-                    list.Add(character);
+                    if (character.GetBoundingBox().Intersects(aABB))
+                    {
+
+                        if(entity.entity is Character)
+                        {
+                            if (character != entity && predicate != null && predicate.Invoke(character))
+                            {
+                                list.Add(character);
+                            }
+                        }
+                        else
+                        {
+                            if (predicate != null && predicate.Invoke(character))
+                            {
+                                list.Add(character);
+                            }
+                        }
+                       
+                    }
                 }
             }
 
             return list;
         }
 
-        public static Character isCollidingWithCharacter(Rectangle box, GameLocation location)
+        public static List<Character> GetCharacters(IEntity entity, Rectangle aABB)
         {
-            foreach (Character character in location.characters)
+            List<Character> list = new List<Character>();
+
+            GameLocation location = entity.GetGameLocation();
+
+            if(location != null)
             {
-                if (character.GetBoundingBox().Intersects(box))
-                    return character;
+                foreach (Character character in location.characters)
+                {
+                    if (character.GetBoundingBox().Intersects(aABB))
+                        list.Add(character);
+                }
             }
 
-            return null;
+            //if (location.isCollidingPosition(entity.GetBoundingBox(), Game1.viewport, entity))
+            //{
+            //    Character character = isCollidingWithCharacter(aABB, location);
+
+            //    if (character != entity)
+            //    {
+            //        list.Add(character);
+            //    }
+            //}
+
+            return list;
         }
+
+        //public static Character isCollidingWithCharacter(Rectangle box, GameLocation location)
+        //{
+        //    foreach (Character character in location.characters)
+        //    {
+        //        if (character.GetBoundingBox().Intersects(box))
+        //            return character;
+        //    }
+
+        //    return null;
+        //}
 
         public static bool LineIntersectsRect(Vector2 p1, Vector2 p2, Rectangle r, out Vector2 intersectionPoint)
         {

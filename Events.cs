@@ -26,6 +26,7 @@ using SpaceCore.Content;
 using System.Reflection;
 using SpaceShared.APIs;
 using ArsVenefici.Framework.GUI.Menus;
+using ArsVenefici.Framework.Spells.Effects;
 
 namespace ArsVenefici
 {
@@ -165,6 +166,18 @@ namespace ArsVenefici
 
                     spellBook.SaveSpellBook(modEntryInstance);
                 }
+            }
+        }
+
+        public void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+        {
+            // update active effects
+            for (int i = modEntryInstance.ActiveEffects.Count - 1; i >= 0; i--)
+            {
+                IActiveEffect effect = modEntryInstance.ActiveEffects[i];
+
+                if (!effect.Update(e))
+                    modEntryInstance.ActiveEffects.RemoveAt(i);
             }
         }
 
@@ -346,6 +359,10 @@ namespace ArsVenefici
                 return;
 
             RenderTouchIndicator(e.SpriteBatch);
+
+            //// draw active effects
+            //foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
+            //    effect.Draw(e.SpriteBatch);
         }
 
         public void RenderTouchIndicator(SpriteBatch spriteBatch)
@@ -380,6 +397,13 @@ namespace ArsVenefici
                     }
                 }
             }
+        }
+
+        public void OnRenderingHud(object sender, RenderingHudEventArgs e)
+        {
+            // draw active effects
+            foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
+                effect.Draw(e.SpriteBatch);
         }
 
 

@@ -7,26 +7,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
-    public class LifeDrain : AbstractComponent
+    public class LifeTap : AbstractComponent
     {
-        public LifeDrain() : base (new SpellPartStats(SpellPartStatType.DAMAGE), new SpellPartStats(SpellPartStatType.HEALING))
+        public LifeTap() : base(new SpellPartStats(SpellPartStatType.DAMAGE), new SpellPartStats(SpellPartStatType.HEALING))
         {
 
         }
 
         public override string GetId()
         {
-            return "life_drain";
+            return "life_tap";
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)
         {
-            if (target.GetCharacter() is Monster living) 
+            if (target.GetCharacter() is Monster living)
             {
                 var helper = SpellHelper.Instance();
                 float damage = helper.GetModifiedStat(2, new SpellPartStats(SpellPartStatType.DAMAGE), modifiers, spell, caster, target, index) * 2;
@@ -35,7 +34,7 @@ namespace ArsVenefici.Framework.Spells.Components
 
                 if (gameLocation.damageMonster(living.GetBoundingBox(), (int)damage, (int)(damage * (1f + farmer.buffs.AttackMultiplier)), false, farmer))
                 {
-                    farmer.health = Math.Min(farmer.maxHealth, farmer.health + (int)damage);
+                    farmer.AddMana((int)(damage * farmer.GetMaxMana()));
                 }
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
@@ -49,7 +48,7 @@ namespace ArsVenefici.Framework.Spells.Components
                 targetFarmer.health -= (int)damage;
 
                 Farmer farmer = ((Farmer)caster.entity);
-                farmer.health = Math.Min(farmer.maxHealth, farmer.health + (int)damage);
+                farmer.AddMana((int)(damage * farmer.GetMaxMana()));
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }

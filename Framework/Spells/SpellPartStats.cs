@@ -35,6 +35,7 @@ namespace ArsVenefici.Framework.Spells
     {
         BOUNCE,
         DAMAGE,
+        DURATION,
         HEALING,
         PIERCING,
         POWER,
