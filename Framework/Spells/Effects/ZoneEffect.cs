@@ -50,13 +50,6 @@ namespace ArsVenefici.Framework.Spells.Effects
             }
 
             Tex.SetData(data);
-
-            Vector2 tilePos = new Vector2(pos.X - radius, pos.Y - radius);
-            Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
-
-            int boundingBoxRadius = Game1.tileSize * ((int)radius + 2);
-
-            SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), boundingBoxRadius, boundingBoxRadius));
         }
 
         public override void Update(UpdateTickedEventArgs e)
@@ -109,7 +102,7 @@ namespace ArsVenefici.Framework.Spells.Effects
                     Vector2 vec = new Vector2(r.X + x, r.Y + y);
                     Vector2 absPos = Utils.TilePosToAbsolutePos(vec);
 
-                    TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absPos + new Vector2((float)Game1.random.Next(-12, 21), (float)Game1.random.Next(16)), false, 1f / 500f, new Color(0, 48, 255, 127))
+                    TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absPos, false, 1f / 500f, new Color(0, 48, 255, 127))
                     {
                         alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
                         alpha = 0.1f,
