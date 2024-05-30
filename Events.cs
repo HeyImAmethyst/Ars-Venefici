@@ -27,6 +27,7 @@ using System.Reflection;
 using SpaceShared.APIs;
 using ArsVenefici.Framework.GUI.Menus;
 using ArsVenefici.Framework.Spells.Effects;
+using StardewValley.Network;
 
 namespace ArsVenefici
 {
@@ -263,7 +264,8 @@ namespace ArsVenefici
             if (!modEntryInstance.LearnedWizardy)
                 return;
 
-            SpellBook spellBook = Game1.player.GetSpellBook();
+            Farmer farmer = Game1.player;
+            SpellBook spellBook = farmer.GetSpellBook();
             var helper = SpellHelper.Instance();
 
             if (Context.IsPlayerFree)
@@ -318,37 +320,49 @@ namespace ArsVenefici
 
                 if (e.Button == modEntryInstance.Config.CastSpellButton)
                 {
-
-                    Farmer farmer = spellBook.Player;
-
-                    SpellHelper spellHelper = SpellHelper.Instance();
-                    ISpell spell = spellBook.GetCurrentSpell();
-
-                    if (spell == null)
-                        modEntryInstance.Monitor.Log("Spell is null!", LogLevel.Info);
-
-                    if (spell != null && spell.IsValid())
-                    {
-                        //if (!spell.IsContinuous()) return;
-
-                        SpellCastResult result = spell.Cast(new CharacterEntityWrapper(farmer), farmer.currentLocation, 0, true, true);
-
-                        if (result.GetSpellCastResultType() == SpellCastResultType.EFFECT_FAILED)
-                        {
-                            //Game1.addHUDMessage(new HUDMessage("Error Casting Spell", 3));
-                            Game1.showRedMessage("Failed Casting Spell");
-                        }
-                        else if (result.GetSpellCastResultType() == SpellCastResultType.NOT_ENOUGH_MANA)
-                        {
-                            Game1.showRedMessage("Failed Casting Spell: Not Enough Mana!");
-                        }
-                    }
+                    CastSpell(farmer);
                 }
 
                 //if(e.Button == SButton.G)
                 //{
                 //    Game1.player.eventsSeen.Remove(modEntryInstance.LearnedWizardryEventId.ToString());
                 //}
+            }
+        }
+
+        public void OnNetworkCast(IncomingMessage msg)
+        {
+            Farmer player = Game1.getFarmer(msg.FarmerID);
+
+            if (player == null)
+                return;
+
+            CastSpell(player);
+        }
+
+        private void CastSpell(Farmer farmer)
+        {
+            SpellHelper spellHelper = SpellHelper.Instance();
+            ISpell spell = farmer.GetSpellBook().GetCurrentSpell();
+
+            if (spell == null)
+                modEntryInstance.Monitor.Log("Spell is null!", LogLevel.Info);
+
+            if (spell != null && spell.IsValid())
+            {
+                //if (!spell.IsContinuous()) return;
+
+                SpellCastResult result = spell.Cast(new CharacterEntityWrapper(farmer), farmer.currentLocation, 0, true, true);
+
+                if (result.GetSpellCastResultType() == SpellCastResultType.EFFECT_FAILED)
+                {
+                    //Game1.addHUDMessage(new HUDMessage("Error Casting Spell", 3));
+                    Game1.showRedMessage("Failed Casting Spell");
+                }
+                else if (result.GetSpellCastResultType() == SpellCastResultType.NOT_ENOUGH_MANA)
+                {
+                    Game1.showRedMessage("Failed Casting Spell: Not Enough Mana!");
+                }
             }
         }
 

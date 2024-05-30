@@ -47,6 +47,7 @@ namespace ArsVenefici
         public bool LearnedWizardy => Game1.player?.eventsSeen?.Contains(LearnedWizardryEventId.ToString()) == true ? true : false;
 
         public static Skill Skill;
+        public const string MsgCast = "HeyImAmethyst.ArsVenifici.Cast";
         public static Random RandomGen = new Random();
 
         public bool isSVEInstalled;
@@ -106,6 +107,7 @@ namespace ArsVenefici
             helper.Events.Player.Warped += eventsHandler.OnWarped;
 
             SpaceEvents.OnItemEaten += eventsHandler.OnItemEaten;
+            Networking.RegisterMessageHandler(MsgCast, eventsHandler.OnNetworkCast);
         }
 
         /// <summary>Fix the player's mana pool to match their skill level if needed.</summary>
