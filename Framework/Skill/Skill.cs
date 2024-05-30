@@ -42,7 +42,7 @@ namespace ArsVenefici.Framework.Skill
             this.modEntry = modEntry;
 
             this.Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/wizardry_exp_icon.png");
-            this.SkillsPageIcon = null; // TODO: Make an icon for this
+            this.SkillsPageIcon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/wizardry_skill_page_icon.png");
 
             this.ExperienceCurve = new[] { 100, 380, 770, 1300, 2150, 3300, 4800, 6900, 10000, 15000 };
 
@@ -51,7 +51,7 @@ namespace ArsVenefici.Framework.Skill
             // Level 5
             Skill.ManaEfficiencyProfession = new ManaEfficiencyProfession(this, "ManaEfficiency1", 3)
             {
-                Icon = null, // TODO
+                Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_effeciency_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaEfficiency1.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaEfficiency1.description")
             };
@@ -60,7 +60,7 @@ namespace ArsVenefici.Framework.Skill
 
             Skill.ManaRegen1Profession = new GenericProfession(this, "ManaRegen1")
             {
-                Icon = null, // TODO
+                Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_regen_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaRegen1.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaRegen1.description")
             };
@@ -72,7 +72,7 @@ namespace ArsVenefici.Framework.Skill
             // Level 10 - track A
             Skill.ManaEfficiency2Profession = new ManaEfficiencyProfession(this, "ManaEfficiency2", 2)
             {
-                Icon = null, // TODO
+                Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_effeciency_2_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaEfficiency2.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaEfficiency2.description")
             };
@@ -81,7 +81,7 @@ namespace ArsVenefici.Framework.Skill
 
             Skill.ManaConservationProfession = new GenericProfession(this, "ManaConservation")
             {
-                Icon = null, // TODO
+                Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_conservation_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaConservation.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaConservation.description")
             };
@@ -93,7 +93,7 @@ namespace ArsVenefici.Framework.Skill
             // Level 10 - track B
             Skill.ManaRegen2Profession = new GenericProfession(this, "ManaRegen2")
             {
-                Icon = null, // TODO
+                Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_regen_2_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaRegen2.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaRegen2.description")
             };
@@ -101,7 +101,7 @@ namespace ArsVenefici.Framework.Skill
 
             Skill.ManaReserveProfession = new ManaCapProfession(this, "ManaCap")
             {
-                Icon = null, // TODO
+                Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_cap_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaCap.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaCap.description")
             };

@@ -591,9 +591,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                     CurrentOffset = newOffset;
 
                     sourceArea.SetCurrentOffset(CurrentOffset);
-
                     SetScrollBarToCurrentIndex();
-
                     sourceArea.UpdateVisibility();
                 }
             }
