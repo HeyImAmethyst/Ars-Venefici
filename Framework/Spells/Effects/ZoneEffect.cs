@@ -6,12 +6,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using xTile.Tiles;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ArsVenefici.Framework.Spells.Effects
@@ -51,8 +53,10 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             Vector2 tilePos = new Vector2(pos.X - radius, pos.Y - radius);
             Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
-            
-            SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), Game1.tileSize * (int)radius, Game1.tileSize * (int)radius));
+
+            int boundingBoxRadius = Game1.tileSize * ((int)radius + 2);
+
+            SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), boundingBoxRadius, boundingBoxRadius));
         }
 
         public override void Update(UpdateTickedEventArgs e)
@@ -68,36 +72,17 @@ namespace ArsVenefici.Framework.Spells.Effects
             float radius = GetRadius();
             ISpell spell = GetSpell();
 
-            //forAllInRange(radius, false, e->ArsMagicaAPI.get().getSpellHelper().invoke(spell, owner, level, new EntityHitResult(e), tickCount, index, true));
-
             var spellHelper = SpellHelper.Instance();
 
             ForAllInRange((int)radius, false, e => spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new CharacterHitResult(e), 0, index, true));
 
-            List<Vector2> list = new List<Vector2>();
-
-            Vector2 tilePos = pos;
-            Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
-
-            Rectangle r = new Rectangle((int)this.pos.X, (int)this.pos.Y, (int)radius, (int)radius);
-
-            for (int x = (int)-radius; x <= (int)radius; x++)
+            for (int x = (int)(pos.X - radius); x <= pos.X + radius; ++x)
             {
-                for (int y = (int)-radius; y <= (int)radius; y++)
+                for (int y = (int)(pos.Y - radius); y <= pos.Y + radius; ++y)
                 {
-                    Vector2 vec = new Vector2(r.X + x, r.Y + y);
-                    list.Add(new Vector2(x, y));
+                    TilePos newTilePos = new TilePos(x, y);
+                    spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new TerrainFeatureHitResult(pos, 0, newTilePos, false), 0, index, true);
                 }
-            }
-
-            foreach (Vector2 vec2 in list)
-            {
-                //HitResult result = GameLocationUtils.GetHitResult(vec2, Vector2.Add(vec2, Vector2.One), this);
-                //Vector2 tile = Utils.AbsolutePosToTilePos(Utility.clampToTile(vec2));
-                Vector2 tile = vec2;
-
-                HitResult result = GameLocationUtils.GetHitResult(tile, tile, this);
-                spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), result, 0, index, true);
             }
 
             if (!isActive)
@@ -105,7 +90,6 @@ namespace ArsVenefici.Framework.Spells.Effects
                 modEntry.ActiveEffects.Remove(this);
             }
         }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             Rectangle r = new Rectangle((int)this.pos.X, (int)this.pos.Y, (int)radius, (int)radius);

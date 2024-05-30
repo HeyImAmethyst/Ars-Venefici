@@ -52,33 +52,22 @@ namespace ArsVenefici.Framework.Spells.Effects
 
         protected void ForAllInRange(int radius, bool skipOwner, Action<Character> consumer)
         {
-            //double x = GetX(), y = GetY(), z = GetZ();
             float x = pos.X, y = pos.Y;
 
-            //var aabb = new AxisAlignedBoundingBox(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
-            //var aabb = new Rectangle((int)(x - radius), (int)(y - radius), (int)(x + radius), (int)(y + radius));
-            //var aabb = new Rectangle((int)(x), (int)(y), (int)(radius), (int)(radius));
+            List<Character> list = GameLocationUtils.GetCharacters(this, boundingBox);
 
-            List<Character> list = GameLocationUtils.GetCharacters(this, GetBoundingBox());
-            //List<Character> list = GameLocationUtils.GetCharacters(this, GetBoundingBox());
-            //modEntry.Monitor.Log(list.Count.ToString(), LogLevel.Info);
-
-            foreach (var e in list)
+            foreach (var character in list)
             {
                 //if (e == this) 
                 //    continue;
                 
-                if (skipOwner && e == GetOwner()) 
+                if (skipOwner && character == GetOwner()) 
                     continue;
 
                 //if (e is AbstractSpellEffect) 
                 //    continue;
 
-                if (e is Character living)
-                {
-                    //modEntry.Monitor.Log("c", LogLevel.Info);
-                    consumer.Invoke(living);
-                }
+                consumer.Invoke(character);
             }
         }
 

@@ -126,7 +126,7 @@ namespace ArsVenefici.Framework.Util
                 //}
             }
 
-            return TerrainFeatureHitResult.Miss(from, dir, new TilePos(from));
+            return TerrainFeatureHitResult.Miss(from, dir, new TilePos(to));
         }
 
         public static List<Character> GetCharacters(IEntity entity, Rectangle aABB, Predicate<Character> predicate)
@@ -218,7 +218,15 @@ namespace ArsVenefici.Framework.Util
             {
                 foreach (Character character in location.characters)
                 {
-                    if (character.GetBoundingBox().Intersects(aABB))
+                    //if (character.GetBoundingBox().Intersects(aABB) 
+                    //    || character.GetBoundingBox().Contains(aABB) 
+                    //    || aABB.Intersects(character.GetBoundingBox())
+                    //    || aABB.Contains(character.GetBoundingBox()))
+                    //{
+                    //    list.Add(character);
+                    //}
+
+                    if (aABB.Contains(character.Position))
                     {
                         list.Add(character);
                     }
@@ -226,7 +234,15 @@ namespace ArsVenefici.Framework.Util
 
                 foreach (Farmer farmer in location.farmers)
                 {
-                    if (farmer.GetBoundingBox().Intersects(aABB))
+                    //if (farmer.GetBoundingBox().Intersects(aABB) 
+                    //    || farmer.GetBoundingBox().Contains(aABB)
+                    //    || aABB.Intersects(farmer.GetBoundingBox())
+                    //    || aABB.Contains(farmer.GetBoundingBox()))
+                    //{
+                    //    list.Add(farmer);
+                    //}
+
+                    if (aABB.Contains(farmer.Position))
                     {
                         list.Add(farmer);
                     }
