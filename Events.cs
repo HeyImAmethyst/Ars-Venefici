@@ -28,6 +28,7 @@ using SpaceShared.APIs;
 using ArsVenefici.Framework.GUI.Menus;
 using ArsVenefici.Framework.Spells.Effects;
 using StardewValley.Network;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ArsVenefici
 {
@@ -386,6 +387,24 @@ namespace ArsVenefici
         {
             if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
                 return;
+
+            GameLocation location = Game1.currentLocation;
+
+            foreach (Character character in location.characters)
+            {
+                RectangleSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, character.GetBoundingBox()), Color.Red, 1);
+            }
+
+            foreach (Farmer farmer in location.farmers)
+            {
+                RectangleSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, farmer.GetBoundingBox()), Color.Red, 1);
+            }
+
+            foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
+            {
+                if(effect != null && effect is AbstractSpellEffect abstractSpellEffect) 
+                    RectangleSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
+            }
 
             RenderTouchIndicator(e.SpriteBatch);
 
