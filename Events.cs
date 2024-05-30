@@ -434,14 +434,14 @@ namespace ArsVenefici
                     {
                        //local = Game1.GlobalToLocal(Game1.viewport, Utility.clampToTile(Game1.player.GetToolLocation(true)));
                        local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
+                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
                     else if(spell.FirstShape(spell.CurrentShapeGroupIndex()) is EtherialTouch)
                     {
                         //local = Game1.GlobalToLocal(Game1.viewport, Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));    
-                        local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));    
+                        local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));
+                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
-
-                    spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                 }
             }
         }
