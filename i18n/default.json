@@ -83,6 +83,9 @@
 	"spellpart.physical_damage.name": "Physical Damage",
 	"spellpart.physical_damage.description": "Damages the target.",
 
+	"spellpart.haste.name": "Haste",
+	"spellpart.haste.description": "Increases the player's speed'.",
+
 
 	"spellpart.damage.name": "Damage",
 	"spellpart.damage.description": "Strengthens the damage of damaged based components.",

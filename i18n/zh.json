@@ -80,6 +80,9 @@
     "spellpart.physical_damage.name": "物理伤害",
     "spellpart.physical_damage.description": "对目标造成伤害。",
 
+    "spellpart.haste.name": "Haste",
+    "spellpart.haste.description": "Increases the player's speed'.",
+
 
     "spellpart.damage.name": "伤害增强",
     "spellpart.damage.description": "增强基于伤害组件的攻击力。",

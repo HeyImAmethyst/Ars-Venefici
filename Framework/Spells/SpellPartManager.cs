@@ -5,11 +5,13 @@ using ArsVenefici.Framework.Spells.Modifiers;
 using ArsVenefici.Framework.Spells.Shape;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
+using StardewValley.Buffs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Effect = ArsVenefici.Framework.Spells.Components.Effect;
 
 namespace ArsVenefici.Framework.Spells
 {
@@ -68,6 +70,20 @@ namespace ArsVenefici.Framework.Spells
             Func<double> physicalDamageValue = () => 5.0 * (Game1.player.CombatLevel + 1);
             Damage physicalDamage = new Damage("physical_damage", 25, physicalDamageValue);
 
+            Buff hasteBuff = new Buff(
+                id: "HeyImAmethyst.ArsVenifici_Haste",
+                displayName: modEntry.Helper.Translation.Get($"spellpart.haste.name"),
+                iconTexture: Game1.buffsIcons,
+                iconSheetIndex: 9,
+                duration: 30_000, // 30 seconds
+                effects: new BuffEffects()
+                {
+                    Speed = { 2 } // shortcut for buff.Speed.Value = 10
+                }
+            );
+
+            Effect haste = new Effect("haste", 30, hasteBuff);
+
             spellParts.Add(createWater.GetId(), createWater);
             spellParts.Add(heal.GetId(), heal);
             spellParts.Add(physicalDamage.GetId(), physicalDamage);
@@ -80,6 +96,7 @@ namespace ArsVenefici.Framework.Spells
             spellParts.Add(explosion.GetId(), explosion);
             spellParts.Add(blink.GetId(), blink);
             spellParts.Add(light.GetId(), light);
+            spellParts.Add(haste.GetId(), haste);
         }
 
         private void AddModifiers()

@@ -80,6 +80,9 @@
 	"spellpart.physical_damage.name": "Blesser",
 	"spellpart.physical_damage.description": "Endommage la cible.",
 
+	"spellpart.haste.name": "Haste",
+	"spellpart.haste.description": "Increases the player's speed'.",
+
 
 	"spellpart.damage.name": "Dégâts +",
 	"spellpart.damage.description": "Renforce les dégâts des composants de type dégâts.",
