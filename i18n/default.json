@@ -12,8 +12,8 @@
 	"config.open_spellbook_key.name": "Open Spell Book Button",
 	"config.open_spellbook_key.tooltip": "Press Shift and this button to open the spell book.",
 
-	"config.move_spell_lable_key.name": "Move Spell Lable Button",
-	"config.move_spell_lable_key.tooltip": "Press Shift and this button to move the spell lable.",
+	"config.spell_toggle_key.name": "Spell Toggle Button",
+	"config.spell_toggle_key.tooltip": "The button to toggle spell casting on or off. Press Shift and this button to move the spell lable.",
 
 	"config.next_spell_key.name": "Next Spell Button",
 	"config.next_spell_key.tooltip": "The button to move to the next spell. Press Shift and this button to move to the next shape group on the selected spell.",
@@ -110,6 +110,20 @@
 
 	"spellpart.mining_power.name": "Mining Power",
 	"spellpart.mining_power.description": "Adds +1 axe/pickaxe upgrade to Dig spells.",
+
+	/*********
+	** Buffs/Debuffs
+	*********/
+
+	"debuff.grow_sickness.name": "Grow Sickness",
+
+	/*********
+	** Spell Cast Warnings
+	*********/
+
+	"world.max_grow_spell_cast.message.1": "You tried to cast your grow spell,",
+	"world.max_grow_spell_cast.message.2": "but you feel your strength leaving you.",
+	"world.max_grow_spell_cast.message.3": "That's enough use of the grow component in one day!",
 
 	/*********
 	** UI

@@ -22,6 +22,7 @@ namespace ArsVenefici
 
         public static IManaBarApi Mana;
 
+        public DailyTracker dailyTracker;
         public SpellPartManager spellPartManager;
         public SpellPartIconManager spellPartIconManager;
 
@@ -51,6 +52,7 @@ namespace ArsVenefici
         public static Random RandomGen = new Random();
 
         public bool isSVEInstalled;
+        public static bool SpellCastingMode = true;
 
         public override void Entry(IModHelper helper)
         {
@@ -73,9 +75,10 @@ namespace ArsVenefici
         /// </summary>
         private void InitializeClasses()
         {
+            dailyTracker = new DailyTracker();
             spellPartManager = new SpellPartManager(this);
             spellPartIconManager = new SpellPartIconManager(this);
-            eventsHandler = new Events(this);
+            eventsHandler = new Events(this, dailyTracker);
         }
 
         private static void LoadAssets()

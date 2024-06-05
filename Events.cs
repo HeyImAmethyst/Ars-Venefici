@@ -29,16 +29,19 @@ using ArsVenefici.Framework.GUI.Menus;
 using ArsVenefici.Framework.Spells.Effects;
 using StardewValley.Network;
 using static System.Net.Mime.MediaTypeNames;
+using ArsVenefici.Framework.Spells.Components;
 
 namespace ArsVenefici
 {
     public class Events
     {
+        DailyTracker dailyTracker;
         ModEntry modEntryInstance;
 
-        public Events(ModEntry modEntry)
+        public Events(ModEntry modEntry, DailyTracker dailyTracker)
         {
             modEntryInstance = modEntry;
+            this.dailyTracker = dailyTracker;
         }
 
         /// <summary>
@@ -85,10 +88,10 @@ namespace ArsVenefici
 
                 configMenu.AddKeybind(
                      mod: modEntryInstance.ModManifest,
-                     name: () => modEntryInstance.Helper.Translation.Get("config.move_spell_lable_key.name"),
-                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.move_spell_lable_key.tooltip"),
-                     getValue: () => modEntryInstance.Config.MoveCurrentSpellLable,
-                     setValue: value => modEntryInstance.Config.MoveCurrentSpellLable = value
+                     name: () => modEntryInstance.Helper.Translation.Get("config.spell_toggle_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.spell_toggle_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.SpellToggle,
+                     setValue: value => modEntryInstance.Config.SpellToggle = value
                  );
 
                 configMenu.AddKeybind(
@@ -137,7 +140,7 @@ namespace ArsVenefici
         public void OnDayStarted(object sender, DayStartedEventArgs e)
         {
             modEntryInstance.FixManaPoolIfNeeded(Game1.player);
-
+            
             if (Context.IsWorldReady)
             {
                 if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
@@ -168,11 +171,25 @@ namespace ArsVenefici
 
                     spellBook.SaveSpellBook(modEntryInstance);
                 }
+
+                if(Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 6)
+                {
+                    modEntryInstance.dailyTracker.SetMaxDailyGrowCastCount(int.MaxValue);
+                }
+                else
+                {
+                    modEntryInstance.dailyTracker.SetMaxDailyGrowCastCount(3);
+                }
+
+                modEntryInstance.dailyTracker.SetDailyGrowCastCount(0);
             }
         }
 
         public void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
+            if (Game1.activeClickableMenu == null || !Game1.eventUp || Context.IsPlayerFree)
+                modEntryInstance.dailyTracker.Update(e, Game1.currentLocation);
+
             // update active effects
             for (int i = modEntryInstance.ActiveEffects.Count - 1; i >= 0; i--)
             {
@@ -191,17 +208,6 @@ namespace ArsVenefici
 
             if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
                 return;
-
-            float factor = (Game1.player.GetCustomSkillLevel(ModEntry.Skill) + 1) / 2; // start at +1 mana at level 1
-
-            if (Game1.player.HasCustomProfession(Skill.ManaRegen2Profession))
-                factor *= 3;
-            else if (Game1.player.HasCustomProfession(Skill.ManaRegen1Profession))
-                factor *= 2;
-
-            int manaRegenValue = (int)(2 * factor);
-
-            Game1.player.AddMana(manaRegenValue);
 
             // update active effects
             for (int i = modEntryInstance.ActiveEffects.Count - 1; i >= 0; i--)
@@ -226,7 +232,7 @@ namespace ArsVenefici
 
             if(Game1.player.itemToEat != null)
             {
-                Game1.player.AddMana((int)(Game1.player.itemToEat.staminaRecoveredOnConsumption()));
+                Game1.player.AddMana((int)(Game1.player.itemToEat.staminaRecoveredOnConsumption() / 3));
             }
 
         }
@@ -279,12 +285,16 @@ namespace ArsVenefici
                         Game1.activeClickableMenu = new SpellBookMenu(modEntryInstance);
                 }
 
-                if (e.Button == modEntryInstance.Config.MoveCurrentSpellLable)
+                if (e.Button == modEntryInstance.Config.SpellToggle)
                 {
                     if (Game1.GetKeyboardState().IsKeyDown(Keys.LeftShift) || Game1.GetKeyboardState().IsKeyDown(Keys.RightShift))
                     {
                         modEntryInstance.Config.Position = new Point((int)e.Cursor.ScreenPixels.X, (int)e.Cursor.ScreenPixels.Y);
                         modEntryInstance.Helper.WriteConfig(modEntryInstance.Config);
+                    }
+                    else
+                    {
+                        ModEntry.SpellCastingMode = !ModEntry.SpellCastingMode;
                     }
                 }
 
@@ -319,7 +329,7 @@ namespace ArsVenefici
                     }
                 }
 
-                if (e.Button == modEntryInstance.Config.CastSpellButton)
+                if (e.Button == modEntryInstance.Config.CastSpellButton && ModEntry.SpellCastingMode)
                 {
                     CastSpell(farmer);
                 }
@@ -347,11 +357,19 @@ namespace ArsVenefici
             ISpell spell = farmer.GetSpellBook().GetCurrentSpell();
 
             if (spell == null)
-                modEntryInstance.Monitor.Log("Spell is null!", LogLevel.Info);
+                modEntryInstance.Monitor.Log("Spell is null!", LogLevel.Trace);
 
             if (spell != null && spell.IsValid())
             {
                 //if (!spell.IsContinuous()) return;
+
+                foreach (ISpellPart spellPart in spell.SpellStack().Parts)
+                {
+                    if(spellPart is Grow)
+                    {
+                        dailyTracker.SetDailyGrowCastCount(dailyTracker.GetDailyGrowCastCount() + 1);
+                    }
+                }
 
                 SpellCastResult result = spell.Cast(new CharacterEntityWrapper(farmer), farmer.currentLocation, 0, true, true);
 
@@ -416,7 +434,7 @@ namespace ArsVenefici
         public void RenderTouchIndicator(SpriteBatch spriteBatch)
         {
 
-            if (!modEntryInstance.LearnedWizardy)
+            if (!modEntryInstance.LearnedWizardy || !ModEntry.SpellCastingMode)
                 return;
 
             SpellBook spellBook = Game1.player.GetSpellBook();
@@ -459,7 +477,7 @@ namespace ArsVenefici
         /// <param name="e">The event arguments.</param>
         public void OnRenderedHud(object sender, RenderedHudEventArgs e)
         {
-            if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
+            if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree || !ModEntry.SpellCastingMode)
                 return;
 
             if (!modEntryInstance.LearnedWizardy)

@@ -12,8 +12,8 @@
     "config.open_spellbook_key.name": "打开魔法书快捷键",
     "config.open_spellbook_key.tooltip": "同时按下Shift键加此键可打开魔法书。",
 
-    "config.move_spell_lable_key.name": "移动魔法标签快捷键",
-    "config.move_spell_lable_key.tooltip": "同时按下Shift键加此键可移动魔法标签。",
+    "config.spell_toggle_key.name": "Spell Toggle Button",
+    "config.spell_toggle_key.tooltip": "The button to toggle spell casting on or off. 同时按下Shift键加此键可移动魔法标签。",
 
     "config.next_spell_key.name": "下个魔法快捷键",
     "config.next_spell_key.tooltip": "用于切换到下一个魔法的按键。若同时按下Shift键，则可切换到选定魔法的下一组形状。",
@@ -110,6 +110,20 @@
 
     "spellpart.mining_power.name": "采矿强化",
     "spellpart.mining_power.description": "为挖掘魔法增加+1斧头/镐头等级。",
+
+    /*********
+	** Buffs/Debuffs
+	*********/
+
+    "debuff.grow_sickness.name": "Grow Sickness",
+
+    /*********
+	** Spell Cast Warnings
+	*********/
+
+    "world.max_grow_spell_cast.message.1": "You tried to cast your grow spell,",
+    "world.max_grow_spell_cast.message.2": "but you feel your strength leaving you.",
+    "world.max_grow_spell_cast.message.3": "That's enough use of the grow component in one day!",
 
     /*********
 	** UI

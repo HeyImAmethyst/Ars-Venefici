@@ -12,8 +12,8 @@
 	"config.open_spellbook_key.name": "Bouton Ouvrir le Grimoire",
 	"config.open_spellbook_key.tooltip": "Appuyez sur Shift et ce bouton pour ouvrir le grimoire (livre de sorts).",
 
-	"config.move_spell_lable_key.name": "Bouton Déplacer l’infobulle (sort)",
-	"config.move_spell_lable_key.tooltip": "Appuyez sur Shift et ce bouton pour déplacer l'infobulle de sort.",
+	"config.spell_toggle_key.name": "Spell Toggle Button",
+	"config.spell_toggle_key.tooltip": "The button to toggle spell casting on or off. Appuyez sur Shift et ce bouton pour déplacer l'infobulle de sort.",
 
 	"config.next_spell_key.name": "Bouton Sort suivant",
 	"config.next_spell_key.tooltip": "Le bouton pour passer au sort suivant. Appuyez sur Shift et ce bouton̉ pour passer au prochain groupe de formes sur le sort sélectionné.",
@@ -46,7 +46,7 @@
 	"spellpart.zone.name": "* Périmètre",
 	"spellpart.zone.description": "Lance le sort dans un périmètre autour de l'endroit où il est déclenché. \nCette forme doit être placée en dernier.\nCette forme continuera à agir de façon continue selon l’effet du sort initial.\nLa durée est en 'ticks' de jeu.",
 
-	
+
 	"spellpart.dig.name": "CREUSER",
 	"spellpart.dig.description": "Brise les rochers, les débris et coupe les arbres.",
 
@@ -86,7 +86,7 @@
 	"spellpart.haste.name": "ACCÉLÉRER",
 	"spellpart.haste.description": "Augmente la vitesse du personnage.\n N’a actuellement d’effet possible que sur le lanceur.",
 
-	
+
 	"spellpart.damage.name": "Dégâts +",
 	"spellpart.damage.description": "Renforce les dégâts des composants de type dégâts.",
 
@@ -110,6 +110,20 @@
 
 	"spellpart.mining_power.name": "Outil +",
 	"spellpart.mining_power.description": "Ajoute un niveau d’amélioration à la hache ou la pioche sur les sorts de Creuser.",
+
+	/*********
+	** Buffs/Debuffs
+	*********/
+
+	"debuff.grow_sickness.name": "Grow Sickness",
+
+	/*********
+	** Spell Cast Warnings
+	*********/
+
+	"world.max_grow_spell_cast.message.1": "You tried to cast your grow spell,",
+	"world.max_grow_spell_cast.message.2": "but you feel your strength leaving you.",
+	"world.max_grow_spell_cast.message.3": "That's enough use of the grow component in one day!",
 
 	/*********
 	** UI
@@ -166,15 +180,15 @@
 	"event.wizard.8": "Tu peux changer la façon dont les formes et les composants se comportent avec des 'modificateurs' (des losanges) comme 'Dégâts +'.",
 	"event.wizard.9": "Assure-toi de donner un nom à ton sort. Une fois que tu as créé ton sort, tu peux fermer ton livre de sorts et le sort sera sauvegardé.",
 	"event.wizard.10": "Une fois que tu as fermé ton livre de sorts, tu peux parcourir ta liste de sorts.",
-	
+
 	"event.message.2": "Utilise 'Z' et 'X' pour parcourir ta liste de sorts. Tu peux aussi utiliser Shift et 'Z' et Shift et 'X' pour faire défiler les groupes de formes d'un sort.",
-	
+
 	"event.wizard.11": "Une fois que tu as le sort que tu veux, tu pourras le lancer.",
-	
+
 	"event.message.3": "Pour lancer un sort, appuie sur Q.",
 	"event.message.4": "Ces contrôles peuvent être ajustés dans le fichier de configuration d'Ars Venefici.",
-	
+
 	"event.wizard.12": "Bonne chance dans tes aventures magiques.",
-	
+
 	"event.wizard.abovehead": "DÉCHAÎNE LA SORCELLERIE !"
 }

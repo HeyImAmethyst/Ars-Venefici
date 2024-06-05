@@ -16,8 +16,8 @@ namespace ArsVenefici
         /// <summary>Press Shift and this button to open the spell book.</summary>
         public SButton OpenSpellBookButton { get; set; }
 
-        /// <summary>Press Shift and this button to move the spell lable.</summary>
-        public SButton MoveCurrentSpellLable { get; set; } = SButton.OemTilde;
+        /// <summary>The button to toggle spell casting on or off. Press Shift and this button to move the spell lable.</summary>
+        public SButton SpellToggle { get; set; } = SButton.OemTilde;
 
         /// <summary>The button to move to the next spell. Press Shift and this button to move to the next shape group on the selected spell.</summary>
         public SButton NextSpellButton { get; set; } = SButton.X;
