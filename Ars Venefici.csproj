@@ -20,4 +20,8 @@
 	<Reference Include="SpaceCore" HintPath="$(StardewValleyGamePath)\mods\[A] Core Mods\SpaceCore\SpaceCore.dll" Private="False" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Framework\Knowlege\" />
+  </ItemGroup>
+
 </Project>

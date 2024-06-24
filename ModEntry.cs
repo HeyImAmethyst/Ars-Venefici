@@ -11,6 +11,7 @@ using SpaceShared.APIs;
 using SpaceCore.Events;
 using ArsVenefici.Framework.Spells.Effects;
 using System.Reflection.PortableExecutable;
+using ArsVenefici.Framework.Commands;
 
 namespace ArsVenefici
 {
@@ -20,11 +21,16 @@ namespace ArsVenefici
         public static IModHelper helper;
         public ModConfig Config;
 
+        ToggleWizardryCommand toggleWizardryCommand;
+        SpellPartsCommand spellPartsCommand;
+
+        public static IJsonAssetsApi Ja;
         public static IManaBarApi Mana;
 
         public DailyTracker dailyTracker;
         public SpellPartManager spellPartManager;
         public SpellPartIconManager spellPartIconManager;
+        public SpellPartSkillManager spellPartSkillManager;
 
         public Events eventsHandler;
 
@@ -68,6 +74,8 @@ namespace ArsVenefici
             CheckIfSVEIsInstalled();
 
             SpaceCore.Skills.RegisterSkill(ModEntry.Skill = new Skill(this));
+
+            AddCommands();
         }
 
         /// <summary>
@@ -75,6 +83,9 @@ namespace ArsVenefici
         /// </summary>
         private void InitializeClasses()
         {
+            toggleWizardryCommand = new ToggleWizardryCommand(this);
+            spellPartsCommand = new SpellPartsCommand(this);
+
             dailyTracker = new DailyTracker();
             spellPartManager = new SpellPartManager(this);
             spellPartIconManager = new SpellPartIconManager(this);
@@ -103,6 +114,7 @@ namespace ArsVenefici
             helper.Events.Display.RenderedWorld += eventsHandler.OnRenderedWorld;
 
             helper.Events.GameLoop.GameLaunched += eventsHandler.OnGameLaunched;
+            helper.Events.GameLoop.SaveLoaded += eventsHandler.OnSaveLoaded;
             helper.Events.GameLoop.DayStarted += eventsHandler.OnDayStarted;
             helper.Events.GameLoop.UpdateTicked += eventsHandler.OnUpdateTicked;
             helper.Events.GameLoop.OneSecondUpdateTicking += eventsHandler.OnOneSecondUpdateTicking;
@@ -111,6 +123,24 @@ namespace ArsVenefici
 
             SpaceEvents.OnItemEaten += eventsHandler.OnItemEaten;
             Networking.RegisterMessageHandler(MsgCast, eventsHandler.OnNetworkCast);
+        }
+
+        public void AddCommands()
+        {
+            AddCommand("player_togglewizardry", "Toggles the player's the ability to cast spells.\n\nUsage: player_togglewizardry <value>\n- value: true or false.", toggleWizardryCommand.ToggleWizardry);
+
+            AddCommand("player_learnspellpart", "Allows the player to learn a spell part.\n\nUsage: player_learnspellpart <value>\n- value: the id of the spell part.", spellPartsCommand.LearnSpellPart);
+            AddCommand("player_forgetspellpart", "Allows the player to forget a spell part.\n\nUsage: player_forgetspellpart <value>\n- value: the id of the spell part.", spellPartsCommand.ForgetSpellPart);
+
+            AddCommand("player_learnallspellparts", "Allows the player to learn all spell parts.\n\nUsage: player_learnallspellparts", spellPartsCommand.LearnAllSpellParts);
+            AddCommand("player_forgetallspellparts", "Allows the player to forget all spell parts.\n\nUsage: player_forgetallspellparts", spellPartsCommand.ForgetAllSpellParts);
+
+            AddCommand("player_knowsspellpart", "Checks if a player knows a spell part.\n\nUsage: player_knowsspellpart <value>\n- value: the id of the spell part.", spellPartsCommand.KnowsSpellPart);
+        }
+
+        public void AddCommand(string commandName, string commandDescription, Action<string, string[]> callback)
+        {
+            Helper.ConsoleCommands.Add(commandName, commandDescription, callback);
         }
 
         /// <summary>Fix the player's mana pool to match their skill level if needed.</summary>
@@ -128,6 +158,7 @@ namespace ArsVenefici
             SpellBook spellBook = Game1.player.GetSpellBook();
 
             // fix mana pool
+            if(LearnedWizardy)
             {
                 int expectedPoints = wizardryLevel * ManaPointsPerLevel;
                 if (player.GetMaxMana() < expectedPoints)
@@ -135,6 +166,10 @@ namespace ArsVenefici
                     player.SetMaxMana(expectedPoints);
                     player.AddMana(expectedPoints);
                 }
+            }
+            else
+            {
+                player.SetMaxMana(0);
             }
         }
 

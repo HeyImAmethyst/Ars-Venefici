@@ -24,6 +24,9 @@
     "config.cast_spell_key.name": "施放魔法快捷键",
     "config.cast_spell_key.tooltip": "用于施放当前选定魔法的按键。",
 
+    "config.open_tutorial_text_key.name": "Open Tutorial Text Button",
+    "config.open_tutorial_text_key.tooltip": "The button to open a menu showing the text from the tutorial.",
+
     /*********
 	** Spell Parts
 	*********/
@@ -137,6 +140,10 @@
     "ui.spell_book.shape_group_area.name": "形状组合区域",
     "ui.spell_book.spell_grammar_area.name": "魔法语法区域",
 
+    "ui.magic_altar.offense_tab.name": "Offense",
+    "ui.magic_altar.defense_tab.name": "Defense",
+    "ui.magic_altar.utility_tab.name": "Utility",
+
     /*********
 	** Skill/Professions
 	*********/
@@ -167,28 +174,44 @@
     ** Wizard learn-magic event
     *********/
 
-    "event.wizard.1": "你好，@。",
-    "event.wizard.2": "我注意到你对魔法有着浓厚的兴趣。",
-    "event.wizard.3": "你愿意学习如何创造自己的魔法吗？",
-    "event.wizard.4": "非常好。这是你的魔法书。",
+    "event.learn_wizardry.wizard_dialogue_1": "你好，@。",
 
-    "event.message.1": "巫师赠予你一本魔法书！现在你可以创造自己的魔法了。按下Shift键和'B'键即可打开。",
+    "event.learn_wizardry.wizard_dialogue_2": "我注意到你对魔法有着浓厚的兴趣。",
+    "event.learn_wizardry.wizard_dialogue_3": "你愿意学习如何创造自己的魔法吗？",
 
-    "event.wizard.5": "魔法书将向你展示所有可用的魔法组件。",
-    "event.wizard.6": "要创造魔法，你需要在当前页面的每个形状组中放置一个或多个正方形组件。",
-    "event.wizard.7": "然后在魔法页面的语法区域中放置一个或多个八边形组件。",
-    "event.wizard.8": "你可以使用修饰符（菱形）来改变形状和组件的行为。",
-    "event.wizard.9": "别忘了给你的魔法起个名字。一旦创造完成，关闭魔法书，魔法就会被保存。",
-    "event.wizard.10": "关闭魔法书后，你可以浏览你的魔法列表。",
+    "event.learn_wizardry.wizard_dialogue_4": "非常好。这是你的魔法书。",
 
-    "event.message.2": "使用'Z'和'X'键来浏览你的魔法列表。也可以使用Shift键加'Z'和Shift键加'X'来浏览魔法的形状组。",
+    "event.learn_wizardry.message_1": "巫师赠予你一本魔法书！现在你可以创造自己的魔法了。按下Shift键和'B'键即可打开。",
 
-    "event.wizard.11": "选择好你想要的魔法后，你就可以施放它了。",
+    "event.learn_wizardry.wizard_dialogue_5": "魔法书将向你展示所有可用的魔法组件。",
+    "event.learn_wizardry.wizard_dialogue_6": "But since you are just starting out, you will have no spell parts to use.",
+    "event.learn_wizardry.wizard_dialogue_7": "To learn spell parts, you need to use a magic altar.",
+    "event.learn_wizardry.wizard_dialogue_8": "Here's the recipe for it.",
 
-    "event.message.3": "要施放魔法，请按Q键。",
-    "event.message.4": "这些控制可以在Ars Venefici的配置文件中调整。",
+    "event.learn_wizardry.message_2": "The wizard gave you a magic altar recipe!",
 
-    "event.wizard.12": "愿你在魔法的道路上一切顺利。",
+    "event.learn_wizardry.wizard_dialogue_9": "Place the altar in the world and right click. You will be able to see all the spell parts you can learn.",
+    "event.learn_wizardry.wizard_dialogue_10": "Learning these spell parts will require materials so make sure you have them on hand.",
 
-    "event.wizard.abovehead": "法师"
+    "event.learn_wizardry.message_3": "Right clicking on the magic altar will open its menu! There are three skill trees: Offense, Defense, and Utility. You can switch between them using the tab buttons at the top of the menu.",
+    "event.learn_wizardry.message_4": "Left click and drag to move the view of the skill tree. Hovering over the spell part icon you want to learn will show a tooltip.",
+    "event.learn_wizardry.message_5": "The tooltip will show you what materials you need and what spell parts you need to have learned already to learn the spell part you want.",
+    "event.learn_wizardry.message_6": "Once you have met the requirements, left click on the spell part icon to learn it! This will consume the materials in your inventory.",
+
+    "event.learn_wizardry.wizard_dialogue_11": "要创造魔法，你需要在当前页面的每个形状组中放置一个或多个正方形组件。",
+    "event.learn_wizardry.wizard_dialogue_12": "然后在魔法页面的语法区域中放置一个或多个八边形组件。",
+    "event.learn_wizardry.wizard_dialogue_13": "你可以使用修饰符（菱形）来改变形状和组件的行为。",
+    "event.learn_wizardry.wizard_dialogue_14": "别忘了给你的魔法起个名字。一旦创造完成，关闭魔法书，魔法就会被保存。",
+    "event.learn_wizardry.wizard_dialogue_15": "关闭魔法书后，你可以浏览你的魔法列表。",
+
+    "event.learn_wizardry.message_7": "使用'Z'和'X'键来浏览你的魔法列表。也可以使用Shift键加'Z'和Shift键加'X'来浏览魔法的形状组。",
+
+    "event.learn_wizardry.wizard_dialogue_16": "选择好你想要的魔法后，你就可以施放它了。",
+
+    "event.learn_wizardry.message_8": "要施放魔法，请按Q键。",
+    "event.learn_wizardry.message_9": "The information from this tutorial can be viewed again by pressing 'G'.这些控制可以在Ars Venefici的配置文件中调整。",
+
+    "event.learn_wizardry.wizard_dialogue_17": "愿你在魔法的道路上一切顺利。",
+
+    "event.learn_wizardry.wizard_dialogue_abovehead": "法师"
 }

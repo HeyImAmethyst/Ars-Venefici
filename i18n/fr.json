@@ -24,6 +24,9 @@
 	"config.cast_spell_key.name": "Bouton Lancer le sort",
 	"config.cast_spell_key.tooltip": "Le bouton pour lancer le sort actuel.",
 
+	"config.open_tutorial_text_key.name": "Open Tutorial Text Button",
+	"config.open_tutorial_text_key.tooltip": "The button to open a menu showing the text from the tutorial.",
+
 	/*********
 	** Éléments de sort
 	*********/
@@ -137,6 +140,10 @@
 	"ui.spell_book.shape_group_area.name": "Espace des formes de zone",
 	"ui.spell_book.spell_grammar_area.name": "Espace de grammaire des sorts",
 
+	"ui.magic_altar.offense_tab.name": "Offense",
+	"ui.magic_altar.defense_tab.name": "Defense",
+	"ui.magic_altar.utility_tab.name": "Utility",
+
 	/*********
 	** Professions
 	*********/
@@ -167,28 +174,44 @@
     ** Événement d’apprentissage de la magie
     *********/
 
-	"event.wizard.1": "Salutations @.",
-	"event.wizard.2": "J'ai remarqué ton fort intérêt pour la magie.",
-	"event.wizard.3": "Serais-tu intéressé à ce que je te montre comment créer des sorts ?",
-	"event.wizard.4": "Très bien. Voici donc pour toi un livre de sorts. Ce grimoire va te permettre de créer des sorts.",
+	"event.learn_wizardry.wizard_dialogue_1": "Salutations @.",
 
-	"event.message.1": "Le sorcier t'a donné un livre de sorts ! Tu pourras maintenant créer des sorts !\nAppuie sur Shift et 'B' (par défaut) pour l'ouvrir.",
+	"event.learn_wizardry.wizard_dialogue_2": "J'ai remarqué ton fort intérêt pour la magie.",
+	"event.learn_wizardry.wizard_dialogue_3": "Serais-tu intéressé à ce que je te montre comment créer des sorts ?",
 
-	"event.wizard.5": "Le livre de sorts te montrera toutes les différentes parties de sorts que tu peux utiliser.",
-	"event.wizard.6": "Pour créer des sorts, tu devras d’abord placer une ou plusieurs ''formes'' (des carrés ) dans chaque groupe de formes sur la page de sort sur laquelle tu es. Cela indiquera la destination du sort : '* soi-même', '* zone', etc.",
-	"event.wizard.7": "Ensuite, tu devras placer un ou plusieurs ''composants'' (des octogones avec un verbe comme 'GUÉRIR'), dans la section de grammaire de sorts de la page.",
-	"event.wizard.8": "Tu peux changer la façon dont les formes et les composants se comportent avec des 'modificateurs' (des losanges) comme 'Dégâts +'.",
-	"event.wizard.9": "Assure-toi de donner un nom à ton sort. Une fois que tu as créé ton sort, tu peux fermer ton livre de sorts et le sort sera sauvegardé.",
-	"event.wizard.10": "Une fois que tu as fermé ton livre de sorts, tu peux parcourir ta liste de sorts.",
+	"event.learn_wizardry.wizard_dialogue_4": "Très bien. Voici donc pour toi un livre de sorts. Ce grimoire va te permettre de créer des sorts.",
 
-	"event.message.2": "Utilise 'Z' et 'X' pour parcourir ta liste de sorts. Tu peux aussi utiliser Shift et 'Z' et Shift et 'X' pour faire défiler les groupes de formes d'un sort.",
+	"event.learn_wizardry.message_1": "Le sorcier t'a donné un livre de sorts ! Tu pourras maintenant créer des sorts !\nAppuie sur Shift et 'B' (par défaut) pour l'ouvrir.",
 
-	"event.wizard.11": "Une fois que tu as le sort que tu veux, tu pourras le lancer.",
+	"event.learn_wizardry.wizard_dialogue_5": "Le livre de sorts te montrera toutes les différentes parties de sorts que tu peux utiliser.",
+	"event.learn_wizardry.wizard_dialogue_6": "But since you are just starting out, you will have no spell parts to use.",
+	"event.learn_wizardry.wizard_dialogue_7": "To learn spell parts, you need to use a magic altar.",
+	"event.learn_wizardry.wizard_dialogue_8": "Here's the recipe for it.",
 
-	"event.message.3": "Pour lancer un sort, appuie sur Q.",
-	"event.message.4": "Ces contrôles peuvent être ajustés dans le fichier de configuration d'Ars Venefici.",
+	"event.learn_wizardry.message_2": "The wizard gave you a magic altar recipe!",
 
-	"event.wizard.12": "Bonne chance dans tes aventures magiques.",
+	"event.learn_wizardry.wizard_dialogue_9": "Place the altar in the world and right click. You will be able to see all the spell parts you can learn.",
+	"event.learn_wizardry.wizard_dialogue_10": "Learning these spell parts will require materials so make sure you have them on hand.",
 
-	"event.wizard.abovehead": "DÉCHAÎNE LA SORCELLERIE !"
+	"event.learn_wizardry.message_3": "Right clicking on the magic altar will open its menu! There are three skill trees: Offense, Defense, and Utility. You can switch between them using the tab buttons at the top of the menu.",
+	"event.learn_wizardry.message_4": "Left click and drag to move the view of the skill tree. Hovering over the spell part icon you want to learn will show a tooltip.",
+	"event.learn_wizardry.message_5": "The tooltip will show you what materials you need and what spell parts you need to have learned already to learn the spell part you want.",
+	"event.learn_wizardry.message_6": "Once you have met the requirements, left click on the spell part icon to learn it! This will consume the materials in your inventory.",
+
+	"event.learn_wizardry.wizard_dialogue_11": "Pour créer des sorts, tu devras d’abord placer une ou plusieurs ''formes'' (des carrés ) dans chaque groupe de formes sur la page de sort sur laquelle tu es. Cela indiquera la destination du sort : '* soi-même', '* zone', etc.",
+	"event.learn_wizardry.wizard_dialogue_12": "Ensuite, tu devras placer un ou plusieurs ''composants'' (des octogones avec un verbe comme 'GUÉRIR'), dans la section de grammaire de sorts de la page.",
+	"event.learn_wizardry.wizard_dialogue_13": "Tu peux changer la façon dont les formes et les composants se comportent avec des 'modificateurs' (des losanges) comme 'Dégâts +'.",
+	"event.learn_wizardry.wizard_dialogue_14": "Assure-toi de donner un nom à ton sort. Une fois que tu as créé ton sort, tu peux fermer ton livre de sorts et le sort sera sauvegardé.",
+	"event.learn_wizardry.wizard_dialogue_15": "Une fois que tu as fermé ton livre de sorts, tu peux parcourir ta liste de sorts.",
+
+	"event.learn_wizardry.message_7": "Utilise 'Z' et 'X' pour parcourir ta liste de sorts. Tu peux aussi utiliser Shift et 'Z' et Shift et 'X' pour faire défiler les groupes de formes d'un sort.",
+
+	"event.learn_wizardry.wizard_dialogue_16": "Une fois que tu as le sort que tu veux, tu pourras le lancer.",
+
+	"event.learn_wizardry.message_8": "Pour lancer un sort, appuie sur Q.",
+	"event.learn_wizardry.message_9": "The information from this tutorial can be viewed again by pressing 'G'. Ces contrôles peuvent être ajustés dans le fichier de configuration d'Ars Venefici.",
+
+	"event.learn_wizardry.wizard_dialogue_17": "Bonne chance dans tes aventures magiques.",
+
+	"event.learn_wizardry.wizard_dialogue_abovehead": "DÉCHAÎNE LA SORCELLERIE !"
 }

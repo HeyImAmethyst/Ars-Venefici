@@ -30,18 +30,28 @@ using ArsVenefici.Framework.Spells.Effects;
 using StardewValley.Network;
 using static System.Net.Mime.MediaTypeNames;
 using ArsVenefici.Framework.Spells.Components;
+using StardewValley.Extensions;
+using xTile.Tiles;
+using ArsVenefici.Framework.Commands;
 
 namespace ArsVenefici
 {
     public class Events
     {
+
         DailyTracker dailyTracker;
         ModEntry modEntryInstance;
+
+        StringBuilder tutorialTextString;
 
         public Events(ModEntry modEntry, DailyTracker dailyTracker)
         {
             modEntryInstance = modEntry;
+
             this.dailyTracker = dailyTracker;
+
+            tutorialTextString = new StringBuilder();
+            tutorialTextString.Clear();
         }
 
         /// <summary>
@@ -52,6 +62,7 @@ namespace ArsVenefici
         /// <remarks> This is used to load the content packs</remarks>
         public void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
+
             var configMenu = modEntryInstance.Helper.ModRegistry.GetGenericModConfigMenuApi(modEntryInstance.Monitor);
 
             if (configMenu != null)
@@ -117,11 +128,20 @@ namespace ArsVenefici
                      getValue: () => modEntryInstance.Config.CastSpellButton,
                      setValue: value => modEntryInstance.Config.CastSpellButton = value
                  );
+
+                configMenu.AddKeybind(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.open_tutorial_text_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.open_tutorial_text_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.OpenTutorialTextButton,
+                     setValue: value => modEntryInstance.Config.OpenTutorialTextButton = value
+                 );
             }
 
             // hook Mana Bar
             {
                 var manaBar = modEntryInstance.Helper.ModRegistry.GetApi<IManaBarApi>("spacechase0.ManaBar");
+
                 if (manaBar == null)
                 {
                     modEntryInstance.Monitor.Log("No mana bar API???", LogLevel.Error);
@@ -129,6 +149,28 @@ namespace ArsVenefici
                 }
 
                 ModEntry.Mana = manaBar;
+            }
+
+            // hook Json Assets
+            {
+                var api = modEntryInstance.Helper.ModRegistry.GetApi<IJsonAssetsApi>("spacechase0.JsonAssets");
+
+                if (api == null)
+                {
+                    modEntryInstance.Monitor.Log("No Json Assets API???", LogLevel.Error);
+                    return;
+                }
+
+                ModEntry.Ja = api;
+            }
+        }
+
+        public void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
+        {
+            if (Context.IsWorldReady)
+            {
+                modEntryInstance.spellPartSkillManager = new SpellPartSkillManager(modEntryInstance);
+                SpellPartSkillHelper.Instance().UpdateIfNeeded(modEntryInstance, Game1.player);
             }
         }
 
@@ -140,7 +182,7 @@ namespace ArsVenefici
         public void OnDayStarted(object sender, DayStartedEventArgs e)
         {
             modEntryInstance.FixManaPoolIfNeeded(Game1.player);
-            
+
             if (Context.IsWorldReady)
             {
                 if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
@@ -274,6 +316,7 @@ namespace ArsVenefici
             Farmer farmer = Game1.player;
             SpellBook spellBook = farmer.GetSpellBook();
             var helper = SpellHelper.Instance();
+            SpellPartSkillHelper knowlegeHelper = SpellPartSkillHelper.Instance();
 
             if (Context.IsPlayerFree)
             {
@@ -334,10 +377,100 @@ namespace ArsVenefici
                     CastSpell(farmer);
                 }
 
-                //if(e.Button == SButton.G)
-                //{
-                //    Game1.player.eventsSeen.Remove(modEntryInstance.LearnedWizardryEventId.ToString());
-                //}
+                if (e.Button == modEntryInstance.Config.OpenTutorialTextButton)
+                {
+                    tutorialTextString.Clear();
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_5") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_7") + "^");
+                    
+                    tutorialTextString.AppendLine("^");
+                    
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_9") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_10") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_3") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_4") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_5") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_6") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_11") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_12") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_13") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_14") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_15") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_7") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_16") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_8") + "^");
+
+                    tutorialTextString.AppendLine("^");
+
+                    tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_9") + "^");
+
+                    Game1.activeClickableMenu = new LetterViewerMenu(tutorialTextString.ToString());
+                }
+
+                if (e.Button == SButton.MouseRight)
+                {
+                    Vector2 toolLocationTile = Utils.AbsolutePosToTilePos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
+                    Vector2 toolPixel = (toolLocationTile * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
+
+                    if (Game1.player.currentLocation.objects.TryGetValue(toolLocationTile, out StardewValley.Object obj))
+                    {
+                        Game1.player.lastClick = toolPixel;
+
+                        if (obj.QualifiedItemId.Equals("(BC)Magic_Altar"))
+                        {
+
+                            obj.readyForHarvest.Value = true;
+
+                            if (obj.checkForAction(Game1.player, true))
+                            {
+                                Game1.activeClickableMenu = new MagicAltarMenu(modEntryInstance);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -575,42 +708,77 @@ namespace ArsVenefici
         {
             if (!modEntryInstance.LearnedWizardy && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
             {
+                CraftingRecipe craftingRecipe = new CraftingRecipe("Magic_Altar");
+
+                //addCraftingRecipe
+
                 string eventWizardDialogue1 = "pause 1500/speak Wizard \"{0}\"/pause 1000";
-                eventWizardDialogue1 = string.Format(eventWizardDialogue1, modEntryInstance.Helper.Translation.Get("event.wizard.1"));
+                eventWizardDialogue1 = string.Format(eventWizardDialogue1, modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_1"));
 
                 string eventWizardDialogue2 = "speak Wizard \"{0}\"/pause 1000/speak Wizard \"{1}\"/pause 1000/jump farmer/pause 1000";
                 eventWizardDialogue2 = string.Format(eventWizardDialogue2,
-                    modEntryInstance.Helper.Translation.Get("event.wizard.2"),
-                    modEntryInstance.Helper.Translation.Get("event.wizard.3")
+                    modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_2"),
+                    modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_3")
                 );
 
                 string eventWizardDialogue3 = "speak Wizard \"{0}\"/pause 1000/playSound reward/message \"{1}\"/pause 1500";
                 eventWizardDialogue3 = string.Format(eventWizardDialogue3,
-                    modEntryInstance.Helper.Translation.Get("event.wizard.4"),
-                    modEntryInstance.Helper.Translation.Get("event.message.1")
+                    modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_4"),
+                    modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_1")
                 );
 
-                string eventWizardDialogue4 = "speak Wizard \"{0}#$b#{1}#$b#{2}#$b#{3}#$b#{4}#$b#{5}\"/pause 1500/message \"{6}\"/pause 1500/speak Wizard \"{7}\"/message \"{8}\"/pause 1000/message \"{9}\"/speak Wizard \"{10}\"";
+                string eventWizardDialogue4 = "speak Wizard \"{0}#$b#{1}#$b#{2}#$b#{3}\"/pause 1500/playSound reward/message \"{4}\"/pause 1500/speak Wizard \"{5}#$b#{6}\"/pause 1000/message \"{7}\"/pause 1000/message \"{8}\"/pause 1000/message \"{9}\"/pause 1000/message \"{10}\"";
 
                 eventWizardDialogue4 = string.Format(eventWizardDialogue4,
-                     modEntryInstance.Helper.Translation.Get("event.wizard.5"),
-                     modEntryInstance.Helper.Translation.Get("event.wizard.6"),
-                     modEntryInstance.Helper.Translation.Get("event.wizard.7"),
-                     modEntryInstance.Helper.Translation.Get("event.wizard.8"),
-                     modEntryInstance.Helper.Translation.Get("event.wizard.9"),
-                     modEntryInstance.Helper.Translation.Get("event.wizard.10"),
-                     modEntryInstance.Helper.Translation.Get("event.message.2"),
-                     modEntryInstance.Helper.Translation.Get("event.wizard.11"),
-                     modEntryInstance.Helper.Translation.Get("event.message.3"),
-                     modEntryInstance.Helper.Translation.Get("event.message.4"),
-                     modEntryInstance.Helper.Translation.Get("event.wizard.12")
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_5"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_6"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_7"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_8"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_2"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_9"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_10"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_3"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_4"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_5"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_6")
                  );
+
+                string eventWizardDialogue5 = "speak Wizard \"{0}#$b#{1}#$b#{2}#$b#{3}#$b#{4}\"/pause 1500/message \"{5}\"/pause 1500/speak Wizard \"{6}\"/message \"{7}\"/pause 1000/message \"{8}\"/speak Wizard \"{9}\"";
+
+                eventWizardDialogue5 = string.Format(eventWizardDialogue5,
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_11"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_12"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_13"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_14"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_15"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_7"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_16"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_8"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_9"),
+                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_17")
+                 );
+
+                //string eventWizardDialogue4 = "speak Wizard \"{0}#$b#{1}#$b#{2}#$b#{3}#$b#{4}#$b#{5}\"/pause 1500/message \"{6}\"/pause 1500/speak Wizard \"{7}\"/message \"{8}\"/pause 1000/message \"{9}\"/speak Wizard \"{10}\"";
+
+                //eventWizardDialogue4 = string.Format(eventWizardDialogue4,
+                //     modEntryInstance.Helper.Translation.Get("event.wizard.5"),
+                //     modEntryInstance.Helper.Translation.Get("event.wizard.6"),
+                //     modEntryInstance.Helper.Translation.Get("event.wizard.7"),
+                //     modEntryInstance.Helper.Translation.Get("event.wizard.8"),
+                //     modEntryInstance.Helper.Translation.Get("event.wizard.9"),
+                //     modEntryInstance.Helper.Translation.Get("event.wizard.10"),
+                //     modEntryInstance.Helper.Translation.Get("event.message.2"),
+                //     modEntryInstance.Helper.Translation.Get("event.wizard.11"),
+                //     modEntryInstance.Helper.Translation.Get("event.message.3"),
+                //     modEntryInstance.Helper.Translation.Get("event.message.4"),
+                //     modEntryInstance.Helper.Translation.Get("event.wizard.12")
+                // );
 
 
                 string eventWizardAboveHeadDialogue = "showFrame Wizard 16/textAboveHead Wizard \"{0}\"";
 
                 eventWizardAboveHeadDialogue = string.Format(eventWizardAboveHeadDialogue,
-                    modEntryInstance.Helper.Translation.Get("event.wizard.abovehead")
+                    modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_abovehead")
                 );
 
 
@@ -627,6 +795,7 @@ namespace ArsVenefici
                     eventWizardDialogue2,
                     eventWizardDialogue3,
                     eventWizardDialogue4,
+                    eventWizardDialogue5,
                     eventWizardAboveHeadDialogue,
                     eventEnd
                 );
@@ -643,6 +812,8 @@ namespace ArsVenefici
                 Game1.player.AddCustomSkillExperience(ModEntry.Skill, ModEntry.Skill.ExperienceCurve[0]);
                 modEntryInstance.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1); // let player start using magic immediately
                 Game1.player.eventsSeen.Add(modEntryInstance.LearnedWizardryEventId.ToString());
+
+                Game1.player.craftingRecipes.Add(craftingRecipe.name, 0);
             }
         }
     }
