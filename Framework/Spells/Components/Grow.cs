@@ -41,7 +41,12 @@ namespace ArsVenefici.Framework.Spells.Components
                 duration: 84_000 // 84 seconds
             );
 
-            if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 6)
+            if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) < 6)
+            {
+                growSickNess.millisecondsDuration = 126000;
+                Game1.player.applyBuff(growSickNess);
+            }
+            else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 6)
             {
                 growSickNess.millisecondsDuration = 84000;
                 Game1.player.applyBuff(growSickNess);
@@ -49,6 +54,11 @@ namespace ArsVenefici.Framework.Spells.Components
             else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 8)
             {
                 growSickNess.millisecondsDuration = 42000;
+                Game1.player.applyBuff(growSickNess);
+            }
+            else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) == 10)
+            {
+                growSickNess.millisecondsDuration = 21000;
                 Game1.player.applyBuff(growSickNess);
             }
 
@@ -135,7 +145,23 @@ namespace ArsVenefici.Framework.Spells.Components
             if (dirt?.crop is not null)
             {
                 Crop crop = dirt.crop;
+
+                int extraCropGrowth = 25;
+                int secondExtraCropGrowth = 10;
+
+                int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
+
                 crop.newDay(HoeDirt.watered);
+
+                if (randomValueBetween0And99 < extraCropGrowth)
+                {
+                    crop.newDay(HoeDirt.watered);
+
+                    if (randomValueBetween0And99 < secondExtraCropGrowth)
+                    {
+                        crop.newDay(HoeDirt.watered);
+                    }
+                }
             }
         }
     }

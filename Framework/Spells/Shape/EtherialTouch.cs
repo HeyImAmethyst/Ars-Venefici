@@ -39,7 +39,7 @@ namespace ArsVenefici.Framework.Spells.Shape
 
         public override int ManaCost()
         {
-            return 1;
+            return 3;
         }
     }
 }

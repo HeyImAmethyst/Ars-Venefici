@@ -32,7 +32,7 @@ namespace ArsVenefici.Framework.Spells
             this.shapeGroups = shapeGroups;
             this.spellStack = spellStack;
 
-            continuous = new Lazy<bool>(() => FirstShape(CurrentShapeGroupIndex()).IsContinuous());
+            continuous = new Lazy<bool>(() => FirstShape(CurrentShapeGroupIndex()) != null &&  FirstShape(CurrentShapeGroupIndex()).IsContinuous());
 
             empty = new Lazy<bool>(() => !ShapeGroups().Any() || ShapeGroups().All(g => g.IsEmpty()) && SpellStack().IsEmpty());
 
@@ -86,8 +86,13 @@ namespace ArsVenefici.Framework.Spells
                 {
                     list = SpellStack().Parts;
                 }
+                
+                ISpellShape spellShape = null;
 
-                ISpellShape spellShape = (ISpellShape)list.FirstOrDefault();
+                if (list.Any() && IsValid())
+                {
+                    spellShape = (ISpellShape)list.FirstOrDefault();
+                }
 
                 return spellShape;
             }
