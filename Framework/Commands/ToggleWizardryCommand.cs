@@ -18,25 +18,28 @@ namespace ArsVenefici.Framework.Commands
 
         public void ToggleWizardry(string command, string[] args)
         {
-            bool value  = bool.Parse(args[0]);
+            bool value;
 
-            if (value)
+            if(bool.TryParse(args[0], out value))
             {
-                Game1.player.eventsSeen.Add(modEntry.LearnedWizardryEventId.ToString());
+                if (value)
+                {
+                    Game1.player.eventsSeen.Add(modEntry.LearnedWizardryEventId.ToString());
 
-                if (!Game1.player.craftingRecipes.ContainsKey("Magic_Altar"))
-                    Game1.player.craftingRecipes.Add("Magic_Altar", 0);
+                    if (!Game1.player.craftingRecipes.ContainsKey("Magic_Altar"))
+                        Game1.player.craftingRecipes.Add("Magic_Altar", 0);
 
-                modEntry.Monitor.Log("You have learned wizardry!", LogLevel.Info);
-            }
-            else if(value == false)
-            {
-                Game1.player.eventsSeen.Remove(modEntry.LearnedWizardryEventId.ToString());
+                    modEntry.Monitor.Log("You have learned wizardry!", LogLevel.Info);
+                }
+                else if (value == false)
+                {
+                    Game1.player.eventsSeen.Remove(modEntry.LearnedWizardryEventId.ToString());
 
-                //if (Game1.player.craftingRecipes.ContainsKey("Magic_Altar"))
-                //    Game1.player.craftingRecipes.Remove("Magic_Altar");
+                    //if (Game1.player.craftingRecipes.ContainsKey("Magic_Altar"))
+                    //    Game1.player.craftingRecipes.Remove("Magic_Altar");
 
-                modEntry.Monitor.Log("You have forgotten wizardry!", LogLevel.Info);
+                    modEntry.Monitor.Log("You have forgotten wizardry!", LogLevel.Info);
+                }
             }
         }
     }

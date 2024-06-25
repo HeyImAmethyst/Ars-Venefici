@@ -33,6 +33,7 @@ using ArsVenefici.Framework.Spells.Components;
 using StardewValley.Extensions;
 using xTile.Tiles;
 using ArsVenefici.Framework.Commands;
+using StardewValley.GameData;
 
 namespace ArsVenefici
 {
@@ -377,7 +378,7 @@ namespace ArsVenefici
                     CastSpell(farmer);
                 }
 
-                if (e.Button == modEntryInstance.Config.OpenTutorialTextButton)
+                if (modEntryInstance.LearnedWizardy && e.Button == modEntryInstance.Config.OpenTutorialTextButton)
                 {
                     tutorialTextString.Clear();
 
@@ -450,7 +451,7 @@ namespace ArsVenefici
                     Game1.activeClickableMenu = new LetterViewerMenu(tutorialTextString.ToString());
                 }
 
-                if (e.Button == SButton.MouseRight)
+                if (modEntryInstance.LearnedWizardy && e.Button == SButton.MouseRight)
                 {
                     Vector2 toolLocationTile = Utils.AbsolutePosToTilePos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
                     Vector2 toolPixel = (toolLocationTile * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile

@@ -22,13 +22,21 @@ namespace ArsVenefici.Framework.Commands
         {
             string value = args[0];
 
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+            if (modEntry.spellPartSkillManager.spellPartSkills.ContainsKey(value))
+            {
+                SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
 
-            string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
+                string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
 
-            helper.Learn(modEntry, Game1.player, value);
+                helper.Learn(modEntry, Game1.player, value);
 
-            modEntry.Monitor.Log($"You learned the spell part {spellPartNameText}!.", LogLevel.Info);
+                modEntry.Monitor.Log($"You learned the spell part {spellPartNameText}!", LogLevel.Info);
+            }
+            else
+            {
+                modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
+            }
+            
         }
 
         public void LearnAllSpellParts(string command, string[] args)
@@ -43,13 +51,20 @@ namespace ArsVenefici.Framework.Commands
         {
             string value = args[0];
 
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+            if (modEntry.spellPartSkillManager.spellPartSkills.ContainsKey(value))
+            {
+                SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
 
-            string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
+                string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
 
-            helper.Forget(modEntry, Game1.player, value);
+                helper.Forget(modEntry, Game1.player, value);
 
-            modEntry.Monitor.Log($"You forgot the spell part {spellPartNameText}!.", LogLevel.Info);
+                modEntry.Monitor.Log($"You forgot the spell part {spellPartNameText}!", LogLevel.Info);
+            }
+            else
+            {
+                modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
+            }
         }
 
         public void ForgetAllSpellParts(string command, string[] args)
@@ -57,24 +72,31 @@ namespace ArsVenefici.Framework.Commands
             SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
             helper.ForgetAll(modEntry, Game1.player);
 
-            modEntry.Monitor.Log($"You forgot all the spell parts!.", LogLevel.Info);
+            modEntry.Monitor.Log($"You forgot all the spell parts!", LogLevel.Info);
         }
 
         public void KnowsSpellPart(string command, string[] args)
         {
             string value = args[0];
 
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
-
-            string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
-
-            if (helper.Knows(modEntry, Game1.player, value))
+            if (modEntry.spellPartSkillManager.spellPartSkills.ContainsKey(value))
             {
-                modEntry.Monitor.Log($"You know the spell part {spellPartNameText}!.", LogLevel.Info);
+                SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+
+                string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
+
+                if (helper.Knows(modEntry, Game1.player, value))
+                {
+                    modEntry.Monitor.Log($"You know the spell part {spellPartNameText}!", LogLevel.Info);
+                }
+                else
+                {
+                    modEntry.Monitor.Log($"You do not know the spell part {spellPartNameText}!", LogLevel.Info);
+                }
             }
             else
             {
-                modEntry.Monitor.Log($"You do not know the spell part {spellPartNameText}!.", LogLevel.Info);
+                modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
             }
         }
     }
