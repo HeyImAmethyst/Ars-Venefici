@@ -49,6 +49,8 @@ namespace ArsVenefici
 
         StringBuilder tutorialTextString;
 
+        IManagedTokenString craftingAltarTokenString;
+
         public Events(ModEntry modEntry, DailyTracker dailyTracker)
         {
             modEntryInstance = modEntry;
@@ -179,6 +181,14 @@ namespace ArsVenefici
         /// <param name="e"> The Save Loaded Event arguement</param>
         public void OnDayStarted(object sender, DayStartedEventArgs e)
         {
+            string rawTokenString = "{{spacechase0.JsonAssets/BigCraftable: Magic Altar}}";
+
+            craftingAltarTokenString = ModEntry.ContentPatcherApi.ParseTokenString(
+               manifest: modEntryInstance.ModManifest,
+               rawValue: rawTokenString,
+               formatVersion: new SemanticVersion("2.2.0")
+            );
+
             modEntryInstance.FixManaPoolIfNeeded(Game1.player);
 
             if (Context.IsWorldReady)
