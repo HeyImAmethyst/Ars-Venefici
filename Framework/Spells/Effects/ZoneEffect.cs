@@ -54,7 +54,8 @@ namespace ArsVenefici.Framework.Spells.Effects
 
         public override void Update(UpdateTickedEventArgs e)
         {
-            isActive = --this.duration > 0 || GetOwner() == null;
+            if (Game1.activeClickableMenu == null && Game1.game1.IsActive)
+                isActive = --this.duration > 0 || GetOwner() == null;
         }
 
         public override void OneSecondUpdate(OneSecondUpdateTickingEventArgs e)
@@ -67,20 +68,23 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             var spellHelper = SpellHelper.Instance();
 
-            ForAllInRange((int)radius, false, e => spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new CharacterHitResult(e), 0, index, true));
-
-            for (int x = (int)(pos.X - radius); x <= pos.X + radius; ++x)
+            if (Game1.activeClickableMenu == null && Game1.game1.IsActive)
             {
-                for (int y = (int)(pos.Y - radius); y <= pos.Y + radius; ++y)
+                ForAllInRange((int)radius, false, e => spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new CharacterHitResult(e), 0, index, true));
+
+                for (int x = (int)(pos.X - radius); x <= pos.X + radius; ++x)
                 {
-                    TilePos newTilePos = new TilePos(x, y);
-                    spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new TerrainFeatureHitResult(pos, 0, newTilePos, false), 0, index, true);
+                    for (int y = (int)(pos.Y - radius); y <= pos.Y + radius; ++y)
+                    {
+                        TilePos newTilePos = new TilePos(x, y);
+                        spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new TerrainFeatureHitResult(pos, 0, newTilePos, false), 0, index, true);
+                    }
                 }
-            }
 
-            if (!isActive)
-            {
-                modEntry.ActiveEffects.Remove(this);
+                if (!isActive)
+                {
+                    modEntry.ActiveEffects.Remove(this);
+                }
             }
         }
         public override void Draw(SpriteBatch spriteBatch)

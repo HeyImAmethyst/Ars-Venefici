@@ -20,7 +20,7 @@ namespace ArsVenefici
         public void Update(UpdateTickedEventArgs e, GameLocation gameLocation)
         {
 
-            if(gameLocation != null)
+            if(gameLocation != null && Game1.activeClickableMenu == null && Game1.game1.IsActive)
             {
                 bool regenMana = false;
 
