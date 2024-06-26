@@ -15,7 +15,7 @@ namespace ArsVenefici
     public class DailyTracker
     {
         private int dailyGrowCastCount = 0;
-        private int maxDailyGrowCastCount = 3;
+        private int maxDailyGrowCastCount = 2;
 
         public void Update(UpdateTickedEventArgs e, GameLocation gameLocation)
         {

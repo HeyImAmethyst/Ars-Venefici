@@ -121,8 +121,11 @@ namespace ArsVenefici.Framework.Spells
 
         public void CurrentShapeGroupIndex(int shapeGroup)
         {
-            if (shapeGroup >= ShapeGroups().Count() || shapeGroup < 0)
-                throw new ArgumentOutOfRangeException("Invalid shape group index!");
+            //if (shapeGroup >= ShapeGroups().Count() || shapeGroup < 0)
+            //    throw new ArgumentOutOfRangeException("Invalid shape group index!");
+
+            if(shapeGroup >= ShapeGroups().Count() || shapeGroup < 0)
+                return;
 
             shapeGroupIndex = shapeGroup;
         }

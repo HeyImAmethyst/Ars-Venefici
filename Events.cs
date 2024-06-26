@@ -219,7 +219,7 @@ namespace ArsVenefici
                 }
                 else
                 {
-                    modEntryInstance.dailyTracker.SetMaxDailyGrowCastCount(3);
+                    modEntryInstance.dailyTracker.SetMaxDailyGrowCastCount(2);
                 }
 
                 modEntryInstance.dailyTracker.SetDailyGrowCastCount(0);
@@ -644,18 +644,20 @@ namespace ArsVenefici
 
             int spellPageIndex = spellBook.GetCurrentSpellIndex() + 1;
             string spellName = "";
-            int spellShapeGroupIndex;
+            int spellShapeGroupIndex = 0;
 
-            int manaCost;
+            int manaCost = 0;
+
+            string spellText;
 
             if (spellBook.GetCurrentSpell().GetName() != null)
                 spellName = spellBook.GetCurrentSpell().GetName();
 
-            spellShapeGroupIndex = spellBook.GetCurrentSpell().CurrentShapeGroupIndex() + 1;
-
-            manaCost = spellBook.GetCurrentSpell().Mana();
-
-            string spellText;
+            if (spellBook.GetCurrentSpell().IsValid())
+            {
+                spellShapeGroupIndex = spellBook.GetCurrentSpell().CurrentShapeGroupIndex() + 1;
+                manaCost = spellBook.GetCurrentSpell().Mana();
+            }
 
             if (spellName == "")
             {
@@ -663,7 +665,7 @@ namespace ArsVenefici
             }
             else
             {
-                spellText = spellName + " | " + modEntryInstance.Helper.Translation.Get("ui.spell_label.shape_group.name") + ": " + spellShapeGroupIndex + " | " + modEntryInstance.Helper.Translation.Get("ui.mana_cost.name") + ": "  + manaCost;
+                spellText = spellName + " | " + modEntryInstance.Helper.Translation.Get("ui.spell_label.shape_group.name") + ": " + spellShapeGroupIndex + " | " + modEntryInstance.Helper.Translation.Get("ui.mana_cost.name") + ": " + manaCost;
             }
 
             string text = spellPageIndex + " : " + spellText;
