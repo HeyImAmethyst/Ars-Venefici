@@ -14,7 +14,7 @@ namespace ArsVenefici.Framework.GUI.Menus
     {
         protected readonly int textureHeight;
         protected readonly int textureWidth;
-        protected readonly MagicAltarTab magicOrbTab;
+        protected readonly MagicAltarTab magicAltarTab;
         protected readonly MagicAltarMenu parent;
         protected int screenWidth;
         protected int screenHeight;
@@ -29,7 +29,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         {
             this.textureHeight = magicOrbTab.GetHeight();
             this.textureWidth = magicOrbTab.GetWidth();
-            this.magicOrbTab = magicOrbTab;
+            this.magicAltarTab = magicOrbTab;
             this.parent = parent;
         }
 

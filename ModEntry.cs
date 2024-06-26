@@ -153,23 +153,29 @@ namespace ArsVenefici
                 return;
 
             // get wizardry info
-            int wizardryLevel = overrideWizardryLevel ?? player.GetCustomSkillLevel(Skill.WizardrySkillId);
+            int wizardryLevel = overrideWizardryLevel ?? player.GetCustomSkillLevel(Skill);
             
             SpellBook spellBook = Game1.player.GetSpellBook();
 
             // fix mana pool
-            if(LearnedWizardy)
+
+            //if(LearnedWizardy)
+            //{
+            //    int expectedPoints = wizardryLevel * ManaPointsPerLevel;
+
+            //    if (player.GetMaxMana() < expectedPoints)
+            //    {
+            //        player.SetMaxMana(expectedPoints);
+            //        player.AddMana(expectedPoints);
+            //    }
+            //}
+
+            int expectedPoints = wizardryLevel * ManaPointsPerLevel;
+
+            if (player.GetMaxMana() < expectedPoints)
             {
-                int expectedPoints = wizardryLevel * ManaPointsPerLevel;
-                if (player.GetMaxMana() < expectedPoints)
-                {
-                    player.SetMaxMana(expectedPoints);
-                    player.AddMana(expectedPoints);
-                }
-            }
-            else
-            {
-                player.SetMaxMana(0);
+                player.SetMaxMana(expectedPoints);
+                player.AddMana(expectedPoints);
             }
         }
 

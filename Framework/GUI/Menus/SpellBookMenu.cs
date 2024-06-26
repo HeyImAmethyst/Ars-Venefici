@@ -105,12 +105,15 @@ namespace ArsVenefici.Framework.GUI.Menus
         public static Vector2 GetAppropriateMenuPosition()
         {
 
-            int x = Game1.viewport.Size.Width / 2 - windowWidth / 2;
-            int y = Game1.viewport.Size.Height / 2 - windowHeight / 2;
+            //int x = Game1.viewport.Size.Width / 2 - windowWidth / 2;
+            //int y = Game1.viewport.Size.Height / 2 - windowHeight / 2;
+
+            int x = Game1.uiViewport.Width / 2 - windowWidth / 2;
+            int y = Game1.uiViewport.Height / 2 - windowHeight / 2;
 
             Vector2 defaultPosition = new Vector2(x, y);
 
-            defaultPosition = defaultPosition * Game1.options.zoomLevel;
+            //defaultPosition = defaultPosition * Game1.options.zoomLevel;
 
             return defaultPosition;
 

@@ -56,7 +56,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             SCALE = 2;
 
             //offsetX = (magicOrbTab.GetStartX() - width / 2f);
-            offsetX = (magicOrbTab.GetStartX() - width / 2f) + 450;
+            offsetX = (magicAltarTab.GetStartX() - width / 2f) + 450;
 
             if (offsetX < 0)
                 offsetX = 0;
@@ -64,7 +64,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             if (offsetX > textureWidth - width)
                 offsetX = textureWidth - width;
 
-            offsetY = magicOrbTab.GetStartY() - width / 2f;
+            offsetY = magicAltarTab.GetStartY() - width / 2f;
 
             if (offsetY < 0)
                 offsetY = 0;
@@ -77,7 +77,7 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
 
-            skills = modEntry.spellPartSkillManager.spellPartSkills.Values.Where(skill => skill.GetOcculusTab().Equals(magicOrbTab)).ToHashSet();
+            skills = modEntry.spellPartSkillManager.spellPartSkills.Values.Where(skill => skill.GetOcculusTab().Equals(magicAltarTab)).ToHashSet();
             skills.RemoveWhere(skill => skill.IsHidden() && !helper.Knows(modEntry, player, skill));
 
             foreach (SpellPartSkill skill in skills)
@@ -110,7 +110,7 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             IClickableMenu.drawTextureBox(spriteBatch, bounds.X - 10, bounds.Y - 10, bounds.Width + 20, bounds.Height + 20, Color.White);
 
-            spriteBatch.Draw(magicOrbTab.GetBackground(), bounds, sourceRect, Color.White);
+            spriteBatch.Draw(magicAltarTab.GetBackground(), bounds, sourceRect, Color.White);
         }
 
         protected override void RenderFg(SpriteBatch spriteBatch, int mouseX, int mouseY, float partialTicks)
@@ -134,12 +134,19 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             foreach (SpellPartSkill skill in skills)
             {
+                Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY());
+                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * (1f / Game1.options.zoomLevel);
+                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * Game1.options.zoomLevel;
+
                 bool knows = helper.Knows(modEntry, player, skill);
 
                 //325
 
-                float cX = (skill.GetX() + SKILL_SIZE / 2 + 1);
-                float cY = (skill.GetY() + SKILL_SIZE / 2 + 1);
+                //float cX = (skill.GetX() + SKILL_SIZE / 2 + 1);
+                //float cY = (skill.GetY() + SKILL_SIZE / 2 + 1);
+
+                float cX = (skillPos.X + SKILL_SIZE / 2 + 1);
+                float cY = (skillPos.Y + SKILL_SIZE / 2 + 1);
 
                 bool hasPrereq = helper.CanLearn(modEntry, player, skill) || knows;
 
@@ -148,8 +155,15 @@ namespace ArsVenefici.Framework.GUI.Menus
                     if(parent == null)
                         continue;
 
-                    float parentCX = (parentSkill.GetX() + SKILL_SIZE / 2 + 1);
-                    float parentCY = (parentSkill.GetY() + SKILL_SIZE / 2 + 1);
+                    Vector2 parentSkillPos = new Vector2(bounds.X + parentSkill.GetX(), bounds.Y + parentSkill.GetY());
+                    //Vector2 parentSkillPos = new Vector2(bounds.X + parentSkill.GetX(), bounds.Y + parentSkill.GetY()) * (1f / Game1.options.zoomLevel);
+                    //Vector2 parentSkillPos = new Vector2(bounds.X + parentSkill.GetX(), bounds.Y + parentSkill.GetY()) * Game1.options.zoomLevel;
+
+                    //float parentCX = (parentSkill.GetX() + SKILL_SIZE / 2 + 1);
+                    //float parentCY = (parentSkill.GetY() + SKILL_SIZE / 2 + 1);
+
+                    float parentCX = (parentSkillPos.X + SKILL_SIZE / 2 + 1);
+                    float parentCY = (parentSkillPos.Y + SKILL_SIZE / 2 + 1);
 
                     uint color;
                     int offset;
@@ -175,19 +189,21 @@ namespace ArsVenefici.Framework.GUI.Menus
 
                     if (cX != parentCX)
                     {
-                        DrawSprite.DrawLine(spriteBatch, new Vector2(bounds.X, bounds.Y) + new Vector2(parentCX, cY), new Vector2(bounds.X, bounds.Y) + new Vector2(cX, cY), new Color(color), 4);
+                        DrawSprite.DrawLine(spriteBatch, new Vector2(parentCX, cY), new Vector2(cX, cY), new Color(color), 4);
                     }
 
                     if (cY != parentCY)
                     {
-                        DrawSprite.DrawLine(spriteBatch, new Vector2(bounds.X, bounds.Y) + new Vector2(parentCX, parentCY), new Vector2(bounds.X, bounds.Y) + new Vector2(parentCX, cY), new Color(color), 4);
+                        DrawSprite.DrawLine(spriteBatch, new Vector2(parentCX, parentCY), new Vector2(parentCX, cY), new Color(color), 4);
                     }
                 }
             }
 
             foreach (SpellPartSkill skill in skills)
             {
-                Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * (1f / Game1.options.zoomLevel);
+                Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY());
+                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * (1f / Game1.options.zoomLevel);
+                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * Game1.options.zoomLevel;
 
                 bool knows = helper.Knows(modEntry, player, skill);
                 bool hasPrereq = helper.CanLearn(modEntry, player, skill) || knows;
@@ -240,7 +256,8 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             foreach (SpellPartSkill skill in skills)
             {
-                Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * (1f / Game1.options.zoomLevel);
+                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * (1f / Game1.options.zoomLevel);
+                Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY());
 
                 Vector2 vector = Vector2.Transform(skillPos, transformMatrix);
 

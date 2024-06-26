@@ -781,7 +781,6 @@ namespace ArsVenefici
                     modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_abovehead")
                 );
 
-
                 string eventEnd = "pause 750/fade 750/end";
 
                 string eventStr = string.Join(
