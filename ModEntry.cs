@@ -3,6 +3,7 @@ using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using StardewModdingAPI;
 using StardewValley;
 using SpaceCore;
@@ -10,22 +11,21 @@ using ArsVenefici.Framework.Skill;
 using SpaceShared.APIs;
 using SpaceCore.Events;
 using ArsVenefici.Framework.Spells.Effects;
-using System.Reflection.PortableExecutable;
 using ArsVenefici.Framework.Commands;
 
 namespace ArsVenefici
 {
     public class ModEntry : Mod
     {
-
         public static IModHelper helper;
         public ModConfig Config;
 
         ToggleWizardryCommand toggleWizardryCommand;
         SpellPartsCommand spellPartsCommand;
 
-        public static IJsonAssetsApi Ja;
-        public static IManaBarApi Mana;
+        public static IManaBarApi ManaBarApi;
+        public static ContentPatcher.IContentPatcherAPI ContentPatcherApi;
+        public static string ArsVenificiContentPatcherId = "HeyImAmethyst.CP.ArsVenefici";
 
         public DailyTracker dailyTracker;
         public SpellPartManager spellPartManager;
@@ -189,7 +189,7 @@ namespace ArsVenefici
         private void CheckIfSVEIsInstalled()
         {
             isSVEInstalled = Helper.ModRegistry.IsLoaded("FlashShifter.StardewValleyExpandedCP");
-            Monitor.Log($"Satrdew Valley Expanded Sense Installed: {isSVEInstalled}", LogLevel.Trace);
+            Monitor.Log($"Stardew Valley Expanded Sense Installed: {isSVEInstalled}", LogLevel.Trace);
         }
     }
 }
