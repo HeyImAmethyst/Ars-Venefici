@@ -1,4 +1,4 @@
-# Ars Venefici
+﻿# Ars Venefici
 
 Ars Venefici is a Stardew Valley mod that adds the ability to craft and cast spells with a spell book!
 
@@ -15,6 +15,7 @@ The professions in this mode are also based on the professions from the magic mo
 - Install the latest version of [SMAPI](https://smapi.io/).
 - Install [SpaceCore](https://www.nexusmods.com/stardewvalley/mods/1348).
 - Install [Mana Bar](https://www.nexusmods.com/stardewvalley/mods/7831).
+- Install [Content Patcher](https://www.nexusmods.com/stardewvalley/mods/1915).
 - Install [this mod]() from Nexus.
 - Run the game using SMAPI.
 
@@ -57,6 +58,58 @@ Your mana will regen over time. Each level you gain for wizardry as well as the 
 # How Mana is Calculated
 
 Every shape and modifier is multiplied together to create a multiplier value. Every compenent is added together to create a cost value. Then those two values are multiplied together to get the final mana cost.
+
+# Adding New Items That Replenish Mana
+
+Version 1.2.0 of this mod adds the ability for you to add food items that replenish mana using Content Patcher! Take a look at this wiki page for a guide to add in custom items via Content Patcher﻿. For your item to replenish mana, add this field to your item:
+
+```
+"CustomFields":
+{
+    ﻿"HeyImAmethyst.CP.ArsVenefici/Mana": "NUMBERVALUEHERE"
+}
+```
+
+The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If the value isn't a number or has any letters or other characters in it, the item will not replenish any mana.
+
+# Console Commands
+
+- player_togglewizardry  <true | false> : Toggles the player's the ability to cast spells
+- player_learnspellpart < spellpartId > :  Allows the player to learn a spell part
+- player_forgetspellpart < spellpartId > : Allows the player to forget a spell part
+- player_learnallspellparts < spellpartId > : Allows the player to learn all spell parts
+- player_forgetallspellparts < spellpartId > : Allows the player to forget all spell parts
+- player_knowsspellpart < spellpartId > : Checks if a player knows a spell part
+
+# List of Spell Part Ids
+
+> - self
+> - projectile
+> - touch
+> - etherial_touch
+> - aoe
+> - zone
+> - dig
+> - plow
+> - grow
+> - harvest
+> - create_water
+> - explosion
+> - blink
+> - light
+> - heal
+> - life_drain
+> - life_tap
+> - physical_damage
+> - haste
+> - damage
+> - range
+> - bounce
+> - piercing
+> - velocity
+> - healing
+> - duration
+> - mining_power
 
 # Additional Notes
 
