@@ -5,6 +5,7 @@ using SpaceShared;
 using SpaceShared.ConsoleCommands;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Network;
 
 namespace ArsVenefici.Framework.Commands
 {
@@ -20,14 +21,18 @@ namespace ArsVenefici.Framework.Commands
         {
             bool value;
 
-            if(bool.TryParse(args[0], out value))
+            string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
+
+            if (bool.TryParse(args[0], out value))
             {
                 if (value)
                 {
                     Game1.player.eventsSeen.Add(modEntry.LearnedWizardryEventId.ToString());
-
-                    if (!Game1.player.craftingRecipes.ContainsKey("Magic_Altar"))
-                        Game1.player.craftingRecipes.Add("Magic_Altar", 0);
+                    
+                    CraftingRecipe craftingRecipe = new CraftingRecipe(s);
+                   
+                    if (!Game1.player.craftingRecipes.Keys.Contains(s))
+                        Game1.player.craftingRecipes.Add(s, 0);
 
                     modEntry.Monitor.Log("You have learned wizardry!", LogLevel.Info);
                 }
@@ -35,8 +40,8 @@ namespace ArsVenefici.Framework.Commands
                 {
                     Game1.player.eventsSeen.Remove(modEntry.LearnedWizardryEventId.ToString());
 
-                    //if (Game1.player.craftingRecipes.ContainsKey("Magic_Altar"))
-                    //    Game1.player.craftingRecipes.Remove("Magic_Altar");
+                    //if (Game1.player.craftingRecipes.ContainsKey(s))
+                    //    Game1.player.craftingRecipes.Remove(s);
 
                     modEntry.Monitor.Log("You have forgotten wizardry!", LogLevel.Info);
                 }

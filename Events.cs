@@ -34,6 +34,10 @@ using StardewValley.Extensions;
 using xTile.Tiles;
 using ArsVenefici.Framework.Commands;
 using StardewValley.GameData;
+using ContentPatcher;
+using StardewValley.ItemTypeDefinitions;
+using StardewValley.GameData.Crops;
+using StardewValley.GameData.Objects;
 
 namespace ArsVenefici
 {
@@ -44,6 +48,8 @@ namespace ArsVenefici
         ModEntry modEntryInstance;
 
         StringBuilder tutorialTextString;
+
+        IManagedTokenString craftingAltarTokenString;
 
         public Events(ModEntry modEntry, DailyTracker dailyTracker)
         {
@@ -149,20 +155,13 @@ namespace ArsVenefici
                     return;
                 }
 
-                ModEntry.Mana = manaBar;
+                ModEntry.ManaBarApi = manaBar;
             }
 
-            // hook Json Assets
+            // hook Content Patcher
             {
-                var api = modEntryInstance.Helper.ModRegistry.GetApi<IJsonAssetsApi>("spacechase0.JsonAssets");
-
-                if (api == null)
-                {
-                    modEntryInstance.Monitor.Log("No Json Assets API???", LogLevel.Error);
-                    return;
-                }
-
-                ModEntry.Ja = api;
+                var api = modEntryInstance.Helper.ModRegistry.GetApi<ContentPatcher.IContentPatcherAPI>("Pathoschild.ContentPatcher");
+                ModEntry.ContentPatcherApi = api;
             }
         }
 
@@ -182,6 +181,14 @@ namespace ArsVenefici
         /// <param name="e"> The Save Loaded Event arguement</param>
         public void OnDayStarted(object sender, DayStartedEventArgs e)
         {
+            string rawTokenString = "{{spacechase0.JsonAssets/BigCraftable: Magic Altar}}";
+
+            craftingAltarTokenString = ModEntry.ContentPatcherApi.ParseTokenString(
+               manifest: modEntryInstance.ModManifest,
+               rawValue: rawTokenString,
+               formatVersion: new SemanticVersion("2.2.0")
+            );
+
             modEntryInstance.FixManaPoolIfNeeded(Game1.player);
 
             if (Context.IsWorldReady)
@@ -275,7 +282,14 @@ namespace ArsVenefici
 
             if(Game1.player.itemToEat != null)
             {
-                Game1.player.AddMana((int)(Game1.player.itemToEat.staminaRecoveredOnConsumption() / 3));
+                if (Game1.objectData.TryGetValue(Game1.player.itemToEat.ItemId, out var data))
+                {
+                    if (data != null && data.CustomFields.TryGetValue($"{ModEntry.ArsVenificiContentPatcherId}/Mana", out string manaValue))
+                    {
+                        if (int.TryParse(manaValue, out int value))
+                            Game1.player.AddMana(value);
+                    }
+                }
             }
 
         }
@@ -460,9 +474,16 @@ namespace ArsVenefici
                     {
                         Game1.player.lastClick = toolPixel;
 
-                        if (obj.QualifiedItemId.Equals("(BC)Magic_Altar"))
-                        {
+                        //string s = ModEntry.JsonAssetsApi.GetBigCraftableId("Magic Altar");
+                        string s = $"(BC){ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
 
+                        //if (obj.QualifiedItemId.Equals("(O){{spacechase0.JsonAssets/BigCraftable: Magic Altar}}"))
+
+                        //craftingAltarTokenString.UpdateContext();
+                        //string value = craftingAltarTokenString.Value;
+
+                        if (obj.QualifiedItemId.Equals(s))
+                        {
                             obj.readyForHarvest.Value = true;
 
                             if (obj.checkForAction(Game1.player, true))
@@ -709,7 +730,9 @@ namespace ArsVenefici
         {
             if (!modEntryInstance.LearnedWizardy && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
             {
-                CraftingRecipe craftingRecipe = new CraftingRecipe("Magic_Altar");
+
+                string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
+                CraftingRecipe craftingRecipe = new CraftingRecipe(s);
 
                 //addCraftingRecipe
 
@@ -758,23 +781,6 @@ namespace ArsVenefici
                      modEntryInstance.Helper.Translation.Get("event.learn_wizardry.message_9"),
                      modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_17")
                  );
-
-                //string eventWizardDialogue4 = "speak Wizard \"{0}#$b#{1}#$b#{2}#$b#{3}#$b#{4}#$b#{5}\"/pause 1500/message \"{6}\"/pause 1500/speak Wizard \"{7}\"/message \"{8}\"/pause 1000/message \"{9}\"/speak Wizard \"{10}\"";
-
-                //eventWizardDialogue4 = string.Format(eventWizardDialogue4,
-                //     modEntryInstance.Helper.Translation.Get("event.wizard.5"),
-                //     modEntryInstance.Helper.Translation.Get("event.wizard.6"),
-                //     modEntryInstance.Helper.Translation.Get("event.wizard.7"),
-                //     modEntryInstance.Helper.Translation.Get("event.wizard.8"),
-                //     modEntryInstance.Helper.Translation.Get("event.wizard.9"),
-                //     modEntryInstance.Helper.Translation.Get("event.wizard.10"),
-                //     modEntryInstance.Helper.Translation.Get("event.message.2"),
-                //     modEntryInstance.Helper.Translation.Get("event.wizard.11"),
-                //     modEntryInstance.Helper.Translation.Get("event.message.3"),
-                //     modEntryInstance.Helper.Translation.Get("event.message.4"),
-                //     modEntryInstance.Helper.Translation.Get("event.wizard.12")
-                // );
-
 
                 string eventWizardAboveHeadDialogue = "showFrame Wizard 16/textAboveHead Wizard \"{0}\"";
 
