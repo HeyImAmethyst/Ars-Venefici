@@ -827,7 +827,8 @@ namespace ArsVenefici
                 modEntryInstance.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1); // let player start using magic immediately
                 Game1.player.eventsSeen.Add(modEntryInstance.LearnedWizardryEventId.ToString());
 
-                Game1.player.craftingRecipes.Add(craftingRecipe.name, 0);
+                if (!Game1.player.craftingRecipes.Keys.Contains(s))
+                    Game1.player.craftingRecipes.Add(s, 0);
             }
         }
     }
