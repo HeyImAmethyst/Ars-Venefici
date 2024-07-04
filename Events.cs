@@ -187,6 +187,16 @@ namespace ArsVenefici
                 if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
                     return;
 
+                if (modEntryInstance.LearnedWizardy)
+                {
+                    string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
+
+                    CraftingRecipe craftingRecipe = new CraftingRecipe(s);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(s))
+                        Game1.player.craftingRecipes.Add(s, 0);
+                }
+
                 SpellBook spellBook = Game1.player.GetSpellBook();
 
                 if (spellBook != null)
@@ -265,24 +275,26 @@ namespace ArsVenefici
 
         public void OnItemEaten(object sender, EventArgs args)
         {
-            if (Game1.player.itemToEat == null)
+            if(Game1.player != null)
             {
-                modEntryInstance.Monitor.Log("No item eaten for the item eat event?!?", LogLevel.Error);
-                return;
-            }
-
-            if(Game1.player.itemToEat != null)
-            {
-                if (Game1.objectData.TryGetValue(Game1.player.itemToEat.ItemId, out var data))
+                if (Game1.player.itemToEat == null)
                 {
-                    if (data != null && data.CustomFields.TryGetValue($"{ModEntry.ArsVenificiContentPatcherId}/Mana", out string manaValue))
+                    modEntryInstance.Monitor.Log("No item eaten for the item eat event?!?", LogLevel.Error);
+                    return;
+                }
+
+                if (Game1.player.itemToEat != null && Game1.objectData != null)
+                {
+                    if (Game1.objectData.TryGetValue(Game1.player.itemToEat.ItemId, out var data))
                     {
-                        if (int.TryParse(manaValue, out int value))
-                            Game1.player.AddMana(value);
+                        if (data != null && data.CustomFields.TryGetValue($"{ModEntry.ArsVenificiContentPatcherId}/Mana", out string manaValue))
+                        {
+                            if (int.TryParse(manaValue, out int value))
+                                Game1.player.AddMana(value);
+                        }
                     }
                 }
             }
-
         }
 
         public void OnMenuChanged(object sender, MenuChangedEventArgs e)
@@ -596,14 +608,17 @@ namespace ArsVenefici
 
                     if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is Touch)
                     {
-                       //local = Game1.GlobalToLocal(Game1.viewport, Utility.clampToTile(Game1.player.GetToolLocation(true)));
-                       local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
+                        local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
+
                         spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
                     else if(spell.FirstShape(spell.CurrentShapeGroupIndex()) != null &&  spell.FirstShape(spell.CurrentShapeGroupIndex()) is EtherialTouch)
                     {
-                        //local = Game1.GlobalToLocal(Game1.viewport, Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));    
-                        local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));
+                        Vector2 mousePos = Utility.PointToVector2(Game1.getMousePosition()) + new Vector2(Game1.viewport.X, Game1.viewport.Y);
+                        Vector2 absoluteClampedMousePos = Utility.clampToTile(mousePos);
+
+                        local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+
                         spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
                 }

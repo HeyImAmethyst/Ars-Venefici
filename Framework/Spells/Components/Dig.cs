@@ -70,7 +70,7 @@ namespace ArsVenefici.Framework.Spells.Components
             }
 
             var helper = SpellHelper.Instance();
-            float miningPower = helper.GetModifiedStat(1, new SpellPartStats(SpellPartStatType.POWER), modifiers, spell, caster, target, index);
+            float miningPower = helper.GetModifiedStat(0, new SpellPartStats(SpellPartStatType.POWER), modifiers, spell, caster, target, index);
 
             if(toolLevel + (int)miningPower < 4)
             {
@@ -146,7 +146,8 @@ namespace ArsVenefici.Framework.Spells.Components
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }
-            else if (axe.UpgradeLevel >= 2 || pickaxe.UpgradeLevel >= 2)
+            //else if (axe.UpgradeLevel >= 2 || pickaxe.UpgradeLevel >= 2)
+            else if (toolLevel >= 2)
             {
 
                 ICollection<ResourceClump> clumps = gameLocation.resourceClumps;
@@ -165,15 +166,23 @@ namespace ArsVenefici.Framework.Spells.Components
                                 clumps.Remove(rc);
                                 return new SpellCastResult(SpellCastResultType.SUCCESS);
                             }
-
-                            //break;
                         }
                     }
                 }
 
             }
 
-            return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
+            if (gameLocation.doesTileHaveProperty(blockPos.GetTilePosX(), blockPos.GetTilePosY(), "Diggable", "Back") != null && !gameLocation.IsTileBlockedBy(blockPos.GetVector(), ~(CollisionMask.Characters | CollisionMask.Farmers)))
+            {
+                return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
+            }
+
+            if(gameLocation.doesTileHaveProperty(blockPos.GetTilePosX(), blockPos.GetTilePosY(), "Diggable", "Back") == null)
+            {
+                return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
+            }
+
+            return new SpellCastResult(SpellCastResultType.SUCCESS);
         }
 
         /// <summary>Get whether a given object is debris which can be cleared with a pickaxe.</summary>

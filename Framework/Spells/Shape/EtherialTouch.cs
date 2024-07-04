@@ -14,7 +14,7 @@ namespace ArsVenefici.Framework.Spells.Shape
 {
     public class EtherialTouch : AbstractShape
     {
-        public EtherialTouch() : base(new SpellPartStats(SpellPartStatType.RANGE))
+        public EtherialTouch() : base()
         {
            
         }
@@ -29,7 +29,8 @@ namespace ArsVenefici.Framework.Spells.Shape
             //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
 
             var helper = SpellHelper.Instance();
-            return helper.Invoke(modEntry, spell, caster, level, helper.Trace(modEntry, (Character)caster.entity, level, helper.GetModifiedStat(1f, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index), true, true), ticksUsed, index, awardXp);
+            //return helper.Invoke(modEntry, spell, caster, level, helper.Trace(modEntry, (Character)caster.entity, level, helper.GetModifiedStat(1f, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index), true, true), ticksUsed, index, awardXp);
+            return helper.Invoke(modEntry, spell, caster, level, helper.Trace(modEntry, (Character)caster.entity, level, 1, true, true), ticksUsed, index, awardXp);
         }
 
         public override bool NeedsToComeFirst()

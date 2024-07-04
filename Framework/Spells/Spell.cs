@@ -161,46 +161,51 @@ namespace ArsVenefici.Framework.Spells
 
             int manaValueInt = (int)Math.Round(manaValue - (((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount() / manaValue), 0, MidpointRounding.AwayFromZero);
 
-            if (Game1.player.HasCustomProfession(Skill.Skill.ManaConservationProfession))
+            if(result.IsSuccess() && caster.entity is Farmer)
             {
-                int manaCostPercentage = 75;
-                int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
+                Farmer player = (Farmer)caster.entity;
 
-                if (randomValueBetween0And99 < manaCostPercentage)
+                if (Game1.player.HasCustomProfession(Skill.Skill.ManaConservationProfession))
+                {
+                    int manaCostPercentage = 75;
+                    int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
+
+                    if (randomValueBetween0And99 < manaCostPercentage)
+                    {
+                        ((Farmer)caster.entity).AddMana(-manaValueInt);
+                    }
+                }
+                else
                 {
                     ((Farmer)caster.entity).AddMana(-manaValueInt);
                 }
-            }
-            else
-            {
-                ((Farmer)caster.entity).AddMana(-manaValueInt);
-            }
 
-            if (awardXp && result.IsSuccess() && caster.entity is Farmer player)
-            {
-                bool continuous = IsContinuous();
-
-                int xpTotal = 0;
-
-                foreach (ISpellPart part in Parts())
+                if (awardXp)
                 {
-                    switch (part.GetType())
+                    bool continuous = IsContinuous();
+
+                    int xpTotal = 0;
+
+                    foreach (ISpellPart part in Parts())
                     {
-                        case SpellPartType.SHAPE:
-                        case SpellPartType.MODIFIER:
-                            xpTotal += 1;
-                            break;
-                        case SpellPartType.COMPONENT:
-                            xpTotal += 1;
-                            break;
+                        switch (part.GetType())
+                        {
+                            case SpellPartType.SHAPE:
+                            case SpellPartType.MODIFIER:
+                                xpTotal += 1;
+                                break;
+                            case SpellPartType.COMPONENT:
+                                xpTotal += 1;
+                                break;
+                        }
                     }
+
+                    int xp = xpTotal;
+
+                    if (continuous) xp /= 4;
+
+                    player.AddCustomSkillExperience(ModEntry.Skill, xp);
                 }
-
-                int xp = xpTotal;
-
-                if (continuous) xp /= 4;
-
-                player.AddCustomSkillExperience(ModEntry.Skill, xp);
             }
 
             return result;
