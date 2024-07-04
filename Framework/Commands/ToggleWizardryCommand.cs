@@ -25,7 +25,7 @@ namespace ArsVenefici.Framework.Commands
 
             string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
 
-            if (bool.TryParse(args[0], out value))
+            if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
             {
                 if (value)
                 {
