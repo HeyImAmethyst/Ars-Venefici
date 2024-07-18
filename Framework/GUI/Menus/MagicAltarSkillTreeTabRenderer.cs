@@ -212,7 +212,11 @@ namespace ArsVenefici.Framework.GUI.Menus
 
                 if (!hasPrereq)
                 {
-                    color = new Color(125, 125, 125);
+                    //color = new Color(125, 125, 125);
+                    //color = new Color(75, 75, 75);
+                    //color = new Color(Color.BlueViolet.PackedValue * Color.DarkGray.PackedValue);
+                    //color = new Color(73, 58, 87);
+                    color = new Color(51, 59, 82);
                     //color = Color.Black;
                 }
                 else if (!knows)
@@ -301,6 +305,23 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{hoverItem.GetId()}.name");
             string spellPartDescriptionText = modEntry.Helper.Translation.Get($"spellpart.{hoverItem.GetId()}.description");
+
+            bool knows = helper.Knows(modEntry, player, hoverItem);
+
+            bool hasPrereq = helper.CanLearn(modEntry, player, hoverItem) || knows;
+
+            if (!hasPrereq)
+            {
+                spellPartNameText = spellPartNameText + " (Can't Learn)";
+            }
+            else if (!knows)
+            {
+                spellPartNameText = spellPartNameText + " (Not Learned)";
+            }
+            else
+            {
+                spellPartNameText = spellPartNameText + " (Learned)";
+            }
 
             int val1 = 272;
             if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.fr)

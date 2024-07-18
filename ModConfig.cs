@@ -11,7 +11,7 @@ namespace ArsVenefici
     public class ModConfig
     {
         /// <summary>The pixel position at which to draw the spell lable, relative to the top-left corner of the screen.</summary>
-        public Point Position { get; set; } = new(10, 10);
+        public Point Position { get; set; } = new(574, 896);
 
         /// <summary>Press Shift and this button to open the spell book.</summary>
         public SButton OpenSpellBookButton { get; set; } = SButton.B;
