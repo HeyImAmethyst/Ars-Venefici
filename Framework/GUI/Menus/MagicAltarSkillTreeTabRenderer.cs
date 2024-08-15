@@ -97,7 +97,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             float scaledWidth = width * (1 / SCALE);
             float scaledHeight = height * (1 / SCALE);
 
-            if (parent.Dragging)
+            if (parent.getDragging())
             {
                 offsetX = Math.Clamp(offsetX - (mouseX - lastMouseX), 0, textureWidth - scaledWidth);
                 offsetY = Math.Clamp(offsetY - (mouseY - lastMouseY), 0, textureHeight - scaledHeight);
@@ -248,7 +248,6 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 hoverItem = null;
             }
-
         }
 
         public override void MouseHover(float mouseX, float mouseY)
@@ -274,7 +273,6 @@ namespace ArsVenefici.Framework.GUI.Menus
                 }
                 else
                 {
-                    //hoverItem = null;
                     isHoveringSkill = false;
                 }
             }
@@ -285,9 +283,11 @@ namespace ArsVenefici.Framework.GUI.Menus
             ModEntry modEntry = parent.modEntry;
             Farmer player = Game1.player;
             SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
-            
+
             if (player != null && hoverItem != null && !helper.Knows(modEntry, player, hoverItem))
             {
+                modEntry.Monitor.Log("Mouse Clicked", StardewModdingAPI.LogLevel.Info);
+
                 if (helper.CanLearn(modEntry, player, hoverItem))
                 {
                     foreach (var item in hoverItem.Cost())

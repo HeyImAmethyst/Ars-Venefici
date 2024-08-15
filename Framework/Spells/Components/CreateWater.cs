@@ -1,15 +1,20 @@
 ﻿using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Spells.Shape;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.Extensions;
+using StardewValley.Locations;
 using StardewValley.TerrainFeatures;
+using StardewValley.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using xTile.Dimensions;
 using xTile.Tiles;
 using static ArsVenefici.Framework.GUI.DragNDrop.ShapeGroupArea;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -33,27 +38,39 @@ namespace ArsVenefici.Framework.Spells.Components
             //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
 
             TilePos pos = target.GetTilePos();
+            Vector2 tile = pos.GetVector();
+            Vector2 toolPixel = (tile * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
 
-            Vector2 tile = new Vector2(pos.GetTilePosX(), pos.GetTilePosY());
+            WateringCan wateringCan = new WateringCan();
+            wateringCan.UpgradeLevel = 4;
+            wateringCan.IsEfficient = true; // don't drain stamina
+            wateringCan.IsBottomless = true;
+            modEntry.Helper.Reflection.GetField<Farmer>(wateringCan, "lastUser").SetValue(caster.entity as Farmer);
 
-            gameLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature feature);
-
-            if (feature!= null && feature is HoeDirt dirt)
+            if (gameLocation.objects.TryGetValue(tile, out StardewValley.Object obj))
             {
-                dirt.state.Value = HoeDirt.watered;
-
-                gameLocation.temporarySprites.Add(new TemporaryAnimatedSprite(13, new Vector2(pos.GetTilePosX() * (float)Game1.tileSize, pos.GetTilePosY() * (float)Game1.tileSize), Color.White, 10, Game1.random.NextDouble() < 0.5, 70f, 0, Game1.tileSize, (float)((pos.GetTilePosY() * (double)Game1.tileSize + Game1.tileSize / 2) / 10000.0 - 0.00999999977648258))
-                {
-                    delayBeforeAnimationStart = 10
-                });
-
-                gameLocation.localSound("wateringCan", tile);
+                ((Farmer)caster.entity).lastClick = toolPixel;
+                wateringCan.DoFunction(gameLocation, (int)toolPixel.X, (int)toolPixel.Y, 0, ((Farmer)caster.entity));
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
-
             }
+            else if (gameLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature feature))
+            {
+                //feature.performToolAction(wateringCan, 0, tile);
 
-            return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
+                ((Farmer)caster.entity).lastClick = toolPixel;
+                wateringCan.DoFunction(gameLocation, (int)toolPixel.X, (int)toolPixel.Y, 0, ((Farmer)caster.entity));
+
+                return new SpellCastResult(SpellCastResultType.SUCCESS);
+            }
+            else if(gameLocation.performToolAction(wateringCan, (int)tile.X, (int)tile.Y))
+            {
+                return new SpellCastResult(SpellCastResultType.SUCCESS);
+            }
+            else
+            {
+                return new SpellCastResult(SpellCastResultType.SUCCESS);
+            }
         }
 
         public override int ManaCost()

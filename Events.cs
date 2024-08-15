@@ -38,6 +38,10 @@ using ContentPatcher;
 using StardewValley.ItemTypeDefinitions;
 using StardewValley.GameData.Crops;
 using StardewValley.GameData.Objects;
+using SpaceCore.UI;
+using static ArsVenefici.ModConfig;
+using static StardewValley.Minigames.MineCart.Whale;
+using System.Net;
 
 namespace ArsVenefici
 {
@@ -94,52 +98,164 @@ namespace ArsVenefici
                     setValue: value => modEntryInstance.Config.Position = new(modEntryInstance.Config.Position.X, value)
                 );
 
-                configMenu.AddKeybind(
+                //Keyboard Controlls Config UI
+
+                configMenu.AddSectionTitle(
+                    mod: modEntryInstance.ModManifest,
+                    text: () => modEntryInstance.Helper.Translation.Get("config.keyboard_controlls_section_title.name"),
+                    tooltip: () => modEntryInstance.Helper.Translation.Get("config.keyboard_controlls_section_title.tooltip")
+                );
+
+                configMenu.AddKeybindList(
                     mod: modEntryInstance.ModManifest,
                     name: () => modEntryInstance.Helper.Translation.Get("config.open_spellbook_key.name"),
                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.open_spellbook_key.tooltip"),
-                    getValue: () => modEntryInstance.Config.OpenSpellBookButton,
-                    setValue: value => modEntryInstance.Config.OpenSpellBookButton = value
+                    getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.OpenSpellBookButtons,
+                    setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.OpenSpellBookButtons = value
                 );
 
-                configMenu.AddKeybind(
+                configMenu.AddKeybindList(
                      mod: modEntryInstance.ModManifest,
                      name: () => modEntryInstance.Helper.Translation.Get("config.spell_toggle_key.name"),
                      tooltip: () => modEntryInstance.Helper.Translation.Get("config.spell_toggle_key.tooltip"),
-                     getValue: () => modEntryInstance.Config.SpellToggle,
-                     setValue: value => modEntryInstance.Config.SpellToggle = value
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.SpellToggles,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.SpellToggles = value
                  );
 
-                configMenu.AddKeybind(
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.move_spell_label_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.move_spell_label_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.MoveSpellLabelButtons,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.MoveSpellLabelButtons = value
+                 );
+
+                configMenu.AddKeybindList(
                      mod: modEntryInstance.ModManifest,
                      name: () => modEntryInstance.Helper.Translation.Get("config.next_spell_key.name"),
                      tooltip: () => modEntryInstance.Helper.Translation.Get("config.next_spell_key.tooltip"),
-                     getValue: () => modEntryInstance.Config.NextSpellButton,
-                     setValue: value => modEntryInstance.Config.NextSpellButton = value
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.NextSpellButtons,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.NextSpellButtons = value
                  );
 
-                configMenu.AddKeybind(
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.next_shape_group_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.next_shape_group_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.NextShapeGroupButtons,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.NextShapeGroupButtons = value
+                 );
+
+                configMenu.AddKeybindList(
                      mod: modEntryInstance.ModManifest,
                      name: () => modEntryInstance.Helper.Translation.Get("config.previous_spell_key.name"),
                      tooltip: () => modEntryInstance.Helper.Translation.Get("config.previous_spell_key.tooltip"),
-                     getValue: () => modEntryInstance.Config.PreviousSpellButton,
-                     setValue: value => modEntryInstance.Config.PreviousSpellButton = value
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.PreviousSpellButtons,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.PreviousSpellButtons = value
                  );
 
-                configMenu.AddKeybind(
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.previous_shape_group_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.previous_shape_group_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.PreviousShapeGroupButtons,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.PreviousShapeGroupButtons = value
+                 );
+
+                configMenu.AddKeybindList(
                      mod: modEntryInstance.ModManifest,
                      name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_key.name"),
                      tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_key.tooltip"),
-                     getValue: () => modEntryInstance.Config.CastSpellButton,
-                     setValue: value => modEntryInstance.Config.CastSpellButton = value
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellButtons,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellButtons = value
                  );
 
-                configMenu.AddKeybind(
+                configMenu.AddKeybindList(
                      mod: modEntryInstance.ModManifest,
                      name: () => modEntryInstance.Helper.Translation.Get("config.open_tutorial_text_key.name"),
                      tooltip: () => modEntryInstance.Helper.Translation.Get("config.open_tutorial_text_key.tooltip"),
-                     getValue: () => modEntryInstance.Config.OpenTutorialTextButton,
-                     setValue: value => modEntryInstance.Config.OpenTutorialTextButton = value
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.OpenTutorialTextButtons,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.OpenTutorialTextButtons = value
+                 );
+
+                //Controller Controlls Config UI
+
+                configMenu.AddSectionTitle(
+                    mod: modEntryInstance.ModManifest,
+                    text: () => modEntryInstance.Helper.Translation.Get("config.controller_controlls_section_title.name"),
+                    tooltip: () => modEntryInstance.Helper.Translation.Get("config.controller_controlls_section_title.tooltip")
+                );
+
+                configMenu.AddKeybindList(
+                    mod: modEntryInstance.ModManifest,
+                    name: () => modEntryInstance.Helper.Translation.Get("config.open_spellbook_key.name"),
+                    tooltip: () => modEntryInstance.Helper.Translation.Get("config.open_spellbook_key.tooltip"),
+                    getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.OpenSpellBookButtons,
+                    setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.OpenSpellBookButtons = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.spell_toggle_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.spell_toggle_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.SpellToggles,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.SpellToggles = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.move_spell_label_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.move_spell_label_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.MoveSpellLabelButtons,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.MoveSpellLabelButtons = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.next_spell_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.next_spell_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.NextSpellButtons,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.NextSpellButtons = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.next_shape_group_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.next_shape_group_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.NextShapeGroupButtons,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.NextShapeGroupButtons = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.previous_spell_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.previous_spell_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.PreviousSpellButtons,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.PreviousSpellButtons = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.previous_shape_group_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.previous_shape_group_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.PreviousShapeGroupButtons,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.PreviousShapeGroupButtons = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellButtons,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellButtons = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.open_tutorial_text_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.open_tutorial_text_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.OpenTutorialTextButtons,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.OpenTutorialTextButtons = value
                  );
             }
 
@@ -275,7 +391,7 @@ namespace ArsVenefici
 
         public void OnItemEaten(object sender, EventArgs args)
         {
-            if(Game1.player != null)
+            if (Game1.player != null)
             {
                 if (Game1.player.itemToEat == null)
                 {
@@ -287,10 +403,16 @@ namespace ArsVenefici
                 {
                     if (Game1.objectData.TryGetValue(Game1.player.itemToEat.ItemId, out var data))
                     {
-                        if (data != null && data.CustomFields.TryGetValue($"{ModEntry.ArsVenificiContentPatcherId}/Mana", out string manaValue))
+                        if (data != null)
                         {
-                            if (int.TryParse(manaValue, out int value))
-                                Game1.player.AddMana(value);
+                            if(data.CustomFields != null)
+                            {
+                                if(data.CustomFields.TryGetValue($"{ModEntry.ArsVenificiContentPatcherId}/Mana", out string manaValue))
+                                {
+                                    if (int.TryParse(manaValue, out int value))
+                                        Game1.player.AddMana(value);
+                                }
+                            }
                         }
                     }
                 }
@@ -323,7 +445,7 @@ namespace ArsVenefici
         /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        public void OnButtonPressed(object sender, ButtonPressedEventArgs e)
+        public void OnButtonsChanged(object sender, ButtonsChangedEventArgs e)
         {
             if (Game1.activeClickableMenu != null)
                 return;
@@ -333,69 +455,88 @@ namespace ArsVenefici
 
             Farmer farmer = Game1.player;
             SpellBook spellBook = farmer.GetSpellBook();
-            var helper = SpellHelper.Instance();
+
+            var spellHelper = SpellHelper.Instance();
             SpellPartSkillHelper knowlegeHelper = SpellPartSkillHelper.Instance();
 
             if (Context.IsPlayerFree)
             {
                 var input = modEntryInstance.Helper.Input;
 
-                if (e.Button == modEntryInstance.Config.OpenSpellBookButton)//if (input.IsDown(modEntryInstance.Config.OpenSpellBookButton))
+                //if(Game1.isAnyGamePadButtonBeingPressed == true)
+                //if(Game1.options.gamepadMode == Options.GamepadModes.Auto)
+
+                ModKeyBinds modKeyBinds;
+
+                //if (Game1.input.GetGamePadState().)
+                //{
+                //    modKeyBinds = modEntryInstance.Config.controllerKeyBinds.modKeyBinds;
+                //}
+                //else 
+                //{
+                //    modKeyBinds = modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds;
+                //}
+
+                if (Game1.input.GetKeyboardState().GetPressedKeys().Length != 0)
                 {
-                    if (Game1.GetKeyboardState().IsKeyDown(Keys.LeftShift) || Game1.GetKeyboardState().IsKeyDown(Keys.RightShift))
-                        Game1.activeClickableMenu = new SpellBookMenu(modEntryInstance);
+                    modKeyBinds = modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds;
+                }
+                else
+                {
+                    modKeyBinds = modEntryInstance.Config.controllerKeyBinds.modKeyBinds;
                 }
 
-                if (e.Button == modEntryInstance.Config.SpellToggle)
+                //modKeyBinds = modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds;
+                //modKeyBinds = modEntryInstance.Config.controllerKeyBinds.modKeyBinds;
+
+                if (modKeyBinds.OpenSpellBookButtons.JustPressed())//if (input.IsDown(modEntryInstance.Config.OpenSpellBookButton))
                 {
-                    if (Game1.GetKeyboardState().IsKeyDown(Keys.LeftShift) || Game1.GetKeyboardState().IsKeyDown(Keys.RightShift))
-                    {
-                        modEntryInstance.Config.Position = new Point((int)e.Cursor.ScreenPixels.X, (int)e.Cursor.ScreenPixels.Y);
-                        modEntryInstance.Helper.WriteConfig(modEntryInstance.Config);
-                    }
-                    else
-                    {
-                        ModEntry.SpellCastingMode = !ModEntry.SpellCastingMode;
-                    }
+                    Game1.activeClickableMenu = new SpellBookMenu(modEntryInstance);
                 }
 
-                if (e.Button == modEntryInstance.Config.NextSpellButton)
+                if (modKeyBinds.SpellToggles.JustPressed())
                 {
-                    if (Game1.GetKeyboardState().IsKeyDown(Keys.LeftShift) || Game1.GetKeyboardState().IsKeyDown(Keys.RightShift))
-                    {
-                        helper.NextShapeGroup(spellBook.GetCurrentSpell());
-                    }
-                    else
-                    {
-                        spellBook.SetCurrentSpellIndex(ValidateSpellIndex(spellBook.GetCurrentSpellIndex() + 1));
-
-                        spellBook.TurnToSpell();
-                        spellBook.SaveSpellBook(modEntryInstance);
-                    }
-
+                    ModEntry.SpellCastingMode = !ModEntry.SpellCastingMode;
                 }
 
-                if (e.Button == modEntryInstance.Config.PreviousSpellButton)
+                if (modKeyBinds.MoveSpellLabelButtons.JustPressed())
                 {
-                    if (Game1.GetKeyboardState().IsKeyDown(Keys.LeftShift) || Game1.GetKeyboardState().IsKeyDown(Keys.RightShift))
-                    {
-                        helper.PrevShapeGroup(spellBook.GetCurrentSpell());
-                    }
-                    else
-                    {
-                        spellBook.SetCurrentSpellIndex(ValidateSpellIndex(spellBook.GetCurrentSpellIndex() - 1));
-
-                        spellBook.TurnToSpell();
-                        spellBook.SaveSpellBook(modEntryInstance);
-                    }
+                    modEntryInstance.Config.Position = new Point((int)e.Cursor.ScreenPixels.X, (int)e.Cursor.ScreenPixels.Y);
+                    modEntryInstance.Helper.WriteConfig(modEntryInstance.Config);
                 }
 
-                if (e.Button == modEntryInstance.Config.CastSpellButton && ModEntry.SpellCastingMode)
+                if (modKeyBinds.NextSpellButtons.JustPressed())
+                {
+                    spellBook.SetCurrentSpellIndex(ValidateSpellIndex(spellBook.GetCurrentSpellIndex() + 1));
+
+                    spellBook.TurnToSpell();
+                    spellBook.SaveSpellBook(modEntryInstance);
+                }
+
+                if (modKeyBinds.NextShapeGroupButtons.JustPressed())
+                {
+                    spellHelper.NextShapeGroup(spellBook.GetCurrentSpell());
+                }
+
+                if (modKeyBinds.PreviousSpellButtons.JustPressed())
+                {
+                    spellBook.SetCurrentSpellIndex(ValidateSpellIndex(spellBook.GetCurrentSpellIndex() - 1));
+
+                    spellBook.TurnToSpell();
+                    spellBook.SaveSpellBook(modEntryInstance);
+                }
+
+                if (modKeyBinds.PreviousShapeGroupButtons.JustPressed())
+                {
+                    spellHelper.PrevShapeGroup(spellBook.GetCurrentSpell());
+                }
+
+                if (modKeyBinds.CastSpellButtons.JustPressed() && ModEntry.SpellCastingMode)
                 {
                     CastSpell(farmer);
                 }
 
-                if (modEntryInstance.LearnedWizardy && e.Button == modEntryInstance.Config.OpenTutorialTextButton)
+                if (modEntryInstance.LearnedWizardy && modKeyBinds.OpenTutorialTextButtons.JustPressed())
                 {
                     tutorialTextString.Clear();
 
@@ -404,9 +545,9 @@ namespace ArsVenefici
                     tutorialTextString.AppendLine("^");
 
                     tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_7") + "^");
-                    
+
                     tutorialTextString.AppendLine("^");
-                    
+
                     tutorialTextString.AppendLine(modEntryInstance.Helper.Translation.Get("event.learn_wizardry.wizard_dialogue_9") + "^");
 
                     tutorialTextString.AppendLine("^");
@@ -468,7 +609,7 @@ namespace ArsVenefici
                     Game1.activeClickableMenu = new LetterViewerMenu(tutorialTextString.ToString());
                 }
 
-                if (modEntryInstance.LearnedWizardy && e.Button == SButton.MouseRight)
+                if (modEntryInstance.LearnedWizardy && (input.GetState(SButton.MouseRight) == SButtonState.Pressed || input.GetState(SButton.ControllerA) == SButtonState.Pressed))
                 {
                     Vector2 toolLocationTile = Utils.AbsolutePosToTilePos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
                     Vector2 toolPixel = (toolLocationTile * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
@@ -614,9 +755,14 @@ namespace ArsVenefici
                     }
                     else if(spell.FirstShape(spell.CurrentShapeGroupIndex()) != null &&  spell.FirstShape(spell.CurrentShapeGroupIndex()) is EtherialTouch)
                     {
-                        Vector2 mousePos = Utility.PointToVector2(Game1.getMousePosition()) + new Vector2(Game1.viewport.X, Game1.viewport.Y);
-                        Vector2 absoluteClampedMousePos = Utility.clampToTile(mousePos);
+                        //Vector2 mousePos = Utility.PointToVector2(Game1.getMousePosition()) + new Vector2(Game1.viewport.X, Game1.viewport.Y);
+                        //Vector2 absoluteClampedMousePos = Utility.clampToTile(mousePos);
 
+                        //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+
+                        ICursorPosition cursorPosition = modEntryInstance.Helper.Input.GetCursorPosition();
+                        
+                        Vector2 absoluteClampedMousePos = Utility.clampToTile(cursorPosition.AbsolutePixels);
                         local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
 
                         spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);

@@ -9,23 +9,38 @@
 	"config.position_x.tooltip": "La position X en pixels pour l’infobulle des sorts, relative au coin supérieur gauche de l'écran.",
 	"config.position_y.tooltip": "La position Y en pixels pour l’infobulle  des sorts, relative au coin supérieur gauche de l'écran.",
 
-	"config.open_spellbook_key.name": "Bouton Ouvrir le Grimoire",
-	"config.open_spellbook_key.tooltip": "Appuyez sur Shift et ce bouton pour ouvrir le grimoire (livre de sorts).",
+	"config.keyboard_controlls_section_title.name": "Keyboard Controlls",
+	"config.keyboard_controlls_section_title.tooltip": "When using a keyboard as input, these are the controlls that will be used for some of the mod's input functions.",
 
-	"config.spell_toggle_key.name": "Spell Toggle Button",
-	"config.spell_toggle_key.tooltip": "The button to toggle spell casting on or off. Appuyez sur Shift et ce bouton pour déplacer l'infobulle de sort.",
+	"config.controller_controlls_section_title.name": "Controller Controlls",
+	"config.controller_controlls_section_title.tooltip": "When using a controller as input, these are the controlls that will be used for some of the mod's input functions.",
 
-	"config.next_spell_key.name": "Bouton Sort suivant",
-	"config.next_spell_key.tooltip": "Le bouton pour passer au sort suivant. Appuyez sur Shift et ce bouton̉ pour passer au prochain groupe de formes sur le sort sélectionné.",
+	"config.open_spellbook_key.name": "Open Spell Book Buttons",
+	"config.open_spellbook_key.tooltip": "A list of keybinds to open the spell book.",
 
-	"config.previous_spell_key.name": "Bouton Sort précédent",
-	"config.previous_spell_key.tooltip": "Le bouton pour revenir au sort précédent. Appuyez sur Shift et ce bouton̉ pour passer au précédent groupe de formes sur le sort sélectionné.",
+	"config.spell_toggle_key.name": "Spell Toggle Buttons",
+	"config.spell_toggle_key.tooltip": "A list of keybinds to toggle spell casting on or off.",
 
-	"config.cast_spell_key.name": "Bouton Lancer le sort",
-	"config.cast_spell_key.tooltip": "Le bouton pour lancer le sort actuel.",
+	"config.move_spell_label_key.name": "Move Spell Label Buttons",
+	"config.move_spell_label_key.tooltip": "A list of keybinds to move the spell lable.",
 
-	"config.open_tutorial_text_key.name": "Open Tutorial Text Button",
-	"config.open_tutorial_text_key.tooltip": "The button to open a menu showing the text from the tutorial.",
+	"config.next_spell_key.name": "Next Spell Buttons",
+	"config.next_spell_key.tooltip": "A list of keybinds to move to the next spell.",
+
+	"config.next_shape_group_key.name": "Next Shape Group Buttons",
+	"config.next_shape_group_key.tooltip": "A list of keybinds to move to the next shape group on the selected spell.",
+
+	"config.previous_spell_key.name": "Previous Spell Buttons",
+	"config.previous_spell_key.tooltip": "A list of keybinds to move to the previous spell. Press Shift and this button to move to the previous shape group on the selected spell.",
+
+	"config.previous_shape_group_key.name": "Previous Shape Group Buttons",
+	"config.previous_shape_group_key.tooltip": "A list of keybinds to move to the previous shape group on the selected spell.",
+
+	"config.cast_spell_key.name": "Cast Spell Buttons",
+	"config.cast_spell_key.tooltip": "A list of keybinds to cast the current spell.",
+
+	"config.open_tutorial_text_key.name": "Open Tutorial Text Buttons",
+	"config.open_tutorial_text_key.tooltip": "A list of keybinds to open a menu showing the text from the tutorial.",
 
 	/*********
 	** Éléments de sort

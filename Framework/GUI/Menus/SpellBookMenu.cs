@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json;
 using SpaceCore.Content;
+using SpaceCore.UI;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Locations;
@@ -34,15 +35,15 @@ namespace ArsVenefici.Framework.GUI.Menus
         /// <summary>The areas to draw.</summary>
         private List<DragArea<SpellPartDraggable>> dragAreas = new List<DragArea<SpellPartDraggable>>();
 
-        SpellBook spellBook;
+        private SpellBook spellBook;
 
         private SpellPartSourceArea sourceArea;
         private SpellGrammarArea spellGrammarArea;
         private ShapeGroupListArea shapeGroupArea;
 
         private SpellPartDraggable dragged;
-        DragArea<SpellPartDraggable> hoveredArea;
-        SpellPartDraggable hoveredPart;
+        private DragArea<SpellPartDraggable> hoveredArea;
+        private SpellPartDraggable hoveredPart;
 
         public List<ClickableTextureComponent> buttons = new List<ClickableTextureComponent>();
 
@@ -54,8 +55,8 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         private readonly List<ClickableComponent> clickables = new List<ClickableComponent>();
 
-        ClickableComponent PageNumberLable;
-        ClickableComponent TotalManaCostLable;
+        private ClickableComponent PageNumberLable;
+        private ClickableComponent TotalManaCostLable;
 
         private const int BasePlayId = 2000;
 
@@ -77,7 +78,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         public static int windowWidth = 220 + borderWidth * 2;
         public static int windowHeight = 252 + borderWidth * 2 + Game1.tileSize;
 
-        int currentPageIndex = 0;
+        private int currentPageIndex = 0;
 
         public SpellBookMenu(ModEntry modEntry)
             : base((int)GetAppropriateMenuPosition().X, (int)GetAppropriateMenuPosition().Y, windowWidth, windowHeight, true)
@@ -257,6 +258,18 @@ namespace ArsVenefici.Framework.GUI.Menus
                 }
 
                 SetDragged(null);
+            }
+        }
+
+        public override void populateClickableComponentList()
+        {
+            if (dragAreas != null && buttons != null && nameBoxCC != null)
+            {
+                allClickableComponents = new List<ClickableComponent>(dragAreas.Count + buttons.Count + 1);
+                this.allClickableComponents.AddRange(this.dragAreas);
+                this.allClickableComponents.AddRange(this.buttons);
+                this.allClickableComponents.Add(this.nameBoxCC);
+                this.allClickableComponents.Add(this.upperRightCloseButton);
             }
         }
 
@@ -693,16 +706,22 @@ namespace ArsVenefici.Framework.GUI.Menus
         {
             if (key != 0)
             {
-                if (Game1.options.doesInputListContain(Game1.options.menuButton, key) && readyToClose())
+                if (!nameBox.Selected && Game1.options.doesInputListContain(Game1.options.menuButton, key) && readyToClose())
                 {
-                    if (key != Keys.E)
-                        exitThisMenu();
+                    exitThisMenu();
                 }
                 else if (Game1.options.snappyMenus && Game1.options.gamepadControls && !overrideSnappyMenuCursorMovementBan())
                 {
                     applyMovementKey(key);
                 }
             }
+
+            //base.receiveKeyPress(key);
+        }
+
+        public override void snapToDefaultClickableComponent()
+        {
+            //setCurrentlySnappedComponentTo(springButtonId);
         }
 
         private void SetDragged(SpellPartDraggable dragged)

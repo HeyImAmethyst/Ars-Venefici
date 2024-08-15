@@ -106,7 +106,7 @@ namespace ArsVenefici
         /// </summary>
         private void SetUpEvents()
         {
-            helper.Events.Input.ButtonPressed += eventsHandler.OnButtonPressed;
+            helper.Events.Input.ButtonsChanged += eventsHandler.OnButtonsChanged;
 
             helper.Events.Display.RenderingHud += eventsHandler.OnRenderingHud;
             helper.Events.Display.RenderedHud += eventsHandler.OnRenderedHud;

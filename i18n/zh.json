@@ -9,23 +9,38 @@
     "config.position_x.tooltip": "屏幕上魔法标签相对于左上角的X轴像素位置。",
     "config.position_y.tooltip": "屏幕上魔法标签相对于左上角的Y轴像素位置。",
 
-    "config.open_spellbook_key.name": "打开魔法书快捷键",
-    "config.open_spellbook_key.tooltip": "同时按下Shift键加此键可打开魔法书。",
+    "config.keyboard_controlls_section_title.name": "Keyboard Controlls",
+    "config.keyboard_controlls_section_title.tooltip": "When using a keyboard as input, these are the controlls that will be used for some of the mod's input functions.",
 
-    "config.spell_toggle_key.name": "魔法开关按钮",
-    "config.spell_toggle_key.tooltip": "切换魔法施放开启或关闭的按钮。同时按下Shift键加此键可移动魔法标签。",
+    "config.controller_controlls_section_title.name": "Controller Controlls",
+    "config.controller_controlls_section_title.tooltip": "When using a controller as input, these are the controlls that will be used for some of the mod's input functions.",
 
-    "config.next_spell_key.name": "下个魔法快捷键",
-    "config.next_spell_key.tooltip": "用于切换到下一个魔法的按键。若同时按下Shift键，则可切换到选定魔法的下一组形状。",
+    "config.open_spellbook_key.name": "Open Spell Book Buttons",
+    "config.open_spellbook_key.tooltip": "A list of keybinds to open the spell book.",
 
-    "config.previous_spell_key.name": "上个魔法快捷键",
-    "config.previous_spell_key.tooltip": "用于切换到上一个魔法的按键。若同时按下Shift键，则可切换到选定魔法的上一组形状。",
+    "config.spell_toggle_key.name": "Spell Toggle Buttons",
+    "config.spell_toggle_key.tooltip": "A list of keybinds to toggle spell casting on or off.",
 
-    "config.cast_spell_key.name": "施放魔法快捷键",
-    "config.cast_spell_key.tooltip": "用于施放当前选定魔法的按键。",
+    "config.move_spell_label_key.name": "Move Spell Label Buttons",
+    "config.move_spell_label_key.tooltip": "A list of keybinds to move the spell lable.",
 
-    "config.open_tutorial_text_key.name": "打开教程文本按钮",
-    "config.open_tutorial_text_key.tooltip": "打开显示教程文本的菜单的按钮。",
+    "config.next_spell_key.name": "Next Spell Buttons",
+    "config.next_spell_key.tooltip": "A list of keybinds to move to the next spell.",
+
+    "config.next_shape_group_key.name": "Next Shape Group Buttons",
+    "config.next_shape_group_key.tooltip": "A list of keybinds to move to the next shape group on the selected spell.",
+
+    "config.previous_spell_key.name": "Previous Spell Buttons",
+    "config.previous_spell_key.tooltip": "A list of keybinds to move to the previous spell. Press Shift and this button to move to the previous shape group on the selected spell.",
+
+    "config.previous_shape_group_key.name": "Previous Shape Group Buttons",
+    "config.previous_shape_group_key.tooltip": "A list of keybinds to move to the previous shape group on the selected spell.",
+
+    "config.cast_spell_key.name": "Cast Spell Buttons",
+    "config.cast_spell_key.tooltip": "A list of keybinds to cast the current spell.",
+
+    "config.open_tutorial_text_key.name": "Open Tutorial Text Buttons",
+    "config.open_tutorial_text_key.tooltip": "A list of keybinds to open a menu showing the text from the tutorial.",
 
     /*********
 	** Spell Parts
@@ -156,43 +171,43 @@
     *********/
 
     "event.learn_wizardry.wizard_dialogue_1": "你好，@。",
-    
+
     "event.learn_wizardry.wizard_dialogue_2": "我注意到你对魔法有着浓厚的兴趣。",
     "event.learn_wizardry.wizard_dialogue_3": "你愿意学习如何创造自己的魔法吗？",
-    
+
     "event.learn_wizardry.wizard_dialogue_4": "非常好。这是你的魔法书。",
-    
+
     "event.learn_wizardry.message_1": "法师赠予你一本魔法书！现在你可以创造自己的魔法了。按下Shift键和'B'键即可打开。",
-    
+
     "event.learn_wizardry.wizard_dialogue_5": "魔法书将向你展示所有可用的魔法组件。",
     "event.learn_wizardry.wizard_dialogue_6": "但因为你刚开始学习，你没有可以使用的魔法组件。",
     "event.learn_wizardry.wizard_dialogue_7": "要学习魔法组件，你需要使用魔法祭坛。",
     "event.learn_wizardry.wizard_dialogue_8": "这是它的配方。",
-   
+
     "event.learn_wizardry.message_2": "法师给了你一个魔法祭坛的配方！",
-    
+
     "event.learn_wizardry.wizard_dialogue_9": "将祭坛放置在地图中并右键点击。你会看到你能学习的所有魔法组件。",
     "event.learn_wizardry.wizard_dialogue_10": "学习这些魔法组件需要材料，所以确保你手头有这些材料。",
-    
+
     "event.learn_wizardry.message_3": "右键点击魔法祭坛将打开它的菜单！有三个技能树：攻击、防御和实用。你可以使用菜单顶部的标签按钮在它们之间切换。",
     "event.learn_wizardry.message_4": "左键点击并拖动以移动技能树的视图。将鼠标悬停在你想要学习魔法组件的上会出现一个提示。",
     "event.learn_wizardry.message_5": "提示让你知道需要哪些材料，以及你需要习得哪些魔法组件才能继续学习你想要的魔法组件。",
     "event.learn_wizardry.message_6": "当你满足了要求，左键点击魔法组件图标来学习它！这将消耗你库存中的材料。",
-    
+
     "event.learn_wizardry.wizard_dialogue_11": "要创造魔法，你需要在当前页面的每个形状组中放置一个或多个正方形组件。",
     "event.learn_wizardry.wizard_dialogue_12": "然后在魔法页面的语法区域中放置一个或多个八边形组件。",
     "event.learn_wizardry.wizard_dialogue_13": "你可以使用修饰符（菱形）来改变形状和组件的行为。",
     "event.learn_wizardry.wizard_dialogue_14": "别忘了给你的魔法起个名字。一旦创造完成，关闭魔法书，魔法就会被保存。",
     "event.learn_wizardry.wizard_dialogue_15": "关闭魔法书后，你可以浏览你的魔法列表。",
-    
+
     "event.learn_wizardry.message_7": "使用'Z'和'X'键来浏览你的魔法列表。也可以使用Shift键加'Z'和Shift键加'X'来浏览魔法的形状组。",
-    
+
     "event.learn_wizardry.wizard_dialogue_16": "选择好你想要的魔法后，你就可以施放它了。",
-    
+
     "event.learn_wizardry.message_8": "要施放魔法，请按Q键。",
     "event.learn_wizardry.message_9": "通过按 'G' 键，可以再次查看本教程的信息。这些控制选项可以在Ars Venefici的配置文件中进行调整。",
-    
+
     "event.learn_wizardry.wizard_dialogue_17": "愿你在魔法的道路上一切顺利。",
-    
+
     "event.learn_wizardry.wizard_dialogue_abovehead": "魔法"
 }

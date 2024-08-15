@@ -61,7 +61,7 @@ Every shape and modifier is multiplied together to create a multiplier value. Ev
 
 # Adding New Items That Replenish Mana
 
-Version 1.2.0 of this mod adds the ability for you to add food items that replenish mana using Content Patcher! Take a look at this wiki page for a guide to add in custom items via Content Patcher﻿. For your item to replenish mana, add this field to your item:
+Version 1.2.0 of this mod adds the ability for you to add food items that replenish mana using Content Patcher! [Take a look at this wiki page for a guide to add in custom items via Content Patcher﻿](https://stardewvalleywiki.com/Modding:Items#Define_a_custom_item). For your item to replenish mana, add this field to your item:
 
 ```
 "CustomFields":

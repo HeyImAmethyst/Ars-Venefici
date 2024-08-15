@@ -195,7 +195,7 @@ namespace ArsVenefici.Framework.Spells
                                 xpTotal += 1;
                                 break;
                             case SpellPartType.COMPONENT:
-                                xpTotal += 1;
+                                xpTotal += 2;
                                 break;
                         }
                     }
@@ -363,6 +363,7 @@ namespace ArsVenefici.Framework.Spells
             {
                 if (group.Parts()[0].GetType() != SpellPartType.SHAPE) return false;
             }
+
             return true;
         }
 

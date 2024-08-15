@@ -45,8 +45,6 @@ namespace ArsVenefici.Framework.GUI.Menus
         private Dictionary<MagicAltarTab, MagicAltarTabRenderer> occulusTabs = new Dictionary<MagicAltarTab, MagicAltarTabRenderer>();
         private readonly List<MagicAltarTabButton> tabButtons = new List<MagicAltarTabButton>();
 
-        public bool Dragging;
-
         public MagicAltarMenu(ModEntry modEntry)
            : base((int)GetAppropriateMenuPosition().X, (int)GetAppropriateMenuPosition().Y, GUI_WIDTH, GUI_HEIGHT, true)
         {
@@ -134,6 +132,16 @@ namespace ArsVenefici.Framework.GUI.Menus
             }
         }
 
+        public override void populateClickableComponentList()
+        {
+            if (tabButtons != null)
+            {
+                allClickableComponents = new List<ClickableComponent>(this.tabButtons.Count + 1);
+                this.allClickableComponents.AddRange(this.tabButtons);
+                this.allClickableComponents.Add(this.upperRightCloseButton);
+            }
+        }
+
         /// <summary>Draw the menu to the screen.</summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public override void draw(SpriteBatch spriteBatch)
@@ -144,8 +152,27 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             base.draw(spriteBatch);
 
-            int pMouseX = Game1.getOldMouseX();
-            int pMouseY = Game1.getOldMouseY();
+            int pMouseX;
+            int pMouseY;
+
+            //GamePadState gamePadState = Game1.input.GetGamePadState();
+
+            //if (gamePadMoveWithRightStickEnabled)
+            //{
+            //    pMouseX = (int)gamePadState.ThumbSticks.Right.X;
+            //    pMouseY = (int)gamePadState.ThumbSticks.Right.Y;
+
+            //    Game1.setMousePosition(pMouseX, pMouseY);
+            //    leftClickHeld(pMouseX, pMouseY);
+            //}
+            //else
+            //{
+            //    pMouseX = Game1.getOldMouseX();
+            //    pMouseY = Game1.getOldMouseY();
+            //}
+
+            pMouseX = Game1.getOldMouseX();
+            pMouseY = Game1.getOldMouseY();
 
             int x = xPositionOnScreen;
             int y = yPositionOnScreen;
@@ -171,7 +198,6 @@ namespace ArsVenefici.Framework.GUI.Menus
         /// <param name="playSound">Whether to enable sound.</param>
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
-            base.receiveLeftClick(x, y, playSound);
 
             if (activeTab != null)
                 activeTab.MouseClicked(x, y);
@@ -191,6 +217,8 @@ namespace ArsVenefici.Framework.GUI.Menus
                     button.scale = Math.Max(3.5f, button.scale);
                 }
             }
+
+            base.receiveLeftClick(x, y, playSound);
         }
 
         public override void leftClickHeld(int x, int y)
@@ -198,7 +226,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             foreach (MagicAltarTabRenderer renderer in occulusTabs.Values)
             {
                 if (renderer.bounds.Contains(x, y))
-                    Dragging = true;
+                    setDragging(true);
             }
 
             base.leftClickHeld(x, y);
@@ -207,7 +235,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         public override void releaseLeftClick(int x, int y)
         {
             base.releaseLeftClick(x, y);
-            Dragging = false;
+            setDragging(false);
         }
 
         /// <summary>The method invoked when the player hovers the cursor over the menu.</summary>
@@ -215,8 +243,6 @@ namespace ArsVenefici.Framework.GUI.Menus
         /// <param name="y">The Y-position of the cursor.</param>
         public override void performHoverAction(int x, int y)
         {
-            base.performHoverAction(x, y);
-
             if (activeTab != null)
                 activeTab.MouseHover(x, y);
 
@@ -227,6 +253,8 @@ namespace ArsVenefici.Framework.GUI.Menus
                     tabButton.IsHovered(x, y);
                 }
             }
+
+            base.performHoverAction(x, y);
         }
 
         private void setActiveTab(int tabIndex)
