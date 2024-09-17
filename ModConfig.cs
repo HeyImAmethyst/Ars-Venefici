@@ -39,6 +39,36 @@ namespace ArsVenefici
 
             /// <summary>A list of keybinds to open a menu showing the text from the tutorial.</summary>
             public KeybindList OpenTutorialTextButtons { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 1st page of the spell book.</summary>
+            public KeybindList CastSpellPage1 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 2nd page of the spell book.</summary>
+            public KeybindList CastSpellPage2 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 3rd page of the spell book.</summary>
+            public KeybindList CastSpellPage3 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 4th page of the spell book.</summary>
+            public KeybindList CastSpellPage4 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 5th page of the spell book.</summary>
+            public KeybindList CastSpellPage5 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 6th page of the spell book.</summary>
+            public KeybindList CastSpellPage6 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 7th page of the spell book.</summary>
+            public KeybindList CastSpellPage7 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 8th page of the spell book.</summary>
+            public KeybindList CastSpellPage8 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 9th page of the spell book.</summary>
+            public KeybindList CastSpellPage9 { get; set; }
+
+            /// <summary>A list of keybinds to cast the spell in the 10th page of the spell book.</summary>
+            public KeybindList CastSpellPage10 { get; set; }
         }
 
         public class KeyBoardKeyBinds
@@ -58,6 +88,17 @@ namespace ArsVenefici
                 modKeyBinds.PreviousShapeGroupButtons = new KeybindList(new Keybind(SButton.LeftShift, SButton.Z));
                 modKeyBinds.CastSpellButtons = new KeybindList(new Keybind(SButton.Q));
                 modKeyBinds.OpenTutorialTextButtons = new KeybindList(new Keybind(SButton.G));
+
+                modKeyBinds.CastSpellPage1 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage2 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage3 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage4 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage5 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage6 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage7 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage8 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage9 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage10 = new KeybindList(new Keybind());
             }
         }
 
@@ -78,6 +119,17 @@ namespace ArsVenefici
                 modKeyBinds.PreviousShapeGroupButtons = new KeybindList(new Keybind(SButton.LeftStick, SButton.LeftShoulder));
                 modKeyBinds.CastSpellButtons = new KeybindList(new Keybind(SButton.LeftStick, SButton.RightTrigger));
                 modKeyBinds.OpenTutorialTextButtons = new KeybindList(new Keybind(SButton.LeftStick, SButton.LeftTrigger));
+
+                modKeyBinds.CastSpellPage1 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage2 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage3 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage4 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage5 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage6 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage7 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage8 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage9 = new KeybindList(new Keybind());
+                modKeyBinds.CastSpellPage10 = new KeybindList(new Keybind());
             }
         }
 

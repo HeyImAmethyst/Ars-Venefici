@@ -34,7 +34,29 @@ namespace ArsVenefici.Framework.Spells.Effects
             this.spell = spell;
             this.radius = radius;
 
-            this.Tex = new Texture2D(Game1.graphics.GraphicsDevice, Game1.tileSize * (int)radius, Game1.tileSize * (int)radius);
+            int boundingBoxRadius = 3;
+
+            switch ((int)radius)
+            {
+                case 1:
+                    boundingBoxRadius = 3;
+                    break;
+                case 2:
+                    boundingBoxRadius = 5;
+                    break;
+                case 3:
+                    boundingBoxRadius = 7;
+                    break;
+                default:
+                    boundingBoxRadius = 3;
+                    break;
+
+            }
+
+            boundingBoxRadius *= Game1.tileSize;
+
+            //this.Tex = new Texture2D(Game1.graphics.GraphicsDevice, Game1.tileSize * (int)radius, Game1.tileSize * (int)radius);
+            this.Tex = new Texture2D(Game1.graphics.GraphicsDevice, boundingBoxRadius, boundingBoxRadius);
 
             int width = Tex.Width;
             int height = Tex.Height;
@@ -95,7 +117,8 @@ namespace ArsVenefici.Framework.Spells.Effects
             Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
             Vector2 screenPos = Utils.TilePosToScreenPos(tilePos);
 
-            //spriteBatch.Draw(Tex, screenPos, new Rectangle(0, 0, Tex.Width, Tex.Height), Color.White);
+            //spriteBatch.Draw(Tex, Game1.GlobalToLocal(Game1.viewport, this.GetBoundingBox()), new Rectangle(0, 0, Tex.Width, Tex.Height), Color.White);
+            //spriteBatch.Draw(Tex, screenPos, r, Color.White);
 
             float speed = -0.5f;
 

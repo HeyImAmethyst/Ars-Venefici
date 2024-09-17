@@ -55,6 +55,11 @@ namespace ArsVenefici.Framework.Spells.Shape
                 projectile.bouncesLeft.Value = (int)helper.GetModifiedStat(0, new SpellPartStats(SpellPartStatType.BOUNCE), modifiers, spell, caster, hit, index);
                 projectile.piercesLeft.Value = (int)helper.GetModifiedStat(0, new SpellPartStats(SpellPartStatType.PIERCING), modifiers, spell, caster, hit, index);
 
+                if(projectile.piercesLeft.Value > 0)
+                {
+                    projectile.IgnoreLocationCollision = true;
+                }
+
                 character.currentLocation.projectiles.Add(projectile);
             }
 

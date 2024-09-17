@@ -104,7 +104,8 @@ namespace ArsVenefici.Framework.Spells
 
         public ShapeGroup ShapeGroup(int shapeGroup)
         {
-            if (shapeGroup > ShapeGroups().Count() - 1) return null;
+            //if (shapeGroup > ShapeGroups().Count() - 1) return null;
+            if (shapeGroup > ShapeGroups().Count() - 1) return ShapeGroups()[0];
 
             return ShapeGroups()[shapeGroup];
         }

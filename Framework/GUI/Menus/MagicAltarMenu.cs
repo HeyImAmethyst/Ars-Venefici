@@ -188,6 +188,15 @@ namespace ArsVenefici.Framework.GUI.Menus
                 }
             }
 
+            IClickableMenu.drawTextureBox(spriteBatch, xPositionOnScreen - 520, yPositionOnScreen + 200, 270, 250, Color.White);
+
+            string dragLabel = "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.";
+
+            string parsedText = Game1.parseText(dragLabel.ToString(), Game1.smallFont, 230);
+
+            Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 500, yPositionOnScreen + 230), Game1.textColor);
+
+
             // draw cursor
             drawMouse(spriteBatch);
         }

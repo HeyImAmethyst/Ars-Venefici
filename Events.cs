@@ -168,7 +168,7 @@ namespace ArsVenefici
                      tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_key.tooltip"),
                      getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellButtons,
                      setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellButtons = value
-                 );
+                );
 
                 configMenu.AddKeybindList(
                      mod: modEntryInstance.ModManifest,
@@ -176,6 +176,86 @@ namespace ArsVenefici
                      tooltip: () => modEntryInstance.Helper.Translation.Get("config.open_tutorial_text_key.tooltip"),
                      getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.OpenTutorialTextButtons,
                      setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.OpenTutorialTextButtons = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_1_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_1_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage1,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage1 = value
+                );
+
+                configMenu.AddKeybindList(
+                    mod: modEntryInstance.ModManifest,
+                    name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_2_key.name"),
+                    tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_2_key.tooltip"),
+                    getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage2,
+                    setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage2 = value
+                );
+
+                configMenu.AddKeybindList(
+                    mod: modEntryInstance.ModManifest,
+                    name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_3_key.name"),
+                    tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_3_key.tooltip"),
+                    getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage3,
+                    setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage3 = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_4_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_4_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage4,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage4 = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_5_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_5_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage5,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage5 = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_6_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_6_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage6,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage6 = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_7_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_7_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage7,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage7 = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_8_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_8_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage8,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage8 = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_9_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_9_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage9,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage9 = value
+                 );
+
+                 configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_10_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_10_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage10,
+                     setValue: value => modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds.CastSpellPage10 = value
                  );
 
                 //Controller Controlls Config UI
@@ -257,6 +337,86 @@ namespace ArsVenefici
                      getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.OpenTutorialTextButtons,
                      setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.OpenTutorialTextButtons = value
                  );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_1_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_1_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage1,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage1 = value
+                );
+
+                configMenu.AddKeybindList(
+                    mod: modEntryInstance.ModManifest,
+                    name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_2_key.name"),
+                    tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_2_key.tooltip"),
+                    getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage2,
+                    setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage2 = value
+                );
+
+                configMenu.AddKeybindList(
+                    mod: modEntryInstance.ModManifest,
+                    name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_3_key.name"),
+                    tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_3_key.tooltip"),
+                    getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage3,
+                    setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage3 = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_4_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_4_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage4,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage4 = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_5_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_5_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage5,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage5 = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_6_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_6_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage6,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage6 = value
+                );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_7_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_7_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage7,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage7 = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_8_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_8_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage8,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage8 = value
+                 );
+
+                configMenu.AddKeybindList(
+                     mod: modEntryInstance.ModManifest,
+                     name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_9_key.name"),
+                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_9_key.tooltip"),
+                     getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage9,
+                     setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage9 = value
+                 );
+
+                configMenu.AddKeybindList(
+                    mod: modEntryInstance.ModManifest,
+                    name: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_10_key.name"),
+                    tooltip: () => modEntryInstance.Helper.Translation.Get("config.cast_spell_10_key.tooltip"),
+                    getValue: () => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage10,
+                    setValue: value => modEntryInstance.Config.controllerKeyBinds.modKeyBinds.CastSpellPage10 = value
+                );
             }
 
             // hook Mana Bar
@@ -531,9 +691,90 @@ namespace ArsVenefici
                     spellHelper.PrevShapeGroup(spellBook.GetCurrentSpell());
                 }
 
-                if (modKeyBinds.CastSpellButtons.JustPressed() && ModEntry.SpellCastingMode)
+                if (ModEntry.SpellCastingMode)
                 {
-                    CastSpell(farmer);
+                    if(modKeyBinds.CastSpellButtons.JustPressed())
+                        CastSpell(farmer);
+
+                    if (modKeyBinds.CastSpellPage1.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(0);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage2.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(1);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage3.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(2);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage4.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(3);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage5.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(4);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage6.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(5);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage7.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(6);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage8.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(7);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage9.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(8);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
+
+                    if (modKeyBinds.CastSpellPage10.JustPressed())
+                    {
+                        spellBook.SetCurrentSpellIndex(9);
+                        spellBook.TurnToSpell();
+                        spellBook.SaveSpellBook(modEntryInstance);
+                        CastSpell(farmer);
+                    }
                 }
 
                 if (modEntryInstance.LearnedWizardy && modKeyBinds.OpenTutorialTextButtons.JustPressed())
@@ -709,23 +950,23 @@ namespace ArsVenefici
 
             //foreach (Character character in location.characters)
             //{
-            //    RectangleSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, character.GetBoundingBox()), Color.Red, 1);
+            //    DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, character.GetBoundingBox()), Color.Red, 1);
             //}
 
             //foreach (Farmer farmer in location.farmers)
             //{
-            //    RectangleSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, farmer.GetBoundingBox()), Color.Red, 1);
+            //    DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, farmer.GetBoundingBox()), Color.Red, 1);
             //}
 
             //foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
             //{
-            //    if(effect != null && effect is AbstractSpellEffect abstractSpellEffect) 
-            //        RectangleSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
+            //    if (effect != null && effect is AbstractSpellEffect abstractSpellEffect)
+            //        DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
             //}
 
             RenderTouchIndicator(e.SpriteBatch);
 
-            // draw active effects
+            //draw active effects
             foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
                 effect.Draw(e.SpriteBatch);
         }

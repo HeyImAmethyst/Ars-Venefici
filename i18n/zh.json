@@ -9,38 +9,68 @@
     "config.position_x.tooltip": "屏幕上魔法标签相对于左上角的X轴像素位置。",
     "config.position_y.tooltip": "屏幕上魔法标签相对于左上角的Y轴像素位置。",
 
-    "config.keyboard_controlls_section_title.name": "Keyboard Controlls",
-    "config.keyboard_controlls_section_title.tooltip": "When using a keyboard as input, these are the controlls that will be used for some of the mod's input functions.",
+    "config.keyboard_controlls_section_title.name": "键盘控制",
+    "config.keyboard_controlls_section_title.tooltip": "当使用键盘作为输入设备时，这些键位将用于模组的一些输入功能。",
 
-    "config.controller_controlls_section_title.name": "Controller Controlls",
-    "config.controller_controlls_section_title.tooltip": "When using a controller as input, these are the controlls that will be used for some of the mod's input functions.",
+    "config.controller_controlls_section_title.name": "手柄控制",
+    "config.controller_controlls_section_title.tooltip": "当使用手柄作为输入设备时，这些键位将用于模组的一些输入功能。",
 
-    "config.open_spellbook_key.name": "Open Spell Book Buttons",
-    "config.open_spellbook_key.tooltip": "A list of keybinds to open the spell book.",
+    "config.open_spellbook_key.name": "打开魔法书按键",
+    "config.open_spellbook_key.tooltip": "一系列用于打开魔法书的按键绑定。",
 
-    "config.spell_toggle_key.name": "Spell Toggle Buttons",
-    "config.spell_toggle_key.tooltip": "A list of keybinds to toggle spell casting on or off.",
+    "config.spell_toggle_key.name": "魔法切换按键",
+    "config.spell_toggle_key.tooltip": "一系列用于切换魔法施放开关的按键绑定。",
 
-    "config.move_spell_label_key.name": "Move Spell Label Buttons",
-    "config.move_spell_label_key.tooltip": "A list of keybinds to move the spell lable.",
+    "config.move_spell_label_key.name": "移动魔法标签按键",
+    "config.move_spell_label_key.tooltip": "一系列用于移动魔法标签的按键绑定。",
 
-    "config.next_spell_key.name": "Next Spell Buttons",
-    "config.next_spell_key.tooltip": "A list of keybinds to move to the next spell.",
+    "config.next_spell_key.name": "下一项魔法按钮",
+    "config.next_spell_key.tooltip": "用于切换到下一项魔法的一系列按键绑定。",
 
-    "config.next_shape_group_key.name": "Next Shape Group Buttons",
-    "config.next_shape_group_key.tooltip": "A list of keybinds to move to the next shape group on the selected spell.",
+    "config.next_shape_group_key.name": "下一组形状按钮",
+    "config.next_shape_group_key.tooltip": "用于切换到所选魔法的下一组形状的一系列按键绑定。",
 
-    "config.previous_spell_key.name": "Previous Spell Buttons",
-    "config.previous_spell_key.tooltip": "A list of keybinds to move to the previous spell. Press Shift and this button to move to the previous shape group on the selected spell.",
+    "config.previous_spell_key.name": "上一项魔法按钮",
+    "config.previous_spell_key.tooltip": "用于切换到上一项魔法的一系列按键绑定。按住Shift键并按下此按钮，可以切换到所选魔法的上一组形状。",
 
-    "config.previous_shape_group_key.name": "Previous Shape Group Buttons",
-    "config.previous_shape_group_key.tooltip": "A list of keybinds to move to the previous shape group on the selected spell.",
+    "config.previous_shape_group_key.name": "上一组形状按钮",
+    "config.previous_shape_group_key.tooltip": "用于切换到所选魔法的上一组形状的一系列按键绑定。",
 
-    "config.cast_spell_key.name": "Cast Spell Buttons",
-    "config.cast_spell_key.tooltip": "A list of keybinds to cast the current spell.",
+    "config.cast_spell_key.name": "施放魔法按钮",
+    "config.cast_spell_key.tooltip": "用于施放当前魔法的一系列按键绑定。",
 
-    "config.open_tutorial_text_key.name": "Open Tutorial Text Buttons",
-    "config.open_tutorial_text_key.tooltip": "A list of keybinds to open a menu showing the text from the tutorial.",
+    "config.open_tutorial_text_key.name": "打开教程文本按钮",
+    "config.open_tutorial_text_key.tooltip": "用于打开显示教程文本菜单的一系列按键绑定。",
+
+    "config.cast_spell_1_key.name": "Cast Spell Page 1",
+    "config.cast_spell_1_key.tooltip": "A list of keybinds to cast the spell in the 1st page of the spell book.",
+
+    "config.cast_spell_2_key.name": "Cast Spell Page 2",
+    "config.cast_spell_2_key.tooltip": "A list of keybinds to cast the spell in the 2nd page of the spell book.",
+
+    "config.cast_spell_3_key.name": "Cast Spell Page 3",
+    "config.cast_spell_3_key.tooltip": "A list of keybinds to cast the spell in the 3rd page of the spell book.",
+
+    "config.cast_spell_4_key.name": "Cast Spell Page 4",
+    "config.cast_spell_4_key.tooltip": "A list of keybinds to cast the spell in the 4th page of the spell book.",
+
+    "config.cast_spell_5_key.name": "Cast Spell Page 5",
+    "config.cast_spell_5_key.tooltip": "A list of keybinds to cast the spell in the 5th page of the spell book.",
+
+    "config.cast_spell_6_key.name": "Cast Spell Page 6",
+    "config.cast_spell_6_key.tooltip": "A list of keybinds to cast the spell in the 6th page of the spell book.",
+
+    "config.cast_spell_7_key.name": "Cast Spell Page 7",
+    "config.cast_spell_7_key.tooltip": "A list of keybinds to cast the spell in the 7th page of the spell book.",
+
+    "config.cast_spell_8_key.name": "Cast Spell Page 8",
+    "config.cast_spell_8_key.tooltip": "A list of keybinds to cast the spell in the 8th page of the spell book.",
+
+    "config.cast_spell_9_key.name": "Cast Spell Page 9",
+    "config.cast_spell_9_key.tooltip": "A list of keybinds to cast the spell in the 9th page of the spell book.",
+
+    "config.cast_spell_10_key.name": "Cast Spell Page 10",
+    "config.cast_spell_10_key.tooltip": "A list of keybinds to cast the spell in the 10th page of the spell book.",
 
     /*********
 	** Spell Parts

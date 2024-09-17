@@ -42,6 +42,36 @@
 	"config.open_tutorial_text_key.name": "Open Tutorial Text Buttons",
 	"config.open_tutorial_text_key.tooltip": "A list of keybinds to open a menu showing the text from the tutorial.",
 
+	"config.cast_spell_1_key.name": "Cast Spell Page 1",
+	"config.cast_spell_1_key.tooltip": "A list of keybinds to cast the spell in the 1st page of the spell book.",
+
+	"config.cast_spell_2_key.name": "Cast Spell Page 2",
+	"config.cast_spell_2_key.tooltip": "A list of keybinds to cast the spell in the 2nd page of the spell book.",
+
+	"config.cast_spell_3_key.name": "Cast Spell Page 3",
+	"config.cast_spell_3_key.tooltip": "A list of keybinds to cast the spell in the 3rd page of the spell book.",
+
+	"config.cast_spell_4_key.name": "Cast Spell Page 4",
+	"config.cast_spell_4_key.tooltip": "A list of keybinds to cast the spell in the 4th page of the spell book.",
+
+	"config.cast_spell_5_key.name": "Cast Spell Page 5",
+	"config.cast_spell_5_key.tooltip": "A list of keybinds to cast the spell in the 5th page of the spell book.",
+
+	"config.cast_spell_6_key.name": "Cast Spell Page 6",
+	"config.cast_spell_6_key.tooltip": "A list of keybinds to cast the spell in the 6th page of the spell book.",
+
+	"config.cast_spell_7_key.name": "Cast Spell Page 7",
+	"config.cast_spell_7_key.tooltip": "A list of keybinds to cast the spell in the 7th page of the spell book.",
+
+	"config.cast_spell_8_key.name": "Cast Spell Page 8",
+	"config.cast_spell_8_key.tooltip": "A list of keybinds to cast the spell in the 8th page of the spell book.",
+
+	"config.cast_spell_9_key.name": "Cast Spell Page 9",
+	"config.cast_spell_9_key.tooltip": "A list of keybinds to cast the spell in the 9th page of the spell book.",
+
+	"config.cast_spell_10_key.name": "Cast Spell Page 10",
+	"config.cast_spell_10_key.tooltip": "A list of keybinds to cast the spell in the 10th page of the spell book.",
+
 	/*********
 	** Éléments de sort
 	*********/

@@ -99,6 +99,10 @@ namespace ArsVenefici.Framework.Spells.Components
                 
                 farmer.health -= (int)damage;
 
+                //level.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(farmer.getStandingPositionstandingPixel.X + 8, standingPixel.Y), Color.Red, 1f, farmer));
+                gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
+                farmer.playNearbySoundAll("ow");
+
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }
 

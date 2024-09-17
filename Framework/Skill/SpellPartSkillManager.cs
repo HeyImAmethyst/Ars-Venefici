@@ -51,11 +51,11 @@ namespace ArsVenefici.Framework.Skill
         private void AddOffense()
         {
 
-            SpellPartSkill projectile = new SpellPartSkill("projectile", new HashSet<SpellPartSkill>(), new Dictionary<Item, int>{ { ItemRegistry.Create("(O)101"), 1 } }, offenceTab, 210, 30, false);
+            SpellPartSkill projectile = new SpellPartSkill("projectile", new HashSet<SpellPartSkill>(), new Dictionary<Item, int>{ { ItemRegistry.Create("(W)32"), 1 } }, offenceTab, 210, 30, false);
             
-            SpellPartSkill physicalDamage = new SpellPartSkill("physical_damage", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)109") , 1} }, offenceTab, 210, 75, false);
+            SpellPartSkill physicalDamage = new SpellPartSkill("physical_damage", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5") , 1} }, offenceTab, 210, 75, false);
             SpellPartSkill bounce = new SpellPartSkill("bounce", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)766"), 20 } }, offenceTab, 150, 30, false);
-            SpellPartSkill piercing = new SpellPartSkill("piercing", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)118"), 5 } }, offenceTab, 345, 50, false);
+            SpellPartSkill piercing = new SpellPartSkill("piercing", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)691"), 5 } }, offenceTab, 345, 50, false);
             SpellPartSkill velocity = new SpellPartSkill("velocity", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)395"), 1 } }, offenceTab, 255, 30, false);
 
             SpellPartSkill damage = new SpellPartSkill("damage", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)848"), 5 } }, offenceTab, 210, 165, false); //210, 165

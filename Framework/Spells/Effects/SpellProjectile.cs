@@ -34,39 +34,39 @@ namespace ArsVenefici.Framework.Spells.Effects
         private SpellProjectile(ModEntry modEntry, IEntity source)
         {
             this.modEntry = modEntry;
-            this.Source = source;
+            Source = source;
 
-            this.NetFields.AddField(this.Direction);
-            this.NetFields.AddField(this.Velocity);
-            this.NetFields.AddField(this.Index);
+            NetFields.AddField(Direction);
+            NetFields.AddField(Velocity);
+            NetFields.AddField(Index);
             //this.NetFields.AddField(this.TexId);
 
-            this.Tex = modEntry.Helper.ModContent.Load<Texture2D>("assets/projectile/projectile.png");
+            Tex = modEntry.Helper.ModContent.Load<Texture2D>("assets/projectile/projectile.png");
 
-            this.damagesMonsters.Value = true;
+            damagesMonsters.Value = true;
         }
 
         public SpellProjectile(ModEntry modEntry, IEntity source, ISpell spell, float direction, int index, float velocity)
             : this(modEntry, source)
         {
-            this.Source = source;
+            Source = source;
             this.spell = spell;
-            this.Index.Value = index;
-            this.Direction.Value = direction;
-            this.Velocity.Value = velocity;
+            Index.Value = index;
+            Direction.Value = direction;
+            Velocity.Value = velocity;
 
             if(source.entity is Character character)
             {
-                this.theOneWhoFiredMe.Set(character.currentLocation, character);
+                theOneWhoFiredMe.Set(character.currentLocation, character);
 
-                this.position.Value = character.getStandingPosition();
-                this.position.X += character.GetBoundingBox().Width;
-                this.position.Y += character.GetBoundingBox().Height;
+                position.Value = character.getStandingPosition();
+                position.X += character.GetBoundingBox().Width;
+                position.Y += character.GetBoundingBox().Height;
             }
 
-            this.rotation = direction;
-            this.xVelocity.Value = (float)Math.Cos(this.Direction.Value) * this.Velocity.Value;
-            this.yVelocity.Value = (float)Math.Sin(this.Direction.Value) * this.Velocity.Value;
+            rotation = direction;
+            xVelocity.Value = (float)Math.Cos(Direction.Value) * Velocity.Value;
+            yVelocity.Value = (float)Math.Sin(Direction.Value) * Velocity.Value;
 
             //this.Tex = Content.LoadTexture($"magic/{this.Spell.ParentSchoolId}/{this.Spell.Id}/projectile.png");
             //this.TexId.Value = Content.LoadTextureKey($"magic/{this.Spell.ParentSchoolId}/{this.Spell.Id}/projectile.png");
@@ -314,14 +314,14 @@ namespace ArsVenefici.Framework.Spells.Effects
             CharacterHitResult hitResult = new CharacterHitResult(npc);
 
             SpellHelper spellHelper = SpellHelper.Instance();
-            spellHelper.Invoke(modEntry, spell, this.Source, location, hitResult, 0, Index.Value, false);
-
-            this.Disappear(location);
+            spellHelper.Invoke(modEntry, spell, Source, location, hitResult, 0, Index.Value, false);
+            
+            //Disappear(location);
         }
 
         public override void behaviorOnCollisionWithOther(GameLocation location)
         {
-            this.Disappear(location);
+            //Disappear(location);
         }
 
         public override void behaviorOnCollisionWithPlayer(GameLocation location, Farmer player)
@@ -329,47 +329,47 @@ namespace ArsVenefici.Framework.Spells.Effects
             CharacterHitResult hitResult = new CharacterHitResult(player);
 
             SpellHelper spellHelper = SpellHelper.Instance();
-            spellHelper.Invoke(modEntry, spell, this.Source, location, hitResult, 0, Index.Value, false);
+            spellHelper.Invoke(modEntry, spell, Source, location, hitResult, 0, Index.Value, false);
 
-            this.Disappear(location);
+            //Disappear(location);
         }
 
         public override void behaviorOnCollisionWithTerrainFeature(TerrainFeature t, Vector2 tileLocation, GameLocation location)
         {
-            TerrainFeatureHitResult hitResult = new TerrainFeatureHitResult(tileLocation, this.Direction.Value, new TilePos(tileLocation), false);
+            TerrainFeatureHitResult hitResult = new TerrainFeatureHitResult(tileLocation, Direction.Value, new TilePos(tileLocation), false);
 
             SpellHelper spellHelper = SpellHelper.Instance();
-            spellHelper.Invoke(modEntry, spell, this.Source, location, hitResult, 0, Index.Value, false);
+            spellHelper.Invoke(modEntry, spell, Source, location, hitResult, 0, Index.Value, false);
 
-            this.Disappear(location);
+            //Disappear(location);
         }
 
         public virtual void behaviorOnCollisionWithObject(StardewValley.Object obj, GameLocation location)
         {
 
-            TerrainFeatureHitResult hitResult = new TerrainFeatureHitResult(obj.TileLocation, this.Direction.Value, new TilePos(obj.TileLocation), false);
+            TerrainFeatureHitResult hitResult = new TerrainFeatureHitResult(obj.TileLocation, Direction.Value, new TilePos(obj.TileLocation), false);
 
             SpellHelper spellHelper = SpellHelper.Instance();
-            spellHelper.Invoke(modEntry, spell, this.Source, location, hitResult, 0, Index.Value, false);
+            spellHelper.Invoke(modEntry, spell, Source, location, hitResult, 0, Index.Value, false);
 
 
-            this.Disappear(location);
+            //Disappear(location);
 
         }
 
         public virtual void behaviorOnCollisionWithResourceClump(ResourceClump clump, Vector2 tileLocation, GameLocation location)
         {
-            TerrainFeatureHitResult hitResult = new TerrainFeatureHitResult(tileLocation, this.Direction.Value, new TilePos(tileLocation), false);
+            TerrainFeatureHitResult hitResult = new TerrainFeatureHitResult(tileLocation, Direction.Value, new TilePos(tileLocation), false);
 
             SpellHelper spellHelper = SpellHelper.Instance();
-            spellHelper.Invoke(modEntry, spell, this.Source, location, hitResult, 0, Index.Value, false);
+            spellHelper.Invoke(modEntry, spell, Source, location, hitResult, 0, Index.Value, false);
 
-            this.Disappear(location);
+            //Disappear(location);
         }
 
         public override Microsoft.Xna.Framework.Rectangle getBoundingBox()
         {
-            return new((int)(this.position.X - Game1.tileSize), (int)(this.position.Y - Game1.tileSize), Game1.tileSize / 2, Game1.tileSize / 2);
+            return new((int)(position.X - Game1.tileSize), (int)(position.Y - Game1.tileSize), Game1.tileSize / 2, Game1.tileSize / 2);
         }
 
         
@@ -536,22 +536,22 @@ namespace ArsVenefici.Framework.Spells.Effects
             //this.position.X += this.xVelocity.Value;
             //this.position.Y += this.yVelocity.Value;
 
-            this.xVelocity.Value += this.acceleration.X;
-            this.yVelocity.Value += this.acceleration.Y;
-            if ((double)this.maxVelocity.Value != -1.0 && Math.Sqrt((double)this.xVelocity.Value * (double)this.xVelocity.Value + (double)this.yVelocity.Value * (double)this.yVelocity.Value) >= (double)this.maxVelocity.Value)
+            xVelocity.Value += acceleration.X;
+            yVelocity.Value += acceleration.Y;
+            if ((double)maxVelocity.Value != -1.0 && Math.Sqrt((double)xVelocity.Value * (double)xVelocity.Value + (double)yVelocity.Value * (double)yVelocity.Value) >= (double)maxVelocity.Value)
             {
-                this.xVelocity.Value -= this.acceleration.X;
-                this.yVelocity.Value -= this.acceleration.Y;
+                xVelocity.Value -= acceleration.X;
+                yVelocity.Value -= acceleration.Y;
             }
-            this.position.X += this.xVelocity.Value;
-            this.position.Y += this.yVelocity.Value;
+            position.X += xVelocity.Value;
+            position.Y += yVelocity.Value;
         }
 
         public override void draw(SpriteBatch b)
         {
             //this.Tex ??= Game1.content.Load<Texture2D>(this.TexId.Value);
-            Vector2 drawPos = Game1.GlobalToLocal(new Vector2(this.getBoundingBox().X + this.getBoundingBox().Width / 2, this.getBoundingBox().Y + this.getBoundingBox().Height / 2));
-            b.Draw(this.Tex, drawPos, new Microsoft.Xna.Framework.Rectangle(0, 0, this.Tex.Width, this.Tex.Height), Color.White, this.Direction.Value, new Vector2(this.Tex.Width / 2, this.Tex.Height / 2), 2, SpriteEffects.None, (float)((this.position.Y + (double)(Game1.tileSize * 3 / 2)) / 10000.0));
+            Vector2 drawPos = Game1.GlobalToLocal(new Vector2(getBoundingBox().X + getBoundingBox().Width / 2, getBoundingBox().Y + getBoundingBox().Height / 2));
+            b.Draw(Tex, drawPos, new Microsoft.Xna.Framework.Rectangle(0, 0, Tex.Width, Tex.Height), Color.White, Direction.Value, new Vector2(Tex.Width / 2, Tex.Height / 2), 2, SpriteEffects.None, (float)((position.Y + (double)(Game1.tileSize * 3 / 2)) / 10000.0));
             //Vector2 bdp = Game1.GlobalToLocal(new Vector2(getBoundingBox().X, getBoundingBox().Y));
             //b.Draw(Mod.instance.manaFg, new Rectangle((int)bdp.X, (int)bdp.Y, getBoundingBox().Width, getBoundingBox().Height), Color.White);
         }
@@ -565,7 +565,7 @@ namespace ArsVenefici.Framework.Spells.Effects
             //Game1.createRadialDebris(loc, this.TexId.Value, Game1.getSourceRectForStandardTileSheet(Projectile.projectileSheet, 0), 4, (int)this.position.X, (int)this.position.Y, 6 + SpellProjectile.Rand.Next(10), (int)(this.position.Y / (double)Game1.tileSize) + 1, new Color(255, 255, 255, 8 + SpellProjectile.Rand.Next(64)), 2.0f);
             //Game1.createRadialDebris(loc, tex, new Rectangle(0, 0, tex.Width, tex.Height), 0, ( int ) position.X, ( int ) position.Y, 3 + rand.Next(5), ( int ) position.Y / Game1.tileSize, Color.White, 5.0f);
             
-            this.destroyMe = true;
+            destroyMe = true;
 
             loc.projectiles.RemoveWhere((Func<Projectile, bool>)(projectile =>
             {
