@@ -87,7 +87,7 @@ namespace ArsVenefici.Framework.Spells.Components
             while (true)
             {
                 int id = (int)this.GetNewId();
-                if (!location.hasLightSource(id))
+                if (!location.hasLightSource(id.ToString()))
                     return id;
             }
         }

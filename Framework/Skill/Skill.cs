@@ -20,10 +20,10 @@ namespace ArsVenefici.Framework.Skill
         public static readonly string WizardrySkillId = "HeyImAmethyst.Wizardry";
 
         /// <summary>The level 5 'mana efficency' profession.</summary>
-        public static GenericProfession ManaEfficiencyProfession;
+        public static ManaEfficiencyProfession ManaEfficiencyProfession;
 
         /// <summary>The level 10 'mana efficency II' profession.</summary>
-        public static GenericProfession ManaEfficiency2Profession;
+        public static ManaEfficiencyProfession ManaEfficiency2Profession;
 
         /// <summary>The level 10 'mana conservation' profession.</summary>
         public static GenericProfession ManaConservationProfession;
@@ -35,7 +35,7 @@ namespace ArsVenefici.Framework.Skill
         public static GenericProfession ManaRegen2Profession;
 
         /// <summary>The level 10 'Mana Reserve' profession.</summary>
-        public static GenericProfession ManaReserveProfession;
+        public static ManaCapProfession ManaReserveProfession;
 
         public Skill(ModEntry modEntry) : base(Skill.WizardrySkillId)
         {

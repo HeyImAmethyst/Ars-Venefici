@@ -3,12 +3,15 @@ using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using xTile.Dimensions;
+using static ArsVenefici.Framework.GUI.DragNDrop.SpellPartDraggable;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -51,8 +54,17 @@ namespace ArsVenefici.Framework.Spells.Components
             Vector2 toolPixel = (tile * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
 
             // skip if blocked
+
             if (gameLocation.terrainFeatures.ContainsKey(tile))
-                return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
+            {
+                if (gameLocation.terrainFeatures.TryGetValue(tile, out var terrainFeature))
+                {
+                    if (terrainFeature.performToolAction(hoe, 0, tile))
+                    {
+                        gameLocation.terrainFeatures.Remove(tile);
+                    }
+                }
+            }
 
             // handle artifact spot, else skip if blocked
             if (gameLocation.objects.TryGetValue(tile, out StardewValley.Object obj))
@@ -62,6 +74,10 @@ namespace ArsVenefici.Framework.Spells.Components
                     gameLocation.digUpArtifactSpot(blockPos.GetTilePosX(), blockPos.GetTilePosY(), caster.entity as Farmer);
                     gameLocation.objects.Remove(tile);
                     return new SpellCastResult(SpellCastResultType.SUCCESS);
+                }
+                else if(obj.QualifiedItemId == "(O)SeedSpot")
+                {
+                    obj.performToolAction(hoe);
                 }
                 else
                     return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);

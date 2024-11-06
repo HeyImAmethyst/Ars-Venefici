@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Netcode;
 using StardewValley;
+using StardewValley.Extensions;
 using StardewValley.Locations;
 using StardewValley.Monsters;
 using StardewValley.Projectiles;
@@ -120,9 +121,9 @@ namespace ArsVenefici.Framework.Spells.Effects
                 behaviorOnCollisionWithPlayer(location, farmer);
             }
 
-            if (flag && piercesLeft.Value <= 0 && hasLit && Utility.getLightSource(lightID) != null)
+            if (flag && piercesLeft.Value <= 0 && hasLit && Utility.getLightSource(lightSourceId) != null)
             {
-                Utility.getLightSource(lightID).fadeOut.Value = 3;
+                Utility.getLightSource(lightSourceId).fadeOut.Value = 3;
             }
         }
 
@@ -158,9 +159,9 @@ namespace ArsVenefici.Framework.Spells.Effects
                 behaviorOnCollisionWithPlayer(location, farmer);
             }
 
-            if (flag && piercesLeft.Value <= 0 && hasLit && Utility.getLightSource(lightID) != null)
+            if (flag && piercesLeft.Value <= 0 && hasLit && Utility.getLightSource(lightSourceId) != null)
             {
-                Utility.getLightSource(lightID).fadeOut.Value = 3;
+                Utility.getLightSource(lightSourceId).fadeOut.Value = 3;
             }
         }
 
@@ -196,9 +197,9 @@ namespace ArsVenefici.Framework.Spells.Effects
                 behaviorOnCollisionWithPlayer(location, farmer);
             }
 
-            if (flag && piercesLeft.Value <= 0 && hasLit && Utility.getLightSource(lightID) != null)
+            if (flag && piercesLeft.Value <= 0 && hasLit && Utility.getLightSource(lightSourceId) != null)
             {
-                Utility.getLightSource(lightID).fadeOut.Value = 3;
+                Utility.getLightSource(lightSourceId).fadeOut.Value = 3;
             }
         }
 
@@ -207,7 +208,7 @@ namespace ArsVenefici.Framework.Spells.Effects
             target = null;
             obj = null;
             Microsoft.Xna.Framework.Rectangle boundingBox = getBoundingBox();
-            if (!ignoreCharacterCollisions)
+            if (!ignoreCharacterCollisions.Value)
             {
                 if (damagesMonsters.Value)
                 {
@@ -239,7 +240,7 @@ namespace ArsVenefici.Framework.Spells.Effects
                 }
             }
 
-            if (!location.isTileOnMap(position.Value / 64f) || (!ignoreLocationCollision && location.isCollidingPosition(boundingBox, Game1.viewport, isFarmer: false, 0, glider: true, theOneWhoFiredMe.Get(location), pathfinding: false, projectile: true)))
+            if (!location.isTileOnMap(position.Value / 64f) || (!ignoreCharacterCollisions.Value && location.isCollidingPosition(boundingBox, Game1.viewport, isFarmer: false, 0, glider: true, theOneWhoFiredMe.Get(location), pathfinding: false, projectile: true)))
             {
                 return true;
             }
@@ -252,7 +253,7 @@ namespace ArsVenefici.Framework.Spells.Effects
             target = null;
             clump = null;
             Rectangle boundingBox = getBoundingBox();
-            if (!ignoreCharacterCollisions)
+            if (!ignoreCharacterCollisions.Value)
             {
                 if (damagesMonsters.Value)
                 {
@@ -298,7 +299,7 @@ namespace ArsVenefici.Framework.Spells.Effects
                 }
             }
 
-            if (!location.isTileOnMap(position.Value / 64f) || (!ignoreLocationCollision && location.isCollidingPosition(boundingBox, Game1.viewport, isFarmer: false, 0, glider: true, theOneWhoFiredMe.Get(location), pathfinding: false, projectile: true)))
+            if (!location.isTileOnMap(position.Value / 64f) || (!ignoreCharacterCollisions.Value && location.isCollidingPosition(boundingBox, Game1.viewport, isFarmer: false, 0, glider: true, theOneWhoFiredMe.Get(location), pathfinding: false, projectile: true)))
             {
                 return true;
             }
@@ -391,26 +392,26 @@ namespace ArsVenefici.Framework.Spells.Effects
                 }
             }
 
-            if ((bool)light)
+            if (light.Value)
             {
                 if (!hasLit)
                 {
                     hasLit = true;
-                    lightID = Game1.random.Next(int.MinValue, int.MaxValue);
+                    lightSourceId = $"{GetType().Name}_{Game1.random.Next()}";
                     if (location.Equals(Game1.currentLocation))
                     {
-                        Game1.currentLightSources.Add(new LightSource(4, position.Value + new Vector2(32f, 32f), 1f, new Color(Utility.getOppositeColor(color.Value).ToVector4() * alpha.Value), lightID, LightSource.LightContext.None, 0L));
+                        Game1.currentLightSources.Add(new LightSource(lightSourceId, 4, position.Value + new Vector2(32f, 32f), 1f, new Color(Utility.getOppositeColor(color.Value).ToVector4() * alpha.Value), LightSource.LightContext.None, 0L, location.NameOrUniqueName));
                     }
                 }
                 else
                 {
-                    LightSource lightSource = Utility.getLightSource(lightID);
+                    LightSource lightSource = Utility.getLightSource(lightSourceId);
                     if (lightSource != null)
                     {
                         lightSource.color.A = (byte)(255f * alpha.Value);
                     }
 
-                    Utility.repositionLightSource(lightID, position.Value + new Vector2(32f, 32f));
+                    Utility.repositionLightSource(lightSourceId, position.Value + new Vector2(32f, 32f));
                 }
             }
 
@@ -429,16 +430,16 @@ namespace ArsVenefici.Framework.Spells.Effects
             travelDistance += (value - position.Value).Length();
             if (maxTravelDistance.Value >= 0)
             {
-                if (travelDistance > (float)((int)maxTravelDistance - 128))
+                if (travelDistance > (float)(maxTravelDistance.Value - 128))
                 {
-                    alpha.Value = ((float)(int)maxTravelDistance - travelDistance) / 128f;
+                    alpha.Value = ((float)maxTravelDistance.Value - travelDistance) / 128f;
                 }
 
-                if (travelDistance >= (float)(int)maxTravelDistance)
+                if (travelDistance >= (float)maxTravelDistance.Value)
                 {
                     if (hasLit)
                     {
-                        Utility.removeLightSource(lightID);
+                        Utility.removeLightSource(lightSourceId);
                     }
 
                     return true;
@@ -450,7 +451,7 @@ namespace ArsVenefici.Framework.Spells.Effects
 
                 if(isColliding(location, out var target, out TerrainFeature terrainFeature) && ShouldApplyCollisionLocally(location))
                 {
-                    if ((int)bouncesLeft <= 0 || target != null)
+                    if (bouncesLeft.Value <= 0 || target != null)
                     {
                         behaviorOnCollision(location, target, terrainFeature);
                         return piercesLeft.Value <= 0;
@@ -475,7 +476,7 @@ namespace ArsVenefici.Framework.Spells.Effects
                 }
                 else if(isColliding(location, out var target1, out StardewValley.Object obj) && ShouldApplyCollisionLocally(location))
                 {
-                    if ((int)bouncesLeft <= 0 || target != null)
+                    if (bouncesLeft.Value <= 0 || target != null)
                     {
                         behaviorOnCollision(location, target1, obj);
                         return piercesLeft.Value <= 0;
@@ -500,7 +501,7 @@ namespace ArsVenefici.Framework.Spells.Effects
                 }
                 else if (isColliding(location, out var target2, out ResourceClump clump) && ShouldApplyCollisionLocally(location))
                 {
-                    if ((int)bouncesLeft <= 0 || target != null)
+                    if (bouncesLeft.Value <= 0 || target != null)
                     {
                         behaviorOnCollision(location, target2, clump);
                         return piercesLeft.Value <= 0;
