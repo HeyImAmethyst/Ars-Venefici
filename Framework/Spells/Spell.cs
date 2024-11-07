@@ -162,8 +162,8 @@ namespace ArsVenefici.Framework.Spells
             SpellHelper spellHelper = SpellHelper.Instance();
             SpellCastResult result = spellHelper.Invoke(modEntry, this, caster, gameLocation, null, castingTicks, 0, awardXp);
 
-            //int manaValueInt = (int)Math.Round(manaValue - (manaValue / ((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount()), 0, MidpointRounding.AwayFromZero);
-            int manaValueInt = (int)Math.Round(manaValue - (((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount() / manaValue), 0, MidpointRounding.AwayFromZero);
+            int manaReductionAmount = (int)Math.Round(manaValue, 0, MidpointRounding.AwayFromZero) / ((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount();
+            int manaValueInt = (int)manaValue - manaReductionAmount;
 
             if(result.IsSuccess() && caster.entity is Farmer)
             {
