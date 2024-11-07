@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.Interfaces;
+﻿using ArsVenefici.Framework.GameSave;
+using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
@@ -30,6 +31,7 @@ namespace ArsVenefici.Framework.Spells.Components
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, TerrainFeatureHitResult target, int index, int ticksUsed)
         {
+
             TilePos tilePos = target.GetTilePos();
             Vector2 tile = tilePos.GetVector();
 
@@ -43,22 +45,27 @@ namespace ArsVenefici.Framework.Spells.Components
 
             if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) < 6)
             {
-                growSickNess.millisecondsDuration = 126000;
-                Game1.player.applyBuff(growSickNess);
+                growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsLessThanLevelSix;
+                //Game1.player.applyBuff(growSickNess);
             }
             else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 6)
             {
-                growSickNess.millisecondsDuration = 84000;
-                Game1.player.applyBuff(growSickNess);
+                growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix;
+                //Game1.player.applyBuff(growSickNess);
             }
             else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 8)
             {
-                growSickNess.millisecondsDuration = 42000;
-                Game1.player.applyBuff(growSickNess);
+                growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight;
+                //Game1.player.applyBuff(growSickNess);
             }
             else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) == 10)
             {
-                growSickNess.millisecondsDuration = 21000;
+                growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen;
+                //Game1.player.applyBuff(growSickNess);
+            }
+
+            if (modEntry.ModSaveData.EnableGrowSickness && Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness") == false)
+            {
                 Game1.player.applyBuff(growSickNess);
             }
 

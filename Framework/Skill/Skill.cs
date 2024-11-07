@@ -136,8 +136,8 @@ namespace ArsVenefici.Framework.Skill
             // add level perk
             int curMana = Game1.player.GetMaxMana();
             
-            if (level > 1 || curMana < modEntry.ManaPointsPerLevel) // skip increasing mana for first level, since we did it on learning the skill
-                Game1.player.SetMaxMana(curMana + modEntry.ManaPointsPerLevel);
+            if (level > 1 || curMana < modEntry.ModSaveData.ManaPointsPerLevel) // skip increasing mana for first level, since we did it on learning the skill
+                Game1.player.SetMaxMana(curMana + modEntry.ModSaveData.ManaPointsPerLevel);
 
             //Game1.player.GetSpellBook().SetManaCostReductionAmount(1);
         }

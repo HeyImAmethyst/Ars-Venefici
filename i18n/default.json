@@ -189,6 +189,9 @@
 	"ui.magic_altar.defense_tab.name": "Defense",
 	"ui.magic_altar.utility_tab.name": "Utility",
 
+	"ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
+
+
 	/*********
 	** Skill/Professions
 	*********/
@@ -204,10 +207,10 @@
 	"professions.ManaEfficiency2.description": "Total mana cost of spells is reduced by about half",
 
 	"professions.ManaRegen1.name": "Mana Regen I",
-	"professions.ManaRegen1.description": "+0.5 mana regen per level",
+	"professions.ManaRegen1.description": "+1 mana regen per level",
 
 	"professions.ManaRegen2.name": "Mana Regen II",
-	"professions.ManaRegen2.description": "+1 mana regen per level",
+	"professions.ManaRegen2.description": "+3 mana regen per level",
 
 	"professions.ManaConservation.name": "Mana Conservation",
 	"professions.ManaConservation.description": "25% chance of spells not costing any mana",

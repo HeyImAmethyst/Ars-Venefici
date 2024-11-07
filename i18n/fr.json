@@ -189,6 +189,8 @@
 	"ui.magic_altar.defense_tab.name": "Defense",
 	"ui.magic_altar.utility_tab.name": "Utility",
 
+	"ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
+
 	/*********
 	** Professions
 	*********/

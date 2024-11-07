@@ -42,6 +42,8 @@ using SpaceCore.UI;
 using static ArsVenefici.ModConfig;
 using static StardewValley.Minigames.MineCart.Whale;
 using System.Net;
+using ArsVenefici.Framework.GameSave;
+using static SpaceCore.Guidebooks.GuidebookData;
 
 namespace ArsVenefici
 {
@@ -441,10 +443,73 @@ namespace ArsVenefici
 
         public void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
+            ReadModSaveData();
+
             if (Context.IsWorldReady)
             {
                 modEntryInstance.spellPartSkillManager = new SpellPartSkillManager(modEntryInstance);
                 SpellPartSkillHelper.Instance().UpdateIfNeeded(modEntryInstance, Game1.player);
+            }
+        }
+
+        private void ReadModSaveData()
+        {
+            if (!Game1.IsMasterGame)
+                return;
+            try
+            {
+                modEntryInstance.ModSaveData = modEntryInstance.Helper.Data.ReadSaveData<ModSaveData>(ModEntry.SAVEDATA);
+
+                if (modEntryInstance.ModSaveData == null)
+                    modEntryInstance.ModSaveData = new();
+                //else
+                //    modEntryInstance.ModSaveData.ResetValues();
+
+                modEntryInstance.Helper.Data.WriteSaveData(ModEntry.SAVEDATA, modEntryInstance.ModSaveData);
+            }
+            catch (InvalidOperationException)
+            {
+                modEntryInstance.Monitor.Log($"Failed to read existing save data, previous settings lost.", LogLevel.Warn);
+                modEntryInstance.ModSaveData = new();
+            }
+        }
+
+        public void OnPeerConnected(object sender, PeerConnectedEventArgs e)
+        {
+            if (!Game1.IsMasterGame)
+                return;
+
+            modEntryInstance.Helper.Multiplayer.SendMessage(
+                new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
+                ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+        }
+
+        /// <summary>
+        /// Receive saved data sent from host
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnModMessageReceived(object sender, ModMessageReceivedEventArgs e)
+        {
+            if (e.FromModID == modEntryInstance.ModManifest.UniqueID)
+            {
+                switch (e.Type)
+                {
+                    // entire saveData
+                    case ModEntry.SAVEDATA:
+                        try
+                        {
+                            modEntryInstance.ModSaveData = e.ReadAs<ModSaveData>();
+                            modEntryInstance.FixManaPoolIfNeeded(Game1.player);
+
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            modEntryInstance.Monitor.Log($"Failed to read save data sent by host.", LogLevel.Warn);
+                            modEntryInstance.ModSaveData = null;
+                        }
+                        break;
+                }
             }
         }
 
@@ -515,7 +580,7 @@ namespace ArsVenefici
         public void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
             if (Game1.activeClickableMenu == null || !Game1.eventUp || Context.IsPlayerFree)
-                modEntryInstance.dailyTracker.Update(e, Game1.currentLocation);
+                modEntryInstance.dailyTracker.Update(modEntryInstance, e, Game1.currentLocation);
 
             // update active effects
             for (int i = modEntryInstance.ActiveEffects.Count - 1; i >= 0; i--)
@@ -905,10 +970,12 @@ namespace ArsVenefici
 
                 foreach (ISpellPart spellPart in spell.SpellStack().Parts)
                 {
-                    if(spellPart is Grow)
+                    if (spellPart is Grow && Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness") == false)
                     {
                         dailyTracker.SetDailyGrowCastCount(dailyTracker.GetDailyGrowCastCount() + 1);
                     }
+                    else
+                        continue;
                 }
 
                 SpellCastResult result = spell.Cast(new CharacterEntityWrapper(farmer), farmer.currentLocation, 0, true, true);

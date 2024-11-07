@@ -8,6 +8,7 @@ using StardewValley;
 using StardewValley.Menus;
 using System;
 using StardewValley.Buffs;
+using ArsVenefici.Framework.GameSave;
 
 namespace ArsVenefici.Framework.Spells
 {
@@ -133,6 +134,7 @@ namespace ArsVenefici.Framework.Spells
 
         public SpellCastResult Cast(IEntity caster, GameLocation gameLocation, int castingTicks, bool consume, bool awardXp)
         {
+
             float manaValue = Mana();
 
             if (((Farmer)caster.entity).GetCurrentMana() < manaValue) 
@@ -143,7 +145,7 @@ namespace ArsVenefici.Framework.Spells
                 if (spellPart is Grow)
                 {
 
-                    if (modEntry.dailyTracker.GetDailyGrowCastCount() > modEntry.dailyTracker.GetMaxDailyGrowCastCount())
+                    if (Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness") == false && modEntry.dailyTracker.GetDailyGrowCastCount() > modEntry.dailyTracker.GetMaxDailyGrowCastCount())
                     {
                         string message = modEntry.Helper.Translation.Get("world.max_grow_spell_cast.message.1") + "^" + modEntry.Helper.Translation.Get("world.max_grow_spell_cast.message.2") + "^" + modEntry.Helper.Translation.Get("world.max_grow_spell_cast.message.3") + "^";
                         Game1.activeClickableMenu = new DialogueBox(message);
@@ -160,25 +162,29 @@ namespace ArsVenefici.Framework.Spells
             SpellHelper spellHelper = SpellHelper.Instance();
             SpellCastResult result = spellHelper.Invoke(modEntry, this, caster, gameLocation, null, castingTicks, 0, awardXp);
 
-            int manaValueInt = (int)Math.Round(manaValue - (manaValue / ((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount()), 0, MidpointRounding.AwayFromZero);
+            //int manaValueInt = (int)Math.Round(manaValue - (manaValue / ((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount()), 0, MidpointRounding.AwayFromZero);
+            int manaValueInt = (int)Math.Round(manaValue - (((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount() / manaValue), 0, MidpointRounding.AwayFromZero);
 
             if(result.IsSuccess() && caster.entity is Farmer)
             {
                 Farmer player = (Farmer)caster.entity;
 
-                if (Game1.player.HasCustomProfession(Skill.Skill.ManaConservationProfession))
+                if (modEntry.ModSaveData.InfiniteMana == false)
                 {
-                    int manaCostPercentage = 75;
-                    int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
+                    if (Game1.player.HasCustomProfession(Skill.Skill.ManaConservationProfession))
+                    {
+                        int manaCostPercentage = 75;
+                        int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
 
-                    if (randomValueBetween0And99 < manaCostPercentage)
+                        if (randomValueBetween0And99 < manaCostPercentage)
+                        {
+                            ((Farmer)caster.entity).AddMana(-manaValueInt);
+                        }
+                    }
+                    else
                     {
                         ((Farmer)caster.entity).AddMana(-manaValueInt);
                     }
-                }
-                else
-                {
-                    ((Farmer)caster.entity).AddMana(-manaValueInt);
                 }
 
                 if (awardXp)

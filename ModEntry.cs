@@ -12,6 +12,7 @@ using SpaceShared.APIs;
 using SpaceCore.Events;
 using ArsVenefici.Framework.Spells.Effects;
 using ArsVenefici.Framework.Commands;
+using ArsVenefici.Framework.GameSave;
 
 namespace ArsVenefici
 {
@@ -19,6 +20,8 @@ namespace ArsVenefici
     {
         public static IModHelper helper;
         public ModConfig Config;
+        public ModSaveData ModSaveData;
+        public const string SAVEDATA = "HeyImAmethyst-ArsVenifici-SaveData";
 
         ToggleWizardryCommand toggleWizardryCommand;
         SpellPartsCommand spellPartsCommand;
@@ -47,8 +50,6 @@ namespace ArsVenefici
         //public static int LearnedMagicEventId { get; } = 90002;
         public int LearnedWizardryEventId { get; } = 9918172;
 
-        /// <summary>The number of mana points gained per magic level.</summary>
-        public int ManaPointsPerLevel { get; } = 100;
 
         /// <summary>Whether the current player learned wizardry.</summary>
         public bool LearnedWizardy => Game1.player?.eventsSeen?.Contains(LearnedWizardryEventId.ToString()) == true ? true : false;
@@ -122,6 +123,8 @@ namespace ArsVenefici
             helper.Events.Player.Warped += eventsHandler.OnWarped;
 
             SpaceEvents.OnItemEaten += eventsHandler.OnItemEaten;
+            helper.Events.Multiplayer.PeerConnected += eventsHandler.OnPeerConnected;
+            helper.Events.Multiplayer.ModMessageReceived += eventsHandler.OnModMessageReceived;
             Networking.RegisterMessageHandler(MsgCast, eventsHandler.OnNetworkCast);
         }
 
@@ -136,6 +139,190 @@ namespace ArsVenefici
             AddCommand("player_forgetallspellparts", "Allows the player to forget all spell parts.\n\nUsage: player_forgetallspellparts", spellPartsCommand.ForgetAllSpellParts);
 
             AddCommand("player_knowsspellpart", "Checks if a player knows a spell part.\n\nUsage: player_knowsspellpart <value>\n- value: the id of the spell part.", spellPartsCommand.KnowsSpellPart);
+
+            AddCommand("save_manapointsperlevel", "Sets the amount of mana players have per Wizardry level.\n\nUsage: save_manapointsperlevel <value>\n- value: the amount of mana points per Wizardry level", 
+                (string command, string[] args) =>
+                {
+                    int value;
+
+                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
+                    {
+                        if (!Game1.IsMasterGame)
+                        {
+                            Monitor.Log("Player is not the host. Changes have not been made");
+                            return;
+                        }
+
+                        ModSaveData.ManaPointsPerLevel = value;
+
+                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
+
+                        Helper.Multiplayer.SendMessage(
+                            new ModSaveDataEntryMessage(ModSaveData),
+                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
+                    }
+                });
+
+            AddCommand("save_manaregenrate", "Sets the mana regen rate of players.\n\nUsage: save_manaregenrate <value>\n- value: the rate of mana regen rate of players",
+                (string command, string[] args) =>
+                {
+                    int value;
+
+                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
+                    {
+                        if (!Game1.IsMasterGame)
+                        {
+                            Monitor.Log("Player is not the host. Changes have not been made");
+                            return;
+                        }
+
+                        ModSaveData.ManaRegenRate = value;
+
+                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
+
+                        Helper.Multiplayer.SendMessage(
+                            new ModSaveDataEntryMessage(ModSaveData),
+                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
+                    }
+                });
+
+            AddCommand("save_enableinfinitemana", "Toggles infinate mana.\n\nUsage: save_enableinfinitemana <value>\n- value: true or false",
+                (string command, string[] args) =>
+                {
+                    bool value;
+
+                    if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
+                    {
+                        if (!Game1.IsMasterGame)
+                        {
+                            Monitor.Log("Player is not the host. Changes have not been made");
+                            return;
+                        }
+
+                        ModSaveData.InfiniteMana = value;
+
+                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
+
+                        Helper.Multiplayer.SendMessage(
+                            new ModSaveDataEntryMessage(ModSaveData),
+                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
+                    }
+                });
+
+            AddCommand("save_enablegrowsickness", "Toggles the grow sickness debuff.\n\nUsage: save_enablegrowsickness <value>\n- value: true or false",
+                (string command, string[] args) =>
+                {
+                    bool value;
+
+                    if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
+                    {
+                        if (!Game1.IsMasterGame)
+                        {
+                            Monitor.Log("Player is not the host. Changes have not been made");
+                            return;
+                        }
+
+                        ModSaveData.EnableGrowSickness = value;
+
+                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
+
+                        Helper.Multiplayer.SendMessage(
+                            new ModSaveDataEntryMessage(ModSaveData),
+                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
+                    }
+                });
+
+            AddCommand("save_growsicknessdurationmillisecondslessthanlevelsix", "Sets the grow sickness debuff duration for Wizardry levels less than level 6.\n\nUsage: save_growsicknessdurationmillisecondslessthanlevelsix <value>\n- value: the duration in milliseconds",
+                (string command, string[] args) =>
+                {
+                    int value;
+
+                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
+                    {
+                        if (!Game1.IsMasterGame)
+                        {
+                            Monitor.Log("Player is not the host. Changes have not been made");
+                            return;
+                        }
+
+                        ModSaveData.GrowSicknessDurationMillisecondsLessThanLevelSix = value;
+
+                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
+
+                        Helper.Multiplayer.SendMessage(
+                            new ModSaveDataEntryMessage(ModSaveData),
+                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
+                    }
+                });
+
+            AddCommand("save_growsicknessdurationmillisecondsgreaterthanorequaltolevelsix", "Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 6.\n\nUsage: save_growsicknessdurationmillisecondsgreaterthanorequaltolevelsix <value>\n- value: the duration in milliseconds",
+                (string command, string[] args) =>
+                {
+                    int value;
+
+                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
+                    {
+                        if (!Game1.IsMasterGame)
+                        {
+                            Monitor.Log("Player is not the host. Changes have not been made");
+                            return;
+                        }
+
+                        ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix = value;
+
+                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
+
+                        Helper.Multiplayer.SendMessage(
+                            new ModSaveDataEntryMessage(ModSaveData),
+                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
+                    }
+                });
+
+            AddCommand("save_growsicknessdurationmillisecondsgreaterthanorequaltoleveleight", "Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 8.\n\nUsage: save_growsicknessdurationmillisecondsgreaterthanorequaltoleveleight <value>\n- value: the duration in milliseconds",
+            (string command, string[] args) =>
+            {
+                int value;
+
+                if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
+                {
+                    if (!Game1.IsMasterGame)
+                    {
+                        Monitor.Log("Player is not the host. Changes have not been made");
+                        return;
+                    }
+
+                    ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight = value;
+
+                    Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
+
+                    Helper.Multiplayer.SendMessage(
+                        new ModSaveDataEntryMessage(ModSaveData),
+                        ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
+                }
+            });
+
+            AddCommand("save_growsicknessdurationmillisecondsgreaterthanorequaltolevelten", "Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 10.\n\nUsage: save_growsicknessdurationmillisecondsgreaterthanorequaltolevelten <value>\n- value: the duration in milliseconds",
+                (string command, string[] args) =>
+                {
+                    int value;
+
+                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
+                    {
+                        if (!Game1.IsMasterGame)
+                        {
+                            Monitor.Log("Player is not the host. Changes have not been made");
+                            return;
+                        }
+
+                        ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen = value;
+
+                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
+
+                        Helper.Multiplayer.SendMessage(
+                            new ModSaveDataEntryMessage(ModSaveData),
+                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
+                    }
+                });
         }
 
         public void AddCommand(string commandName, string commandDescription, Action<string, string[]> callback)
@@ -170,7 +357,7 @@ namespace ArsVenefici
             //    }
             //}
 
-            int expectedPoints = wizardryLevel * ManaPointsPerLevel;
+            int expectedPoints = wizardryLevel * ModSaveData.ManaPointsPerLevel;
 
             if (player.GetMaxMana() < expectedPoints)
             {

@@ -16,21 +16,16 @@ namespace ArsVenefici.Framework.Skill
         Dictionary<Item, int> cost;
         MagicAltarTab tab;
 
-        int x;
-        int y;
-
         bool hidden;
 
         string id;
 
-        public SpellPartSkill(string id, HashSet<SpellPartSkill> parents, Dictionary<Item, int> cost, MagicAltarTab tab, int x, int y, bool hidden)
+        public SpellPartSkill(string id, HashSet<SpellPartSkill> parents, Dictionary<Item, int> cost, MagicAltarTab tab, bool hidden)
         {
             this.id = id;
             this.parents = parents;
             this.cost = cost;
             this.tab = tab;
-            this.x = x;
-            this.y = y;
             this.hidden = hidden;
         }
 
@@ -47,16 +42,6 @@ namespace ArsVenefici.Framework.Skill
         public Dictionary<Item, int> Cost()
         {
             return cost;
-        }
-
-        public int GetX()
-        {
-            return x;
-        }
-
-        public int GetY()
-        {
-            return y;
         }
 
         public bool IsHidden() 

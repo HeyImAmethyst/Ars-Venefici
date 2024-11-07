@@ -23,12 +23,19 @@ using StardewValley.Enchantments;
 using StardewValley.Objects;
 using StardewValley.Tools;
 using Object = StardewValley.Object;
+using ArsVenefici.Framework.GUI.SkillTree;
+using StardewValley.TerrainFeatures;
+using System.Linq;
+using System.Threading;
 
 namespace ArsVenefici.Framework.GUI.Menus
 {
     public class MagicAltarSkillTreeTabRenderer : MagicAltarTabRenderer
     {
+        int SKILL_MARGIN_X = 50;
+        int SKILL_MARGIN_Y = 40;
         private static readonly float SKILL_SIZE = 32f;
+
         private float SCALE = 1f;
         private int lastMouseX = 0;
         private int lastMouseY = 0;
@@ -38,9 +45,9 @@ namespace ArsVenefici.Framework.GUI.Menus
         bool isHoveringSkill = false;
 
         HashSet<SpellPartSkill> skills;
-        Matrix transformMatrix;
+        private TreeNodeModel<SpellPartSkill> skillTree;
 
-        Dictionary<Rectangle, SpellPartSkill> spellPartSkillSpriteLocations = new Dictionary<Rectangle, SpellPartSkill>();
+        Matrix transformMatrix;
 
         StringBuilder learnedDescription = new StringBuilder();
         StringBuilder HoverTextStringBuilder = new StringBuilder();
@@ -80,13 +87,35 @@ namespace ArsVenefici.Framework.GUI.Menus
             skills = modEntry.spellPartSkillManager.spellPartSkills.Values.Where(skill => skill.GetOcculusTab().Equals(magicAltarTab)).ToHashSet();
             skills.RemoveWhere(skill => skill.IsHidden() && !helper.Knows(modEntry, player, skill));
 
-            foreach (SpellPartSkill skill in skills)
-            {
-                Rectangle rect = new Rectangle((int)skill.GetX(), (int)skill.GetY(), (int)SKILL_SIZE, (int)SKILL_SIZE);
+            skillTree = GetSampleTree(skills);
+            TreeHelpers<SpellPartSkill>.CalculateNodePositions(skillTree);
+        }
 
-                if (!spellPartSkillSpriteLocations.ContainsKey(rect))
-                    spellPartSkillSpriteLocations.Add(rect, skill);
+        // converts list of sample items to hierarchial list of TreeNodeModels
+        private TreeNodeModel<SpellPartSkill> GetSampleTree(HashSet<SpellPartSkill> data)
+        {
+            var root = data.FirstOrDefault(p => p.Parents().Count == 0);
+            var rootTreeNode = new TreeNodeModel<SpellPartSkill>(root, null);
+
+            // add tree node children recursively
+            rootTreeNode.Children = GetChildNodes(data, rootTreeNode);
+
+            return rootTreeNode;
+        }
+
+        private static List<TreeNodeModel<SpellPartSkill>> GetChildNodes(HashSet<SpellPartSkill> data, TreeNodeModel<SpellPartSkill> parent)
+        {
+            var nodes = new List<TreeNodeModel<SpellPartSkill>>();
+
+            //foreach (var item in data.Where(p => p.ParentId == parent.Item.Id))
+            foreach (var item in data.Where(p => p.Parents().Contains(parent.Item)))
+            {
+                var treeNode = new TreeNodeModel<SpellPartSkill>(item, parent);
+                treeNode.Children = GetChildNodes(data, treeNode);
+                nodes.Add(treeNode);
             }
+
+            return nodes;
         }
 
         protected override void RenderBg(SpriteBatch spriteBatch, int mouseX, int mouseY, float partialTicks)
@@ -116,6 +145,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         protected override void RenderFg(SpriteBatch spriteBatch, int mouseX, int mouseY, float partialTicks)
         {
             ModEntry modEntry = parent.modEntry;
+            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
             Farmer player = Game1.player;
 
             if (player == null)
@@ -123,119 +153,22 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             spriteBatch.End();
 
+            //Create Scissor Region
+
             transformMatrix = Matrix.CreateTranslation(-offsetX, -offsetY, 0) * Matrix.CreateScale(SCALE, SCALE, 0);
 
             spriteBatch.Begin(SpriteSortMode.Immediate, blendState: BlendState.AlphaBlend,null, null, rasterizerState: new RasterizerState { ScissorTestEnable = true }, null, transformMatrix);
 
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
-
             Rectangle clippingRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
             spriteBatch.GraphicsDevice.ScissorRectangle = bounds;
 
-            foreach (SpellPartSkill skill in skills)
-            {
-                Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY());
-                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * (1f / Game1.options.zoomLevel);
-                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * Game1.options.zoomLevel;
-
-                bool knows = helper.Knows(modEntry, player, skill);
-
-                //325
-
-                //float cX = (skill.GetX() + SKILL_SIZE / 2 + 1);
-                //float cY = (skill.GetY() + SKILL_SIZE / 2 + 1);
-
-                float cX = (skillPos.X + SKILL_SIZE / 2 + 1);
-                float cY = (skillPos.Y + SKILL_SIZE / 2 + 1);
-
-                bool hasPrereq = helper.CanLearn(modEntry, player, skill) || knows;
-
-                foreach (var parentSkill in skill.Parents())
-                {
-                    if(parent == null)
-                        continue;
-
-                    Vector2 parentSkillPos = new Vector2(bounds.X + parentSkill.GetX(), bounds.Y + parentSkill.GetY());
-                    //Vector2 parentSkillPos = new Vector2(bounds.X + parentSkill.GetX(), bounds.Y + parentSkill.GetY()) * (1f / Game1.options.zoomLevel);
-                    //Vector2 parentSkillPos = new Vector2(bounds.X + parentSkill.GetX(), bounds.Y + parentSkill.GetY()) * Game1.options.zoomLevel;
-
-                    //float parentCX = (parentSkill.GetX() + SKILL_SIZE / 2 + 1);
-                    //float parentCY = (parentSkill.GetY() + SKILL_SIZE / 2 + 1);
-
-                    float parentCX = (parentSkillPos.X + SKILL_SIZE / 2 + 1);
-                    float parentCY = (parentSkillPos.Y + SKILL_SIZE / 2 + 1);
-
-                    uint color;
-                    int offset;
-
-                    //Color KNOWS_COLOR = new Color(0x00ff00);
-                    //Color UNKNOWN_SKILL_LINE_COLOR_MASK = new Color(0x999999);
-
-                    Color KNOWS_COLOR = Color.Blue;
-                    Color UNKNOWN_SKILL_LINE_COLOR_MASK = new Color(KNOWS_COLOR.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue);
-
-                    if (hasPrereq)
-                    {
-                        //color = knows ? KNOWS_COLOR.PackedValue : (KNOWS_COLOR.PackedValue & UNKNOWN_SKILL_LINE_COLOR_MASK.PackedValue | 0xFF000000);
-                        color = knows ? KNOWS_COLOR.PackedValue : (KNOWS_COLOR.PackedValue);
-                        offset = 1;
-                    }
-                    else
-                    {
-                        color = (UNKNOWN_SKILL_LINE_COLOR_MASK.PackedValue | 0xFF000000);
-                        //color = Color.White.PackedValue;
-                        offset = 0;
-                    }
-
-                    if (cX != parentCX)
-                    {
-                        DrawSprite.DrawLine(spriteBatch, new Vector2(parentCX, cY), new Vector2(cX, cY), new Color(color), 4);
-                    }
-
-                    if (cY != parentCY)
-                    {
-                        DrawSprite.DrawLine(spriteBatch, new Vector2(parentCX, parentCY), new Vector2(parentCX, cY), new Color(color), 4);
-                    }
-                }
-            }
-
-            foreach (SpellPartSkill skill in skills)
-            {
-                Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY());
-                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * (1f / Game1.options.zoomLevel);
-                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * Game1.options.zoomLevel;
-
-                bool knows = helper.Knows(modEntry, player, skill);
-                bool hasPrereq = helper.CanLearn(modEntry, player, skill) || knows;
-
-                Color color = Color.Blue;
-
-                if (!hasPrereq)
-                {
-                    //color = new Color(125, 125, 125);
-                    //color = new Color(75, 75, 75);
-                    //color = new Color(Color.BlueViolet.PackedValue * Color.DarkGray.PackedValue);
-                    //color = new Color(73, 58, 87);
-                    color = new Color(51, 59, 82);
-                    //color = Color.Black;
-                }
-                else if (!knows)
-                {
-                    color = Color.CornflowerBlue;
-                }
-                else
-                {
-                    color = Color.White;
-                }
-
-                Texture2D skillTexture = modEntry.spellPartIconManager.GetSprite(skill.GetId());
-                
-                spriteBatch.Draw(skillTexture, new Rectangle((int)skillPos.X, (int)skillPos.Y, (int)SKILL_SIZE, (int)SKILL_SIZE), color);
-            }
+            DrawNode(modEntry, player, skillTree, helper, spriteBatch);
 
             spriteBatch.GraphicsDevice.ScissorRectangle = clippingRectangle;
 
             spriteBatch.End();
+
+            //End Scissor Region
 
             spriteBatch.Begin(blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp);
 
@@ -250,6 +183,129 @@ namespace ArsVenefici.Framework.GUI.Menus
             }
         }
 
+        // Tree rendering code adapted from https://rachel53461.wordpress.com/2014/04/20/algorithm-for-drawing-trees/
+        #region Tree rendering
+
+        private void DrawNode(ModEntry modEntry, Farmer player, TreeNodeModel<SpellPartSkill> node, SpellPartSkillHelper helper, SpriteBatch spriteBatch)
+        {
+
+            bool knows = helper.Knows(modEntry, player, node.Item);
+            bool hasPrereq = helper.CanLearn(modEntry, player, node.Item) || knows;
+
+            // rectangle where node will be positioned
+            var nodeRect = new Rectangle
+                (
+                    Convert.ToInt32(bounds.X + SKILL_MARGIN_X + (node.X * (SKILL_SIZE + SKILL_MARGIN_X))),
+                    (int)(bounds.Y + SKILL_MARGIN_Y + (node.Y * (SKILL_SIZE + SKILL_MARGIN_Y))), 
+                    (int)SKILL_SIZE, (int)SKILL_SIZE
+                );
+
+            //Draw lines
+
+            DrawNodeLines(modEntry, nodeRect, hasPrereq, knows, node, spriteBatch);
+
+            //Draw content
+
+            DrawNodeIcon(modEntry, nodeRect, hasPrereq, knows, node, spriteBatch);
+
+            //Draw children
+
+            foreach (var item in node.Children)
+            {
+                DrawNode(modEntry, player, item, helper, spriteBatch);
+            }
+        }
+
+        private void DrawNodeIcon(ModEntry modEntry, Rectangle nodeRect, bool hasPrereq, bool knows, TreeNodeModel<SpellPartSkill> node, SpriteBatch spriteBatch)
+        {
+            //g.DrawString(node.ToString(), this.Font, Brushes.Black, nodeRect.X + 10, nodeRect.Y + 10);
+
+            //Vector2 skillPos = new Vector2(bounds.X + nodeRect.X + 10, bounds.Y + nodeRect.Y + 10);
+            Vector2 skillPos = new Vector2(nodeRect.X, nodeRect.Y);
+
+            Color color = Color.Blue;
+
+            if (!hasPrereq)
+            {
+                //color = new Color(125, 125, 125);
+                //color = new Color(75, 75, 75);
+                //color = new Color(Color.BlueViolet.PackedValue * Color.DarkGray.PackedValue);
+                //color = new Color(73, 58, 87);
+                //color = new Color(51, 59, 82);
+                color = new Color(141, 149, 161);
+                //color = Color.Black;
+            }
+            else if (!knows)
+            {
+                //color = Color.CornflowerBlue;
+                color = new Color(59, 247, 231);
+            }
+            else
+            {
+                color = Color.White;
+            }
+
+            Texture2D skillTexture = modEntry.spellPartIconManager.GetSprite(node.Item.GetId());
+
+            //spriteBatch.Draw(skillTexture, new Rectangle((int)skillPos.X, (int)skillPos.Y, (int)SKILL_SIZE, (int)SKILL_SIZE), color);
+            spriteBatch.Draw(skillTexture, nodeRect, color);
+        }
+
+        private void DrawNodeLines(ModEntry modEntry, Rectangle nodeRect, bool hasPrereq, bool knows, TreeNodeModel<SpellPartSkill> node, SpriteBatch spriteBatch)
+        {
+            uint uColor;
+            int offset;
+
+            Color KNOWS_COLOR = Color.Blue;
+            Color UNKNOWN_SKILL_LINE_COLOR_MASK = new Color(KNOWS_COLOR.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue);
+
+            if (hasPrereq)
+            {
+                //color = knows ? KNOWS_COLOR.PackedValue : (KNOWS_COLOR.PackedValue & UNKNOWN_SKILL_LINE_COLOR_MASK.PackedValue | 0xFF000000);
+                uColor = knows ? KNOWS_COLOR.PackedValue : (KNOWS_COLOR.PackedValue);
+                offset = 1;
+            }
+            else
+            {
+                uColor = (UNKNOWN_SKILL_LINE_COLOR_MASK.PackedValue | 0xFF000000);
+                //color = Color.White.PackedValue;
+                offset = 0;
+            }
+
+            // draw line to parent
+            if (node.Parent != null)
+            {
+                var nodeTopMiddle = new Point(nodeRect.X + (nodeRect.Width / 2), nodeRect.Y);
+                //spriteBatch.DrawLine(NODE_PEN, nodeTopMiddle, new Point(nodeTopMiddle.X, nodeTopMiddle.Y - (SKILL_MARGIN_Y / 2)));
+                DrawSprite.DrawLine(spriteBatch, nodeTopMiddle.ToVector2(), new Point(nodeTopMiddle.X, nodeTopMiddle.Y - (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), 4);
+            }
+
+            // draw line to children
+            if (node.Children.Count > 0)
+            {
+                var nodeBottomMiddle = new Point(nodeRect.X + (nodeRect.Width / 2), nodeRect.Y + nodeRect.Height);
+                //spriteBatch.DrawLine(NODE_PEN, nodeBottomMiddle, new Point(nodeBottomMiddle.X, nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2)));
+                DrawSprite.DrawLine(spriteBatch, nodeBottomMiddle.ToVector2(), new Point(nodeBottomMiddle.X, nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), 4);
+
+
+                // draw line over children
+                if (node.Children.Count > 1)
+                {
+                    var childrenLineStart = new Point(
+                        Convert.ToInt32(bounds.X + SKILL_MARGIN_X + (node.GetRightMostChild().X * (SKILL_SIZE + SKILL_MARGIN_X)) + (SKILL_SIZE / 2)),
+                        nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2));
+                    var childrenLineEnd = new Point(
+                        Convert.ToInt32(bounds.X + SKILL_MARGIN_X + (node.GetLeftMostChild().X * (SKILL_SIZE + SKILL_MARGIN_X)) + (SKILL_SIZE / 2)),
+                        nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2));
+
+                    //spriteBatch.DrawLine(NODE_PEN, childrenLineStart, childrenLineEnd);
+                    DrawSprite.DrawLine(spriteBatch, childrenLineStart.ToVector2(), childrenLineEnd.ToVector2(), new Color(uColor), 4);
+                }
+            }
+        }
+
+        #endregion
+
         public override void MouseHover(float mouseX, float mouseY)
         {
             ModEntry modEntry = parent.modEntry;
@@ -257,24 +313,36 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
 
-            foreach (SpellPartSkill skill in skills)
+            positionSkillHoverRect(mouseX, mouseY, skillTree);
+        }
+
+        private void positionSkillHoverRect(float mouseX, float mouseY, TreeNodeModel<SpellPartSkill> node)
+        {
+            var nodeRect = new Rectangle
+                (
+                    Convert.ToInt32(bounds.X + SKILL_MARGIN_X + (node.X * (SKILL_SIZE + SKILL_MARGIN_X))),
+                    (int)(bounds.Y + SKILL_MARGIN_Y + (node.Y * (SKILL_SIZE + SKILL_MARGIN_Y))),
+                    (int)SKILL_SIZE, (int)SKILL_SIZE
+                );
+
+            Vector2 vector = Vector2.Transform(nodeRect.Location.ToVector2(), transformMatrix);
+
+            Rectangle rect = new Rectangle((int)vector.X, (int)vector.Y, (int)SKILL_SIZE + 16, (int)SKILL_SIZE + 16);
+            //Rectangle rect = new Rectangle((int)vector.X, (int)vector.Y, (int)SKILL_SIZE, (int)SKILL_SIZE);
+
+            if (rect.Contains(mouseX, mouseY))
             {
-                //Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY()) * (1f / Game1.options.zoomLevel);
-                Vector2 skillPos = new Vector2(bounds.X + skill.GetX(), bounds.Y + skill.GetY());
+                hoverItem = node.Item;
+                isHoveringSkill = true;
+            }
+            else
+            {
+                isHoveringSkill = false;
+            }
 
-                Vector2 vector = Vector2.Transform(skillPos, transformMatrix);
-
-                Rectangle rect = new Rectangle((int)vector.X, (int)vector.Y, (int)SKILL_SIZE + 16, (int)SKILL_SIZE + 16);
-
-                if (rect.Contains(mouseX, mouseY))
-                {
-                    hoverItem = skill;
-                    isHoveringSkill = true;
-                }
-                else
-                {
-                    isHoveringSkill = false;
-                }
+            foreach (var item in node.Children)
+            {
+                positionSkillHoverRect(mouseX, mouseY, item);
             }
         }
 

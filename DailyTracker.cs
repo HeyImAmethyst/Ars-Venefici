@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.Skill;
+﻿using ArsVenefici.Framework.GameSave;
+using ArsVenefici.Framework.Skill;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using SpaceCore;
@@ -7,6 +8,7 @@ using StardewValley;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,10 +19,10 @@ namespace ArsVenefici
         private int dailyGrowCastCount = 0;
         private int maxDailyGrowCastCount = 2;
 
-        public void Update(UpdateTickedEventArgs e, GameLocation gameLocation)
+        public void Update(ModEntry modEntry, UpdateTickedEventArgs e, GameLocation gameLocation)
         {
 
-            if(gameLocation != null && Game1.activeClickableMenu == null && Game1.game1.IsActive)
+            if (gameLocation != null && Game1.activeClickableMenu == null && Game1.game1.IsActive)
             {
                 bool regenMana = false;
 
@@ -35,14 +37,23 @@ namespace ArsVenefici
 
                 if (regenMana)
                 {
-                    float factor = (Game1.player.GetCustomSkillLevel(ModEntry.Skill) + 1) / 2; // start at +1 mana at level 1
+                    //float factor = (Game1.player.GetCustomSkillLevel(ModEntry.Skill) + 1) / 2; // start at +1 mana at level 1
 
-                    if (Game1.player.HasCustomProfession(Skill.ManaRegen2Profession))
-                        factor *= 3;
-                    else if (Game1.player.HasCustomProfession(Skill.ManaRegen1Profession))
-                        factor *= 2;
+                    //if (Game1.player.HasCustomProfession(Skill.ManaRegen2Profession))
+                    //    factor *= 3;
+                    //else if (Game1.player.HasCustomProfession(Skill.ManaRegen1Profession))
+                    //    factor *= 2;
 
-                    int manaRegenValue = (int)(2 * factor);
+                    //int manaRegenValue = (int)(2 * factor);
+
+                    int levelAmount = Game1.player.GetCustomSkillLevel(ModEntry.Skill);
+
+                    if (Game1.player.HasCustomProfession(Skill.ManaRegen1Profession))
+                        levelAmount *= 2;
+                    else if(Game1.player.HasCustomProfession(Skill.ManaRegen2Profession))
+                        levelAmount *= 4;
+
+                    int manaRegenValue = modEntry.ModSaveData.ManaRegenRate * levelAmount;
 
                     Game1.player.AddMana(manaRegenValue);
                 }
