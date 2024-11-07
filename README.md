@@ -74,7 +74,7 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 
 # Console Commands
 
-- player_togglewizardry  <true | false> : Toggles the player's the ability to cast spells
+- player_togglewizardry  <rtrue | false> : Toggles the player's the ability to cast spells
 - player_learnspellpart < spellpartId > :  Allows the player to learn a spell part
 - player_forgetspellpart < spellpartId > : Allows the player to forget a spell part
 - player_learnallspellparts < spellpartId > : Allows the player to learn all spell parts
