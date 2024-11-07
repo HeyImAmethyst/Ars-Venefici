@@ -81,6 +81,19 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 - player_forgetallspellparts < spellpartId > : Allows the player to forget all spell parts
 - player_knowsspellpart < spellpartId > : Checks if a player knows a spell part
 
+- save_manapointsperlevel < numberValue > : Sets the amount of mana players have per Wizardry level
+- save_manaregenrate < numberValue > : Sets the mana regen rate of players
+- save_enableinfinitemana <true | false> : Toggles infinate mana
+- save_enablegrowsickness <true | false> : Toggles the grow sickness debuff
+
+- save_growsicknessdurationmillisecondslessthanlevelsix < numberValue > :  Sets the grow sickness debuff duration for Wizardry levels less than level 6
+
+- save_growsicknessdurationmillisecondsgreaterthanorequaltolevelsix < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 6
+
+- save_growsicknessdurationmillisecondsgreaterthanorequaltoleveleight < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 8
+
+- save_growsicknessdurationmillisecondsgreaterthanorequaltolevelten < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 10
+
 # List of Spell Part Ids
 
 > - self
