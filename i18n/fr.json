@@ -94,6 +94,15 @@
 	"spellpart.zone.name": "* Périmètre",
 	"spellpart.zone.description": "Lance le sort dans un périmètre autour de l'endroit où il est déclenché. \nCette forme doit être placée en dernier.\nCette forme continuera à agir de façon continue selon l’effet du sort initial.\nLa durée est en 'ticks' de jeu.",
 
+	"spellpart.wave.name": "Wave",
+	"spellpart.wave.description": "Makes a zone that move forwards, applies the spell effect it was attached to.",
+
+	"spellpart.beam.name": "Beam",
+	"spellpart.beam.description": "Makes a Beam shape will continuously trigger the spell effect on whatever you're targeting",
+
+	"spellpart.wall.name": "Wall",
+	"spellpart.wall.description": "Makes a wall in front of the caster that will continuously trigger the spell effect it was attached to. Needs a target shape before it and must be placed last.",
+
 
 	"spellpart.dig.name": "CREUSER",
 	"spellpart.dig.description": "Brise les rochers, les débris et coupe les arbres.",
@@ -133,6 +142,9 @@
 
 	"spellpart.haste.name": "ACCÉLÉRER",
 	"spellpart.haste.description": "Augmente la vitesse du personnage.\n N’a actuellement d’effet possible que sur le lanceur.",
+
+	"spellpart.dispel.name": "Dispel",
+	"spellpart.dispel.description": "Removes effects on your farmer.",
 
 
 	"spellpart.damage.name": "Dégâts +",
@@ -190,6 +202,10 @@
 	"ui.magic_altar.utility_tab.name": "Utility",
 
 	"ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
+
+	"ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",
+	"ui.magic_altar.tooltip_name_not_learned.name": "(Not Learned)",
+	"ui.magic_altar.tooltip_name_learned.name": "(Learned)",
 
 	/*********
 	** Professions

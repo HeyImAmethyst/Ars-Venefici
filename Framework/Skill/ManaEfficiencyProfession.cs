@@ -14,7 +14,7 @@ namespace ArsVenefici.Framework.Skill
         private int manaCostReductionAmount;
 
 
-        public ManaEfficiencyProfession(Skill skill, string theId, int manaCostReductionAmount) : base(skill, theId)
+        public ManaEfficiencyProfession(ArsVeneficiSkill skill, string theId, int manaCostReductionAmount) : base(skill, theId)
         {
             this.manaCostReductionAmount = manaCostReductionAmount;
         }

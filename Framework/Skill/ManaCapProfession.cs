@@ -13,7 +13,7 @@ namespace ArsVenefici.Framework.Skill
         /*********
         ** Public methods
         *********/
-        public ManaCapProfession(Skill skill, string theId)
+        public ManaCapProfession(ArsVeneficiSkill skill, string theId)
             : base(skill, theId) { }
 
         public override void DoImmediateProfessionPerk()

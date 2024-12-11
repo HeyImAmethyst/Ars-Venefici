@@ -19,7 +19,7 @@ namespace ArsVenefici.Framework.Spells.Effects
         ModEntry modEntry;
 
         protected IEntity owner;
-        protected readonly Vector2 pos;
+        public Vector2 pos;
         private Rectangle boundingBox;
         protected int duration;
 

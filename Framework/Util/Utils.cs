@@ -2,6 +2,7 @@
 using StardewValley;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,51 @@ namespace ArsVenefici.Framework.Util
 
             return GetFirstMatching(l, predicate);
         }
+
+        //---------------------------------------
+        // Math Utils
+        //---------------------------------------
+
+        public static Vector2 LengthenLine(Vector2 startPoint, Vector2 endPoint, float pixelCount)
+        {
+            if (startPoint.Equals(endPoint))
+                return new Vector2(); // not a line
+
+            Vector2 newEndPoint = endPoint;
+
+            double dx = newEndPoint.X - startPoint.X;
+            double dy = newEndPoint.Y - startPoint.Y;
+
+            if (dx == 0)
+            {
+                // vertical line:
+                if (newEndPoint.Y < startPoint.Y)
+                    newEndPoint.Y -= pixelCount;
+                else
+                    newEndPoint.Y += pixelCount;
+            }
+            else if (dy == 0)
+            {
+                // horizontal line:
+                if (newEndPoint.X < startPoint.X)
+                    newEndPoint.X -= pixelCount;
+                else
+                    newEndPoint.X += pixelCount;
+            }
+            else
+            {
+                // non-horizontal, non-vertical line:
+                double length = Math.Sqrt(dx * dx + dy * dy);
+                double scale = (length + pixelCount) / length;
+                dx *= scale;
+                dy *= scale;
+                newEndPoint.X = startPoint.X + Convert.ToSingle(dx);
+                newEndPoint.Y = startPoint.Y + Convert.ToSingle(dy);
+            }
+
+            return newEndPoint;
+        }
+
 
         /*
          * 

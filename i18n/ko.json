@@ -1,0 +1,280 @@
+﻿{
+    /*********
+    ** Config
+    *********/
+
+    "config.position_x.name": "X 좌표",
+    "config.position_y.name": "Y 좌표",
+
+    "config.position_x.tooltip": "화면의 왼쪽 위 모서리를 기준으로 마법 라벨을 그릴 X좌표의 타일 위치.",
+    "config.position_y.tooltip": "화면의 왼쪽 위 모서리를 기준으로 마법 라벨을 그릴 Y좌표의 타일 위치.",
+
+    "config.keyboard_controlls_section_title.name": "키보드 조정",
+    "config.keyboard_controlls_section_title.tooltip": "키보드를 입력 장치로 사용할 때 모드의 일부 입력 기능에 사용될 컨트롤.",
+
+    "config.controller_controlls_section_title.name": "컨트롤러 조정",
+    "config.controller_controlls_section_title.tooltip": "컨트롤러를 입력 장치로 사용할 때 모드의 일부 입력 기능에 사용될 컨트롤.",
+
+    "config.open_spellbook_key.name": "마법 책 활성화 버튼",
+    "config.open_spellbook_key.tooltip": "마법 책을 열기 위한 키바인드.",
+
+    "config.spell_toggle_key.name": "마법 페이지 토글 버튼",
+    "config.spell_toggle_key.tooltip": "마법 페이지를 켜고 끄기 위한 키바인드.",
+
+    "config.move_spell_label_key.name": "마법 라벨 이동 버튼",
+    "config.move_spell_label_key.tooltip": "마법 라벨을 이동시키기 위한 키바인드.",
+
+    "config.next_spell_key.name": "다음 마법 버튼",
+    "config.next_spell_key.tooltip": "다음 마법으로 이동하기 위한 키바인드.",
+
+    "config.next_shape_group_key.name": "다음 형태 그룹 버튼",
+    "config.next_shape_group_key.tooltip": "선택된 마법의 다음 형태 그룹으로 이동하기 위한 키바인드.",
+
+    "config.previous_spell_key.name": "이전 마법 버튼",
+    "config.previous_spell_key.tooltip": "이전 마법으로 이동하기 위한 키바인드. Shift와 함께 누르면 선택된 마법의 이전 형태 그룹으로 이동합니다.",
+
+    "config.previous_shape_group_key.name": "이전 형태 그룹 버튼",
+    "config.previous_shape_group_key.tooltip": "선택된 마법의 이전 형태 그룹으로 이동하기 위한 키바인드.",
+
+    "config.cast_spell_key.name": "마법 캐스팅 버튼",
+    "config.cast_spell_key.tooltip": "현재 마법을 시전하기 위한 키바인드.",
+
+    "config.open_tutorial_text_key.name": "튜토리얼 텍스트 열기 버튼",
+    "config.open_tutorial_text_key.tooltip": "튜토리얼의 텍스트를 보여주는 메뉴를 열기 위한 키바인드.",
+
+    "config.cast_spell_1_key.name": "마법 캐스팅 페이지 1",
+    "config.cast_spell_1_key.tooltip": "마법 책의 첫 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_2_key.name": "마법 캐스팅 페이지 2",
+    "config.cast_spell_2_key.tooltip": "마법 책의 두 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_3_key.name": "마법 캐스팅 페이지 3",
+    "config.cast_spell_3_key.tooltip": "마법 책의 세 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_4_key.name": "마법 캐스팅 페이지 4",
+    "config.cast_spell_4_key.tooltip": "마법 책의 네 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_5_key.name": "마법 캐스팅 페이지 5",
+    "config.cast_spell_5_key.tooltip": "마법 책의 다섯 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_6_key.name": "마법 캐스팅 페이지 6",
+    "config.cast_spell_6_key.tooltip": "마법 책의 여섯 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_7_key.name": "마법 캐스팅 페이지 7",
+    "config.cast_spell_7_key.tooltip": "마법 책의 일곱 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_8_key.name": "마법 캐스팅 페이지 8",
+    "config.cast_spell_8_key.tooltip": "마법 책의 여덟 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_9_key.name": "마법 캐스팅 페이지 9",
+    "config.cast_spell_9_key.tooltip": "마법 책의 아홉 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    "config.cast_spell_10_key.name": "마법 캐스팅 페이지 10",
+    "config.cast_spell_10_key.tooltip": "마법 책의 열 번째 페이지에 있는 마법을 시전하기 위한 키바인드.",
+
+    /*********
+    ** Spell Parts
+    *********/
+
+    "spellpart.self.name": "자기 강화",
+    "spellpart.self.description": "자신에게 마법 효과를 부여합니다.",
+
+    "spellpart.projectile.name": "마력 탄환",
+    "spellpart.projectile.description": "마력의 구체를 발사합니다.",
+
+    "spellpart.touch.name": "터치",
+    "spellpart.touch.description": "손이 닿는 대상을 목표로 합니다.",
+
+    "spellpart.etherial_touch.name": "에테리얼 터치",
+    "spellpart.etherial_touch.description": "마우스 커서 아래의 지형을 대상으로 합니다.",
+
+    "spellpart.aoe.name": "광휘의 영역",
+    "spellpart.aoe.description": "발동 지점 주변에 마법의 영향을 퍼뜨립니다. 이 형태는 마지막에 배치되어야 합니다.",
+
+    "spellpart.zone.name": "마법영역",
+    "spellpart.zone.description": "마법의 '영역'을 생성하여 지속적인 마법 효과를 부여합니다. 이 형태는 마지막에 배치되어야 합니다.",
+
+    "spellpart.wave.name": "Wave",
+    "spellpart.wave.description": "Makes a zone that move forwards, applies the spell effect it was attached to.",
+
+    "spellpart.beam.name": "Beam",
+    "spellpart.beam.description": "Makes a Beam shape that will continuously trigger the spell effect on whatever you're targeting",
+
+    "spellpart.wall.name": "Wall",
+    "spellpart.wall.description": "Makes a wall in front of the caster that will continuously trigger the spell effect it was attached to. Needs a target shape before it and must be placed last.",
+
+
+    "spellpart.dig.name": "대지 개척",
+    "spellpart.dig.description": "암석과 잔해를 파괴하고 나무를 베어냅니다.",
+
+    "spellpart.plow.name": "대지 정화",
+    "spellpart.plow.description": "경작할 수 있는 땅을 경작합니다.",
+
+    "spellpart.grow.name": "자연의 소생",
+    "spellpart.grow.description": "나무와 작물을 성장시킵니다.",
+
+    "spellpart.harvest.name": "자연의 수확",
+    "spellpart.harvest.description": "수확 가능한 작물을 거둬들입니다.",
+
+    "spellpart.create_water.name": "생명의 물",
+    "spellpart.create_water.description": "경작한 땅에 물을 줍니다.",
+
+    "spellpart.explosion.name": "마력 폭발",
+    "spellpart.explosion.description": "강력한 폭발을 일으킵니다.",
+
+    "spellpart.blink.name": "차원의 도약",
+    "spellpart.blink.description": "지정된 위치로 대상을 순간 이동시킵니다. 영적 접촉이나 손끝 접촉 형태에서만 사용할 수 있으며, 시전자만 이동합니다.",
+
+    "spellpart.light.name": "빛의 인도",
+    "spellpart.light.description": "지정된 위치에 빛을 남겨 횃불을 설치합니다. 설치된 횃불은 회수할 수 없습니다.",
+
+    "spellpart.heal.name": "신성 치유",
+    "spellpart.heal.description": "자신을 치유하거나, 발사체 형태와 함께 사용 시 다른 이들을 치유합니다.",
+
+    "spellpart.life_drain.name": "생명 흡수",
+    "spellpart.life_drain.description": "대상을 공격하여 준 피해량만큼 생명력을 회복합니다.",
+
+    "spellpart.life_tap.name": "마나 흡수",
+    "spellpart.life_tap.description": "대상을 공격하여 준 피해량만큼 마나를 회복합니다.",
+
+    "spellpart.physical_damage.name": "공격",
+    "spellpart.physical_damage.description": "대상에게 물리 피해를 줍니다.",
+
+    "spellpart.haste.name": "가속",
+    "spellpart.haste.description": "플레이어의 이동 속도를 증가시킵니다.",
+
+    "spellpart.dispel.name": "Dispel",
+    "spellpart.dispel.description": "Removes effects on your farmer.",
+
+
+    "spellpart.damage.name": "파괴의 강화",
+    "spellpart.damage.description": "피해를 주는 마법 요소의 위력을 강화합니다.",
+
+    "spellpart.range.name": "영역 확장",
+    "spellpart.range.description": "광휘의 영역 및 일부 마법 요소의 범위를 증가시킵니다.",
+
+    "spellpart.bounce.name": "반사",
+    "spellpart.bounce.description": "마력 탄환이 벽에서 반사되어 몬스터, 채굴 가능한 지형에 맞거나 사라질 때까지 계속됩니다.",
+
+    "spellpart.piercing.name": "관통 강화",
+    "spellpart.piercing.description": "발사체가 적을 관통할 수 있는 횟수를 증가시킵니다.",
+
+    "spellpart.velocity.name": "신속",
+    "spellpart.velocity.description": "마력 탄환의 속도를 증가시킵니다.",
+
+    "spellpart.healing.name": "치유 강화",
+    "spellpart.healing.description": "치유 마법 요소의 효과를 강화합니다.",
+
+    "spellpart.duration.name": "지속의 힘",
+    "spellpart.duration.description": "마법의 구역에 추가적인 지속 시간을 부여합니다.",
+
+    "spellpart.mining_power.name": "대지의 힘",
+    "spellpart.mining_power.description": "대지 개척 마법에 +1 채광/벌목 강화를 추가합니다.",
+
+    /*********
+    ** Buffs/Debuffs
+    *********/
+
+    "debuff.grow_sickness.name": "성장 피로",
+
+    /*********
+    ** Spell Cast Warnings
+    *********/
+
+    "world.max_grow_spell_cast.message.1": "당신은 성장 마법을 시전했지만,",
+    "world.max_grow_spell_cast.message.2": "힘이 빠져나가는 것을 느낍니다.",
+    "world.max_grow_spell_cast.message.3": "오늘은 더 이상의 성장 마법을 사용할 수 없습니다!",
+
+    /*********
+    ** UI
+    *********/
+
+    "ui.mana_cost.name": "마나 소모량",
+
+    "ui.spell_label.shape_group.name": "형상 그룹",
+
+    "ui.spell_book.source_area.name": "마력의 원천",
+    "ui.spell_book.shape_group_area.name": "형상 그룹 영역",
+    "ui.spell_book.spell_grammar_area.name": "마법 문법 영역",
+
+    "ui.magic_altar.offense_tab.name": "공격 마법",
+    "ui.magic_altar.defense_tab.name": "방어 마법",
+    "ui.magic_altar.utility_tab.name": "보조 마법",
+
+    "ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
+
+    "ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",
+    "ui.magic_altar.tooltip_name_not_learned.name": "(Not Learned)",
+    "ui.magic_altar.tooltip_name_learned.name": "(Learned)",
+
+    /*********
+    ** Skill/Professions
+    *********/
+
+    "skill.wizardry.name": "마법학",
+    "skill.extra_level_up_info.text": "+1 마나 회복",
+    "skill.skill_page_hover_text_mana_regen.text": "마나 회복",
+
+    "professions.ManaEfficiency1.name": "마나 효율 I",
+    "professions.ManaEfficiency1.description": "마법의 마나 소모량이 약 3분의 1 감소합니다",
+
+    "professions.ManaEfficiency2.name": "마나 효율 II",
+    "professions.ManaEfficiency2.description": "마법의 마나 소모량이 절반으로 감소합니다",
+
+    "professions.ManaRegen1.name": "마나 회복 I",
+    "professions.ManaRegen1.description": "레벨 당 +0.5 마나 회복",
+
+    "professions.ManaRegen2.name": "마나 회복 II",
+    "professions.ManaRegen2.description": "레벨 당 +1 마나 회복",
+
+    "professions.ManaConservation.name": "마나 소모 감소",
+    "professions.ManaConservation.description": "25% 확률로 마법 시전 시 마나 소모가 없습니다",
+
+    "professions.ManaCap.name": "마나 저장고",
+    "professions.ManaCap.description": "+500 최대 마나",
+
+    /*********
+    ** Wizard learn-magic event
+    *********/
+
+    "event.learn_wizardry.wizard_dialogue_1": "어서 와라, @.",
+
+    "event.learn_wizardry.wizard_dialogue_2": "내가 보니 그대는 마법에 강한 관심을 가지고 있더군.",
+    "event.learn_wizardry.wizard_dialogue_3": "마법을 창조하는 법을 배우고 싶지 않은가?",
+
+    "event.learn_wizardry.wizard_dialogue_4": "좋다, 이 마법서를 줄 테니 그대만의 마법을 만들도록 해.",
+
+    "event.learn_wizardry.message_1": "마법사가 마법서를 건네주었습니다! 이제 마법을 창조할 수 있습니다! 'Shift'와 'B'를 눌러 마법서를 여세요.",
+
+    "event.learn_wizardry.wizard_dialogue_5": "마법서에 사용 가능한 마법 주문들이 모두 나와 있을 거다.",
+    "event.learn_wizardry.wizard_dialogue_6": "하지만 지금은 시작 단계라 쓸 수 있는 주문이 없을 거야.",
+    "event.learn_wizardry.wizard_dialogue_7": "마법 주문을 배우려면 마법의 제단이 필요하다.",
+    "event.learn_wizardry.wizard_dialogue_8": "이게 그 제단을 만들 수 있는 조합법이다.",
+
+    "event.learn_wizardry.message_2": "마법사가 마법 제단 건설법을 건네주었습니다!",
+
+    "event.learn_wizardry.wizard_dialogue_9": "제단을 설치하고 활성화하면 배울 수 있는 모든 마법 주문을 확인할 수 있을 거다. 마법 주문들은 그 특징에 따라 세 가지 형태로 분류된다.",
+    "event.learn_wizardry.wizard_dialogue_10": "이것들을 적절히 조합하는 과정이 필요하지. 그 전에, 주문을 배우려면 재료가 필요하니 미리 준비해둬라.",
+
+    "event.learn_wizardry.message_3": "마법 제단을 우클릭하면 메뉴가 열립니다! 공격, 방어, 보조 세 가지 스킬 트리가 있으며, 메뉴 상단의 탭 버튼으로 전환할 수 있습니다.",
+    "event.learn_wizardry.message_4": "스킬 트리를 이동하려면 좌클릭 후 드래그하세요. 배우고 싶은 마법 주문 아이콘에 마우스를 올리면 툴팁이 나타납니다.",
+    "event.learn_wizardry.message_5": "툴팁에 필요한 재료와 선행 마법 주문이 표시됩니다.",
+    "event.learn_wizardry.message_6": "요구 사항을 충족한 후, 마법 주문 아이콘을 좌클릭하여 배우세요! 이 과정에서 인벤토리의 재료가 소모됩니다.",
+
+    "event.learn_wizardry.wizard_dialogue_11": "마법을 구성하려면, 마법서의 각 형상 그룹에 사각형으로 분류된 주문을 하나 이상 배치해라.",
+    "event.learn_wizardry.wizard_dialogue_12": "그 다음으로, 주문의 문법요소에는 팔각형으로 분류된 것을 하나 이상 배치해야 한다.",
+    "event.learn_wizardry.wizard_dialogue_13": "형상과 구성 요소의 동작을 변경하려면, 다이아몬드 형태의 조정자들을 이용해라.",
+    "event.learn_wizardry.wizard_dialogue_14": "주문에 이름을 붙이는 것을 잊지 마라. 주문을 완성했으면, 마법서를 닫아 주문이 저장되도록 해라.",
+    "event.learn_wizardry.wizard_dialogue_15": "마법서를 닫은 후에는 네가 만든 주문 목록을 순서대로 살펴볼 수 있다.",
+
+    "event.learn_wizardry.message_7": "'Z'와 'X'로 마법 목록을 넘길 수 있습니다. Shift+'Z'와 Shift+'X'로 마법의 형상 그룹을 살펴볼 수 있습니다.",
+
+    "event.learn_wizardry.wizard_dialogue_16": "사용하고 싶은 마법을 정했으면, 이제 시전할 수 있을 거다.",
+
+    "event.learn_wizardry.message_8": "마법을 시전하려면 'Q'를 누르세요.",
+    "event.learn_wizardry.message_9": "이 튜토리얼 정보를 다시 보려면 'G'를 누르세요. 이 조작법은 Ars Venefici config 설정 파일에서 조정할 수 있습니다.",
+
+    "event.learn_wizardry.wizard_dialogue_17": "그대의 여정에 행운을 빌지.",
+
+    "event.learn_wizardry.wizard_dialogue_abovehead": "마법학"
+}

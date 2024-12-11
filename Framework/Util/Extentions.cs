@@ -1,4 +1,5 @@
 ﻿using ArsVenefici.Framework.Spells;
+using Microsoft.Xna.Framework;
 using SpaceShared.APIs;
 using StardewModdingAPI;
 using StardewValley;
@@ -13,6 +14,20 @@ namespace ArsVenefici.Framework.Util
 {
     public static class Extentions
     {
+        private const double DegToRad = Math.PI / 180;
+
+        public static Vector2 Rotate(this Vector2 v, double degrees)
+        {
+            return v.RotateRadians(degrees * DegToRad);
+        }
+
+        public static Vector2 RotateRadians(this Vector2 v, double radians)
+        {
+            var ca = Math.Cos(radians);
+            var sa = Math.Sin(radians);
+            return new Vector2((float)(ca * v.X - sa * v.Y), (float)(sa * v.X + ca * v.Y));
+        }
+
         public static void Resize<T>(this IList<T> list, int size)
         {
             if (list == null)

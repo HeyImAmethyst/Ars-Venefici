@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ArsVenefici.Framework.Skill
 {
-    public class Skill: SpaceCore.Skills.Skill
+    public class ArsVeneficiSkill: SpaceCore.Skills.Skill
     {
         ModEntry modEntry;
 
@@ -37,7 +37,7 @@ namespace ArsVenefici.Framework.Skill
         /// <summary>The level 10 'Mana Reserve' profession.</summary>
         public static ManaCapProfession ManaReserveProfession;
 
-        public Skill(ModEntry modEntry) : base(Skill.WizardrySkillId)
+        public ArsVeneficiSkill(ModEntry modEntry) : base(ArsVeneficiSkill.WizardrySkillId)
         {
             this.modEntry = modEntry;
 
@@ -49,65 +49,65 @@ namespace ArsVenefici.Framework.Skill
             this.ExperienceBarColor = new Microsoft.Xna.Framework.Color(180, 62, 232);
 
             // Level 5
-            Skill.ManaEfficiencyProfession = new ManaEfficiencyProfession(this, "ManaEfficiency1", 3)
+            ArsVeneficiSkill.ManaEfficiencyProfession = new ManaEfficiencyProfession(this, "ManaEfficiency1", 3)
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_effeciency_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaEfficiency1.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaEfficiency1.description")
             };
 
-            this.Professions.Add(Skill.ManaEfficiencyProfession);
+            this.Professions.Add(ArsVeneficiSkill.ManaEfficiencyProfession);
 
-            Skill.ManaRegen1Profession = new GenericProfession(this, "ManaRegen1")
+            ArsVeneficiSkill.ManaRegen1Profession = new GenericProfession(this, "ManaRegen1")
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_regen_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaRegen1.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaRegen1.description")
             };
 
-            this.Professions.Add(Skill.ManaRegen1Profession);
+            this.Professions.Add(ArsVeneficiSkill.ManaRegen1Profession);
 
-            this.ProfessionsForLevels.Add(new ProfessionPair(5, Skill.ManaEfficiencyProfession, Skill.ManaRegen1Profession));
+            this.ProfessionsForLevels.Add(new ProfessionPair(5, ArsVeneficiSkill.ManaEfficiencyProfession, ArsVeneficiSkill.ManaRegen1Profession));
 
             // Level 10 - track A
-            Skill.ManaEfficiency2Profession = new ManaEfficiencyProfession(this, "ManaEfficiency2", 2)
+            ArsVeneficiSkill.ManaEfficiency2Profession = new ManaEfficiencyProfession(this, "ManaEfficiency2", 2)
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_effeciency_2_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaEfficiency2.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaEfficiency2.description")
             };
 
-            this.Professions.Add(Skill.ManaEfficiency2Profession);
+            this.Professions.Add(ArsVeneficiSkill.ManaEfficiency2Profession);
 
-            Skill.ManaConservationProfession = new GenericProfession(this, "ManaConservation")
+            ArsVeneficiSkill.ManaConservationProfession = new GenericProfession(this, "ManaConservation")
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_conservation_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaConservation.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaConservation.description")
             };
 
-            this.Professions.Add(Skill.ManaConservationProfession);
+            this.Professions.Add(ArsVeneficiSkill.ManaConservationProfession);
 
-            this.ProfessionsForLevels.Add(new ProfessionPair(10, Skill.ManaEfficiency2Profession, Skill.ManaConservationProfession, Skill.ManaEfficiencyProfession));
+            this.ProfessionsForLevels.Add(new ProfessionPair(10, ArsVeneficiSkill.ManaEfficiency2Profession, ArsVeneficiSkill.ManaConservationProfession, ArsVeneficiSkill.ManaEfficiencyProfession));
 
             // Level 10 - track B
-            Skill.ManaRegen2Profession = new GenericProfession(this, "ManaRegen2")
+            ArsVeneficiSkill.ManaRegen2Profession = new GenericProfession(this, "ManaRegen2")
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_regen_2_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaRegen2.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaRegen2.description")
             };
-            this.Professions.Add(Skill.ManaRegen2Profession);
+            this.Professions.Add(ArsVeneficiSkill.ManaRegen2Profession);
 
-            Skill.ManaReserveProfession = new ManaCapProfession(this, "ManaCap")
+            ArsVeneficiSkill.ManaReserveProfession = new ManaCapProfession(this, "ManaCap")
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_cap_profession_icon.png"),
                 Name = modEntry.Helper.Translation.Get("professions.ManaCap.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaCap.description")
             };
-            this.Professions.Add(Skill.ManaReserveProfession);
+            this.Professions.Add(ArsVeneficiSkill.ManaReserveProfession);
 
-            this.ProfessionsForLevels.Add(new ProfessionPair(10, Skill.ManaRegen2Profession, Skill.ManaReserveProfession, Skill.ManaRegen1Profession));
+            this.ProfessionsForLevels.Add(new ProfessionPair(10, ArsVeneficiSkill.ManaRegen2Profession, ArsVeneficiSkill.ManaReserveProfession, ArsVeneficiSkill.ManaRegen1Profession));
         }
 
         public override string GetName()

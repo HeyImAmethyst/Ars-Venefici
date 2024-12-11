@@ -54,7 +54,7 @@ namespace ArsVenefici
         /// <summary>Whether the current player learned wizardry.</summary>
         public bool LearnedWizardy => Game1.player?.eventsSeen?.Contains(LearnedWizardryEventId.ToString()) == true ? true : false;
 
-        public static Skill Skill;
+        public static ArsVeneficiSkill Skill;
         public const string MsgCast = "HeyImAmethyst.ArsVenifici.Cast";
         public static Random RandomGen = new Random();
 
@@ -74,7 +74,7 @@ namespace ArsVenefici
 
             CheckIfSVEIsInstalled();
 
-            SpaceCore.Skills.RegisterSkill(ModEntry.Skill = new Skill(this));
+            SpaceCore.Skills.RegisterSkill(ModEntry.Skill = new ArsVeneficiSkill(this));
 
             AddCommands();
         }

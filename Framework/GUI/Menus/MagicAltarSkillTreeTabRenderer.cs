@@ -380,15 +380,15 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             if (!hasPrereq)
             {
-                spellPartNameText = spellPartNameText + " (Can't Learn)";
+                spellPartNameText = spellPartNameText + " " + modEntry.Helper.Translation.Get("ui.magic_altar.tooltip_name_cant_learn.name");
             }
             else if (!knows)
             {
-                spellPartNameText = spellPartNameText + " (Not Learned)";
+                spellPartNameText = spellPartNameText + " " + modEntry.Helper.Translation.Get("ui.magic_altar.tooltip_name_not_learned.name");
             }
             else
             {
-                spellPartNameText = spellPartNameText + " (Learned)";
+                spellPartNameText = spellPartNameText + " " + modEntry.Helper.Translation.Get("ui.magic_altar.tooltip_name_learned.name");
             }
 
             int val1 = 272;

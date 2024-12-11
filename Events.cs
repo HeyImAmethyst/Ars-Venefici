@@ -14,46 +14,31 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection.Emit;
 using ArsVenefici.Framework.Interfaces.Spells;
-using static HarmonyLib.Code;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Spells.Shape;
-using StardewValley.Mods;
-using StardewValley.Characters;
 using SpaceCore;
-using System.Reflection.PortableExecutable;
-using ArsVenefici.Framework.Skill;
-using SpaceCore.Content;
-using System.Reflection;
 using SpaceShared.APIs;
 using ArsVenefici.Framework.GUI.Menus;
 using ArsVenefici.Framework.Spells.Effects;
 using StardewValley.Network;
-using static System.Net.Mime.MediaTypeNames;
 using ArsVenefici.Framework.Spells.Components;
-using StardewValley.Extensions;
-using xTile.Tiles;
-using ArsVenefici.Framework.Commands;
-using StardewValley.GameData;
-using ContentPatcher;
-using StardewValley.ItemTypeDefinitions;
-using StardewValley.GameData.Crops;
-using StardewValley.GameData.Objects;
-using SpaceCore.UI;
 using static ArsVenefici.ModConfig;
-using static StardewValley.Minigames.MineCart.Whale;
-using System.Net;
 using ArsVenefici.Framework.GameSave;
-using static SpaceCore.Guidebooks.GuidebookData;
+using Microsoft.Xna.Framework.Audio;
+using ArsVenefici.Framework.Skill;
 
 namespace ArsVenefici
 {
     public class Events
     {
 
+        ModKeyBinds modKeyBinds;
+
         DailyTracker dailyTracker;
         ModEntry modEntryInstance;
 
         StringBuilder tutorialTextString;
+        int spellKeyHoldTime = 0;
 
         public Events(ModEntry modEntry, DailyTracker dailyTracker)
         {
@@ -63,6 +48,9 @@ namespace ArsVenefici
 
             tutorialTextString = new StringBuilder();
             tutorialTextString.Clear();
+
+
+            //modKeyBinds = modEntryInstance.Config.keyBoardKeyBinds.modKeyBinds;
         }
 
         /// <summary>
@@ -552,13 +540,17 @@ namespace ArsVenefici
                     spellBook.CreateSpells(modEntryInstance);
                     spellBook.TurnToSpell();
 
-                    if (Game1.player.HasCustomProfession(Skill.ManaEfficiencyProfession))
+                    if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaEfficiencyProfession))
                     {
-                        spellBook.SetManaCostReductionAmount(Skill.ManaEfficiencyProfession.GetValue<int>());
+                        spellBook.SetManaCostReductionAmount(ArsVeneficiSkill.ManaEfficiencyProfession.GetValue<int>());
                     }
-                    else if (Game1.player.HasCustomProfession(Skill.ManaEfficiency2Profession))
+                    else if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaEfficiency2Profession))
                     {
-                        spellBook.SetManaCostReductionAmount(Skill.ManaEfficiency2Profession.GetValue<int>());
+                        spellBook.SetManaCostReductionAmount(ArsVeneficiSkill.ManaEfficiency2Profession.GetValue<int>());
+                    }
+                    else
+                    {
+                        spellBook.SetManaCostReductionAmount(1);
                     }
 
                     spellBook.SaveSpellBook(modEntryInstance);
@@ -582,16 +574,33 @@ namespace ArsVenefici
             if (Game1.activeClickableMenu == null || !Game1.eventUp || Context.IsPlayerFree)
                 modEntryInstance.dailyTracker.Update(modEntryInstance, e, Game1.currentLocation);
 
-            // update active effects
-            for (int i = modEntryInstance.ActiveEffects.Count - 1; i >= 0; i--)
+            if (Context.IsWorldReady)
             {
-                IActiveEffect effect = modEntryInstance.ActiveEffects[i];
+                SpellHelper spellHelper = SpellHelper.Instance();
+                Farmer farmer = Game1.player;
+                ISpell spell = farmer.GetSpellBook().GetCurrentSpell();
 
-                //if (!effect.Update(e))
-                //    modEntryInstance.ActiveEffects.RemoveAt(i);
+                //modEntryInstance.Monitor.Log(spellKeyHoldTime.ToString(), LogLevel.Info);
+                //modEntryInstance.Monitor.Log(spell.IsContinuous().ToString(), LogLevel.Info);
 
-                if (effect != null)
-                    effect.Update(e);
+
+                if (spell.IsContinuous() && spellKeyHoldTime > 1)
+                {
+                    if(e.IsMultipleOf(15))
+                        CastSpell(farmer, modKeyBinds);
+                }
+
+                // update active effects
+                for (int i = modEntryInstance.ActiveEffects.Count - 1; i >= 0; i--)
+                {
+                    IActiveEffect effect = modEntryInstance.ActiveEffects[i];
+
+                    //if (!effect.Update(e))
+                    //    modEntryInstance.ActiveEffects.RemoveAt(i);
+
+                    if (effect != null)
+                        effect.Update(e);
+                }
             }
         }
 
@@ -691,8 +700,6 @@ namespace ArsVenefici
                 //if(Game1.isAnyGamePadButtonBeingPressed == true)
                 //if(Game1.options.gamepadMode == Options.GamepadModes.Auto)
 
-                ModKeyBinds modKeyBinds;
-
                 //if (Game1.input.GetGamePadState().)
                 //{
                 //    modKeyBinds = modEntryInstance.Config.controllerKeyBinds.modKeyBinds;
@@ -759,14 +766,14 @@ namespace ArsVenefici
                 if (ModEntry.SpellCastingMode)
                 {
                     if(modKeyBinds.CastSpellButtons.JustPressed())
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
 
                     if (modKeyBinds.CastSpellPage1.JustPressed())
                     {
                         spellBook.SetCurrentSpellIndex(0);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage2.JustPressed())
@@ -774,7 +781,7 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(1);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage3.JustPressed())
@@ -782,7 +789,7 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(2);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage4.JustPressed())
@@ -790,7 +797,7 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(3);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage5.JustPressed())
@@ -798,7 +805,7 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(4);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage6.JustPressed())
@@ -806,7 +813,7 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(5);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage7.JustPressed())
@@ -814,7 +821,7 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(6);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage8.JustPressed())
@@ -822,7 +829,7 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(7);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage9.JustPressed())
@@ -830,7 +837,7 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(8);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
                     }
 
                     if (modKeyBinds.CastSpellPage10.JustPressed())
@@ -838,7 +845,16 @@ namespace ArsVenefici
                         spellBook.SetCurrentSpellIndex(9);
                         spellBook.TurnToSpell();
                         spellBook.SaveSpellBook(modEntryInstance);
-                        CastSpell(farmer);
+                        CastSpell(farmer, modKeyBinds);
+                    }
+
+                    if (modKeyBinds.CastSpellButtons.IsDown())
+                    {
+                        spellKeyHoldTime++;                    }
+
+                    if (!modKeyBinds.CastSpellButtons.IsDown())
+                    {
+                        spellKeyHoldTime = 0;
                     }
                 }
 
@@ -946,6 +962,25 @@ namespace ArsVenefici
             }
         }
 
+        ///// <summary>Perform an action when the user interacts with this object, assuming it's a drum block.</summary>
+        ///// <inheritdoc cref="M:StardewValley.Object.checkForAction(StardewValley.Farmer,System.Boolean)" />
+        //protected virtual bool CheckForActionOnDrumBlock(Farmer who, bool justCheckingForActivity = false)
+        //{
+        //    if (justCheckingForActivity)
+        //    {
+        //        return true;
+        //    }
+        //    int.TryParse(this.preservedParentSheetIndex.Value, out var preservedParentSheetInt);
+        //    preservedParentSheetInt = (preservedParentSheetInt + 1) % 7;
+        //    this.preservedParentSheetIndex.Value = preservedParentSheetInt.ToString();
+        //    this.shakeTimer = 200;
+        //    this.internalSound?.Stop(AudioStopOptions.Immediate);
+        //    Game1.playSound("drumkit" + preservedParentSheetInt, out this.internalSound);
+        //    this.scale.Y = 1.3f;
+        //    this.shakeTimer = 200;
+        //    return true;
+        //}
+
         public void OnNetworkCast(IncomingMessage msg)
         {
             Farmer player = Game1.getFarmer(msg.FarmerID);
@@ -953,10 +988,10 @@ namespace ArsVenefici
             if (player == null)
                 return;
 
-            CastSpell(player);
+            CastSpell(player, modKeyBinds);
         }
 
-        private void CastSpell(Farmer farmer)
+        private void CastSpell(Farmer farmer, ModKeyBinds modKeyBinds)
         {
             SpellHelper spellHelper = SpellHelper.Instance();
             ISpell spell = farmer.GetSpellBook().GetCurrentSpell();
@@ -966,8 +1001,6 @@ namespace ArsVenefici
 
             if (spell != null && spell.IsValid())
             {
-                //if (!spell.IsContinuous()) return;
-
                 foreach (ISpellPart spellPart in spell.SpellStack().Parts)
                 {
                     if (spellPart is Grow && Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness") == false)
@@ -989,6 +1022,13 @@ namespace ArsVenefici
                 {
                     Game1.showRedMessage("Failed Casting Spell: Not Enough Mana!");
                 }
+
+                //if (spell.IsContinuous() && spellKeyHoldTime > 1)
+                //{
+                //    CastSpell(farmer, modKeyBinds);
+                //    //spell.Cast(new CharacterEntityWrapper(farmer), farmer.currentLocation, 0, true, true);
+                //}
+
             }
         }
 
@@ -1031,11 +1071,110 @@ namespace ArsVenefici
             //        DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
             //}
 
+            RenderBeam(e.SpriteBatch);
             RenderTouchIndicator(e.SpriteBatch);
 
             //draw active effects
             foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
                 effect.Draw(e.SpriteBatch);
+        }
+
+        public void OnRenderedStep(object sender, RenderedStepEventArgs e)
+        {
+            if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
+                return;
+
+            //GameLocation location = Game1.currentLocation;
+
+            //foreach (Character character in location.characters)
+            //{
+            //    DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, character.GetBoundingBox()), Color.Red, 1);
+            //}
+
+            //foreach (Farmer farmer in location.farmers)
+            //{
+            //    DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, farmer.GetBoundingBox()), Color.Red, 1);
+            //}
+
+            //foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
+            //{
+            //    if (effect != null && effect is AbstractSpellEffect abstractSpellEffect)
+            //        DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
+            //}
+            //RenderBeam(e.SpriteBatch);
+        }
+
+        public void RenderBeam(SpriteBatch spriteBatch)
+        {
+            if (!modEntryInstance.LearnedWizardy || !ModEntry.SpellCastingMode)
+                return;
+
+            SpellBook spellBook = Game1.player.GetSpellBook();
+            //ISpell spell = spellBook.GetCurrentSpell();
+            ISpell spell = spellBook.GetSpells()[spellBook.GetCurrentSpellIndex()];
+
+            if (spell != null)
+            {
+                if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer && /*Game1.player.CurrentTool != null &&*/ (Game1.oldKBState.IsKeyDown(Keys.LeftShift) || Game1.options.alwaysShowToolHitLocation) && /*this.CurrentTool.doesShowTileLocationMarker() &&*/ (!Game1.options.hideToolHitLocationWhenInMotion || !Game1.player.isMoving()))
+                {
+                    Vector2 local = Vector2.One;
+                    Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/beam/beam.png");
+                    Texture2D texture2 = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
+
+                    if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is Beam && spellKeyHoldTime > 0)
+                    {
+                        //Vector2 mousePos = Utility.PointToVector2(Game1.getMousePosition()) + new Vector2(Game1.viewport.X, Game1.viewport.Y);
+                        //Vector2 absoluteClampedMousePos = Utility.clampToTile(mousePos);
+
+                        //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+
+                        ICursorPosition cursorPosition = modEntryInstance.Helper.Input.GetCursorPosition();
+
+                        Vector2 absoluteClampedMousePos = Utility.clampToTile(cursorPosition.AbsolutePixels);
+                        
+                        //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+                        //local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
+                        local = Utils.AbsolutePosToScreenPos(Game1.player.getStandingPosition());
+
+                        //Vector2 dPos = local - Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+                        //Vector2 dPos = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos) - local;
+
+                        var screenMousePos = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+
+
+                        var localMouse = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+
+                        spriteBatch.Draw(texture2, localMouse, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+
+                        //var rotation = (float)Math.Atan2(dPos.Y, dPos.X);
+                        var rotation = (float)-Math.Atan2(local.Y - screenMousePos.Y, screenMousePos.X - local.X);
+
+                        float width = screenMousePos.X - local.X;
+                        float height = screenMousePos.Y - local.Y;
+
+                        var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), new Rectangle((int)local.X, (int)local.Y, (int)width, (int)height));
+
+                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 198, 22), Color.White, rotation, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                    
+                    
+                    }
+                }
+            }
+        }
+
+        private static double ExpandToBound(Rectangle image, Rectangle boundingBox)
+        {
+            double widthScale = 0, heightScale = 0;
+            if (image.Width != 0)
+                widthScale = (double)boundingBox.Width / (double)image.Width;
+            if (image.Height != 0)
+                heightScale = (double)boundingBox.Height / (double)image.Height;
+
+            double scale = Math.Min(widthScale, heightScale);
+
+            //Rectangle result = new Rectangle((int)(image.Width * scale),
+            //                    (int)(image.Height * scale));
+            return scale;
         }
 
         public void RenderTouchIndicator(SpriteBatch spriteBatch)

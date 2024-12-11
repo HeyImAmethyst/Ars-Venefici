@@ -94,6 +94,15 @@
 	"spellpart.zone.name": "Zone",
 	"spellpart.zone.description": "Makes a 'zone' of the spell cast. This shape must be placed last. This shape will continue ticking the spell effect it was attached to.",
 
+	"spellpart.wave.name": "Wave",
+	"spellpart.wave.description": "Makes a zone that move forwards, applies the spell effect it was attached to.",
+
+	"spellpart.beam.name": "Beam",
+	"spellpart.beam.description": "Makes a Beam shape that will continuously trigger the spell effect on whatever you're targeting",
+
+	"spellpart.wall.name": "Wall",
+	"spellpart.wall.description": "Makes a wall in front of the caster that will continuously trigger the spell effect it was attached to. Needs a target shape before it and must be placed last.",
+
 
 	"spellpart.dig.name": "Dig",
 	"spellpart.dig.description": "Breaks rocks, depris, and chops trees.",
@@ -133,6 +142,9 @@
 
 	"spellpart.haste.name": "Haste",
 	"spellpart.haste.description": "Increases the player's speed.",
+
+	"spellpart.dispel.name": "Dispel",
+	"spellpart.dispel.description": "Removes effects on your farmer.",
 
 
 	"spellpart.damage.name": "Damage",
@@ -191,6 +203,9 @@
 
 	"ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
 
+	"ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",
+	"ui.magic_altar.tooltip_name_not_learned.name": "(Not Learned)",
+	"ui.magic_altar.tooltip_name_learned.name": "(Learned)",
 
 	/*********
 	** Skill/Professions

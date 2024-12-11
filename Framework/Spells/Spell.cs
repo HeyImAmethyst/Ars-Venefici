@@ -1,14 +1,11 @@
-﻿using ArsVenefici.Framework.Skill;
-using ArsVenefici.Framework.Interfaces;
+﻿using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Skill;
 using ArsVenefici.Framework.Spells.Components;
 using ArsVenefici.Framework.Util;
 using SpaceCore;
 using StardewValley;
 using StardewValley.Menus;
-using System;
-using StardewValley.Buffs;
-using ArsVenefici.Framework.GameSave;
 
 namespace ArsVenefici.Framework.Spells
 {
@@ -33,7 +30,8 @@ namespace ArsVenefici.Framework.Spells
             this.shapeGroups = shapeGroups;
             this.spellStack = spellStack;
 
-            continuous = new Lazy<bool>(() => FirstShape(CurrentShapeGroupIndex()) != null &&  FirstShape(CurrentShapeGroupIndex()).IsContinuous());
+            //continuous = new Lazy<bool>(() => FirstShape(CurrentShapeGroupIndex()) != null &&  FirstShape(CurrentShapeGroupIndex()).IsContinuous());
+            //continuous = new Lazy<bool>(() => firstShape(currentShapeGroupIndex()).Any(shape => shape.IsContinuous));
 
             empty = new Lazy<bool>(() => !ShapeGroups().Any() || ShapeGroups().All(g => g.IsEmpty()) && SpellStack().IsEmpty());
 
@@ -59,7 +57,8 @@ namespace ArsVenefici.Framework.Spells
 
         public bool IsContinuous()
         {
-            return continuous.Value;
+            //return continuous.Value;
+            return FirstShape(CurrentShapeGroupIndex()) != null && FirstShape(CurrentShapeGroupIndex()).IsContinuous();
         }
 
         public bool IsEmpty()
@@ -163,15 +162,28 @@ namespace ArsVenefici.Framework.Spells
             SpellCastResult result = spellHelper.Invoke(modEntry, this, caster, gameLocation, null, castingTicks, 0, awardXp);
 
             int manaReductionAmount = (int)Math.Round(manaValue, 0, MidpointRounding.AwayFromZero) / ((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount();
-            int manaValueInt = (int)manaValue - manaReductionAmount;
+            int manaValueInt;
 
-            if(result.IsSuccess() && caster.entity is Farmer)
+            if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaEfficiencyProfession) || Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaEfficiency2Profession))
+            {
+                manaValueInt = (int)(manaValue - manaReductionAmount);
+            }
+            else
+            {
+                manaValueInt = (int)manaValue;
+            }
+
+            modEntry.Monitor.Log("Mana Value: " + manaValue.ToString(), StardewModdingAPI.LogLevel.Info);
+            modEntry.Monitor.Log("Mana Reduction Amount: " + manaReductionAmount.ToString(), StardewModdingAPI.LogLevel.Info);
+            modEntry.Monitor.Log("Final Mana Value: " + manaValueInt.ToString(), StardewModdingAPI.LogLevel.Info);
+
+            if (result.IsSuccess() && caster.entity is Farmer)
             {
                 Farmer player = (Farmer)caster.entity;
 
                 if (modEntry.ModSaveData.InfiniteMana == false)
                 {
-                    if (Game1.player.HasCustomProfession(Skill.Skill.ManaConservationProfession))
+                    if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaConservationProfession))
                     {
                         int manaCostPercentage = 75;
                         int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);

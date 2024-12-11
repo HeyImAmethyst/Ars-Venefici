@@ -1,12 +1,7 @@
 ﻿using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using StardewValley;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static StardewValley.Minigames.TargetGame;
+using Microsoft.Xna.Framework;
 
 namespace ArsVenefici.Framework.Interfaces.Spells
 {
@@ -15,7 +10,7 @@ namespace ArsVenefici.Framework.Interfaces.Spells
         public void SetSpell(SpellBook spellBook, ISpell spell);
 
 
-        Character GetPointedCharacter(Character entity, double range);
+        Character GetPointedCharacter(Character entity, Vector2 from, Vector2 to, double range);
 
         HitResult Trace(ModEntry modEntry, Character entity, GameLocation level, double range, bool entities, bool mouseCursor);
 

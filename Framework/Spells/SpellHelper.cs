@@ -1,15 +1,19 @@
 ﻿using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Spells.Components;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Locations;
 using StardewValley.TerrainFeatures;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using xTile.Tiles;
@@ -21,6 +25,7 @@ namespace ArsVenefici.Framework.Spells
     public class SpellHelper : ISpellHelper
     {
         private static SpellHelper INSTANCE = new SpellHelper();
+
 
         private SpellHelper()
         {
@@ -38,25 +43,27 @@ namespace ArsVenefici.Framework.Spells
             spellBook.GetSpells()[currentSpellIndex] = spell;
         }
 
-        public Character GetPointedCharacter(Character character, double range)
+        public Character GetPointedCharacter(Character character, Vector2 from, Vector2 to, double range)
         {
-            Vector2 from = Utils.AbsolutePosToTilePos(Utility.clampToTile(character.getStandingPosition()));
-            
-            Vector2 toolLocation = Utils.AbsolutePosToTilePos(Utility.clampToTile(character.GetToolLocation(true)));
-            ////int view = character.FacingDirection;
-            int view = (int)-Math.Atan2(from.Y - toolLocation.Y, toolLocation.X - from.X);
-            
-            Vector2 to = new Vector2((float)(from.X + (view * range)), (float)(from.Y + (view * range)));
+            //float dir = (float)-Math.Atan2(character.getStandingPosition().Y - toLocation.Y, toLocation.X - character.getStandingPosition().X);
 
-            Rectangle aabb = new Rectangle(character.GetBoundingBox().X, character.GetBoundingBox().Y, (int)(character.GetBoundingBox().Width + (view * range)), (int)(character.GetBoundingBox().Height + (view * range)));
+            //Vector2 dPos = to - from;
+            //float dir = (float)Math.Atan2(dPos.Y, dPos.X);
+
+
+            Vector2 dPos = new Vector2(character.getStandingPosition().Y - to.Y, to.X - character.getStandingPosition().X);
+
+            Vector2 toRange = Vector2.Add(from, new Vector2((float)(dPos.X * range), (float)(dPos.Y * range)));
+
+            //Rectangle aabb = new Rectangle(character.GetBoundingBox().X, character.GetBoundingBox().Y, (int)(character.GetBoundingBox().Width + (view * range)), (int)(character.GetBoundingBox().Height + (view * range)));
+            //Rectangle aabb = new Rectangle(character.GetBoundingBox().X, character.GetBoundingBox().Y, (int)(character.GetBoundingBox().Width + (toRange.X)), (int)(character.GetBoundingBox().Height + (toRange.Y)));
+            Rectangle aabb = new Rectangle((int)to.X, (int)to.Y, Game1.tileSize, Game1.tileSize);
 
             //CharacterHitResult hit = ProjectileUtil.getEntityHitResult(entity, from, to, aabb, e-> !e.isSpectator() && e.isPickable(), range * range);
             CharacterHitResult hit = GameLocationUtils.GetCharacterHitResult(new CharacterEntityWrapper(character), from, to, aabb, null, range * range);
 
             //return hit != null && from.distanceTo(hit.getLocation()) < range ? hit.getEntity() : null;
             return hit != null && Vector2.Distance(from, hit.GetLocation()) < range ? hit.GetCharacter() : null;
-
-            //return null;
 
         }
 
@@ -69,32 +76,47 @@ namespace ArsVenefici.Framework.Spells
 
             //}
 
+            Vector2 mouseTilePos = Utils.AbsolutePosToTilePos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));
+            Vector2 playerToolTile = Utils.AbsolutePosToTilePos(Utility.clampToTile(entity.GetToolLocation(true)));
+
             Vector2 fromTileVec;
+            Vector2 toTileVec = new Vector2();
+
+            //int distance = (int)Vector2.Distance(playerToolTile, mouseTilePos);
+            //modEntry.Monitor.Log(distance.ToString(), LogLevel.Info);
 
             if (mouseCursor)
             {
-                fromTileVec = Utils.AbsolutePosToTilePos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));
+                fromTileVec = mouseTilePos;
+                toTileVec = mouseTilePos;
             }
             else
             {
-                fromTileVec = Utils.AbsolutePosToTilePos(Utility.clampToTile(entity.GetToolLocation(true)));
+                //Vector2 directonPos = new Vector2(mouseTilePos.X - Utils.AbsolutePosToTilePos(Utility.clampToTile(new CharacterEntityWrapper(entity).GetPosition())).X, Utils.AbsolutePosToTilePos(Utility.clampToTile(new CharacterEntityWrapper(entity).GetPosition())).Y - mouseTilePos.Y);
+                //float dir = (float)-Math.Atan2(directonPos.Y, directonPos.X);
+
+                fromTileVec = playerToolTile;
+
+
+                //Vector3 vector = CombatTarget.transform.position - this.transform.position; ector3 endPoint = CombatTarget.transform.position - (vector.normalized * radius);
+
+                Vector2 vector = mouseTilePos - playerToolTile;
+                Vector2 endPoint = mouseTilePos - (Vector2.Multiply(Vector2.Normalize(vector), new Vector2((float)range, (float)range)));
+
+                //modEntry.Monitor.Log(vector.ToString(), LogLevel.Info);
+                toTileVec = endPoint;
             }
 
             TilePos fromTilePos = new TilePos(fromTileVec);
-            TilePos toTilePos = new TilePos(Vector2.Multiply(fromTileVec, new Vector2((float)range, (float)range)));
+            TilePos toTilePos = new TilePos(toTileVec);
 
-            //if (entities)
-            //{
-            //    //Character pointed = GetPointedCharacter(entity, range);
-            //    //if (pointed != null) return new CharacterHitResult(pointed);
+            if (entities)
+            {
+                Character pointed = GetPointedCharacter(entity, fromTilePos.GetVector(), toTilePos.GetVector(), range);
 
-            //    float view = (float)-Math.Atan2(entity.getStandingPosition().Y - toTilePos.GetVector().Y, toTilePos.GetVector().X - entity.getStandingPosition().X);
-            //    Rectangle aabb = new Rectangle((int)fromTileVec.X, (int)fromTileVec.Y, (int)(entity.GetBoundingBox().Width + (range)), (int)(entity.GetBoundingBox().Height + (range)));
-            //    CharacterHitResult hit = GameLocationUtils.GetCharacterHitResult(new CharacterEntityWrapper(entity), fromTileVec, toTilePos.GetVector(), aabb, null, range * range);
-
-            //    Character pointed = hit != null && Vector2.Distance(fromTileVec, hit.GetLocation()) < range ? hit.GetCharacter() : null;
-
-            //}
+                if (pointed != null)
+                    return new CharacterHitResult(pointed);
+            }
 
             return GameLocationUtils.Clip(new CharacterEntityWrapper(entity), fromTilePos.GetVector(), toTilePos.GetVector());
         }

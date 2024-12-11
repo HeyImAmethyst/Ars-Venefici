@@ -56,13 +56,16 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill physicalDamage = new SpellPartSkill("physical_damage", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5") , 1} }, offenceTab, false);
             SpellPartSkill bounce = new SpellPartSkill("bounce", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)766"), 20 } }, offenceTab, false);
             SpellPartSkill piercing = new SpellPartSkill("piercing", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)691"), 5 } }, offenceTab, false);
-            SpellPartSkill velocity = new SpellPartSkill("velocity", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)395"), 1 } }, offenceTab, false);
+            SpellPartSkill velocity = new SpellPartSkill("velocity", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)395"), 1 } }, offenceTab, false);
 
-            SpellPartSkill damage = new SpellPartSkill("damage", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)848"), 5 } }, offenceTab, false); //210, 165
+            
             SpellPartSkill aoe = new SpellPartSkill("aoe", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)621"), 1 } }, offenceTab, false);
-
+            SpellPartSkill beam = new SpellPartSkill("beam", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)32"), 1 }, { ItemRegistry.Create("(O)74"), 5 } }, offenceTab, false);
+            SpellPartSkill damage = new SpellPartSkill("damage", new HashSet<SpellPartSkill> { beam }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)848"), 5 } }, offenceTab, false); //210, 165
 
             SpellPartSkill explosion = new SpellPartSkill("explosion", new HashSet<SpellPartSkill> { damage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)287"), 3 } }, offenceTab, false); //210, 300
+
+            SpellPartSkill wave = new SpellPartSkill("wave", new HashSet<SpellPartSkill> { velocity }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 } }, offenceTab, false); //210, 210
 
             spellPartSkills.Add(projectile.GetId(), projectile);
             spellPartSkills.Add(physicalDamage.GetId(), physicalDamage);
@@ -72,6 +75,8 @@ namespace ArsVenefici.Framework.Skill
             spellPartSkills.Add(damage.GetId(), damage);
             spellPartSkills.Add(aoe.GetId(), aoe);
             spellPartSkills.Add(explosion.GetId(), explosion);
+            spellPartSkills.Add(wave.GetId(), wave);
+            spellPartSkills.Add(beam.GetId(), beam);
         }
 
         private void AddDefense()
@@ -81,13 +86,19 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill haste = new SpellPartSkill("haste", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)395"), 1 } }, defenseTab, false);
             SpellPartSkill heal = new SpellPartSkill("heal", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false); //210, 120
 
-            SpellPartSkill zone = new SpellPartSkill("zone", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 } }, defenseTab, false); //210, 210
+            
             SpellPartSkill lifeTap = new SpellPartSkill("life_tap", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)768"), 5 } }, defenseTab, false); //255, 120
 
             SpellPartSkill lifeDrain = new SpellPartSkill("life_drain", new HashSet<SpellPartSkill> { lifeTap }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false); //255, 165
 
             SpellPartSkill duration = new SpellPartSkill("duration", new HashSet<SpellPartSkill> { lifeTap }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)787"), 3 } }, defenseTab, false); //255, 345
-            SpellPartSkill healing = new SpellPartSkill("healing", new HashSet<SpellPartSkill> { lifeTap }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false);
+            SpellPartSkill healing = new SpellPartSkill("healing", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false);
+            
+            SpellPartSkill dispel = new SpellPartSkill("dispel", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)184"), 1 } }, defenseTab, false);
+            SpellPartSkill zone = new SpellPartSkill("zone", new HashSet<SpellPartSkill> { dispel }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 } }, defenseTab, false); //210, 210
+            
+            SpellPartSkill wall = new SpellPartSkill("wall", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)324"), 1 } }, defenseTab, false); //210, 210
+            
 
             spellPartSkills.Add(self.GetId(), self);
             spellPartSkills.Add(haste.GetId(), haste);
@@ -97,6 +108,8 @@ namespace ArsVenefici.Framework.Skill
             spellPartSkills.Add(lifeDrain.GetId(), lifeDrain);
             spellPartSkills.Add(duration.GetId(), duration);
             spellPartSkills.Add(healing.GetId(), healing);
+            spellPartSkills.Add(dispel.GetId(), dispel);
+            spellPartSkills.Add(wall.GetId(), wall);
         }
 
         private void AddUtility()

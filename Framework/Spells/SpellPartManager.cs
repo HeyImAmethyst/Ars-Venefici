@@ -41,6 +41,9 @@ namespace ArsVenefici.Framework.Spells
             EtherialTouch etherialTouch = new EtherialTouch();
             AoE aoE = new AoE();
             Zone zone = new Zone();
+            Wave wave = new Wave();
+            Beam beam = new Beam();
+            Wall wall = new Wall();
 
             spellParts.Add(self.GetId(), self);
             spellParts.Add(projectile.GetId(), projectile);
@@ -48,6 +51,9 @@ namespace ArsVenefici.Framework.Spells
             spellParts.Add(etherialTouch.GetId(), etherialTouch);
             spellParts.Add(aoE.GetId(), aoE);
             spellParts.Add(zone.GetId(), zone);
+            spellParts.Add(wave.GetId(), wave);
+            spellParts.Add(beam.GetId(), beam);
+            spellParts.Add(wall.GetId(), wall);
         }
 
         private void AddComonents()
@@ -84,6 +90,8 @@ namespace ArsVenefici.Framework.Spells
 
             Effect haste = new Effect("haste", 30, hasteBuff);
 
+            Dispel dispel = new Dispel();
+
             spellParts.Add(createWater.GetId(), createWater);
             spellParts.Add(heal.GetId(), heal);
             spellParts.Add(physicalDamage.GetId(), physicalDamage);
@@ -97,6 +105,7 @@ namespace ArsVenefici.Framework.Spells
             spellParts.Add(blink.GetId(), blink);
             spellParts.Add(light.GetId(), light);
             spellParts.Add(haste.GetId(), haste);
+            spellParts.Add(dispel.GetId(), dispel);
         }
 
         private void AddModifiers()

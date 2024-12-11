@@ -48,9 +48,9 @@ namespace ArsVenefici
 
                     int levelAmount = Game1.player.GetCustomSkillLevel(ModEntry.Skill);
 
-                    if (Game1.player.HasCustomProfession(Skill.ManaRegen1Profession))
+                    if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaRegen1Profession))
                         levelAmount *= 2;
-                    else if(Game1.player.HasCustomProfession(Skill.ManaRegen2Profession))
+                    else if(Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaRegen2Profession))
                         levelAmount *= 4;
 
                     int manaRegenValue = modEntry.ModSaveData.ManaRegenRate * levelAmount;

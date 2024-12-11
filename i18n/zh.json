@@ -94,6 +94,15 @@
     "spellpart.zone.name": "魔法区域",
     "spellpart.zone.description": "创建持续作用的魔法区域。此形状必须最后放置，并将持续激活所附加的魔法效果。",
 
+    "spellpart.wave.name": "Wave",
+    "spellpart.wave.description": "Makes a zone that move forwards, applies the spell effect it was attached to.",
+
+    "spellpart.beam.name": "Beam",
+    "spellpart.beam.description": "Makes a Beam shape will continuously trigger the spell effect on whatever you're targeting",
+
+    "spellpart.wall.name": "Wall",
+    "spellpart.wall.description": "Makes a wall in front of the caster that will continuously trigger the spell effect it was attached to. Needs a target shape before it and must be placed last.",
+
 
     "spellpart.dig.name": "挖掘",
     "spellpart.dig.description": "破坏岩石、碎片，砍伐树木。",
@@ -121,6 +130,8 @@
     "spellpart.physical_damage.description": "对目标造成物理伤害。",
     "spellpart.haste.name": "加速",
     "spellpart.haste.description": "提升玩家的移动速度。",
+    "spellpart.dispel.name": "Dispel",
+    "spellpart.dispel.description": "Removes effects on your farmer.",
 
 
     "spellpart.damage.name": "伤害增强",
@@ -171,6 +182,10 @@
     "ui.magic_altar.utility_tab.name": "实用",
 
     "ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
+
+    "ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",
+    "ui.magic_altar.tooltip_name_not_learned.name": "(Not Learned)",
+    "ui.magic_altar.tooltip_name_learned.name": "(Learned)",
 
     /*********
 	** Skill/Professions

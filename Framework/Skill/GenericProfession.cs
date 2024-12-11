@@ -19,7 +19,7 @@ namespace ArsVenefici.Framework.Skill
         /*********
         ** Public methods
         *********/
-        public GenericProfession(Skill skill, string theId)
+        public GenericProfession(ArsVeneficiSkill skill, string theId)
             : base(skill, theId) { }
 
         public override string GetName()

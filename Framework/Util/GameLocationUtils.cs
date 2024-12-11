@@ -39,7 +39,8 @@ namespace ArsVenefici.Framework.Util
             Character character = null;
             Vector2 location = new Vector2();
 
-            var var12 = GetCharacters(entity, aABB, predicate).GetEnumerator();
+            //var var12 = GetCharacters(entity, aABB, predicate).GetEnumerator();
+            var var12 = GetCharacters(entity, aABB).GetEnumerator();
 
             while (true)
             {
@@ -99,7 +100,15 @@ namespace ArsVenefici.Framework.Util
             VectorLine vectorLine = new VectorLine(from, to);
             Vector2[] points = vectorLine.GetPoints(100);
 
+            //float dir = (float)-Math.Atan2(character.getStandingPosition().Y - toLocation.Y, toLocation.X - character.getStandingPosition().X);
             float dir = (float)-Math.Atan2(entity.GetPosition().Y - to.Y, to.X - entity.GetPosition().X);
+            //float dir = (float)-Math.Atan2(to.Y - entity.GetPosition().Y, to.X - entity.GetPosition().X);
+
+            //Vector2 dPos = from - to;
+            //Vector2 dPos = to - from;
+            //var dir = (float)Math.Atan2(dPos.Y, dPos.X);
+
+            //var dir = Utils.GetDirectionFromVectors(from, to);
 
             foreach (var item in points)
             {
@@ -111,10 +120,11 @@ namespace ArsVenefici.Framework.Util
                 {
                     return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
                 }
-                //else
-                //{
-                //    return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
-                //}
+                else
+                {
+                    //return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
+                    continue;
+                }
             }
 
             return TerrainFeatureHitResult.Miss(from, dir, new TilePos(to));
