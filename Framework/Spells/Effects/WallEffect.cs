@@ -89,40 +89,44 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             if (Game1.activeClickableMenu == null && Game1.game1.IsActive)
             {
-                ForAllInRange((int)radius, false, e => spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new CharacterHitResult(e), 0, index, true));
 
-                if (facingDirection == 1 || facingDirection == 3)
+                if (e.IsMultipleOf(15))
                 {
-                    Vector2 tilePos = new Vector2(GetPosition().X, GetPosition().Y - radius);
-                    Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
+                    ForAllInRange((int)radius, false, e => spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new CharacterHitResult(e), 0, index, true));
 
-                    SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), 1 * Game1.tileSize, (int)(boundingBoxRadius)));
-
-                    for (int y = (int)(pos.Y - radius); y <= pos.Y + radius; ++y)
+                    if (facingDirection == 1 || facingDirection == 3)
                     {
-                        TilePos newTilePos = new TilePos((int)pos.X, y);
-                        spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new TerrainFeatureHitResult(pos, 0, newTilePos, false), 0, index, true);
+                        Vector2 tilePos = new Vector2(GetPosition().X, GetPosition().Y - radius);
+                        Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
+
+                        SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), 1 * Game1.tileSize, (int)(boundingBoxRadius)));
+
+                        for (int y = (int)(pos.Y - radius); y <= pos.Y + radius; ++y)
+                        {
+                            TilePos newTilePos = new TilePos((int)pos.X, y);
+                            spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new TerrainFeatureHitResult(pos, 0, newTilePos, false), 0, index, true);
+                        }
                     }
-                }
 
-                if (facingDirection == 0 || facingDirection == 2)
-                {
-                    Vector2 tilePos = new Vector2(GetPosition().X - radius, GetPosition().Y);
-                    Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
-
-                    SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), boundingBoxRadius, 1 * Game1.tileSize));
-
-                    for (int x = (int)(pos.X - radius); x <= pos.X + radius; ++x)
+                    if (facingDirection == 0 || facingDirection == 2)
                     {
-                        TilePos newTilePos = new TilePos(x, (int)pos.Y);
-                        spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new TerrainFeatureHitResult(pos, 0, newTilePos, false), 0, index, true);
+                        Vector2 tilePos = new Vector2(GetPosition().X - radius, GetPosition().Y);
+                        Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
+
+                        SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), boundingBoxRadius, 1 * Game1.tileSize));
+
+                        for (int x = (int)(pos.X - radius); x <= pos.X + radius; ++x)
+                        {
+                            TilePos newTilePos = new TilePos(x, (int)pos.Y);
+                            spellHelper.Invoke(modEntry, spell, owner, GetGameLocation(), new TerrainFeatureHitResult(pos, 0, newTilePos, false), 0, index, true);
+                        }
                     }
-                }
 
 
-                if (!isActive)
-                {
-                    modEntry.ActiveEffects.Remove(this);
+                    if (!isActive)
+                    {
+                        modEntry.ActiveEffects.Remove(this);
+                    }
                 }
             }
         }
