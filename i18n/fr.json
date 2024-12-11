@@ -9,71 +9,71 @@
 	"config.position_x.tooltip": "La position X en pixels pour l’infobulle des sorts, relative au coin supérieur gauche de l'écran.",
 	"config.position_y.tooltip": "La position Y en pixels pour l’infobulle  des sorts, relative au coin supérieur gauche de l'écran.",
 
-	"config.keyboard_controlls_section_title.name": "Keyboard Controlls",
-	"config.keyboard_controlls_section_title.tooltip": "When using a keyboard as input, these are the controlls that will be used for some of the mod's input functions.",
+	"config.keyboard_controlls_section_title.name": "Touches de contrôle (clavier)",
+	"config.keyboard_controlls_section_title.tooltip": "Lorsque le clavier est utilisé, ce sont les contrôles qui seront utilisés pour certaines des fonctions.",
 
-	"config.controller_controlls_section_title.name": "Controller Controlls",
-	"config.controller_controlls_section_title.tooltip": "When using a controller as input, these are the controlls that will be used for some of the mod's input functions.",
+	"config.controller_controlls_section_title.name": "Touches de contrôles (manette)",
+	"config.controller_controlls_section_title.tooltip": "Lorsque la manette est utilisée, ce sont les contrôles qui seront utilisés pour certaines des fonctions.",
 
-	"config.open_spellbook_key.name": "Open Spell Book Buttons",
-	"config.open_spellbook_key.tooltip": "A list of keybinds to open the spell book.",
+	"config.open_spellbook_key.name": "Raccourci \"Ouvrir le grimoire\"",
+	"config.open_spellbook_key.tooltip": "Le raccourci pour ouvrir le grimoire",
 
-	"config.spell_toggle_key.name": "Spell Toggle Buttons",
-	"config.spell_toggle_key.tooltip": "A list of keybinds to toggle spell casting on or off.",
+	"config.spell_toggle_key.name": "Raccourci \"Préparation de sort\"",
+	"config.spell_toggle_key.tooltip": "Le raccourci pour activer ou désactiver le lancement de sort.",
 
-	"config.move_spell_label_key.name": "Move Spell Label Buttons",
-	"config.move_spell_label_key.tooltip": "A list of keybinds to move the spell lable.",
+	"config.move_spell_label_key.name": "Raccourci \"Déplacer les étiquettes de sort\"",
+	"config.move_spell_label_key.tooltip": "Le raccourci pour déplacer l’étiquette de sort.",
 
-	"config.next_spell_key.name": "Next Spell Buttons",
-	"config.next_spell_key.tooltip": "A list of keybinds to move to the next spell.",
+	"config.next_spell_key.name": "Raccourci \"Prochain sort\"",
+	"config.next_spell_key.tooltip": "Le raccourci pour aller au prochain sort.",
 
-	"config.next_shape_group_key.name": "Next Shape Group Buttons",
-	"config.next_shape_group_key.tooltip": "A list of keybinds to move to the next shape group on the selected spell.",
+	"config.next_shape_group_key.name": "Raccourci \"Prochain groupe de forme\"",
+	"config.next_shape_group_key.tooltip": "Le raccourci pour aller au prochain groupe de forme sur le sort sélectionné.",
 
-	"config.previous_spell_key.name": "Previous Spell Buttons",
-	"config.previous_spell_key.tooltip": "A list of keybinds to move to the previous spell. Press Shift and this button to move to the previous shape group on the selected spell.",
+	"config.previous_spell_key.name": "Raccourci \"Sort précédent\"",
+	"config.previous_spell_key.tooltip": "Le raccourci pour aller au précédent sort. Appuyez sur Shift et ce bouton pour aller au précédent groupe de formes sur le sort sélectionné.",
 
-	"config.previous_shape_group_key.name": "Previous Shape Group Buttons",
-	"config.previous_shape_group_key.tooltip": "A list of keybinds to move to the previous shape group on the selected spell.",
+	"config.previous_shape_group_key.name": "Raccourci \"Groupe de forme précédent\"",
+	"config.previous_shape_group_key.tooltip": "Le raccourci pour aller au précédent groupe de forme sur le sort sélectionné.",
 
-	"config.cast_spell_key.name": "Cast Spell Buttons",
-	"config.cast_spell_key.tooltip": "A list of keybinds to cast the current spell.",
+	"config.cast_spell_key.name": "Raccourci \"Lancement de sort\"",
+	"config.cast_spell_key.tooltip": "Le raccourci pour lancer le sort sélectionné.",
 
-	"config.open_tutorial_text_key.name": "Open Tutorial Text Buttons",
-	"config.open_tutorial_text_key.tooltip": "A list of keybinds to open a menu showing the text from the tutorial.",
+	"config.open_tutorial_text_key.name": "Raccourci \"Ouvrir le texte de tutoriel\"",
+	"config.open_tutorial_text_key.tooltip": "Le raccourci pour ouvrir un menu montrant le texte du tutoriel",
 
-	"config.cast_spell_1_key.name": "Cast Spell Page 1",
-	"config.cast_spell_1_key.tooltip": "A list of keybinds to cast the spell in the 1st page of the spell book.",
+	"config.cast_spell_1_key.name": "Raccourci \"Lancer le premier sort\"",
+	"config.cast_spell_1_key.tooltip": "Le raccourci pour lancer le sort sur la première page du grimoire.",
 
-	"config.cast_spell_2_key.name": "Cast Spell Page 2",
-	"config.cast_spell_2_key.tooltip": "A list of keybinds to cast the spell in the 2nd page of the spell book.",
+	"config.cast_spell_2_key.name": "Raccourci \"Lancer le deuxième sort\"",
+	"config.cast_spell_2_key.tooltip": "Le raccourci pour lancer le sort sur la deuxième page du grimoire.",
 
-	"config.cast_spell_3_key.name": "Cast Spell Page 3",
-	"config.cast_spell_3_key.tooltip": "A list of keybinds to cast the spell in the 3rd page of the spell book.",
+	"config.cast_spell_3_key.name": "Raccourci \"Lancer le troisième sort\"",
+	"config.cast_spell_3_key.tooltip": "Le raccourci pour lancer le sort sur la troisième page du grimoire.",
 
-	"config.cast_spell_4_key.name": "Cast Spell Page 4",
-	"config.cast_spell_4_key.tooltip": "A list of keybinds to cast the spell in the 4th page of the spell book.",
+	"config.cast_spell_4_key.name": "Raccourci \"Lancer le quatrième sort\"",
+	"config.cast_spell_4_key.tooltip": "Le raccourci pour lancer le sort sur la quatrième page du grimoire.",
 
-	"config.cast_spell_5_key.name": "Cast Spell Page 5",
-	"config.cast_spell_5_key.tooltip": "A list of keybinds to cast the spell in the 5th page of the spell book.",
+	"config.cast_spell_5_key.name": "Raccourci \"Lancer le cinquième sort\"",
+	"config.cast_spell_5_key.tooltip": "Le raccourci pour lancer le sort sur la cinquième page du grimoire.",
 
-	"config.cast_spell_6_key.name": "Cast Spell Page 6",
-	"config.cast_spell_6_key.tooltip": "A list of keybinds to cast the spell in the 6th page of the spell book.",
+	"config.cast_spell_6_key.name": "Raccourci \"Lancer le sixième sort\"",
+	"config.cast_spell_6_key.tooltip": "Le raccourci pour lancer le sort sur la sixième page du grimoire.",
 
-	"config.cast_spell_7_key.name": "Cast Spell Page 7",
-	"config.cast_spell_7_key.tooltip": "A list of keybinds to cast the spell in the 7th page of the spell book.",
+	"config.cast_spell_7_key.name": "Raccourci \"Lancer le septième sort\"",
+	"config.cast_spell_7_key.tooltip": "Le raccourci pour lancer le sort sur la septième page du grimoire.",
 
-	"config.cast_spell_8_key.name": "Cast Spell Page 8",
-	"config.cast_spell_8_key.tooltip": "A list of keybinds to cast the spell in the 8th page of the spell book.",
+	"config.cast_spell_8_key.name": "Raccourci \"Lancer le huitième sort\"",
+	"config.cast_spell_8_key.tooltip": "Le raccourci pour lancer le sort sur la huitième page du grimoire.",
 
-	"config.cast_spell_9_key.name": "Cast Spell Page 9",
-	"config.cast_spell_9_key.tooltip": "A list of keybinds to cast the spell in the 9th page of the spell book.",
+	"config.cast_spell_9_key.name": "Raccourci \"Lancer le neuvième sort\"",
+	"config.cast_spell_9_key.tooltip": "Le raccourci pour lancer le sort sur la neuvième page du grimoire.",
 
-	"config.cast_spell_10_key.name": "Cast Spell Page 10",
-	"config.cast_spell_10_key.tooltip": "A list of keybinds to cast the spell in the 10th page of the spell book.",
+	"config.cast_spell_10_key.name": "Raccourci \"Lancer le dixième sort\"",
+	"config.cast_spell_10_key.tooltip": "Le raccourci pour lancer le sort sur la dixième page du grimoire.",
 
 	/*********
-	** Éléments de sort
+	** Spell Parts
 	*********/
 
 	"spellpart.self.name": "* Soi-même",
@@ -175,15 +175,15 @@
 	** Buffs/Debuffs
 	*********/
 
-	"debuff.grow_sickness.name": "Grow Sickness",
+	"debuff.grow_sickness.name": "Retard de croissance",
 
 	/*********
 	** Spell Cast Warnings
 	*********/
 
-	"world.max_grow_spell_cast.message.1": "You tried to cast your grow spell,",
-	"world.max_grow_spell_cast.message.2": "but you feel your strength leaving you.",
-	"world.max_grow_spell_cast.message.3": "That's enough use of the grow component in one day!",
+	"world.max_grow_spell_cast.message.1": "Vous essayez de lancer votre sort CROÎTRE",
+	"world.max_grow_spell_cast.message.2": "mais vous sentez votre force vous quitter.",
+	"world.max_grow_spell_cast.message.3": "Vous avez assez utilisé le composant CROÎTRE pour la journée !",
 
 	/*********
 	** UI
@@ -197,18 +197,19 @@
 	"ui.spell_book.shape_group_area.name": "Espace des formes de zone",
 	"ui.spell_book.spell_grammar_area.name": "Espace de grammaire des sorts",
 
-	"ui.magic_altar.offense_tab.name": "Offense",
-	"ui.magic_altar.defense_tab.name": "Defense",
-	"ui.magic_altar.utility_tab.name": "Utility",
+	"ui.magic_altar.offense_tab.name": "Attaque",
+	"ui.magic_altar.defense_tab.name": "Défense",
+	"ui.magic_altar.utility_tab.name": "Utilitaire",
 
-	"ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
+	"ui.magic_altar.drag_label.description": "La fenêtre peut être déplacée en déplaçant la souris avec le clic gauche. Si la manette est utilisée, utilisez la touche haut du d-pad.",
+
 
 	"ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",
 	"ui.magic_altar.tooltip_name_not_learned.name": "(Not Learned)",
 	"ui.magic_altar.tooltip_name_learned.name": "(Learned)",
 
 	/*********
-	** Professions
+	** Skill/Professions
 	*********/
 
 	"skill.wizardry.name": "Sorcellerie",
@@ -234,7 +235,7 @@
 	"professions.ManaCap.description": "+500 mana max",
 
 	/*********
-    ** Événement d’apprentissage de la magie
+    ** Wizard learn-magic event
     *********/
 
 	"event.learn_wizardry.wizard_dialogue_1": "Salutations @.",
@@ -247,19 +248,19 @@
 	"event.learn_wizardry.message_1": "Le sorcier t'a donné un livre de sorts ! Tu pourras maintenant créer des sorts !\nAppuie sur Shift et 'B' (par défaut) pour l'ouvrir.",
 
 	"event.learn_wizardry.wizard_dialogue_5": "Le livre de sorts te montrera toutes les différentes parties de sorts que tu peux utiliser.",
-	"event.learn_wizardry.wizard_dialogue_6": "But since you are just starting out, you will have no spell parts to use.",
-	"event.learn_wizardry.wizard_dialogue_7": "To learn spell parts, you need to use a magic altar.",
-	"event.learn_wizardry.wizard_dialogue_8": "Here's the recipe for it.",
+	"event.learn_wizardry.wizard_dialogue_6": "Mais puisque tu commences, tu n’auras pas de parties de sort à utiliser.",
+	"event.learn_wizardry.wizard_dialogue_7": "Pour apprendre ces parties de sort, tu dois utiliser un autel magique.",
+	"event.learn_wizardry.wizard_dialogue_8": "Voici la recette pour le fabriquer.",
 
-	"event.learn_wizardry.message_2": "The wizard gave you a magic altar recipe!",
+	"event.learn_wizardry.message_2": "Le sorcier t’a donné une recette de fabrication pour l’autel magique !",
 
-	"event.learn_wizardry.wizard_dialogue_9": "Place the altar in the world and right click. You will be able to see all the spell parts you can learn.",
-	"event.learn_wizardry.wizard_dialogue_10": "Learning these spell parts will require materials so make sure you have them on hand.",
+	"event.learn_wizardry.wizard_dialogue_9": "Place l’autel dans le monde et clique droit dessus. Tu devrais voir toutes les parties de sort que u peux apprendre.",
+	"event.learn_wizardry.wizard_dialogue_10": "Apprendre ces parties de sort nécessite des matériaux donc sois sûr de les avoir sur toi.",
 
-	"event.learn_wizardry.message_3": "Right clicking on the magic altar will open its menu! There are three skill trees: Offense, Defense, and Utility. You can switch between them using the tab buttons at the top of the menu.",
-	"event.learn_wizardry.message_4": "Left click and drag to move the view of the skill tree. Hovering over the spell part icon you want to learn will show a tooltip.",
-	"event.learn_wizardry.message_5": "The tooltip will show you what materials you need and what spell parts you need to have learned already to learn the spell part you want.",
-	"event.learn_wizardry.message_6": "Once you have met the requirements, left click on the spell part icon to learn it! This will consume the materials in your inventory.",
+	"event.learn_wizardry.message_3": "Cliquer avec le bouton droit sur l’autel magique ouvrira son menu. Il y a trois arbres de compétences : Attaque, Défense et Utilitaire. Tu peux changer de catégorie en utilisant les boutons en haut du menu.",
+	"event.learn_wizardry.message_4": "Cliquer avec le bouton gauche en restant appuyé pour déplacé la vue de l’arbre de compétence. Survoler l’icône une partie de sort fera afficher une info-bulle.",
+	"event.learn_wizardry.message_5": "L’info-bulle te montrera les matériaux nécessaires et les parties de sort nécessaires au préalable pour apprendre la partie de sort qui t’intéresse.",
+	"event.learn_wizardry.message_6": "Une fois que tu as atteint les prérequis, cliquer avec le bouton gauche pour l’apprendre ! Cela dépensera les matériaux dans ton inventaire.",
 
 	"event.learn_wizardry.wizard_dialogue_11": "Pour créer des sorts, tu devras d’abord placer une ou plusieurs ''formes'' (des carrés ) dans chaque groupe de formes sur la page de sort sur laquelle tu es. Cela indiquera la destination du sort : '* soi-même', '* zone', etc.",
 	"event.learn_wizardry.wizard_dialogue_12": "Ensuite, tu devras placer un ou plusieurs ''composants'' (des octogones avec un verbe comme 'GUÉRIR'), dans la section de grammaire de sorts de la page.",
