@@ -103,6 +103,9 @@
     "spellpart.wall.name": "Wall",
     "spellpart.wall.description": "Makes a wall in front of the caster that will continuously trigger the spell effect it was attached to. Needs a target shape before it and must be placed last.",
 
+    "spellpart.rune.name": "Rune",
+    "spellpart.rune.description": "The Rune shape will place a rune on the ground. The rune placed has only one use and triggers whatever spell is on it.",
+
 
     "spellpart.dig.name": "挖掘",
     "spellpart.dig.description": "破坏岩石、碎片，砍伐树木。",
@@ -128,10 +131,20 @@
     "spellpart.life_tap.description": "对目标造成伤害，并根据伤害量恢复自己的魔力。",
     "spellpart.physical_damage.name": "物理伤害",
     "spellpart.physical_damage.description": "对目标造成物理伤害。",
+    "spellpart.magic_damage.name": "Magic Damage",
+    "spellpart.magic_damage.description": "Ignores armor and resistances and damages the target.",
+    "spellpart.frost_damage.name": "Frost Damage",
+    "spellpart.frost_damage.description": "Damages the target using the power of ice. Enemies vulnerable to ice take more damage.",
+    "spellpart.lightning_damage.name": "Lightning Damage",
+    "spellpart.lightning_damage.description": "Damages the target using the power of lightning.",
+    "spellpart.fire_damage.name": "Fire Damage",
+    "spellpart.fire_damage.description": "Damages the target using the power of fire. Enemies vulnerable to fire take more damage.",
     "spellpart.haste.name": "加速",
     "spellpart.haste.description": "提升玩家的移动速度。",
     "spellpart.dispel.name": "Dispel",
     "spellpart.dispel.description": "Removes effects on your farmer.",
+    "spellpart.forge.name": "Forge",
+    "spellpart.forge.description": "Used to smelt items like they would in a furnace. Works well with dig",
 
 
     "spellpart.damage.name": "伤害增强",

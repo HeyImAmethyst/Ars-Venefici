@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Spells;
+﻿using ArsVenefici.Framework.Spell;
 using ArsVenefici.Framework.Util;
 using StardewValley;
 using Microsoft.Xna.Framework;

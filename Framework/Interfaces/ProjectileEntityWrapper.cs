@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Spells.Effects;
+﻿using ArsVenefici.Framework.Spell.Effects;
 using Microsoft.Xna.Framework;
 using StardewValley;
 using System;

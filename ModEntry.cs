@@ -1,5 +1,5 @@
 ﻿using ArsVenefici.Framework.GUI;
-using ArsVenefici.Framework.Spells;
+using ArsVenefici.Framework.Spell;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +10,7 @@ using SpaceCore;
 using ArsVenefici.Framework.Skill;
 using SpaceShared.APIs;
 using SpaceCore.Events;
-using ArsVenefici.Framework.Spells.Effects;
+using ArsVenefici.Framework.Spell.Effects;
 using ArsVenefici.Framework.Commands;
 using ArsVenefici.Framework.GameSave;
 
@@ -29,6 +29,7 @@ namespace ArsVenefici
         public static IManaBarApi ManaBarApi;
         public static ContentPatcher.IContentPatcherAPI ContentPatcherApi;
         public static string ArsVenificiContentPatcherId = "HeyImAmethyst.CP.ArsVenefici";
+        public static ItemExtensions.IApi ItemExtensionsApi;
 
         public DailyTracker dailyTracker;
         public SpellPartManager spellPartManager;
@@ -59,6 +60,9 @@ namespace ArsVenefici
         public static Random RandomGen = new Random();
 
         public bool isSVEInstalled;
+        public bool isItemExtensionsInstalled;
+
+
         public static bool SpellCastingMode = true;
 
         public override void Entry(IModHelper helper)
@@ -73,6 +77,7 @@ namespace ArsVenefici
             SetUpEvents();
 
             CheckIfSVEIsInstalled();
+            CheckIfItemExtensionsIsInstalled();
 
             SpaceCore.Skills.RegisterSkill(ModEntry.Skill = new ArsVeneficiSkill(this));
 
@@ -383,6 +388,12 @@ namespace ArsVenefici
         {
             isSVEInstalled = Helper.ModRegistry.IsLoaded("FlashShifter.StardewValleyExpandedCP");
             Monitor.Log($"Stardew Valley Expanded Sense Installed: {isSVEInstalled}", LogLevel.Trace);
+        }
+
+        private void CheckIfItemExtensionsIsInstalled()
+        {
+            isItemExtensionsInstalled = Helper.ModRegistry.IsLoaded("mistyspring.ItemExtensions");
+            Monitor.Log($"Item Extensions Installed: {isItemExtensionsInstalled}", LogLevel.Trace);
         }
     }
 }

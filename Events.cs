@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StardewValley;
 using StardewValley.Menus;
-using ArsVenefici.Framework.Spells;
+using ArsVenefici.Framework.Spell;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
@@ -15,17 +15,18 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Reflection.Emit;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Interfaces;
-using ArsVenefici.Framework.Spells.Shape;
+using ArsVenefici.Framework.Spell.Shape;
 using SpaceCore;
 using SpaceShared.APIs;
 using ArsVenefici.Framework.GUI.Menus;
-using ArsVenefici.Framework.Spells.Effects;
+using ArsVenefici.Framework.Spell.Effects;
 using StardewValley.Network;
-using ArsVenefici.Framework.Spells.Components;
+using ArsVenefici.Framework.Spell.Components;
 using static ArsVenefici.ModConfig;
 using ArsVenefici.Framework.GameSave;
 using Microsoft.Xna.Framework.Audio;
 using ArsVenefici.Framework.Skill;
+using StardewValley.ItemTypeDefinitions;
 
 namespace ArsVenefici
 {
@@ -426,6 +427,15 @@ namespace ArsVenefici
             {
                 var api = modEntryInstance.Helper.ModRegistry.GetApi<ContentPatcher.IContentPatcherAPI>("Pathoschild.ContentPatcher");
                 ModEntry.ContentPatcherApi = api;
+            }
+
+            //hook Item Extensions
+            {
+                if (modEntryInstance.isItemExtensionsInstalled)
+                {
+                    var api = modEntryInstance.Helper.ModRegistry.GetApi<ItemExtensions.IApi>("mistyspring.ItemExtensions");
+                    ModEntry.ItemExtensionsApi = api;
+                }
             }
         }
 
@@ -1053,7 +1063,7 @@ namespace ArsVenefici
             if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
                 return;
 
-            //GameLocation location = Game1.currentLocation;
+            GameLocation location = Game1.currentLocation;
 
             //foreach (Character character in location.characters)
             //{
@@ -1070,6 +1080,39 @@ namespace ArsVenefici
             //    if (effect != null && effect is AbstractSpellEffect abstractSpellEffect)
             //        DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
             //}
+
+            foreach (Debris debris in location.debris)
+            {
+                foreach (Chunk chunk in debris.Chunks)
+                {
+                    //DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, new Rectangle(chunk.GetVisualPosition().ToPoint(), new Point(Game1.tileSize, Game1.tileSize))), Color.Red, 1);
+
+                    //Vector2 position = chunk.position.Value;
+                    //Vector2 snapPosition = Utility.snapDrawPosition(Game1.GlobalToLocal(Game1.viewport, position));
+
+                    //DrawSprite.DrawRectangle(e.SpriteBatch, new Rectangle(snapPosition.ToPoint(), new Point((int)(Game1.tileSize * chunk.scale), (int)(Game1.tileSize * chunk.scale))), Color.Red, 1);
+
+                    //Vector2 local = Vector2.One;
+                    //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
+
+                    //Vector2 absoluteClampedMousePos = Utility.clampToTile(chunk.GetVisualPosition());
+                    //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+
+                    //e.SpriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, ((float)(debris.chunkFinalYLevel + 32) + local.X / 10000f));
+
+                    //Vector2 position = chunk.GetVisualPosition();
+                    //Vector2 snapPosition = Utility.snapDrawPosition(Game1.GlobalToLocal(Game1.viewport, position));
+
+                    //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
+
+                    //local = Utils.AbsolutePosToScreenPos(snapPosition);
+
+                    ParsedItemData itemData = ItemRegistry.GetDataOrErrorItem(debris.itemId.Value);
+                    Texture2D texture = itemData.GetTexture();
+
+                    Rectangle sourceRect = ((debris.debrisType.Value == Debris.DebrisType.RESOURCE) ? itemData.GetSourceRect(chunk.randomOffset) : itemData.GetSourceRect());
+                }
+            }
 
             RenderBeam(e.SpriteBatch);
             RenderTouchIndicator(e.SpriteBatch);

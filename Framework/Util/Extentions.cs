@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Spells;
+﻿using ArsVenefici.Framework.Spell;
 using Microsoft.Xna.Framework;
 using SpaceShared.APIs;
 using StardewModdingAPI;

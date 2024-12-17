@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using ArsVenefici.Framework.Util;
 using StardewValley.Locations;
 using System.Text;
-using ArsVenefici.Framework.Spells.Components;
+using ArsVenefici.Framework.Spell.Components;
 using static StardewValley.Minigames.CraneGame;
 using System.Runtime.Intrinsics;
 using Netcode;

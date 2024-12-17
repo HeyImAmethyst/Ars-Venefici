@@ -1,8 +1,8 @@
 ﻿using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Spells.Components;
-using ArsVenefici.Framework.Spells.Modifiers;
-using ArsVenefici.Framework.Spells.Shape;
-using ArsVenefici.Framework.Spells;
+using ArsVenefici.Framework.Spell.Components;
+using ArsVenefici.Framework.Spell.Modifiers;
+using ArsVenefici.Framework.Spell.Shape;
+using ArsVenefici.Framework.Spell;
 using StardewValley.Buffs;
 using StardewValley;
 using System;
@@ -54,11 +54,11 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill projectile = new SpellPartSkill("projectile", new HashSet<SpellPartSkill>(), new Dictionary<Item, int>{ { ItemRegistry.Create("(W)32"), 1 } }, offenceTab, false);
             
             SpellPartSkill physicalDamage = new SpellPartSkill("physical_damage", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5") , 1} }, offenceTab, false);
+            
             SpellPartSkill bounce = new SpellPartSkill("bounce", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)766"), 20 } }, offenceTab, false);
-            SpellPartSkill piercing = new SpellPartSkill("piercing", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)691"), 5 } }, offenceTab, false);
+            
             SpellPartSkill velocity = new SpellPartSkill("velocity", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)395"), 1 } }, offenceTab, false);
 
-            
             SpellPartSkill aoe = new SpellPartSkill("aoe", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)621"), 1 } }, offenceTab, false);
             SpellPartSkill beam = new SpellPartSkill("beam", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)32"), 1 }, { ItemRegistry.Create("(O)74"), 5 } }, offenceTab, false);
             SpellPartSkill damage = new SpellPartSkill("damage", new HashSet<SpellPartSkill> { beam }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)848"), 5 } }, offenceTab, false); //210, 165
@@ -67,8 +67,22 @@ namespace ArsVenefici.Framework.Skill
 
             SpellPartSkill wave = new SpellPartSkill("wave", new HashSet<SpellPartSkill> { velocity }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 } }, offenceTab, false); //210, 210
 
+            SpellPartSkill magicDamage = new SpellPartSkill("magic_damage", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5"), 1 } }, offenceTab, false);
+            SpellPartSkill frostDamage = new SpellPartSkill("frost_damage", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5"), 1 } }, offenceTab, false);
+            SpellPartSkill lightningDamage = new SpellPartSkill("lightning_damage", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5"), 1 } }, offenceTab, false);
+            SpellPartSkill fireDamage = new SpellPartSkill("fire_damage", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5"), 1 } }, offenceTab, false);
+
+            SpellPartSkill piercing = new SpellPartSkill("piercing", new HashSet<SpellPartSkill> { magicDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)691"), 5 } }, offenceTab, false);
+            SpellPartSkill forge = new SpellPartSkill("forge", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)691"), 5 } }, offenceTab, false);
+            
+            SpellPartSkill rune = new SpellPartSkill("rune", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)691"), 5 } }, offenceTab, false);
+
             spellPartSkills.Add(projectile.GetId(), projectile);
             spellPartSkills.Add(physicalDamage.GetId(), physicalDamage);
+            spellPartSkills.Add(magicDamage.GetId(), magicDamage);
+            spellPartSkills.Add(frostDamage.GetId(), frostDamage);
+            spellPartSkills.Add(lightningDamage.GetId(), lightningDamage);
+            spellPartSkills.Add(fireDamage.GetId(), fireDamage);
             spellPartSkills.Add(bounce.GetId(), bounce);
             spellPartSkills.Add(piercing.GetId(), piercing);
             spellPartSkills.Add(velocity.GetId(), velocity);
@@ -77,6 +91,8 @@ namespace ArsVenefici.Framework.Skill
             spellPartSkills.Add(explosion.GetId(), explosion);
             spellPartSkills.Add(wave.GetId(), wave);
             spellPartSkills.Add(beam.GetId(), beam);
+            spellPartSkills.Add(forge.GetId(), forge);
+            spellPartSkills.Add(rune.GetId(), rune);
         }
 
         private void AddDefense()

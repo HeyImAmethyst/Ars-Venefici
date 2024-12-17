@@ -1,5 +1,5 @@
-﻿using ArsVenefici.Framework.Spells;
-using ArsVenefici.Framework.Spells.Shape;
+﻿using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spell.Shape;
 using ArsVenefici.Framework.Util;
 using StardewValley;
 using System;

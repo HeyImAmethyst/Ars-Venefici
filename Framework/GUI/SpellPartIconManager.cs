@@ -1,5 +1,5 @@
 ﻿using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Spells;
+using ArsVenefici.Framework.Spell;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
