@@ -12,7 +12,7 @@ namespace ArsVenefici.Framework.Spell
     public class Spell : ISpell
     {
         private List<ShapeGroup> shapeGroups;
-        private SpellStack spellStack;
+        private SpellStack SpellStack;
         private int shapeGroupIndex = 0;
 
         //private readonly Lazy<bool> continuous;
@@ -28,7 +28,7 @@ namespace ArsVenefici.Framework.Spell
         {
             this.modEntry = modEntry;
             this.shapeGroups = shapeGroups;
-            this.spellStack = spellStack;
+            this.SpellStack = spellStack;
 
             //continuous = new Lazy<bool>(() => FirstShape(CurrentShapeGroupIndex()) != null &&  FirstShape(CurrentShapeGroupIndex()).IsContinuous());
             //continuous = new Lazy<bool>(() => firstShape(currentShapeGroupIndex()).Any(shape => shape.IsContinuous));
@@ -65,12 +65,12 @@ namespace ArsVenefici.Framework.Spell
 
         public bool IsEmpty()
         {
-            return !ShapeGroups().Any() || ShapeGroups().All(g => g.IsEmpty()) && SpellStack().IsEmpty();
+            return !ShapeGroups().Any() || ShapeGroups().All(g => g.IsEmpty()) && spellStack().IsEmpty();
         }
 
         public bool IsNonNull()
         {
-            return shapeGroups.SelectMany(group => group.Parts()).Concat(spellStack.Parts).All(data => data != null);
+            return shapeGroups.SelectMany(group => group.Parts()).Concat(SpellStack.Parts).All(data => data != null);
         }
 
         public bool IsValid()
@@ -86,7 +86,7 @@ namespace ArsVenefici.Framework.Spell
 
                 if(list.Count == 0)
                 {
-                    list = SpellStack().Parts;
+                    list = spellStack().Parts;
                 }
                 
                 ISpellShape spellShape = null;
@@ -141,7 +141,7 @@ namespace ArsVenefici.Framework.Spell
             if (((Farmer)caster.entity).GetCurrentMana() < manaValue) 
                 return new SpellCastResult(SpellCastResultType.NOT_ENOUGH_MANA);
 
-            foreach (ISpellPart spellPart in SpellStack().Parts)
+            foreach (ISpellPart spellPart in spellStack().Parts)
             {
                 if (spellPart is Grow)
                 {
@@ -238,7 +238,7 @@ namespace ArsVenefici.Framework.Spell
 
             //modEntry.Monitor.Log(SpellStack().PartsWithModifiers.Count.ToString(),StardewModdingAPI.LogLevel.Info);
 
-            List<MutableKeyValuePair<ISpellPart, List<ISpellModifier>>> pwm = new List<MutableKeyValuePair<ISpellPart, List<ISpellModifier>>>(SpellStack().PartsWithModifiers);
+            List<MutableKeyValuePair<ISpellPart, List<ISpellModifier>>> pwm = new List<MutableKeyValuePair<ISpellPart, List<ISpellModifier>>>(spellStack().PartsWithModifiers);
             List<MutableKeyValuePair<ISpellPart, List<ISpellModifier>>> shapesWithModifiers = new List<MutableKeyValuePair<ISpellPart, List<ISpellModifier>>>();
             
             if (shapeGroup != null)
@@ -325,9 +325,9 @@ namespace ArsVenefici.Framework.Spell
             return shapeGroups;
         }
 
-        public SpellStack SpellStack()
+        public SpellStack spellStack()
         {
-            return spellStack;
+            return SpellStack;
         }
 
         public override bool Equals(object o)
@@ -335,13 +335,13 @@ namespace ArsVenefici.Framework.Spell
             if (this == o) return true;
             if (o == null || GetType() != o.GetType()) return false;
             Spell spell = (Spell)o;
-            return ShapeGroups().Equals(spell.ShapeGroups()) && SpellStack().Equals(spell.SpellStack()) && shapeGroupIndex.Equals(spell.shapeGroupIndex);
+            return ShapeGroups().Equals(spell.ShapeGroups()) && spellStack().Equals(spell.spellStack()) && shapeGroupIndex.Equals(spell.shapeGroupIndex);
         }
 
         public override int GetHashCode()
         {
             int result = ShapeGroups().GetHashCode();
-            result = 31 * result + SpellStack().GetHashCode();
+            result = 31 * result + spellStack().GetHashCode();
             return result;
         }
 
@@ -355,8 +355,8 @@ namespace ArsVenefici.Framework.Spell
             if (IsEmpty() || !IsNonNull()) return false;
 
             //check spell stack
-            if (SpellStack().IsEmpty()) return false;
-            if (SpellStack().Parts[0].GetType() != SpellPartType.COMPONENT) return false;
+            if (spellStack().IsEmpty()) return false;
+            if (spellStack().Parts[0].GetType() != SpellPartType.COMPONENT) return false;
 
             //find last non-empty shape group
             List<ShapeGroup> groups = ShapeGroups();
@@ -392,7 +392,7 @@ namespace ArsVenefici.Framework.Spell
         {
             List<ISpellPart> list = new List<ISpellPart>();
             list.AddRange(CurrentShapeGroup().Parts());
-            list.AddRange(SpellStack().Parts);
+            list.AddRange(spellStack().Parts);
 
             return list;
         }

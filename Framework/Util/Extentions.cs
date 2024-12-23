@@ -81,5 +81,10 @@ namespace ArsVenefici.Framework.Util
         {
             return ModEntry.GetSpellBook(player);
         }
+
+        public static FarmerExtData GetExtData(this Farmer farmer)
+        {
+            return FarmerExtData.data.GetOrCreateValue(farmer);
+        }
     }
 }

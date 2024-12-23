@@ -14,6 +14,8 @@ namespace ArsVenefici.Framework.Interfaces.Spells
     /// </summary>
     public interface ISpell
     {
+        //ISpell EMPTY = ModEntry.INSTANCE.makeSpell(SpellStack.Empty);
+
         string GetName();
 
         /// <returns>Whether the spell is continuous or not.</returns>
@@ -83,6 +85,6 @@ namespace ArsVenefici.Framework.Interfaces.Spells
         List<ShapeGroup> ShapeGroups();
 
         /// <returns>The spell stack for this spell.</returns>
-        SpellStack SpellStack();
+        SpellStack spellStack();
     }
 }

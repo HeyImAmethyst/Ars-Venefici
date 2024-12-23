@@ -104,7 +104,16 @@
 	"spellpart.wall.description": "Makes a wall in front of the caster that will continuously trigger the spell effect it was attached to. Needs a target shape before it and must be placed last.",
 
 	"spellpart.rune.name": "Rune",
-	"spellpart.rune.description": "The Rune shape will place a rune on the ground. The rune placed has only one use and triggers whatever spell is on it.",
+	"spellpart.rune.description": "Places a rune on the ground. The rune placed has only one use and triggers whatever spell is on it.",
+
+	"spellpart.channel.name": "Channel",
+	"spellpart.channel.description": "Will continuously cast the spell in front of you",
+
+	"spellpart.contingency_damage.name": "Contingency Damage",
+	"spellpart.contingency_damage.description": "Will cast the spell if the target takes damage. Disappers when the condition is met.",
+
+	"spellpart.contingency_health.name": "Contingency Health",
+	"spellpart.contingency_health.description": "Will cast the spell if the target gains health. Disappers when the condition is met.",
 
 
 	"spellpart.dig.name": "Dig",
@@ -157,6 +166,9 @@
 
 	"spellpart.haste.name": "Haste",
 	"spellpart.haste.description": "Increases the player's speed.",
+
+	"spellpart.regeneration.name": "Regeneration",
+	"spellpart.regeneration.description": "Regenerates the player's health over a period of time.",
 
 	"spellpart.dispel.name": "Dispel",
 	"spellpart.dispel.description": "Removes effects on your farmer.",

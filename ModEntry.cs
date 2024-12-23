@@ -13,30 +13,56 @@ using SpaceCore.Events;
 using ArsVenefici.Framework.Spell.Effects;
 using ArsVenefici.Framework.Commands;
 using ArsVenefici.Framework.GameSave;
+using ArsVenefici.Framework.Events;
+using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Interfaces;
+using Netcode;
+using StardewValley.Network;
+using System.Runtime.CompilerServices;
+using System;
+using ArsVenefici.Framework.Spell.Buffs;
 
 namespace ArsVenefici
 {
     public class ModEntry : Mod
     {
+        public static ModEntry INSTANCE;
+
         public static IModHelper helper;
         public ModConfig Config;
         public ModSaveData ModSaveData;
         public const string SAVEDATA = "HeyImAmethyst-ArsVenifici-SaveData";
 
-        ToggleWizardryCommand toggleWizardryCommand;
-        SpellPartsCommand spellPartsCommand;
+        public HarmonyHelper HarmonyHelper;
+        public DailyTracker dailyTracker;
+        public Buffs buffs;
+        public SpellPartManager spellPartManager;
+        public SpellPartIconManager spellPartIconManager;
+        public SpellPartSkillManager spellPartSkillManager;
+
+        //Commands
+
+        Commands commands;
+
+        //APIs
 
         public static IManaBarApi ManaBarApi;
         public static ContentPatcher.IContentPatcherAPI ContentPatcherApi;
         public static string ArsVenificiContentPatcherId = "HeyImAmethyst.CP.ArsVenefici";
         public static ItemExtensions.IApi ItemExtensionsApi;
 
-        public DailyTracker dailyTracker;
-        public SpellPartManager spellPartManager;
-        public SpellPartIconManager spellPartIconManager;
-        public SpellPartSkillManager spellPartSkillManager;
+        public static Random RandomGen = new Random();
 
-        public Events eventsHandler;
+        //Events
+
+        public ButtonEvents buttonEvents;
+        public CharacterEvents characterEvents;
+        public DisplayEvents displayEvents;
+        public GameloopEvents gameloopEvents;
+        public MultiplayerEvents multiplayerEvents;
+        public PlayerEvents playerEvents;
+
+        //Mana bar texture
 
         private static Texture2D ManaBg;
         private static Texture2D ManaFg;
@@ -51,13 +77,11 @@ namespace ArsVenefici
         //public static int LearnedMagicEventId { get; } = 90002;
         public int LearnedWizardryEventId { get; } = 9918172;
 
-
         /// <summary>Whether the current player learned wizardry.</summary>
         public bool LearnedWizardy => Game1.player?.eventsSeen?.Contains(LearnedWizardryEventId.ToString()) == true ? true : false;
 
         public static ArsVeneficiSkill Skill;
         public const string MsgCast = "HeyImAmethyst.ArsVenifici.Cast";
-        public static Random RandomGen = new Random();
 
         public bool isSVEInstalled;
         public bool isItemExtensionsInstalled;
@@ -67,6 +91,8 @@ namespace ArsVenefici
 
         public override void Entry(IModHelper helper)
         {
+            INSTANCE = this;
+
             ModEntry.helper = helper;
 
             InitializeClasses();
@@ -81,7 +107,18 @@ namespace ArsVenefici
 
             SpaceCore.Skills.RegisterSkill(ModEntry.Skill = new ArsVeneficiSkill(this));
 
-            AddCommands();
+            commands.AddCommands();
+
+            try
+            {
+                HarmonyHelper.InitializeAndPatch();
+            }
+            catch (Exception e)
+            {
+                Monitor.Log($"Issue with Harmony patching: {e}", LogLevel.Info);
+                return;
+            }
+
         }
 
         /// <summary>
@@ -89,13 +126,22 @@ namespace ArsVenefici
         /// </summary>
         private void InitializeClasses()
         {
-            toggleWizardryCommand = new ToggleWizardryCommand(this);
-            spellPartsCommand = new SpellPartsCommand(this);
+
+            commands = new Commands(this);
 
             dailyTracker = new DailyTracker();
+            buffs = new Buffs(this);
             spellPartManager = new SpellPartManager(this);
             spellPartIconManager = new SpellPartIconManager(this);
-            eventsHandler = new Events(this, dailyTracker);
+
+            buttonEvents = new ButtonEvents(this);
+            characterEvents = new CharacterEvents();
+            displayEvents = new DisplayEvents(this);
+            gameloopEvents = new GameloopEvents(this);
+            multiplayerEvents = new MultiplayerEvents(this);
+            playerEvents = new PlayerEvents(this);
+
+            HarmonyHelper = new HarmonyHelper(this);
         }
 
         private static void LoadAssets()
@@ -112,227 +158,28 @@ namespace ArsVenefici
         /// </summary>
         private void SetUpEvents()
         {
-            helper.Events.Input.ButtonsChanged += eventsHandler.OnButtonsChanged;
+            helper.Events.Input.ButtonsChanged += buttonEvents.OnButtonsChanged;
 
-            helper.Events.Display.RenderingHud += eventsHandler.OnRenderingHud;
-            helper.Events.Display.RenderedHud += eventsHandler.OnRenderedHud;
-            helper.Events.Display.MenuChanged += eventsHandler.OnMenuChanged;
-            helper.Events.Display.RenderedWorld += eventsHandler.OnRenderedWorld;
+            helper.Events.Display.RenderingHud += displayEvents.OnRenderingHud;
+            helper.Events.Display.RenderedHud += displayEvents.OnRenderedHud;
+            helper.Events.Display.MenuChanged += displayEvents.OnMenuChanged;
+            helper.Events.Display.RenderedWorld += displayEvents.OnRenderedWorld;
 
-            helper.Events.GameLoop.GameLaunched += eventsHandler.OnGameLaunched;
-            helper.Events.GameLoop.SaveLoaded += eventsHandler.OnSaveLoaded;
-            helper.Events.GameLoop.DayStarted += eventsHandler.OnDayStarted;
-            helper.Events.GameLoop.UpdateTicked += eventsHandler.OnUpdateTicked;
-            helper.Events.GameLoop.OneSecondUpdateTicking += eventsHandler.OnOneSecondUpdateTicking;
+            helper.Events.GameLoop.GameLaunched += gameloopEvents.OnGameLaunched;
+            helper.Events.GameLoop.SaveLoaded += gameloopEvents.OnSaveLoaded;
+            helper.Events.GameLoop.DayStarted += gameloopEvents.OnDayStarted;
+            helper.Events.GameLoop.UpdateTicked += gameloopEvents.OnUpdateTicked;
+            helper.Events.GameLoop.OneSecondUpdateTicking += gameloopEvents.OnOneSecondUpdateTicking;
 
-            helper.Events.Player.Warped += eventsHandler.OnWarped;
+            helper.Events.Player.Warped += playerEvents.OnWarped;
+            SpaceEvents.OnItemEaten += playerEvents.OnItemEaten;
 
-            SpaceEvents.OnItemEaten += eventsHandler.OnItemEaten;
-            helper.Events.Multiplayer.PeerConnected += eventsHandler.OnPeerConnected;
-            helper.Events.Multiplayer.ModMessageReceived += eventsHandler.OnModMessageReceived;
-            Networking.RegisterMessageHandler(MsgCast, eventsHandler.OnNetworkCast);
-        }
+            helper.Events.Multiplayer.PeerConnected += multiplayerEvents.OnPeerConnected;
+            helper.Events.Multiplayer.ModMessageReceived += multiplayerEvents.OnModMessageReceived;
+            Networking.RegisterMessageHandler(MsgCast, multiplayerEvents.OnNetworkCast);
 
-        public void AddCommands()
-        {
-            AddCommand("player_togglewizardry", "Toggles the player's the ability to cast spells.\n\nUsage: player_togglewizardry <value>\n- value: true or false.", toggleWizardryCommand.ToggleWizardry);
-
-            AddCommand("player_learnspellpart", "Allows the player to learn a spell part.\n\nUsage: player_learnspellpart <value>\n- value: the id of the spell part.", spellPartsCommand.LearnSpellPart);
-            AddCommand("player_forgetspellpart", "Allows the player to forget a spell part.\n\nUsage: player_forgetspellpart <value>\n- value: the id of the spell part.", spellPartsCommand.ForgetSpellPart);
-
-            AddCommand("player_learnallspellparts", "Allows the player to learn all spell parts.\n\nUsage: player_learnallspellparts", spellPartsCommand.LearnAllSpellParts);
-            AddCommand("player_forgetallspellparts", "Allows the player to forget all spell parts.\n\nUsage: player_forgetallspellparts", spellPartsCommand.ForgetAllSpellParts);
-
-            AddCommand("player_knowsspellpart", "Checks if a player knows a spell part.\n\nUsage: player_knowsspellpart <value>\n- value: the id of the spell part.", spellPartsCommand.KnowsSpellPart);
-
-            AddCommand("save_manapointsperlevel", "Sets the amount of mana players have per Wizardry level.\n\nUsage: save_manapointsperlevel <value>\n- value: the amount of mana points per Wizardry level", 
-                (string command, string[] args) =>
-                {
-                    int value;
-
-                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
-                    {
-                        if (!Game1.IsMasterGame)
-                        {
-                            Monitor.Log("Player is not the host. Changes have not been made");
-                            return;
-                        }
-
-                        ModSaveData.ManaPointsPerLevel = value;
-
-                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
-
-                        Helper.Multiplayer.SendMessage(
-                            new ModSaveDataEntryMessage(ModSaveData),
-                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
-                    }
-                });
-
-            AddCommand("save_manaregenrate", "Sets the mana regen rate of players.\n\nUsage: save_manaregenrate <value>\n- value: the rate of mana regen rate of players",
-                (string command, string[] args) =>
-                {
-                    int value;
-
-                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
-                    {
-                        if (!Game1.IsMasterGame)
-                        {
-                            Monitor.Log("Player is not the host. Changes have not been made");
-                            return;
-                        }
-
-                        ModSaveData.ManaRegenRate = value;
-
-                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
-
-                        Helper.Multiplayer.SendMessage(
-                            new ModSaveDataEntryMessage(ModSaveData),
-                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
-                    }
-                });
-
-            AddCommand("save_enableinfinitemana", "Toggles infinate mana.\n\nUsage: save_enableinfinitemana <value>\n- value: true or false",
-                (string command, string[] args) =>
-                {
-                    bool value;
-
-                    if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
-                    {
-                        if (!Game1.IsMasterGame)
-                        {
-                            Monitor.Log("Player is not the host. Changes have not been made");
-                            return;
-                        }
-
-                        ModSaveData.InfiniteMana = value;
-
-                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
-
-                        Helper.Multiplayer.SendMessage(
-                            new ModSaveDataEntryMessage(ModSaveData),
-                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
-                    }
-                });
-
-            AddCommand("save_enablegrowsickness", "Toggles the grow sickness debuff.\n\nUsage: save_enablegrowsickness <value>\n- value: true or false",
-                (string command, string[] args) =>
-                {
-                    bool value;
-
-                    if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
-                    {
-                        if (!Game1.IsMasterGame)
-                        {
-                            Monitor.Log("Player is not the host. Changes have not been made");
-                            return;
-                        }
-
-                        ModSaveData.EnableGrowSickness = value;
-
-                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
-
-                        Helper.Multiplayer.SendMessage(
-                            new ModSaveDataEntryMessage(ModSaveData),
-                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
-                    }
-                });
-
-            AddCommand("save_growsicknessdurationmillisecondslessthanlevelsix", "Sets the grow sickness debuff duration for Wizardry levels less than level 6.\n\nUsage: save_growsicknessdurationmillisecondslessthanlevelsix <value>\n- value: the duration in milliseconds",
-                (string command, string[] args) =>
-                {
-                    int value;
-
-                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
-                    {
-                        if (!Game1.IsMasterGame)
-                        {
-                            Monitor.Log("Player is not the host. Changes have not been made");
-                            return;
-                        }
-
-                        ModSaveData.GrowSicknessDurationMillisecondsLessThanLevelSix = value;
-
-                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
-
-                        Helper.Multiplayer.SendMessage(
-                            new ModSaveDataEntryMessage(ModSaveData),
-                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
-                    }
-                });
-
-            AddCommand("save_growsicknessdurationmillisecondsgreaterthanorequaltolevelsix", "Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 6.\n\nUsage: save_growsicknessdurationmillisecondsgreaterthanorequaltolevelsix <value>\n- value: the duration in milliseconds",
-                (string command, string[] args) =>
-                {
-                    int value;
-
-                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
-                    {
-                        if (!Game1.IsMasterGame)
-                        {
-                            Monitor.Log("Player is not the host. Changes have not been made");
-                            return;
-                        }
-
-                        ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix = value;
-
-                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
-
-                        Helper.Multiplayer.SendMessage(
-                            new ModSaveDataEntryMessage(ModSaveData),
-                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
-                    }
-                });
-
-            AddCommand("save_growsicknessdurationmillisecondsgreaterthanorequaltoleveleight", "Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 8.\n\nUsage: save_growsicknessdurationmillisecondsgreaterthanorequaltoleveleight <value>\n- value: the duration in milliseconds",
-            (string command, string[] args) =>
-            {
-                int value;
-
-                if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
-                {
-                    if (!Game1.IsMasterGame)
-                    {
-                        Monitor.Log("Player is not the host. Changes have not been made");
-                        return;
-                    }
-
-                    ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight = value;
-
-                    Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
-
-                    Helper.Multiplayer.SendMessage(
-                        new ModSaveDataEntryMessage(ModSaveData),
-                        ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
-                }
-            });
-
-            AddCommand("save_growsicknessdurationmillisecondsgreaterthanorequaltolevelten", "Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 10.\n\nUsage: save_growsicknessdurationmillisecondsgreaterthanorequaltolevelten <value>\n- value: the duration in milliseconds",
-                (string command, string[] args) =>
-                {
-                    int value;
-
-                    if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
-                    {
-                        if (!Game1.IsMasterGame)
-                        {
-                            Monitor.Log("Player is not the host. Changes have not been made");
-                            return;
-                        }
-
-                        ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen = value;
-
-                        Helper.Data.WriteSaveData(ModEntry.SAVEDATA, ModSaveData);
-
-                        Helper.Multiplayer.SendMessage(
-                            new ModSaveDataEntryMessage(ModSaveData),
-                            ModEntry.SAVEDATA, modIDs: new[] { ModManifest.UniqueID });
-                    }
-                });
-        }
-
-        public void AddCommand(string commandName, string commandDescription, Action<string, string[]> callback)
-        {
-            Helper.ConsoleCommands.Add(commandName, commandDescription, callback);
+            characterEvents.CharacterDamage += characterEvents.OnCharacterDamage;
+            characterEvents.CharacterHeal += characterEvents.OnCharacterHeal;
         }
 
         /// <summary>Fix the player's mana pool to match their skill level if needed.</summary>
@@ -390,10 +237,24 @@ namespace ArsVenefici
             Monitor.Log($"Stardew Valley Expanded Sense Installed: {isSVEInstalled}", LogLevel.Trace);
         }
 
+        /// <summary>
+        /// Checks if the mod Item Extensions is currently installed.
+        /// </summary>
         private void CheckIfItemExtensionsIsInstalled()
         {
             isItemExtensionsInstalled = Helper.ModRegistry.IsLoaded("mistyspring.ItemExtensions");
             Monitor.Log($"Item Extensions Installed: {isItemExtensionsInstalled}", LogLevel.Trace);
         }
+    }
+
+    public class FarmerExtData
+    {
+        public static ConditionalWeakTable<Farmer, FarmerExtData> data = new();
+
+        public float HealthRegen { get; set; } = 0;
+        public float StaminaRegen { get; set; } = 0;
+
+        public float healthBuffer { get; set; } = 0;
+        public float staminaBuffer { get; set; } = 0;
     }
 }

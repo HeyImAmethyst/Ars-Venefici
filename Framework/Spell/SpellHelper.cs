@@ -2,6 +2,7 @@
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Spell.Components;
 using ArsVenefici.Framework.Util;
+using ItemExtensions;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using StardewModdingAPI;
@@ -18,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using xTile.Tiles;
 using static ArsVenefici.Framework.Interfaces.Spells.ISpellPart;
+using static ArsVenefici.ModConfig;
 using static StardewValley.Minigames.TargetGame;
 
 namespace ArsVenefici.Framework.Spell
@@ -41,6 +43,57 @@ namespace ArsVenefici.Framework.Spell
         {
             int currentSpellIndex = spellBook.GetCurrentSpellIndex();
             spellBook.GetSpells()[currentSpellIndex] = spell;
+        }
+
+        public ISpell makeSpell(List<ShapeGroup> shapeGroups, SpellStack spellStack)
+        {
+            return new Spell(ModEntry.INSTANCE, shapeGroups, spellStack);
+        }
+
+        public ISpell makeSpell(SpellStack spellStack, params ShapeGroup[] shapeGroups)
+        {
+            return Spell.of(ModEntry.INSTANCE, spellStack, shapeGroups);
+        }
+
+        public void CastSpell(Farmer farmer, ModKeyBinds modKeyBinds)
+        {
+            SpellHelper spellHelper = SpellHelper.Instance();
+            ISpell spell = farmer.GetSpellBook().GetCurrentSpell();
+
+            if (spell == null)
+                ModEntry.INSTANCE.Monitor.Log("Spell is null!", LogLevel.Trace);
+
+            if (spell != null && spell.IsValid())
+            {
+                foreach (ISpellPart spellPart in spell.spellStack().Parts)
+                {
+                    if (spellPart is Grow && Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness") == false)
+                    {
+                        ModEntry.INSTANCE.dailyTracker.SetDailyGrowCastCount(ModEntry.INSTANCE.dailyTracker.GetDailyGrowCastCount() + 1);
+                    }
+                    else
+                        continue;
+                }
+
+                SpellCastResult result = spell.Cast(new CharacterEntityWrapper(farmer), farmer.currentLocation, 0, true, true);
+
+                if (result.GetSpellCastResultType() == SpellCastResultType.EFFECT_FAILED)
+                {
+                    //Game1.addHUDMessage(new HUDMessage("Error Casting Spell", 3));
+                    Game1.showRedMessage("Failed Casting Spell");
+                }
+                else if (result.GetSpellCastResultType() == SpellCastResultType.NOT_ENOUGH_MANA)
+                {
+                    Game1.showRedMessage("Failed Casting Spell: Not Enough Mana!");
+                }
+
+                //if (spell.IsContinuous() && spellKeyHoldTime > 1)
+                //{
+                //    CastSpell(farmer, modKeyBinds);
+                //    //spell.Cast(new CharacterEntityWrapper(farmer), farmer.currentLocation, 0, true, true);
+                //}
+
+            }
         }
 
         public Character GetPointedCharacter(Character character, Vector2 from, Vector2 to, double range)

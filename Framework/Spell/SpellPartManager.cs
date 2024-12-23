@@ -1,4 +1,5 @@
 ﻿using ArsVenefici.Framework.GUI;
+using ArsVenefici.Framework.Interfaces.Magic;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Spell.Components;
 using ArsVenefici.Framework.Spell.Modifiers;
@@ -43,9 +44,12 @@ namespace ArsVenefici.Framework.Spell
             AoE aoE = new AoE();
             Zone zone = new Zone();
             Wave wave = new Wave();
-            Beam beam = new Beam();
+            //Beam beam = new Beam();
             Wall wall = new Wall();
             Rune rune = new Rune();
+            Channel channel = new Channel();
+            Contingency contingency_health = new Contingency("contingency_health", ContingencyType.HEALTH);
+            Contingency contingency_damage = new Contingency("contingency_damage", ContingencyType.DAMAGE);
 
             spellParts.Add(self.GetId(), self);
             spellParts.Add(projectile.GetId(), projectile);
@@ -54,9 +58,12 @@ namespace ArsVenefici.Framework.Spell
             spellParts.Add(aoE.GetId(), aoE);
             spellParts.Add(zone.GetId(), zone);
             spellParts.Add(wave.GetId(), wave);
-            spellParts.Add(beam.GetId(), beam);
+            //spellParts.Add(beam.GetId(), beam);
             spellParts.Add(wall.GetId(), wall);
             spellParts.Add(rune.GetId(), rune);
+            spellParts.Add(channel.GetId(), channel);
+            spellParts.Add(contingency_health.GetId(), contingency_health);
+            spellParts.Add(contingency_damage.GetId(), contingency_damage);
         }
 
         private void AddComonents()
@@ -70,7 +77,7 @@ namespace ArsVenefici.Framework.Spell
             Blink blink = new Blink();
             Light light = new Light(modEntry.Helper.Multiplayer.GetNewID);
 
-            Heal heal = new Heal();
+            Heal heal = new Heal(modEntry);
             LifeDrain lifeDrain = new LifeDrain();
             LifeTap lifeTap = new LifeTap();
 
@@ -92,19 +99,8 @@ namespace ArsVenefici.Framework.Spell
             Func<double> fireDamageValue = () => 10.0 * (Game1.player.CombatLevel + 1);
             Damage fireDamage = new Damage("fire_damage", 25, ComponentDamageType.Fire, fireDamageValue);
 
-            Buff hasteBuff = new Buff(
-                id: "HeyImAmethyst.ArsVenifici_Haste",
-                displayName: modEntry.Helper.Translation.Get("spellpart.haste.name"),
-                iconTexture: Game1.buffsIcons,
-                iconSheetIndex: 9,
-                duration: 30_000, // 30 seconds
-                effects: new BuffEffects()
-                {
-                    Speed = { 2 } // shortcut for buff.Speed.Value = 10
-                }
-            );
-
-            Effect haste = new Effect("haste", 30, hasteBuff);
+            Effect haste = new Effect("haste", 30, modEntry.buffs.hasteBuff);
+            Effect regeneration = new Effect("regeneration", 30, modEntry.buffs.regenerationBuff);
 
             Dispel dispel = new Dispel();
 
@@ -127,6 +123,7 @@ namespace ArsVenefici.Framework.Spell
             spellParts.Add(blink.GetId(), blink);
             spellParts.Add(light.GetId(), light);
             spellParts.Add(haste.GetId(), haste);
+            spellParts.Add(regeneration.GetId(), regeneration);
             spellParts.Add(dispel.GetId(), dispel);
             spellParts.Add(forge.GetId(), forge);
         }

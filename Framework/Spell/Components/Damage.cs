@@ -107,6 +107,7 @@ namespace ArsVenefici.Framework.Spell.Components
 
                         gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
 
+                        modEntry.characterEvents.InvokeOnCharacterDamage(monster);
 
                         //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("assets/particle/magic.png", new Rectangle(0, 0, 16, 16), absolutePos, false, 1f / 500f, Color.White)
                         TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absolutePos, false, 1f / 500f, new Color(0, 48, 255, 127))
@@ -140,10 +141,12 @@ namespace ArsVenefici.Framework.Spell.Components
                             monster.Name.Equals("Lava Bat"))
                         {
                             damage *= 3;
-                            monster.Health -= (int)damage;
+                            monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
                         }
 
                         gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
+
+                        modEntry.characterEvents.InvokeOnCharacterDamage(monster);
 
                         return new SpellCastResult(SpellCastResultType.SUCCESS);
                     }
@@ -155,11 +158,41 @@ namespace ArsVenefici.Framework.Spell.Components
                             monster.Name.Equals("Frost Bat"))
                         {
                             damage *= 3;
-                            monster.Health -= (int)damage;
+                            monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
                         }
 
                         gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
 
+                        modEntry.characterEvents.InvokeOnCharacterDamage(monster);
+
+                        return new SpellCastResult(SpellCastResultType.SUCCESS);
+                    }
+
+                    if (damageType == ComponentDamageType.Fire)
+                    {
+
+                        //monster.Health -= (int)damage;
+                        monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
+
+                        gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
+
+                        modEntry.characterEvents.InvokeOnCharacterDamage(monster);
+
+                        //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("assets/particle/magic.png", new Rectangle(0, 0, 16, 16), absolutePos, false, 1f / 500f, Color.White)
+                        TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absolutePos, false, 1f / 500f, new Color(0, 48, 255, 127))
+                        {
+                            alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
+                            alpha = 0.1f,
+                            //motion = new Vector2(0.0f, speed),
+                            //acceleration = new Vector2(0.0f, 0.0f),
+                            interval = 99999f,
+                            layerDepth = (float)(living.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
+                            scale = 8f,
+                            scaleChange = 0.01f,
+                            //rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0)
+                        };
+
+                        gameLocation.temporarySprites.Add(sprite);
 
                         return new SpellCastResult(SpellCastResultType.SUCCESS);
                     }
@@ -176,11 +209,64 @@ namespace ArsVenefici.Framework.Spell.Components
 
                 damage = SpellHelper.Instance().GetModifiedStat(damage, new SpellPartStats(SpellPartStatType.DAMAGE), modifiers, spell, caster, target, index);
                 
-                farmer.health -= (int)damage;
+                //farmer.health -= (int)damage;
 
-                //level.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(farmer.getStandingPositionstandingPixel.X + 8, standingPixel.Y), Color.Red, 1f, farmer));
-                gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
-                farmer.playNearbySoundAll("ow");
+                ////level.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(farmer.getStandingPositionstandingPixel.X + 8, standingPixel.Y), Color.Red, 1f, farmer));
+                //gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
+                //farmer.playNearbySoundAll("ow");
+
+                if (damageType == ComponentDamageType.Physical)
+                {
+                    farmer.takeDamage((int)damage, false, null);
+                    return new SpellCastResult(SpellCastResultType.SUCCESS);
+                }
+
+                if (damageType == ComponentDamageType.Magic)
+                {
+                    farmer.health -= (int)damage;
+                    gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
+                    farmer.playNearbySoundAll("ow");
+
+                    modEntry.characterEvents.InvokeOnCharacterDamage(farmer);
+
+                    return new SpellCastResult(SpellCastResultType.SUCCESS);
+                }
+
+                if (damageType == ComponentDamageType.Frost)
+                {
+
+                    farmer.health -= (int)damage;
+                    gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
+                    farmer.playNearbySoundAll("ow");
+
+                    modEntry.characterEvents.InvokeOnCharacterDamage(farmer);
+
+                    return new SpellCastResult(SpellCastResultType.SUCCESS);
+                }
+
+                if (damageType == ComponentDamageType.Fire)
+                {
+
+                    farmer.health -= (int)damage;
+                    gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
+                    farmer.playNearbySoundAll("ow");
+
+                    modEntry.characterEvents.InvokeOnCharacterDamage(farmer);
+
+                    return new SpellCastResult(SpellCastResultType.SUCCESS);
+                }
+
+                if (damageType == ComponentDamageType.Lightning)
+                {
+
+                    farmer.health -= (int)damage;
+                    gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
+                    farmer.playNearbySoundAll("ow");
+
+                    modEntry.characterEvents.InvokeOnCharacterDamage(farmer);
+
+                    return new SpellCastResult(SpellCastResultType.SUCCESS);
+                }
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }

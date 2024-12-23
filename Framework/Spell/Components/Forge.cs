@@ -17,6 +17,8 @@ using StardewValley.GameData.Machines;
 using ArsVenefici.Framework.Spell.Shape;
 using StardewValley.ItemTypeDefinitions;
 using Microsoft.Xna.Framework.Graphics;
+using StardewValley.Extensions;
+using static StardewValley.Debris;
 
 namespace ArsVenefici.Framework.Spell.Components
 {
@@ -85,22 +87,13 @@ namespace ArsVenefici.Framework.Spell.Components
                                                 int forgePercentage = 35;
                                                 int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
 
-                                                //if (randomValueBetween0And99 < forgePercentage)
+                                                if (randomValueBetween0And99 < forgePercentage)
                                                 {
-                                                    //do
-                                                    //{
-                                                    //    debris.InitializeItem(debris.itemId.Value);
-                                                    //}
-                                                    //while (debris.item == null);
-
-                                                    //while(debris.item == null)
-                                                    //{
-                                                    //    debris.InitializeItem(debris.itemId.Value);
-                                                    //}
-
-                                                    //InitializeDebrisItem(debris);
-
-                                                    debris.InitializeItem(debris.itemId.Value);
+                                                    if (debris.item == null)
+                                                    {
+                                                        modEntry.Monitor.Log(debris.item == null ? "null" : "not null", StardewModdingAPI.LogLevel.Info);
+                                                        debris.item = ItemRegistry.Create(outputRule.OutputItem[0].ItemId);
+                                                    }
 
                                                     if (debris.item != null)
                                                     {
@@ -121,18 +114,6 @@ namespace ArsVenefici.Framework.Spell.Components
 
             return new SpellCastResult(SpellCastResultType.SUCCESS);
         }
-
-        //public void InitializeDebrisItem(Debris debris)
-        //{
-        //    debris.InitializeItem(debris.itemId.Value);
-
-        //    if (debris.item != null) return;
-
-        //    if (debris.item == null)
-        //    {
-        //        InitializeDebrisItem(debris);
-        //    }
-        //}
 
         public override int ManaCost()
         {

@@ -39,7 +39,10 @@ namespace ArsVenefici.Framework.Spell.Components
 
             buff.millisecondsDuration = duration;
 
-            Game1.player.applyBuff(buff);
+            if(target.GetCharacter() != null && target.GetCharacter() is Farmer farmer)
+            {
+                farmer.applyBuff(buff);
+            } 
 
             return new SpellCastResult(SpellCastResultType.SUCCESS);
         }

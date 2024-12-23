@@ -8,14 +8,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArsVenefici.Framework.Events;
 
 namespace ArsVenefici.Framework.Spell.Components
 {
     public class Heal : AbstractComponent
     {
-        public Heal() : base(new SpellPartStats(SpellPartStatType.HEALING))
+
+        ModEntry modEntry;
+
+        public Heal(ModEntry modEntry) : base(new SpellPartStats(SpellPartStatType.HEALING))
         {
-            
+            this.modEntry = modEntry;
         }
 
         public override string GetId()
@@ -45,13 +49,14 @@ namespace ArsVenefici.Framework.Spell.Components
                 //living.health += (int)healing;
                 //living.health -= (int)healing;
 
-
-
                 living.health = Math.Min(living.maxHealth, living.health + (int)healing);
 
                 level.playSound("healSound");
                 Game1.Multiplayer.broadcastSprites(level, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 256, 64, 64), 40f, 8, 0, caster.GetPosition() + new Vector2(32f, 64f), flicker: false, flipped: false));
                 level.debris.Add(new Debris((int)healing, new Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Color.Green, 1f, living));
+
+                //CharacterHeal?.Invoke(this, new CharacterHealEventArgs(living));
+                modEntry.characterEvents.InvokeOnCharacterHeal(living);
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }
