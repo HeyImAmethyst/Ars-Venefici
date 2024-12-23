@@ -53,7 +53,7 @@ You gain magic XP by casting spells. Leveling up increases your mana regen amoun
 
 # Replenishing Mana
 
-Your mana will regen over time. Each level you gain for wizardry as well as the Mana Efficiency professions will inrease the mana regen amount. You can also replenish some mana by eating food. The energy recovery amount a food item gives will recover the same amount of mana (this my change in the future once I figure out how to give others the ablitiy to add specific custom items that recover mana)
+Your mana will regen over time. Each level you gain for wizardry as well as the Mana Efficiency professions will inrease the mana regen amount. You can also replenish some mana by eating a food item that has a custom field for regenerating mana.
 
 # How Mana is Calculated
 
