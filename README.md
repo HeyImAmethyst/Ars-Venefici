@@ -96,12 +96,20 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 
 # List of Spell Part Ids
 
+> # Shapes
 > - self
 > - projectile
 > - touch
 > - etherial_touch
 > - aoe
 > - zone
+> - wave
+> - wall
+> - rune
+> - channel
+> - contingency_damage
+> - contingency_health
+> # Components
 > - dig
 > - plow
 > - grow
@@ -114,7 +122,15 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 > - life_drain
 > - life_tap
 > - physical_damage
+> - magic_damage
+> - frost_damage
+> - lightning_damage
+> - fire_damage
 > - haste
+> - regeneration
+> - dispel
+> - forge
+> # Modifiers
 > - damage
 > - range
 > - bounce
