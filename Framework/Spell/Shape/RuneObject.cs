@@ -1,6 +1,5 @@
 ﻿using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
-using ItemExtensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using StardewValley;
@@ -14,7 +13,6 @@ using System.Threading.Tasks;
 using static StardewValley.Menus.CharacterCustomization;
 using xTile.Dimensions;
 using ArsVenefici.Framework.Interfaces;
-using ItemExtensions.Additions;
 
 namespace ArsVenefici.Framework.Spell.Shape
 {

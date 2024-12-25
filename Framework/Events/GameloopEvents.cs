@@ -407,7 +407,7 @@ namespace ArsVenefici.Framework.Events
             {
                 if (modEntryInstance.isItemExtensionsInstalled)
                 {
-                    var api = modEntryInstance.Helper.ModRegistry.GetApi<ItemExtensions.IApi>("mistyspring.ItemExtensions");
+                    var api = modEntryInstance.Helper.ModRegistry.GetApi<Framework.ModAPIs.ItemExtensions.IApi>("mistyspring.ItemExtensions");
                     ModEntry.ItemExtensionsApi = api;
                 }
             }

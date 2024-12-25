@@ -49,7 +49,7 @@ namespace ArsVenefici
         public static IManaBarApi ManaBarApi;
         public static ContentPatcher.IContentPatcherAPI ContentPatcherApi;
         public static string ArsVenificiContentPatcherId = "HeyImAmethyst.CP.ArsVenefici";
-        public static ItemExtensions.IApi ItemExtensionsApi;
+        public static Framework.ModAPIs.ItemExtensions.IApi ItemExtensionsApi;
 
         public static Random RandomGen = new Random();
 

@@ -5,7 +5,6 @@ using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Spell;
 using ArsVenefici.Framework.Spell.Shape;
 using ArsVenefici.Framework.Util;
-using ItemExtensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StardewModdingAPI;

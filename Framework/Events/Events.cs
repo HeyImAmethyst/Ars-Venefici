@@ -27,11 +27,9 @@ using ArsVenefici.Framework.GameSave;
 using Microsoft.Xna.Framework.Audio;
 using ArsVenefici.Framework.Skill;
 using StardewValley.ItemTypeDefinitions;
-using ItemExtensions;
 using ArsVenefici.Framework.Magic;
 using static StardewValley.Minigames.TargetGame;
 using ArsVenefici.Framework.Interfaces.Magic;
-using ItemExtensions.Additions;
 
 namespace ArsVenefici.Framework.Events
 {

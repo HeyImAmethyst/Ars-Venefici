@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using static ArsVenefici.ModConfig;
 using Microsoft.Xna.Framework;
 using ArsVenefici.Framework.Interfaces.Spells;
-using ItemExtensions.Additions;
 
 namespace ArsVenefici.Framework.Events
 {

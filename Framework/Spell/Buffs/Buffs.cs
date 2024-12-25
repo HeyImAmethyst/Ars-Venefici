@@ -1,5 +1,4 @@
-﻿using ItemExtensions;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Buffs;
 using System;
