@@ -413,6 +413,12 @@ namespace ArsVenefici.Framework.Events
             }
         }
 
+        public void OnSaveCreating(object sender, SaveCreatingEventArgs e)
+        {
+            if (modEntryInstance.ModSaveData == null)
+                modEntryInstance.ModSaveData = new();
+        }
+
         public void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
             ReadModSaveData();

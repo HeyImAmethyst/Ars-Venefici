@@ -82,21 +82,29 @@ namespace ArsVenefici.Framework.Spell
         {
             try
             {
-                List<ISpellPart> list = ShapeGroup(currentShapeGroup).Parts();
-
-                if(list.Count == 0)
+                if(ShapeGroup(currentShapeGroup) != null)
                 {
-                    list = spellStack().Parts;
+                    List<ISpellPart> list = ShapeGroup(currentShapeGroup).Parts();
+
+                    if (list.Count == 0)
+                    {
+                        list = spellStack().Parts;
+                    }
+
+                    ISpellShape spellShape = null;
+
+                    if (list.Any() && IsValid())
+                    {
+                        spellShape = (ISpellShape)list.FirstOrDefault();
+                    }
+
+                    return spellShape;
+                }
+                else
+                {
+                     return null;
                 }
                 
-                ISpellShape spellShape = null;
-
-                if (list.Any() && IsValid())
-                {
-                    spellShape = (ISpellShape)list.FirstOrDefault();
-                }
-
-                return spellShape;
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -106,8 +114,8 @@ namespace ArsVenefici.Framework.Spell
 
         public ShapeGroup ShapeGroup(int shapeGroup)
         {
-            //if (shapeGroup > ShapeGroups().Count() - 1) return null;
-            if (shapeGroup > ShapeGroups().Count() - 1) return ShapeGroups()[0];
+
+            if (shapeGroup > ShapeGroups().Count() - 1) return null;
 
             return ShapeGroups()[shapeGroup];
         }

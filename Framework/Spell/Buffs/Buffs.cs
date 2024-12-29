@@ -30,7 +30,7 @@ namespace ArsVenefici.Framework.Spell.Buffs
             growSickNess = new Buff(
                 id: "HeyImAmethyst.ArsVenifici_GrowSickness",
                 displayName: modEntry.Helper.Translation.Get("debuff.grow_sickness.name"),
-                iconTexture: modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
+                iconTexture: Game1.buffsIcons, //modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
                 iconSheetIndex: 25,
                 duration: 84_000 // 84 seconds
             );
@@ -38,7 +38,7 @@ namespace ArsVenefici.Framework.Spell.Buffs
             hasteBuff = new Buff(
                 id: "HeyImAmethyst.ArsVenifici_Haste",
                 displayName: modEntry.Helper.Translation.Get("spellpart.haste.name"),
-                iconTexture: modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
+                iconTexture: Game1.buffsIcons, //modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
                 iconSheetIndex: 9,
                 duration: 30_000, // 30 seconds
                 effects: new BuffEffects()
@@ -50,7 +50,7 @@ namespace ArsVenefici.Framework.Spell.Buffs
             regenerationBuff = new Buff(
                 id: "HeyImAmethyst.ArsVenifici_Regeneration",
                 displayName: modEntry.Helper.Translation.Get("spellpart.regeneration.name"),
-                iconTexture: modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
+                iconTexture: Game1.buffsIcons, //modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
                 iconSheetIndex: 34, //34
                 duration: 30_000 // 30 seconds
             );
