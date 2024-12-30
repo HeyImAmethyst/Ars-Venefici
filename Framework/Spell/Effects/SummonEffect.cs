@@ -76,7 +76,7 @@ namespace ArsVenefici.Framework.Spell.Effects
                 Vector2 unit = nearestMob.Position - this.pos;
                 unit.Normalize();
 
-                this.pos += unit * 7;
+                this.pos += unit * 4;
 
                 if (Utility.distance(nearestMob.Position.X, this.pos.X, nearestMob.Position.Y, this.pos.Y) < Game1.tileSize)
                 {

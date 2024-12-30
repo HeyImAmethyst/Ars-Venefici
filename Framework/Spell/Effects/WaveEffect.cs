@@ -260,7 +260,7 @@ namespace ArsVenefici.Framework.Spell.Effects
                     TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absPos, false, 1f / 500f, new Color(0, 48, 255, 127))
                     {
                         alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
-                        alpha = 0.1f,
+                        alpha = 0.2f,
                         //motion = new Vector2(0.0f, speed),
                         //acceleration = new Vector2(0.0f, 0.0f),
                         interval = 99999f,
@@ -285,7 +285,7 @@ namespace ArsVenefici.Framework.Spell.Effects
                     {
                         //alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
                         alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
-                        alpha = 0.5f,
+                        alpha = 0.2f,
                         //motion = new Vector2(0.0f, speed),
                         //acceleration = new Vector2(0.0f, 0.0f),
                         interval = 99999f,

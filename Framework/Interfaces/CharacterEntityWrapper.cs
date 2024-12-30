@@ -26,7 +26,8 @@ namespace ArsVenefici.Framework.Interfaces
 
         public Vector2 GetPosition()
         {
-            return ((Character)_entity).getStandingPosition();
+            //return ((Character)_entity).getStandingPosition();
+            return ((Character)_entity).Position;
         }
 
         public Rectangle GetBoundingBox()

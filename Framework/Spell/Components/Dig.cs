@@ -202,6 +202,23 @@ namespace ArsVenefici.Framework.Spell.Components
 
                 if (ModEntry.ItemExtensionsApi != null && ModEntry.ItemExtensionsApi.IsStone(obj.ItemId))
                     return true;
+
+                if (location is MineShaft mine)
+                {
+                    int mineArea = mine.getMineArea();
+
+                    string itemId = ((mine.GetAdditionalDifficulty() > 0) ? (((mineArea == 0 || mineArea == 10) && !mine.isDarkArea()) ? "262" : "118") : (mineArea switch
+                    {
+                        40 => "120",
+                        80 => "122",
+                        121 => "124",
+                        _ => "118",
+                    }));
+
+                    if(obj.ItemId == itemId)
+                        return true;
+                }
+
             }
 
             return false;
@@ -225,6 +242,22 @@ namespace ArsVenefici.Framework.Spell.Components
                 // spawned mine objects
                 if (location is MineShaft && obj.IsSpawnedObject)
                     return true;
+
+                if (location is MineShaft mine)
+                {
+                    int mineArea = mine.getMineArea();
+
+                    string itemId = ((mine.GetAdditionalDifficulty() > 0) ? (((mineArea == 0 || mineArea == 10) && !mine.isDarkArea()) ? "262" : "118") : (mineArea switch
+                    {
+                        40 => "120",
+                        80 => "122",
+                        121 => "124",
+                        _ => "118",
+                    }));
+
+                    if (obj.ItemId == itemId)
+                        return true;
+                }
             }
 
             return false;

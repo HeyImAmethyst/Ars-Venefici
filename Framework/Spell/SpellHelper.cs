@@ -143,11 +143,11 @@ namespace ArsVenefici.Framework.Spell
 
                 //Vector3 vector = CombatTarget.transform.position - this.transform.position; ector3 endPoint = CombatTarget.transform.position - (vector.normalized * radius);
 
-                Vector2 vector = mouseTilePos - playerToolTile;
-                Vector2 endPoint = mouseTilePos - (Vector2.Multiply(Vector2.Normalize(vector), new Vector2((float)range, (float)range)));
+                //Vector2 vector = mouseTilePos - playerToolTile;
+                //Vector2 endPoint = mouseTilePos - (Vector2.Multiply(Vector2.Normalize(vector), new Vector2((float)range, (float)range)));
 
                 //modEntry.Monitor.Log(vector.ToString(), LogLevel.Info);
-                toTileVec = endPoint;
+                toTileVec = playerToolTile;
             }
 
             TilePos fromTilePos = new TilePos(fromTileVec);

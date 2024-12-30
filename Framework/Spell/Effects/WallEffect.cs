@@ -100,6 +100,10 @@ namespace ArsVenefici.Framework.Spell.Effects
 
             var spellHelper = SpellHelper.Instance();
 
+            //this.pos = GetOwner().GetPosition();
+            //this.pos = Utils.AbsolutePosToTilePos(Utility.clampToTile(((Farmer)GetOwner().entity).GetToolLocation(true)));
+            //this.facingDirection = ((Farmer)GetOwner().entity).FacingDirection;
+
             if (Game1.activeClickableMenu == null && Game1.game1.IsActive)
             {
 

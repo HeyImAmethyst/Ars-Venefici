@@ -52,7 +52,7 @@ namespace ArsVenefici.Framework.Spell.Components
                 living.health = Math.Min(living.maxHealth, living.health + (int)healing);
 
                 level.playSound("healSound");
-                Game1.Multiplayer.broadcastSprites(level, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 256, 64, 64), 40f, 8, 0, caster.GetPosition() + new Vector2(32f, 64f), flicker: false, flipped: false));
+                Game1.Multiplayer.broadcastSprites(level, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 256, 64, 64), 40f, 8, 0, living.Position, flicker: false, flipped: false));
                 level.debris.Add(new Debris((int)healing, new Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Color.Green, 1f, living));
 
                 //CharacterHeal?.Invoke(this, new CharacterHealEventArgs(living));
