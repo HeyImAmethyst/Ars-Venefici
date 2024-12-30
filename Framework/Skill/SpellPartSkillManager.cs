@@ -76,7 +76,7 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill forge = new SpellPartSkill("forge", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(BC)13"), 5 } }, offenceTab, false);
             
             SpellPartSkill rune = new SpellPartSkill("rune", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)405"), 5 } }, offenceTab, false);
-
+            
             spellPartSkills.Add(projectile.GetId(), projectile);
             spellPartSkills.Add(physicalDamage.GetId(), physicalDamage);
             spellPartSkills.Add(magicDamage.GetId(), magicDamage);
@@ -108,7 +108,6 @@ namespace ArsVenefici.Framework.Skill
 
             SpellPartSkill lifeDrain = new SpellPartSkill("life_drain", new HashSet<SpellPartSkill> { lifeTap }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false); //255, 165
 
-            SpellPartSkill duration = new SpellPartSkill("duration", new HashSet<SpellPartSkill> { lifeTap }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)787"), 3 } }, defenseTab, false); //255, 345
             SpellPartSkill healing = new SpellPartSkill("healing", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false);
             
             SpellPartSkill dispel = new SpellPartSkill("dispel", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)184"), 1 } }, defenseTab, false);
@@ -118,6 +117,11 @@ namespace ArsVenefici.Framework.Skill
 
             SpellPartSkill contingency_damage = new SpellPartSkill("contingency_damage", new HashSet<SpellPartSkill> { healing }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5"), 1 } }, defenseTab, false);
             SpellPartSkill contingency_health = new SpellPartSkill("contingency_health", new HashSet<SpellPartSkill> { zone }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false);
+
+            SpellPartSkill shield = new SpellPartSkill("shield", new HashSet<SpellPartSkill> { zone }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)72"), 1 }, { ItemRegistry.Create("(O)74"), 1 } }, defenseTab, false);
+            
+            SpellPartSkill summon = new SpellPartSkill("summon", new HashSet<SpellPartSkill> { lifeDrain }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 }, { ItemRegistry.Create("(O)613"), 1 } }, defenseTab, false);
+            SpellPartSkill duration = new SpellPartSkill("duration", new HashSet<SpellPartSkill> { summon }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)787"), 3 } }, defenseTab, false); //255, 345
 
             spellPartSkills.Add(self.GetId(), self);
             spellPartSkills.Add(haste.GetId(), haste);
@@ -132,6 +136,8 @@ namespace ArsVenefici.Framework.Skill
             spellPartSkills.Add(wall.GetId(), wall);
             spellPartSkills.Add(contingency_damage.GetId(), contingency_damage);
             spellPartSkills.Add(contingency_health.GetId(), contingency_health);
+            spellPartSkills.Add(shield.GetId(), shield);
+            spellPartSkills.Add(summon.GetId(), summon);
         }
 
         private void AddUtility()

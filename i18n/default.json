@@ -174,7 +174,13 @@
 	"spellpart.dispel.description": "Removes effects on your farmer.",
 
 	"spellpart.forge.name": "Forge",
-	"spellpart.forge.description": "Used to smelt items like they would in a furnace. Works well with dig",
+	"spellpart.forge.description": "Used to smelt items like they would in a furnace. Works well with dig.",
+
+	"spellpart.shield.name": "Shield",
+	"spellpart.shield.description": "Creates an arcane energy to shield around a player target. The shield will reduce all damage taken.",
+
+	"spellpart.summon.name": "Summon",
+	"spellpart.summon.description": "Creates a spell to summon a junimo to protect you.",
 
 
 	"spellpart.damage.name": "Damage",

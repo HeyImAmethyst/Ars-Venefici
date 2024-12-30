@@ -49,7 +49,7 @@ namespace ArsVenefici.Framework.Spell.Components
                       iconTexture: Game1.buffsIcons,
                       iconSheetIndex: buff.iconSheetIndex, //34
                       duration: duration
-                  );
+                );
 
                 farmer.applyBuff(newBuffInstance);
 

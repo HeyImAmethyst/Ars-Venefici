@@ -102,16 +102,13 @@ namespace ArsVenefici.Framework.Spell
             //Vector2 dPos = to - from;
             //float dir = (float)Math.Atan2(dPos.Y, dPos.X);
 
-
             Vector2 dPos = new Vector2(character.getStandingPosition().Y - to.Y, to.X - character.getStandingPosition().X);
 
             Vector2 toRange = Vector2.Add(from, new Vector2((float)(dPos.X * range), (float)(dPos.Y * range)));
 
-            //Rectangle aabb = new Rectangle(character.GetBoundingBox().X, character.GetBoundingBox().Y, (int)(character.GetBoundingBox().Width + (view * range)), (int)(character.GetBoundingBox().Height + (view * range)));
-            //Rectangle aabb = new Rectangle(character.GetBoundingBox().X, character.GetBoundingBox().Y, (int)(character.GetBoundingBox().Width + (toRange.X)), (int)(character.GetBoundingBox().Height + (toRange.Y)));
-            Rectangle aabb = new Rectangle((int)to.X, (int)to.Y, Game1.tileSize, Game1.tileSize);
+            Vector2 absoluteTilePos = Utils.TilePosToAbsolutePos(to);
+            Rectangle aabb = new Rectangle((int)absoluteTilePos.X, (int)absoluteTilePos.Y, Game1.tileSize, Game1.tileSize);
 
-            //CharacterHitResult hit = ProjectileUtil.getEntityHitResult(entity, from, to, aabb, e-> !e.isSpectator() && e.isPickable(), range * range);
             CharacterHitResult hit = GameLocationUtils.GetCharacterHitResult(new CharacterEntityWrapper(character), from, to, aabb, null, range * range);
 
             //return hit != null && from.distanceTo(hit.getLocation()) < range ? hit.getEntity() : null;
@@ -121,12 +118,6 @@ namespace ArsVenefici.Framework.Spell
 
         public HitResult Trace(ModEntry modEntry, Character entity, GameLocation level, double range, bool entities, bool mouseCursor)
         {
-            //if (entities)
-            //{
-            //    Character pointed = GetPointedCharacter(entity, range);
-            //    if (pointed != null) return new CharacterHitResult(pointed);
-
-            //}
 
             Vector2 mouseTilePos = Utils.AbsolutePosToTilePos(Utility.clampToTile(new Vector2(Game1.getMouseX() + Game1.viewport.X, Game1.getMouseY() + Game1.viewport.Y)));
             Vector2 playerToolTile = Utils.AbsolutePosToTilePos(Utility.clampToTile(entity.GetToolLocation(true)));

@@ -16,7 +16,7 @@ using ArsVenefici.Framework.Events;
 
 namespace ArsVenefici.Framework.Patches
 {
-    public class CharacterContingencyPatch
+    public class CharacterPatch
     {
 
         // Instance of ModEntry
@@ -28,7 +28,7 @@ namespace ArsVenefici.Framework.Patches
         /// FarmerContingencyPatch Constructor
         /// </summary>
         /// <param name="entry">The instance of ModEntry</param>
-        public CharacterContingencyPatch(ModEntry entry)
+        public CharacterPatch(ModEntry entry)
         {
             // Set the field
             modEntryInstance = entry;
@@ -79,6 +79,9 @@ namespace ArsVenefici.Framework.Patches
         private static void FarmerTakeDamagePrefix(int damage, bool overrideParry, Monster damager, Farmer __instance, out int __state)
         {
             __state = __instance.health;
+
+            if (__instance.hasBuff("HeyImAmethyst.ArsVenifici_Shield") == true)
+                __instance.temporarilyInvincible = true;
         }
 
         private static void FarmerTakeDamagePostfix(int damage, bool overrideParry, Monster damager, Farmer __instance, int __state)

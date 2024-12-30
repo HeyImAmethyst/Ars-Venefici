@@ -1,5 +1,6 @@
 ﻿using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Spell.Effects;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using StardewValley;
@@ -42,9 +43,33 @@ namespace ArsVenefici.Framework.Spell.Shape
             float radius = helper.GetModifiedStat(1, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index);
             bool appliedToAtLeastOneEntity = false;
 
-            Rectangle rectangle = new Rectangle((int)hit.GetLocation().X, (int)hit.GetLocation().Y, (int)(radius * 2), (int)(radius * 2));
 
-            foreach (Character e in GameLocationUtils.GetCharacters(caster, rectangle, null))
+            int boundingBoxRadius = 3;
+
+            switch ((int)radius)
+            {
+                case 1:
+                    boundingBoxRadius = 3;
+                    break;
+                case 2:
+                    boundingBoxRadius = 5;
+                    break;
+                case 3:
+                    boundingBoxRadius = 7;
+                    break;
+                default:
+                    boundingBoxRadius = 3;
+                    break;
+
+            }
+            boundingBoxRadius *= Game1.tileSize;
+
+            Vector2 tilePos = new Vector2(hit.GetLocation().X - radius, hit.GetLocation().Y - radius);
+            Vector2 absoluteTilePos = Utils.TilePosToAbsolutePos(tilePos);
+
+            Rectangle rectangle = new Rectangle((int)absoluteTilePos.X, (int)absoluteTilePos.Y, boundingBoxRadius, boundingBoxRadius);
+
+            foreach (Character e in GameLocationUtils.GetCharacters(caster, rectangle))
             {
                 if (helper.Invoke(modEntry, spell, caster, gameLocation, new CharacterHitResult(e), ticksUsed, index, awardXp) == new SpellCastResult(SpellCastResultType.SUCCESS))
                 {
@@ -57,41 +82,7 @@ namespace ArsVenefici.Framework.Spell.Shape
 
             TilePos pos  = new TilePos(hit.GetLocation());
 
-            //TilePos tilePos = new TilePos(pos); 
-
-            //int rad = (int)Math.Round(radius);
             int rad = (int)radius;
-            //int rad = 2;
-
-            //modEntry.Monitor.Log("Tool Location Tile Position: " + pos.ToString(), StardewModdingAPI.LogLevel.Info);
-            //modEntry.Monitor.Log("rad: " + rad.ToString(), StardewModdingAPI.LogLevel.Info);
-
-            //for (int x = -rad; x <= rad; x++)
-            //{
-            //    for (int y = -rad; y <= rad; y++)
-            //    {
-            //        if (hit.GetHitResultType() == HitResult.HitResultType.TERRAIN_FEATURE)
-            //        {
-            //            //int offset = ((TerrainFeatureHitResult)hit).GetDirection().getAxisDirection() == Direction.AxisDirection.NEGATIVE ? 0 : -1;
-
-            //            //BlockPos lookPos = switch (((BlockHitResult) hit).getDirection().getAxis()) {
-            //            //    case X -> pos.offset(offset, y, z);
-            //            //    case Y -> pos.offset(x, offset, z);
-            //            //    case Z -> pos.offset(x, y, offset);
-            //            //};
-
-            //            //TilePos newTilePos = new TilePos(pos.GetTilePosX() + x, pos.GetTilePosY() + y);
-            //            //TilePos newTilePos = new TilePos(Vector2.Add(pos.GetVector(), new Vector2(x,y)));
-            //            TilePos newTilePos = new TilePos(Vector2.Add(pos, new Vector2(x, y)));
-
-            //            modEntry.Monitor.Log(newTilePos.GetVector().ToString(), StardewModdingAPI.LogLevel.Info);
-
-            //            //modEntry.Monitor.Log(x.ToString(), StardewModdingAPI.LogLevel.Info);
-
-            //            helper.Invoke(modEntry, spell, caster, gameLocation, new TerrainFeatureHitResult(hit.GetLocation(), ((TerrainFeatureHitResult)hit).GetDirection(), newTilePos, ((TerrainFeatureHitResult)hit).IsInside()), ticksUsed, index, awardXp);
-            //        }
-            //    }
-            //}
 
             for (int x = (int)(pos.GetVector().X - rad); x <= pos.GetVector().X + rad; ++x)
             {

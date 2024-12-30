@@ -110,20 +110,30 @@ namespace ArsVenefici.Framework.Spell.Components
                         modEntry.characterEvents.InvokeOnCharacterDamage(monster);
 
                         //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("assets/particle/magic.png", new Rectangle(0, 0, 16, 16), absolutePos, false, 1f / 500f, Color.White)
-                        TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absolutePos, false, 1f / 500f, new Color(0, 48, 255, 127))
-                        {
-                            alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
-                            alpha = 0.1f,
-                            //motion = new Vector2(0.0f, speed),
-                            //acceleration = new Vector2(0.0f, 0.0f),
-                            interval = 99999f,
-                            layerDepth = (float)(living.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
-                            scale = 8f,
-                            scaleChange = 0.01f,
-                            //rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0)
-                        };
+                        //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absolutePos, false, 1f / 500f, new Color(0, 48, 255, 127))
+                        //{
+                        //    alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
+                        //    alpha = 0.1f,
+                        //    //motion = new Vector2(0.0f, speed),
+                        //    //acceleration = new Vector2(0.0f, 0.0f),
+                        //    interval = 99999f,
+                        //    layerDepth = (float)(living.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
+                        //    scale = 8f,
+                        //    scaleChange = 0.01f,
+                        //    //rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0)
+                        //};
 
-                        gameLocation.temporarySprites.Add(sprite);
+                        //Game1.Multiplayer.broadcastSprites(gameLocation, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 256, 64, 64), 40f, 8, 0, monster.Position + new Vector2(32f, 64f), flicker: false, flipped: false)
+                        //{
+                        //    color = new Color(0, 48, 255, 127)
+                        //});
+
+                        //gameLocation.temporarySprites.Add(sprite);
+
+                        Game1.Multiplayer.broadcastSprites(gameLocation, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 256, 64, 64), 40f, 8, 0, monster.Position, flicker: false, flipped: false)
+                        {
+                            color = new Color(0, 48, 255, 127)
+                        });
 
                         return new SpellCastResult(SpellCastResultType.SUCCESS);
                     }

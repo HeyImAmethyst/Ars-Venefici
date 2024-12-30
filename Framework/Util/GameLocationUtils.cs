@@ -39,58 +39,90 @@ namespace ArsVenefici.Framework.Util
             Character character = null;
             Vector2 location = new Vector2();
 
-            //var var12 = GetCharacters(entity, aABB, predicate).GetEnumerator();
-            var var12 = GetCharacters(entity, aABB).GetEnumerator();
+            var characters = GetCharacters(entity, aABB);
 
-            while (true)
+            ModEntry.INSTANCE.Monitor.Log(characters.Count().ToString(), StardewModdingAPI.LogLevel.Info);
+
+            if (characters != null || characters.Count() > 0)
             {
-                while (var12.MoveNext())
+
+                var var12 = characters.GetEnumerator();
+
+                if (var12.MoveNext())
                 {
                     Character currentCharacter = var12.Current;
 
                     Rectangle aABB2 = currentCharacter.GetBoundingBox();
-                    aABB2.Inflate(0, 0);
 
-                    Vector2 intersectionPoint = Vector2.Zero;
-                    //Optional<Vec3> optional = aABB2.clip(vec3, vec32);
-
-                    bool optional = LineIntersectsRect(from, to, aABB2, out intersectionPoint);
-
-                    if (aABB2.Contains(from))
+                    //if (currentCharacter.Tile == new Vector2(aABB.X, aABB.Y))
+                    if (currentCharacter.Tile == to)
                     {
-                        if (e >= 0.0)
-                        {
-                            character = currentCharacter;
-                            //vec33 = (Vec3)optional.orElse(vec3);
-                            location = intersectionPoint == Vector2.Zero ? from : intersectionPoint;
-                            e = 0.0;
-                        }
-
+                        character = currentCharacter;
+                        location = from;
                     }
-                    else if (optional)
+
+                    if (character == null)
                     {
-                        //Vector2 vec34 = (Vec3)optional.get();
-                        Vector2 lineIntersection = intersectionPoint;
-
-                        //double f = vec3.distanceToSqr(vec34);
-                        double f = Vector2.DistanceSquared(from, lineIntersection);
-
-                        if (f < e || e == 0.0)
-                        {
-                            character = currentCharacter;
-                            location = lineIntersection;
-                            e = f;
-                        }
+                        return null;
                     }
-                }
 
-                if (character == null)
-                {
-                    return null;
+                    return new CharacterHitResult(character, location);
                 }
-
-                return new CharacterHitResult(character, location);
             }
+
+            return null;
+
+            // var var12 = GetCharacters(entity, aABB, predicate).GetEnumerator();
+
+            //while (true)
+            //{
+            //    while (var12.MoveNext())
+            //    {
+            //        Character currentCharacter = var12.Current;
+
+            //        Rectangle aABB2 = currentCharacter.GetBoundingBox();
+            //        aABB2.Inflate(0, 0);
+
+            //        Vector2 intersectionPoint = Vector2.Zero;
+            //        //Optional<Vec3> optional = aABB2.clip(vec3, vec32);
+
+            //        bool optional = LineIntersectsRect(from, to, aABB2, out intersectionPoint);
+
+            //        if (aABB2.Contains(from))
+            //        {
+            //            if (e >= 0.0)
+            //            {
+            //                character = currentCharacter;
+            //                //vec33 = (Vec3)optional.orElse(vec3);
+            //                location = intersectionPoint == Vector2.Zero ? from : intersectionPoint;
+            //                e = 0.0;
+            //            }
+
+            //        }
+            //        else if (optional)
+            //        {
+            //            //Vector2 vec34 = (Vec3)optional.get();
+            //            Vector2 lineIntersection = intersectionPoint;
+
+            //            //double f = vec3.distanceToSqr(vec34);
+            //            double f = Vector2.DistanceSquared(from, lineIntersection);
+
+            //            if (f < e || e == 0.0)
+            //            {
+            //                character = currentCharacter;
+            //                location = lineIntersection;
+            //                e = f;
+            //            }
+            //        }
+            //    }
+
+            //    if (character == null)
+            //    {
+            //        return null;
+            //    }
+
+            //    return new CharacterHitResult(character, location);
+            //}
         }
 
         public static TerrainFeatureHitResult Clip(IEntity entity, Vector2 from, Vector2 to)
@@ -114,11 +146,13 @@ namespace ArsVenefici.Framework.Util
             {
                 if (level.terrainFeatures.TryGetValue(item, out TerrainFeature terrainFeature))
                 {
-                    return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
+                    //return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
+                    return new TerrainFeatureHitResult(item, dir, new TilePos(item), false);
                 }
                 else if (level.objects.TryGetValue(item, out StardewValley.Object obj))
                 {
-                    return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
+                    //return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
+                    return new TerrainFeatureHitResult(item, dir, new TilePos(item), false);
                 }
                 else
                 {
@@ -127,7 +161,8 @@ namespace ArsVenefici.Framework.Util
                 }
             }
 
-            return TerrainFeatureHitResult.Miss(from, dir, new TilePos(to));
+            //return TerrainFeatureHitResult.Miss(from, dir, new TilePos(to));
+            return TerrainFeatureHitResult.Miss(to, dir, new TilePos(to));
         }
 
         public static List<Character> GetCharacters(IEntity entity, Rectangle aABB, Predicate<Character> predicate)
@@ -145,7 +180,6 @@ namespace ArsVenefici.Framework.Util
             //        list.Add(character);
             //    }
             //}
-
 
             if (location != null)
             {

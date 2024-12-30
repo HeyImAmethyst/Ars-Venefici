@@ -1,6 +1,7 @@
 ﻿using ArsVenefici.Framework.GameSave;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Spell.Buffs;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using SpaceCore;
@@ -58,7 +59,16 @@ namespace ArsVenefici.Framework.Spell.Components
 
             if (modEntry.ModSaveData.EnableGrowSickness && Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness") == false)
             {
-                Game1.player.applyBuff(modEntry.buffs.growSickNess);
+
+                Buff newBuffInstance = new Buff(
+                    id: modEntry.buffs.growSickNess.id,
+                    displayName: modEntry.buffs.growSickNess.displayName,
+                    iconTexture: Game1.buffsIcons,
+                    iconSheetIndex: modEntry.buffs.growSickNess.iconSheetIndex, //34
+                    duration: modEntry.buffs.growSickNess.millisecondsDuration
+                );
+
+                Game1.player.applyBuff(newBuffInstance);
             }
 
             if (modEntry.dailyTracker.GetDailyGrowCastCount() < modEntry.dailyTracker.GetMaxDailyGrowCastCount())

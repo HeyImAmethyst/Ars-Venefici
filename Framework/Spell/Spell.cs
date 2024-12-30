@@ -114,8 +114,11 @@ namespace ArsVenefici.Framework.Spell
 
         public ShapeGroup ShapeGroup(int shapeGroup)
         {
+            if(ShapeGroups() == null)
+                return null;
 
-            if (shapeGroup > ShapeGroups().Count() - 1) return null;
+            if (shapeGroup > ShapeGroups().Count() - 1) 
+                return null;
 
             return ShapeGroups()[shapeGroup];
         }

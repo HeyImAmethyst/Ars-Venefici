@@ -19,6 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using static SpaceCore.Skills;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -54,58 +55,8 @@ namespace ArsVenefici.Framework.Events
 
             GameLocation location = Game1.currentLocation;
 
-            if (displayHitBoxes)
-            {
-                foreach (Character character in location.characters)
-                {
-                    DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, character.GetBoundingBox()), Color.Red, 1);
-                }
-
-                foreach (Farmer farmer in location.farmers)
-                {
-                    DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, farmer.GetBoundingBox()), Color.Red, 1);
-                }
-
-                foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
-                {
-                    if (effect != null && effect is AbstractSpellEffect abstractSpellEffect)
-                        DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
-                }
-
-                foreach (Debris debris in location.debris)
-                {
-                    foreach (Chunk chunk in debris.Chunks)
-                    {
-                        //DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, new Rectangle(chunk.GetVisualPosition().ToPoint(), new Point(Game1.tileSize, Game1.tileSize))), Color.Red, 1);
-
-                        //Vector2 position = chunk.position.Value;
-                        //Vector2 snapPosition = Utility.snapDrawPosition(Game1.GlobalToLocal(Game1.viewport, position));
-
-                        //DrawSprite.DrawRectangle(e.SpriteBatch, new Rectangle(snapPosition.ToPoint(), new Point((int)(Game1.tileSize * chunk.scale), (int)(Game1.tileSize * chunk.scale))), Color.Red, 1);
-
-                        //Vector2 local = Vector2.One;
-                        //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
-
-                        //Vector2 absoluteClampedMousePos = Utility.clampToTile(chunk.GetVisualPosition());
-                        //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
-
-                        //e.SpriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, ((float)(debris.chunkFinalYLevel + 32) + local.X / 10000f));
-
-                        //Vector2 position = chunk.GetVisualPosition();
-                        //Vector2 snapPosition = Utility.snapDrawPosition(Game1.GlobalToLocal(Game1.viewport, position));
-
-                        //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
-
-                        //local = Utils.AbsolutePosToScreenPos(snapPosition);
-
-                        ParsedItemData itemData = ItemRegistry.GetDataOrErrorItem(debris.itemId.Value);
-                        Texture2D texture = itemData.GetTexture();
-
-                        Rectangle sourceRect = debris.debrisType.Value == Debris.DebrisType.RESOURCE ? itemData.GetSourceRect(chunk.randomOffset) : itemData.GetSourceRect();
-                    }
-                }
-            }
-
+            RenderHitboxes(e.SpriteBatch, location, displayHitBoxes);
+            RenderShield(e.SpriteBatch, location);
             RenderBeam(e.SpriteBatch);
             RenderTouchIndicator(e.SpriteBatch);
 
@@ -229,6 +180,100 @@ namespace ArsVenefici.Framework.Events
                         local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
 
                         spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                    }
+                }
+            }
+        }
+
+        public void RenderShield(SpriteBatch spriteBatch, GameLocation location)
+        {
+            if (Game1.activeClickableMenu == null && !Game1.eventUp)
+            {
+                foreach (Farmer farmer in location.farmers)
+                {
+                    if (farmer.hasBuff("HeyImAmethyst.ArsVenifici_Shield"))
+                    {
+                        Vector2 local = Vector2.One;
+                        Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/projectile/projectile.png");
+
+                        Vector2 farmerBoundingBox = farmer.GetBoundingBox().Center.ToVector2();
+                        Vector2 pos = new Vector2(farmerBoundingBox.X - 125, farmerBoundingBox.Y - 165);
+
+                        spriteBatch.End();
+
+                        spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+
+                        Color color = new Color(255, 255, 255, 100);
+                        //Color color = Color.White * 0.5f;
+
+                        spriteBatch.Draw(texture, Utils.AbsolutePosToScreenPos(pos), new Rectangle(0, 0, 30, 30), color, 0.0f, Vector2.Zero, 8f, SpriteEffects.None, pos.Y / 10000f);
+
+                        spriteBatch.End();
+
+                        spriteBatch.Begin(blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp);
+                    }
+                }
+            }
+        }
+
+        public void RenderHitboxes(SpriteBatch spriteBatch, GameLocation location, bool displayHitBoxes)
+        {
+            ICursorPosition cursorPosition = modEntryInstance.Helper.Input.GetCursorPosition();
+
+            //Vector2 absoluteClampedMousePos = Utility.clampToTile(cursorPosition.AbsolutePixels);
+            //Vector2 local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+            //DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, new Rectangle((int)local.X, (int)local.Y, 20, 20)), Color.Red, 1);
+            //DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, new Rectangle((int)absoluteClampedMousePos.X, (int)absoluteClampedMousePos.Y, Game1.tileSize, Game1.tileSize)), Color.Red, 1);
+            //DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, Game1.player.GetBoundingBox()), Color.Red, 1);
+
+            if (displayHitBoxes)
+            {
+                foreach (Character character in location.characters)
+                {
+                    DrawSprite.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, character.GetBoundingBox()), Color.Red, 1);
+                }
+
+                foreach (Farmer farmer in location.farmers)
+                {
+                    DrawSprite.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, farmer.GetBoundingBox()), Color.Red, 1);
+                }
+
+                foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
+                {
+                    if (effect != null && effect is AbstractSpellEffect abstractSpellEffect)
+                        DrawSprite.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
+                }
+
+                foreach (Debris debris in location.debris)
+                {
+                    foreach (Chunk chunk in debris.Chunks)
+                    {
+                        //DrawSprite.DrawRectangle(e.SpriteBatch, Game1.GlobalToLocal(Game1.viewport, new Rectangle(chunk.GetVisualPosition().ToPoint(), new Point(Game1.tileSize, Game1.tileSize))), Color.Red, 1);
+
+                        //Vector2 position = chunk.position.Value;
+                        //Vector2 snapPosition = Utility.snapDrawPosition(Game1.GlobalToLocal(Game1.viewport, position));
+
+                        //DrawSprite.DrawRectangle(e.SpriteBatch, new Rectangle(snapPosition.ToPoint(), new Point((int)(Game1.tileSize * chunk.scale), (int)(Game1.tileSize * chunk.scale))), Color.Red, 1);
+
+                        //Vector2 local = Vector2.One;
+                        //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
+
+                        //Vector2 absoluteClampedMousePos = Utility.clampToTile(chunk.GetVisualPosition());
+                        //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+
+                        //e.SpriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, ((float)(debris.chunkFinalYLevel + 32) + local.X / 10000f));
+
+                        //Vector2 position = chunk.GetVisualPosition();
+                        //Vector2 snapPosition = Utility.snapDrawPosition(Game1.GlobalToLocal(Game1.viewport, position));
+
+                        //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
+
+                        //local = Utils.AbsolutePosToScreenPos(snapPosition);
+
+                        ParsedItemData itemData = ItemRegistry.GetDataOrErrorItem(debris.itemId.Value);
+                        Texture2D texture = itemData.GetTexture();
+
+                        Rectangle sourceRect = debris.debrisType.Value == Debris.DebrisType.RESOURCE ? itemData.GetSourceRect(chunk.randomOffset) : itemData.GetSourceRect();
                     }
                 }
             }

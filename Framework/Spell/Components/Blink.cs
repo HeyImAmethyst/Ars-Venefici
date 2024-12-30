@@ -31,6 +31,7 @@ namespace ArsVenefici.Framework.Spell.Components
             return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
         }
 
+        //Positioning code from https://github.com/spacechase0/StardewValleyMods/blob/main/Magic/Framework/Spells/BlinkSpell.cs
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, TerrainFeatureHitResult target, int index, int ticksUsed)
         {
             var helper = SpellHelper.Instance();

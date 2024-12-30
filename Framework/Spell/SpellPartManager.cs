@@ -106,6 +106,9 @@ namespace ArsVenefici.Framework.Spell
 
             Forge forge = new Forge(modEntry);
 
+            Shield shield = new Shield();
+            Summon summon = new Summon();
+
             spellParts.Add(createWater.GetId(), createWater);
             spellParts.Add(heal.GetId(), heal);
             spellParts.Add(physicalDamage.GetId(), physicalDamage);
@@ -126,6 +129,8 @@ namespace ArsVenefici.Framework.Spell
             spellParts.Add(regeneration.GetId(), regeneration);
             spellParts.Add(dispel.GetId(), dispel);
             spellParts.Add(forge.GetId(), forge);
+            spellParts.Add(shield.GetId(), shield);
+            spellParts.Add(summon.GetId(), summon);
         }
 
         private void AddModifiers()

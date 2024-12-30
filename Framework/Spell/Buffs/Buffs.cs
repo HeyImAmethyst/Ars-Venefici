@@ -16,6 +16,7 @@ namespace ArsVenefici.Framework.Spell.Buffs
         public Buff growSickNess;
         public Buff hasteBuff;
         public Buff regenerationBuff;
+        public Buff shieldBuff;
 
         public Buffs(ModEntry modEntry)
         {
@@ -53,6 +54,14 @@ namespace ArsVenefici.Framework.Spell.Buffs
                 iconTexture: Game1.buffsIcons, //modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
                 iconSheetIndex: 34, //34
                 duration: 30_000 // 30 seconds
+            );
+
+            shieldBuff = new Buff(
+                id: "HeyImAmethyst.ArsVenifici_Shield",
+                displayName: modEntry.Helper.Translation.Get("spellpart.shield.name"),
+                iconTexture: Game1.buffsIcons, //modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
+                iconSheetIndex: 10, //34
+                duration: 45_000 // 30 seconds
             );
         }
     }

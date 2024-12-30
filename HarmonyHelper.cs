@@ -15,7 +15,7 @@ namespace ArsVenefici
 
         // The mods entry
         private ModEntry modEntry;
-        public CharacterContingencyPatch farmerContingencyPatch;
+        public CharacterPatch farmerContingencyPatch;
 
         /// <summary>
         /// Constructor - Used for all Harmony related patching.
@@ -24,7 +24,7 @@ namespace ArsVenefici
         public HarmonyHelper(ModEntry entry)
         {
             modEntry = entry;
-            farmerContingencyPatch = new CharacterContingencyPatch(modEntry);
+            farmerContingencyPatch = new CharacterPatch(modEntry);
         }
 
         /// <summary>
