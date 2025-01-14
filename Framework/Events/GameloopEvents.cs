@@ -15,6 +15,7 @@ using ArsVenefici.Framework.Spell.Effects;
 using ArsVenefici.Framework.Spell;
 using SpaceCore;
 using static ArsVenefici.ModConfig;
+using ArsVenefici.Framework.FarmerPlayer;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -460,14 +461,15 @@ namespace ArsVenefici.Framework.Events
         public void OnDayStarted(object sender, DayStartedEventArgs e)
         {
 
-            modEntryInstance.FixManaPoolIfNeeded(Game1.player);
+            modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player);
+            modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player);
 
             if (Context.IsWorldReady)
             {
                 if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
                     return;
 
-                if (modEntryInstance.LearnedWizardy)
+                if (modEntryInstance.farmerMagicHelper.LearnedWizardy)
                 {
                     string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
 
@@ -507,7 +509,7 @@ namespace ArsVenefici.Framework.Events
                     spellBook.SaveSpellBook(modEntryInstance);
                 }
 
-                if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 6)
+                if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 6)
                 {
                     modEntryInstance.dailyTracker.SetMaxDailyGrowCastCount(int.MaxValue);
                 }
@@ -551,38 +553,6 @@ namespace ArsVenefici.Framework.Events
 
                     if (effect != null)
                         effect.Update(e);
-                }
-            }
-
-            if (Game1.shouldTimePass())
-            {
-                if (Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_Regeneration") == true)
-                {
-                    var ext = Game1.player.GetExtData();
-                    //if (ext.StaminaRegen > 0)
-                    //{
-                    //    ext.staminaBuffer += ext.StaminaRegen * (float)Game1.currentGameTime.ElapsedGameTime.TotalSeconds;
-                    //    if (ext.staminaBuffer >= 1)
-                    //    {
-                    //        int whole = (int)Math.Truncate(ext.staminaBuffer);
-                    //        ext.staminaBuffer -= whole;
-                    //        Game1.player.Stamina += whole;
-                    //    }
-                    //}
-
-
-                    ext.HealthRegen = 2f;
-
-                    if (ext.HealthRegen != 0)
-                    {
-                        ext.healthBuffer += ext.HealthRegen * (float)Game1.currentGameTime.ElapsedGameTime.TotalSeconds;
-                        if (Math.Abs(ext.healthBuffer) >= 1)
-                        {
-                            int whole = (int)Math.Truncate(ext.healthBuffer);
-                            ext.healthBuffer -= whole;
-                            Game1.player.health = Math.Min(Game1.player.health + whole, Game1.player.maxHealth);
-                        }
-                    }
                 }
             }
         }

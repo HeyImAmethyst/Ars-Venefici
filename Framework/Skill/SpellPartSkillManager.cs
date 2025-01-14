@@ -98,9 +98,12 @@ namespace ArsVenefici.Framework.Skill
         private void AddDefense()
         {
             SpellPartSkill self = new SpellPartSkill("self", new HashSet<SpellPartSkill>(), new Dictionary<Item, int>(), defenseTab, false);
+            
+            SpellPartSkill effect_power = new SpellPartSkill("effect_power", new HashSet<SpellPartSkill>() { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)787"), 1 }, { ItemRegistry.Create("(O)395"), 1 } }, defenseTab, false);
 
             SpellPartSkill haste = new SpellPartSkill("haste", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)395"), 1 } }, defenseTab, false);
             SpellPartSkill regeneration = new SpellPartSkill("regeneration", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false);
+            SpellPartSkill mana_regeneration = new SpellPartSkill("mana_regeneration", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)" + ModEntry.ArsVenificiContentPatcherId + "_ManaElixir"), 1 } }, defenseTab, false);
             SpellPartSkill heal = new SpellPartSkill("heal", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false); //210, 120
 
             
@@ -126,6 +129,7 @@ namespace ArsVenefici.Framework.Skill
             spellPartSkills.Add(self.GetId(), self);
             spellPartSkills.Add(haste.GetId(), haste);
             spellPartSkills.Add(regeneration.GetId(), regeneration);
+            spellPartSkills.Add(mana_regeneration.GetId(), mana_regeneration);
             spellPartSkills.Add(heal.GetId(), heal);
             spellPartSkills.Add(zone.GetId(), zone);
             spellPartSkills.Add(lifeTap.GetId(), lifeTap);
@@ -138,6 +142,7 @@ namespace ArsVenefici.Framework.Skill
             spellPartSkills.Add(contingency_health.GetId(), contingency_health);
             spellPartSkills.Add(shield.GetId(), shield);
             spellPartSkills.Add(summon.GetId(), summon);
+            spellPartSkills.Add(effect_power.GetId(), effect_power);
         }
 
         private void AddUtility()

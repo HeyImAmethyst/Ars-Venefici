@@ -20,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using static SpaceCore.Skills;
+using ArsVenefici.Framework.FarmerPlayer;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -73,7 +74,7 @@ namespace ArsVenefici.Framework.Events
 
         public void RenderBeam(SpriteBatch spriteBatch)
         {
-            if (!modEntryInstance.LearnedWizardy || !ModEntry.SpellCastingMode)
+            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy || !FarmerMagicHelper.SpellCastingMode)
                 return;
 
             SpellBook spellBook = Game1.player.GetSpellBook();
@@ -147,7 +148,7 @@ namespace ArsVenefici.Framework.Events
         public void RenderTouchIndicator(SpriteBatch spriteBatch)
         {
 
-            if (!modEntryInstance.LearnedWizardy || !ModEntry.SpellCastingMode)
+            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy || !FarmerMagicHelper.SpellCastingMode)
                 return;
 
             SpellBook spellBook = Game1.player.GetSpellBook();
@@ -289,10 +290,10 @@ namespace ArsVenefici.Framework.Events
         /// <param name="e">The event arguments.</param>
         public void OnRenderedHud(object sender, RenderedHudEventArgs e)
         {
-            if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree || !ModEntry.SpellCastingMode)
+            if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree || !FarmerMagicHelper.SpellCastingMode)
                 return;
 
-            if (!modEntryInstance.LearnedWizardy)
+            if (!modEntryInstance.farmerMagicHelper .LearnedWizardy)
                 return;
 
             int x = modEntryInstance.Config.Position.X;

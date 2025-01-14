@@ -170,6 +170,9 @@
 	"spellpart.regeneration.name": "Regeneration",
 	"spellpart.regeneration.description": "Regenerates the player's health over a period of time.",
 
+	"spellpart.mana_regeneration.name": "Mana Regeneration",
+	"spellpart.mana_regeneration.description": "Regenerates the player's mana over a period of time.",
+
 	"spellpart.dispel.name": "Dispel",
 	"spellpart.dispel.description": "Removes effects on your farmer.",
 
@@ -202,16 +205,20 @@
 	"spellpart.healing.description": "Strengthens the potency of healing components.",
 
 	"spellpart.duration.name": "Duration",
-	"spellpart.duration.description": "Adds additional time to Zone spells.",
+	"spellpart.duration.description": "Adds additional time to spell parts that have a duration.",
 
 	"spellpart.mining_power.name": "Mining Power",
 	"spellpart.mining_power.description": "Adds +1 axe/pickaxe upgrade to Dig spells.",
+
+	"spellpart.effect_power.name": "Effect Power",
+	"spellpart.effect_power.description": "Inceases the power of effect based components.",
 
 	/*********
 	** Buffs/Debuffs
 	*********/
 
 	"debuff.grow_sickness.name": "Grow Sickness",
+	"buff.mana_regeneration.name": "Mana Regeneration",
 
 	/*********
 	** Spell Cast Warnings
@@ -232,6 +239,8 @@
 	"ui.spell_book.source_area.name": "Source Area",
 	"ui.spell_book.shape_group_area.name": "Shape Group Area",
 	"ui.spell_book.spell_grammar_area.name": "Spell Grammar Area",
+	"ui.spell_book.spell_name_textbox.name": "Spell Name",
+
 
 	"ui.magic_altar.offense_tab.name": "Offense",
 	"ui.magic_altar.defense_tab.name": "Defense",

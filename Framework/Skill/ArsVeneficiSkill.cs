@@ -131,7 +131,7 @@ namespace ArsVenefici.Framework.Skill
         public override void DoLevelPerk(int level)
         {
             // fix wizardry info if invalid
-            modEntry.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: level - 1);
+            modEntry.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: level - 1);
 
             // add level perk
             int curMana = Game1.player.GetMaxMana();

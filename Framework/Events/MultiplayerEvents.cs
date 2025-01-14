@@ -48,7 +48,7 @@ namespace ArsVenefici.Framework.Events
                         try
                         {
                             modEntryInstance.ModSaveData = e.ReadAs<ModSaveData>();
-                            modEntryInstance.FixManaPoolIfNeeded(Game1.player);
+                            modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player);
 
                         }
                         catch (InvalidOperationException)

@@ -39,6 +39,7 @@ namespace ArsVenefici.Framework.Spell
         HEALING,
         PIERCING,
         POWER,
+        MINING_TIER,
         RANGE,
         SPEED
     }

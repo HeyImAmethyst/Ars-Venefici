@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using static ArsVenefici.ModConfig;
 using Microsoft.Xna.Framework;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.FarmerPlayer;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -42,7 +43,7 @@ namespace ArsVenefici.Framework.Events
             if (Game1.activeClickableMenu != null)
                 return;
 
-            if (!modEntryInstance.LearnedWizardy)
+            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy)
                 return;
 
             Farmer farmer = Game1.player;
@@ -77,7 +78,7 @@ namespace ArsVenefici.Framework.Events
 
                 if (modKeyBinds.SpellToggles.JustPressed())
                 {
-                    ModEntry.SpellCastingMode = !ModEntry.SpellCastingMode;
+                    FarmerMagicHelper.SpellCastingMode = !FarmerMagicHelper.SpellCastingMode;
                 }
 
                 //Move spell lable
@@ -120,21 +121,21 @@ namespace ArsVenefici.Framework.Events
 
                 //Cast spell
 
-                if (ModEntry.SpellCastingMode)
+                if (FarmerMagicHelper.SpellCastingMode)
                 {
                     CastSpell(spellHelper, spellBook, farmer);
                 }
 
                 //Show tutorial text
 
-                if (modEntryInstance.LearnedWizardy && modKeyBinds.OpenTutorialTextButtons.JustPressed())
+                if (modEntryInstance.farmerMagicHelper.LearnedWizardy && modKeyBinds.OpenTutorialTextButtons.JustPressed())
                 {
                     ShowTutorialText();
                 }
 
                 //Display magic altar menu
 
-                if (modEntryInstance.LearnedWizardy && (input.GetState(SButton.MouseRight) == SButtonState.Pressed || input.GetState(SButton.ControllerA) == SButtonState.Pressed))
+                if (modEntryInstance.farmerMagicHelper.LearnedWizardy && (input.GetState(SButton.MouseRight) == SButtonState.Pressed || input.GetState(SButton.ControllerA) == SButtonState.Pressed))
                 {
                     DisplayMagicAltarMenu();
                 }

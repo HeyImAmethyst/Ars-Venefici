@@ -1,4 +1,5 @@
 ﻿
+using ArsVenefici.Framework.FarmerPlayer;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
@@ -52,25 +53,25 @@ namespace ArsVenefici.Framework.Spell.Components
 
             int toolLevel = 0;
 
-            if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 2 && Game1.player.GetCustomSkillLevel(ModEntry.Skill) < 4)
+            if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 2 && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 4)
             {
                 toolLevel = 1;
             }
-            else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 4 && Game1.player.GetCustomSkillLevel(ModEntry.Skill) < 6)
+            else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 4 && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 6)
             {
                 toolLevel = 2;
             }
-            else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 6 && Game1.player.GetCustomSkillLevel(ModEntry.Skill) < 8)
+            else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 6 && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 8)
             {
                 toolLevel = 3;
             }
-            else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 8)
+            else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 8)
             {
                 toolLevel = 4;
             }
 
             var helper = SpellHelper.Instance();
-            float miningPower = helper.GetModifiedStat(0, new SpellPartStats(SpellPartStatType.POWER), modifiers, spell, caster, target, index);
+            float miningPower = helper.GetModifiedStat(0, new SpellPartStats(SpellPartStatType.MINING_TIER), modifiers, spell, caster, target, index);
 
             if(toolLevel + (int)miningPower < 4)
             {

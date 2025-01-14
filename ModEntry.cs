@@ -21,6 +21,7 @@ using StardewValley.Network;
 using System.Runtime.CompilerServices;
 using System;
 using ArsVenefici.Framework.Spell.Buffs;
+using ArsVenefici.Framework.FarmerPlayer;
 
 namespace ArsVenefici
 {
@@ -29,11 +30,17 @@ namespace ArsVenefici
         public static ModEntry INSTANCE;
 
         public static IModHelper helper;
+
+        public static string ArsVenificiContentPatcherId = "HeyImAmethyst.CP.ArsVenefici";
+        public static string ArsVenificiModId = "HeyImAmethyst.ArsVenefici";
+        public const string MsgCast = "HeyImAmethyst.ArsVenifici.Cast";
+
         public ModConfig Config;
         public ModSaveData ModSaveData;
         public const string SAVEDATA = "HeyImAmethyst-ArsVenifici-SaveData";
 
-        public HarmonyHelper HarmonyHelper;
+        public FarmerMagicHelper farmerMagicHelper;
+        public HarmonyHelper harmonyHelper;
         public DailyTracker dailyTracker;
         public Buffs buffs;
         public SpellPartManager spellPartManager;
@@ -48,10 +55,7 @@ namespace ArsVenefici
 
         public static IManaBarApi ManaBarApi;
         public static ContentPatcher.IContentPatcherAPI ContentPatcherApi;
-        public static string ArsVenificiContentPatcherId = "HeyImAmethyst.CP.ArsVenefici";
         public static Framework.ModAPIs.ItemExtensions.IApi ItemExtensionsApi;
-
-        public static Random RandomGen = new Random();
 
         //Events
 
@@ -70,24 +74,10 @@ namespace ArsVenefici
         /// <summary>The active effects, spells, or projectiles which should be updated or drawn.</summary>
         public readonly IList<IActiveEffect> ActiveEffects = new List<IActiveEffect>();
 
-        /// <remarks>This should only be accessed through <see cref="GetSpellBook"/> or <see cref="Extensions.GetSpellBook"/> to make sure an updated instance is retrieved.</remarks>
-        private static readonly IDictionary<long, SpellBook> SpellBookCache = new Dictionary<long, SpellBook>();
-
-        /// <summary>The ID of the event in which the player learns magic from the Wizard.</summary>
-        //public static int LearnedMagicEventId { get; } = 90002;
-        public int LearnedWizardryEventId { get; } = 9918172;
-
-        /// <summary>Whether the current player learned wizardry.</summary>
-        public bool LearnedWizardy => Game1.player?.eventsSeen?.Contains(LearnedWizardryEventId.ToString()) == true ? true : false;
-
-        public static ArsVeneficiSkill Skill;
-        public const string MsgCast = "HeyImAmethyst.ArsVenifici.Cast";
-
         public bool isSVEInstalled;
         public bool isItemExtensionsInstalled;
 
-
-        public static bool SpellCastingMode = true;
+        public static Random RandomGen = new Random();
 
         public override void Entry(IModHelper helper)
         {
@@ -105,13 +95,11 @@ namespace ArsVenefici
             CheckIfSVEIsInstalled();
             CheckIfItemExtensionsIsInstalled();
 
-            SpaceCore.Skills.RegisterSkill(ModEntry.Skill = new ArsVeneficiSkill(this));
-
             commands.AddCommands();
 
             try
             {
-                HarmonyHelper.InitializeAndPatch();
+                harmonyHelper.InitializeAndPatch();
             }
             catch (Exception e)
             {
@@ -126,6 +114,9 @@ namespace ArsVenefici
         /// </summary>
         private void InitializeClasses()
         {
+            farmerMagicHelper = new FarmerMagicHelper(this);
+
+            SpaceCore.Skills.RegisterSkill(FarmerMagicHelper.Skill = new ArsVeneficiSkill(this));
 
             commands = new Commands(this);
 
@@ -141,7 +132,7 @@ namespace ArsVenefici
             multiplayerEvents = new MultiplayerEvents(this);
             playerEvents = new PlayerEvents(this);
 
-            HarmonyHelper = new HarmonyHelper(this);
+            harmonyHelper = new HarmonyHelper(this);
         }
 
         private static void LoadAssets()
@@ -182,52 +173,6 @@ namespace ArsVenefici
             characterEvents.CharacterHeal += characterEvents.OnCharacterHeal;
         }
 
-        /// <summary>Fix the player's mana pool to match their skill level if needed.</summary>
-        /// <param name="player">The player to fix.</param>
-        /// <param name="overrideWizardryLevel">The wizardry skill level, or <c>null</c> to get it from the player.</param>
-        public void FixManaPoolIfNeeded(Farmer player, int? overrideWizardryLevel = null)
-        {
-            // skip if player hasn't learned wizardry
-            if (!LearnedWizardy && overrideWizardryLevel is not > 0)
-                return;
-
-            // get wizardry info
-            int wizardryLevel = overrideWizardryLevel ?? player.GetCustomSkillLevel(Skill);
-            
-            SpellBook spellBook = Game1.player.GetSpellBook();
-
-            // fix mana pool
-
-            //if(LearnedWizardy)
-            //{
-            //    int expectedPoints = wizardryLevel * ManaPointsPerLevel;
-
-            //    if (player.GetMaxMana() < expectedPoints)
-            //    {
-            //        player.SetMaxMana(expectedPoints);
-            //        player.AddMana(expectedPoints);
-            //    }
-            //}
-
-            int expectedPoints = wizardryLevel * ModSaveData.ManaPointsPerLevel;
-
-            if (player.GetMaxMana() < expectedPoints)
-            {
-                player.SetMaxMana(expectedPoints);
-                player.AddMana(expectedPoints);
-            }
-        }
-
-        /// <summary>Get a self-updating view of a player's magic metadata.</summary>
-        /// <param name="player">The player whose spell book to get.</param>
-        public static SpellBook GetSpellBook(Farmer player)
-        {
-            if (!ModEntry.SpellBookCache.TryGetValue(player.UniqueMultiplayerID, out SpellBook book) || !object.ReferenceEquals(player, book.Player))
-                ModEntry.SpellBookCache[player.UniqueMultiplayerID] = book = new SpellBook(player);
-
-            return book;
-        }
-
         /// <summary>
         /// Checks if the mod Stardew Valley Expanded is currently installed.
         /// </summary>
@@ -245,16 +190,5 @@ namespace ArsVenefici
             isItemExtensionsInstalled = Helper.ModRegistry.IsLoaded("mistyspring.ItemExtensions");
             Monitor.Log($"Item Extensions Installed: {isItemExtensionsInstalled}", LogLevel.Trace);
         }
-    }
-
-    public class FarmerExtData
-    {
-        public static ConditionalWeakTable<Farmer, FarmerExtData> data = new();
-
-        public float HealthRegen { get; set; } = 0;
-        public float StaminaRegen { get; set; } = 0;
-
-        public float healthBuffer { get; set; } = 0;
-        public float staminaBuffer { get; set; } = 0;
     }
 }

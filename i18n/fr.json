@@ -170,6 +170,9 @@
 	"spellpart.regeneration.name": "Regeneration",
 	"spellpart.regeneration.description": "Regenerates the player's health over a period of time.",
 
+	"spellpart.mana_regeneration.name": "Mana Regeneration",
+	"spellpart.mana_regeneration.description": "Regenerates the player's mana over a period of time.",
+
 	"spellpart.dispel.name": "Dispel",
 	"spellpart.dispel.description": "Removes effects on your farmer.",
 
@@ -178,7 +181,7 @@
 
 	"spellpart.shield.name": "Shield",
 	"spellpart.shield.description": "Creates an arcane energy to shield around a player target. The shield will reduce all damage taken.",
-	
+
 	"spellpart.summon.name": "Summon",
 	"spellpart.summon.description": "Creates a spell to summon a junimo to protect you.",
 
@@ -201,16 +204,20 @@
 	"spellpart.healing.description": "Renforce la puissance des composants de guérison.",
 
 	"spellpart.duration.name": "Durée +",
-	"spellpart.duration.description": "Allonge la durée des sorts de périmètre.",
+	"spellpart.duration.description": "Adds additional time to spell parts that have a duration.",
 
 	"spellpart.mining_power.name": "Outil +",
 	"spellpart.mining_power.description": "Ajoute un niveau d’amélioration à la hache ou la pioche sur les sorts de Creuser.",
+
+	"spellpart.effect_power.name": "Effect Power",
+	"spellpart.effect_power.description": "Inceases the power of effect based components.",
 
 	/*********
 	** Buffs/Debuffs
 	*********/
 
 	"debuff.grow_sickness.name": "Retard de croissance",
+	"buff.mana_regeneration.name": "Mana Regeneration",
 
 	/*********
 	** Spell Cast Warnings
@@ -231,6 +238,7 @@
 	"ui.spell_book.source_area.name": "Espace des sources",
 	"ui.spell_book.shape_group_area.name": "Espace des formes de zone",
 	"ui.spell_book.spell_grammar_area.name": "Espace de grammaire des sorts",
+	"ui.spell_book.spell_name_textbox.name": "Spell Name",
 
 	"ui.magic_altar.offense_tab.name": "Attaque",
 	"ui.magic_altar.defense_tab.name": "Défense",

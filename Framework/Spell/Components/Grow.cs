@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.GameSave;
+﻿using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.GameSave;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Spell.Buffs;
@@ -36,22 +37,22 @@ namespace ArsVenefici.Framework.Spell.Components
             TilePos tilePos = target.GetTilePos();
             Vector2 tile = tilePos.GetVector();
 
-            if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) < 6)
+            if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 6)
             {
                 modEntry.buffs.growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsLessThanLevelSix;
                 //Game1.player.applyBuff(growSickNess);
             }
-            else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 6)
+            else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 6)
             {
                 modEntry.buffs.growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix;
                 //Game1.player.applyBuff(growSickNess);
             }
-            else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 8)
+            else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 8)
             {
                 modEntry.buffs.growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight;
                 //Game1.player.applyBuff(growSickNess);
             }
-            else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) == 10)
+            else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) == 10)
             {
                 modEntry.buffs.growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen;
                 //Game1.player.applyBuff(growSickNess);

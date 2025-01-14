@@ -170,6 +170,9 @@
     "spellpart.regeneration.name": "Regeneration",
     "spellpart.regeneration.description": "Regenerates the player's health over a period of time.",
 
+    "spellpart.mana_regeneration.name": "Mana Regeneration",
+    "spellpart.mana_regeneration.description": "Regenerates the player's mana over a period of time.",
+
     "spellpart.dispel.name": "Dispel",
     "spellpart.dispel.description": "Removes effects on your farmer.",
 
@@ -202,16 +205,20 @@
     "spellpart.healing.description": "치유 마법 요소의 효과를 강화합니다.",
 
     "spellpart.duration.name": "지속의 힘",
-    "spellpart.duration.description": "마법의 구역에 추가적인 지속 시간을 부여합니다.",
+    "spellpart.duration.description": "Adds additional time to spell parts that have a duration.",
 
     "spellpart.mining_power.name": "대지의 힘",
     "spellpart.mining_power.description": "대지 개척 마법에 +1 채광/벌목 강화를 추가합니다.",
+
+    "spellpart.effect_power.name": "Effect Power",
+    "spellpart.effect_power.description": "Inceases the power of effect based components.",
 
     /*********
     ** Buffs/Debuffs
     *********/
 
     "debuff.grow_sickness.name": "성장 피로",
+    "buff.mana_regeneration.name": "Mana Regeneration",
 
     /*********
     ** Spell Cast Warnings
@@ -232,6 +239,7 @@
     "ui.spell_book.source_area.name": "마력의 원천",
     "ui.spell_book.shape_group_area.name": "형상 그룹 영역",
     "ui.spell_book.spell_grammar_area.name": "마법 문법 영역",
+    "ui.spell_book.spell_name_textbox.name": "Spell Name",
 
     "ui.magic_altar.offense_tab.name": "공격 마법",
     "ui.magic_altar.defense_tab.name": "방어 마법",

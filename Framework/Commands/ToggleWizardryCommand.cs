@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using ArsVenefici.Framework.FarmerPlayer;
 using ArsVenefici.Framework.Util;
 using SpaceCore;
 using SpaceShared;
@@ -29,17 +30,17 @@ namespace ArsVenefici.Framework.Commands
             {
                 if (value)
                 {
-                    if(Game1.player.GetCustomSkillLevel(ModEntry.Skill) < 1)
+                    if(Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 1)
                     {
-                        Game1.player.AddCustomSkillExperience(ModEntry.Skill, ModEntry.Skill.ExperienceCurve[0]);
-                        modEntry.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1);
+                        Game1.player.AddCustomSkillExperience(FarmerMagicHelper.Skill, FarmerMagicHelper.Skill.ExperienceCurve[0]);
+                        modEntry.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1);
                     }
-                    else if (Game1.player.GetCustomSkillLevel(ModEntry.Skill) >= 1)
+                    else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 1)
                     {
-                        modEntry.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: Game1.player.GetCustomSkillLevel(ModEntry.Skill));
+                        modEntry.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
                     }
 
-                    Game1.player.eventsSeen.Add(modEntry.LearnedWizardryEventId.ToString());
+                    Game1.player.eventsSeen.Add(modEntry.farmerMagicHelper.LearnedWizardryEventId.ToString());
                     
                     CraftingRecipe craftingRecipe = new CraftingRecipe(s);
                    
@@ -51,7 +52,7 @@ namespace ArsVenefici.Framework.Commands
                 else if (value == false)
                 {
                     Game1.player.SetMaxMana(0);
-                    Game1.player.eventsSeen.Remove(modEntry.LearnedWizardryEventId.ToString());
+                    Game1.player.eventsSeen.Remove(modEntry.farmerMagicHelper.LearnedWizardryEventId.ToString());
 
                     //if (Game1.player.craftingRecipes.ContainsKey(s))
                     //    Game1.player.craftingRecipes.Remove(s);

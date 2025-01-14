@@ -101,6 +101,7 @@ namespace ArsVenefici.Framework.Spell
 
             Effect haste = new Effect("haste", 30, modEntry.buffs.hasteBuff);
             Effect regeneration = new Effect("regeneration", 30, modEntry.buffs.regenerationBuff);
+            Effect mana_regeneration = new Effect("mana_regeneration", 30, modEntry.buffs.manaRegenerationBuff);
 
             Dispel dispel = new Dispel();
 
@@ -131,35 +132,39 @@ namespace ArsVenefici.Framework.Spell
             spellParts.Add(forge.GetId(), forge);
             spellParts.Add(shield.GetId(), shield);
             spellParts.Add(summon.GetId(), summon);
+            spellParts.Add(mana_regeneration.GetId(), mana_regeneration);
         }
 
         private void AddModifiers()
         {
-            GenericSpellModifier damage = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.DAMAGE), DefaultSpellPartStatModifier.Add(5f));
+            GenericSpellModifier damage = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.DAMAGE), DefaultSpellPartStatModifier.Add(5f));
             //GenericSpellModifier damage = new GenericSpellModifier().addStatModifier(new SpellPartStats(SpellPartStatType.DAMAGE), DefaultSpellPartStatModifier.add(50f));
             damage.SetId("damage");
 
             //GenericSpellModifier range = new GenericSpellModifier().addStatModifier(new SpellPartStats(SpellPartStatType.RANGE), DefaultSpellPartStatModifier.multiply(4f));
-            GenericSpellModifier range = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.RANGE), DefaultSpellPartStatModifier.Add(1f));
+            GenericSpellModifier range = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.RANGE), DefaultSpellPartStatModifier.Add(1f));
             range.SetId("range");
 
-            GenericSpellModifier bounce = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.BOUNCE), DefaultSpellPartStatModifier.Add(2f));
+            GenericSpellModifier bounce = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.BOUNCE), DefaultSpellPartStatModifier.Add(2f));
             bounce.SetId("bounce");
 
-            GenericSpellModifier piercing = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.PIERCING), DefaultSpellPartStatModifier.COUNTING);
+            GenericSpellModifier piercing = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.PIERCING), DefaultSpellPartStatModifier.COUNTING);
             piercing.SetId("piercing");
 
-            GenericSpellModifier velocity = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.SPEED), DefaultSpellPartStatModifier.AddMultipliedBase(0.5f));
+            GenericSpellModifier velocity = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.SPEED), DefaultSpellPartStatModifier.AddMultipliedBase(0.5f));
             velocity.SetId("velocity");
 
-            GenericSpellModifier healing = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.HEALING), DefaultSpellPartStatModifier.Multiply(2f));
+            GenericSpellModifier healing = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.HEALING), DefaultSpellPartStatModifier.Multiply(2f));
             healing.SetId("healing");
 
-            GenericSpellModifier duration = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.DURATION), DefaultSpellPartStatModifier.Multiply(2f));
+            GenericSpellModifier duration = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.DURATION), DefaultSpellPartStatModifier.Multiply(2f));
             duration.SetId("duration");
 
-            GenericSpellModifier miningPower = new GenericSpellModifier().AddStatModifier(new SpellPartStats(SpellPartStatType.POWER), DefaultSpellPartStatModifier.Add(1f));
+            GenericSpellModifier miningPower = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.MINING_TIER), DefaultSpellPartStatModifier.Add(1f));
             miningPower.SetId("mining_power");
+
+            GenericSpellModifier effectPower = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.POWER), DefaultSpellPartStatModifier.COUNTING);
+            effectPower.SetId("effect_power");
 
             spellParts.Add(damage.GetId(), damage);
             spellParts.Add(range.GetId(), range);
@@ -169,6 +174,7 @@ namespace ArsVenefici.Framework.Spell
             spellParts.Add(healing.GetId(), healing);
             spellParts.Add(duration.GetId(), duration);
             spellParts.Add(miningPower.GetId(), miningPower);
+            spellParts.Add(effectPower.GetId(), effectPower);
         }
     }
 }

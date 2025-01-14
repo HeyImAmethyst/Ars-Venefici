@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.Spell;
+﻿using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.Spell;
 using Microsoft.Xna.Framework;
 using SpaceShared.APIs;
 using StardewModdingAPI;
@@ -14,6 +15,8 @@ namespace ArsVenefici.Framework.Util
 {
     public static class Extentions
     {
+        //*****MATH*****
+
         private const double DegToRad = Math.PI / 180;
 
         public static Vector2 Rotate(this Vector2 v, double degrees)
@@ -47,6 +50,8 @@ namespace ArsVenefici.Framework.Util
             }
         }
 
+        //*****MOD APIs*****
+
         /// <summary>Get the mod API for Generic Mod Config Menu, if it's loaded and compatible.</summary>
         /// <param name="modRegistry">The mod registry to extend.</param>
         /// <param name="monitor">The monitor with which to log errors.</param>
@@ -55,6 +60,8 @@ namespace ArsVenefici.Framework.Util
         {
             return modRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
         }
+
+        //*****PLAYER DATA*****
 
         public static int GetCurrentMana(this Farmer player)
         {
@@ -79,7 +86,7 @@ namespace ArsVenefici.Framework.Util
         /// <summary>Get a self-updating cached view of the player's magic metadata.</summary>
         public static SpellBook GetSpellBook(this Farmer player)
         {
-            return ModEntry.GetSpellBook(player);
+            return FarmerMagicHelper.GetSpellBook(player);
         }
 
         public static FarmerExtData GetExtData(this Farmer farmer)

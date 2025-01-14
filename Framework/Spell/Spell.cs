@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.Interfaces;
+﻿using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Skill;
 using ArsVenefici.Framework.Spell.Components;
@@ -236,7 +237,7 @@ namespace ArsVenefici.Framework.Spell
 
                     if (continuous) xp /= 4;
 
-                    player.AddCustomSkillExperience(ModEntry.Skill, xp);
+                    player.AddCustomSkillExperience(FarmerMagicHelper.Skill, xp);
                 }
             }
 

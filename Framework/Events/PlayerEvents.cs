@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.Util;
+﻿using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.Util;
 using SpaceCore;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -83,7 +84,7 @@ namespace ArsVenefici.Framework.Events
 
         private void WizardEvent(string eventSong, string eventViewPort, string eventActors, string eventAttributes, string eventMove, GameLocation gameLocation)
         {
-            if (!modEntryInstance.LearnedWizardy && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
+            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
             {
 
                 string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
@@ -163,16 +164,16 @@ namespace ArsVenefici.Framework.Events
 
 
                 //e.NewLocation.currentEvent = new Event(eventStr, ModEntry.LearnedMagicEventId);
-                gameLocation.currentEvent = new Event(eventStr, null, modEntryInstance.LearnedWizardryEventId.ToString());
+                gameLocation.currentEvent = new Event(eventStr, null, modEntryInstance.farmerMagicHelper.LearnedWizardryEventId.ToString());
 
                 Game1.eventUp = true;
                 Game1.displayHUD = false;
                 Game1.player.CanMove = false;
                 Game1.player.showNotCarrying();
 
-                Game1.player.AddCustomSkillExperience(ModEntry.Skill, ModEntry.Skill.ExperienceCurve[0]);
-                modEntryInstance.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1); // let player start using magic immediately
-                Game1.player.eventsSeen.Add(modEntryInstance.LearnedWizardryEventId.ToString());
+                Game1.player.AddCustomSkillExperience(FarmerMagicHelper.Skill, FarmerMagicHelper.Skill.ExperienceCurve[0]);
+                modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1); // let player start using magic immediately
+                Game1.player.eventsSeen.Add(modEntryInstance.farmerMagicHelper.LearnedWizardryEventId.ToString());
 
                 if (!Game1.player.craftingRecipes.Keys.Contains(s))
                     Game1.player.craftingRecipes.Add(s, 0);

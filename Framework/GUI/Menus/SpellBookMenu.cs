@@ -207,7 +207,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                     textLimit = 20
                 };
 
-                nameBoxCC = new ClickableComponent(new Rectangle(xPositionOnScreen + 64 + spaceToClearSideBorder + borderWidth + 256, yPositionOnScreen + borderWidth + spaceToClearTopBorder - 16, 192, 48), "")
+                nameBoxCC = new ClickableComponent(new Rectangle(xPositionOnScreen + 300, yPositionOnScreen + 340, 175, 48), "", modEntry.Helper.Translation.Get("ui.spell_book.spell_name_textbox.name"))
                 {
                     myID = 536,
                     upNeighborID = -99998,
@@ -307,7 +307,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 Color color = Color.Violet;
 
-                drawTextureBox(spriteBatch, area.bounds.X, area.bounds.Y - 50, area.name.Length + 280, 45, Color.White);
+                drawTextureBox(spriteBatch, area.bounds.X - 5, area.bounds.Y - 53, area.name.Length + 280, 45, Color.White);
                 Utility.drawTextWithShadow(spriteBatch, area.name, Game1.smallFont, new Vector2(area.bounds.X + 10, area.bounds.Y - 45), color);
             }
 
@@ -363,6 +363,13 @@ namespace ArsVenefici.Framework.GUI.Menus
                 }
                 
             }
+
+            drawTextureBox(spriteBatch, nameBoxCC.bounds.X, nameBoxCC.bounds.Y - 30, nameBoxCC.bounds.Width + 15, nameBoxCC.bounds.Height, Color.White);
+
+            Utility.drawTextWithShadow(spriteBatch, nameBoxCC.label, Game1.smallFont, new Vector2(nameBoxCC.bounds.X + 18, nameBoxCC.bounds.Y - 20), Game1.textColor);
+
+            //if (nameBoxCC.label.Length > 0)
+            //    Utility.drawTextWithShadow(spriteBatch, nameBoxCC.label, Game1.smallFont, new Vector2(nameBoxCC.bounds.X + Game1.tileSize / 3 - Game1.smallFont.MeasureString(nameBoxCC.label).X / 2f, nameBoxCC.bounds.Y + Game1.tileSize / 2), Game1.textColor);
 
             // draw buttons
             foreach (ClickableTextureComponent button in buttons)
