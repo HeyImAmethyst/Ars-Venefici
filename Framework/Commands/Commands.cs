@@ -1,4 +1,7 @@
-﻿using ArsVenefici.Framework.GameSave;
+﻿using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.GameSave;
+using SpaceCore;
+using StardewModdingAPI;
 using StardewValley;
 using System;
 using System.Collections.Generic;
@@ -56,6 +59,10 @@ namespace ArsVenefici.Framework.Commands
                         modEntryInstance.Helper.Multiplayer.SendMessage(
                             new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
                             ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                        modEntryInstance.Monitor.Log("The mana points per level for this save has been set to " + value.ToString(), LogLevel.Info);
+
+                        modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
                     }
                 });
 
@@ -79,6 +86,8 @@ namespace ArsVenefici.Framework.Commands
                         modEntryInstance.Helper.Multiplayer.SendMessage(
                             new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
                             ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                        modEntryInstance.Monitor.Log("The mana regen rate for this save has been set to " + value.ToString(), LogLevel.Info);
                     }
                 });
 
@@ -102,6 +111,8 @@ namespace ArsVenefici.Framework.Commands
                         modEntryInstance.Helper.Multiplayer.SendMessage(
                             new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
                             ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                        modEntryInstance.Monitor.Log("Infinite mana has been set to " + value.ToString(), LogLevel.Info);
                     }
                 });
 
@@ -125,6 +136,8 @@ namespace ArsVenefici.Framework.Commands
                         modEntryInstance.Helper.Multiplayer.SendMessage(
                             new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
                             ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                        modEntryInstance.Monitor.Log("Enable grow sickness has been set to " + value.ToString(), LogLevel.Info);
                     }
                 });
 
@@ -148,6 +161,8 @@ namespace ArsVenefici.Framework.Commands
                         modEntryInstance.Helper.Multiplayer.SendMessage(
                             new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
                             ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                        modEntryInstance.Monitor.Log("The grow sickness duration in milliseconds less than wizardry level six for this save has been set to " + value.ToString(), LogLevel.Info);
                     }
                 });
 
@@ -171,6 +186,8 @@ namespace ArsVenefici.Framework.Commands
                         modEntryInstance.Helper.Multiplayer.SendMessage(
                             new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
                             ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                        modEntryInstance.Monitor.Log("The grow sickness duration in milliseconds greater than or equal to wizardry level six for this save has been set to " + value.ToString(), LogLevel.Info);
                     }
                 });
 
@@ -194,6 +211,8 @@ namespace ArsVenefici.Framework.Commands
                     modEntryInstance.Helper.Multiplayer.SendMessage(
                         new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
                         ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                    modEntryInstance.Monitor.Log("The grow sickness duration in milliseconds greater than or equal to wizardry level eight for this save has been set to " + value.ToString(), LogLevel.Info);
                 }
             });
 
@@ -206,7 +225,7 @@ namespace ArsVenefici.Framework.Commands
                     {
                         if (!Game1.IsMasterGame)
                         {
-                            modEntryInstance.Monitor.Log("Player is not the host. Changes have not been made");
+                            modEntryInstance.Monitor.Log("Player is not the host. Changes have not been made.");
                             return;
                         }
 
@@ -217,8 +236,21 @@ namespace ArsVenefici.Framework.Commands
                         modEntryInstance.Helper.Multiplayer.SendMessage(
                             new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
                             ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                        modEntryInstance.Monitor.Log("The grow sickness duration in milliseconds greater than or equal to wizardry level ten for this save has been set to " + value.ToString(), LogLevel.Info);
                     }
                 });
+
+            AddCommand("save_savedata", "Returns the save data values for this mod", (string command, string[] args) =>
+            {
+                if (!Game1.IsMasterGame)
+                {
+                    modEntryInstance.Monitor.Log("Player is not the host. Unable to view save data.");
+                    return;
+                }
+
+                modEntryInstance.Monitor.Log(modEntryInstance.ModSaveData.ToString(), LogLevel.Info);
+            });
         }
 
         public void AddCommand(string commandName, string commandDescription, Action<string, string[]> callback)

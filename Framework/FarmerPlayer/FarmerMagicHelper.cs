@@ -76,7 +76,7 @@ namespace ArsVenefici.Framework.FarmerPlayer
 
             int expectedPoints = wizardryLevel * modEntry.ModSaveData.ManaPointsPerLevel;
 
-            if (player.GetMaxMana() < expectedPoints)
+            if (player.GetMaxMana() != expectedPoints)
             {
                 player.SetMaxMana(expectedPoints);
                 player.AddMana(expectedPoints);

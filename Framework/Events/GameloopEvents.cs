@@ -461,9 +461,6 @@ namespace ArsVenefici.Framework.Events
         public void OnDayStarted(object sender, DayStartedEventArgs e)
         {
 
-            modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player);
-            modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player);
-
             if (Context.IsWorldReady)
             {
                 if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
@@ -477,6 +474,8 @@ namespace ArsVenefici.Framework.Events
 
                     if (!Game1.player.craftingRecipes.Keys.Contains(s))
                         Game1.player.craftingRecipes.Add(s, 0);
+
+                    modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
                 }
 
                 SpellBook spellBook = Game1.player.GetSpellBook();

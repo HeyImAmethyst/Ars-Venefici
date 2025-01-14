@@ -38,5 +38,22 @@ namespace ArsVenefici.Framework.GameSave
             GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight = 42000;
             GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen = 21000;
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("Save Data");
+            sb.AppendLine("Mana Points PerLevel: " + ManaPointsPerLevel);
+            sb.AppendLine("Mana Regen Rate: " + ManaRegenRate);
+            sb.AppendLine("Infinite Mana: " + InfiniteMana);
+            sb.AppendLine("Enable Grow Sickness: " + EnableGrowSickness);
+            sb.AppendLine("Grow Sickness Duration In Milliseconds Less Than Level Six: " + GrowSicknessDurationMillisecondsLessThanLevelSix);
+            sb.AppendLine("Grow Sickness Duration In Milliseconds Greater Than Or Equal To Level Six: " + GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix);
+            sb.AppendLine("Grow Sickness Duration In Milliseconds Greater Than Or Equal To Level Eight: " + GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight);
+            sb.AppendLine("Grow Sickness Duration In Milliseconds Greater Than Or Equal To Level Ten: " + GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen);
+
+            return sb.ToString();
+        }
     }
 }

@@ -157,6 +157,7 @@ namespace ArsVenefici
             helper.Events.Display.RenderedWorld += displayEvents.OnRenderedWorld;
 
             helper.Events.GameLoop.GameLaunched += gameloopEvents.OnGameLaunched;
+            helper.Events.GameLoop.SaveCreating += gameloopEvents.OnSaveCreating;
             helper.Events.GameLoop.SaveLoaded += gameloopEvents.OnSaveLoaded;
             helper.Events.GameLoop.DayStarted += gameloopEvents.OnDayStarted;
             helper.Events.GameLoop.UpdateTicked += gameloopEvents.OnUpdateTicked;
