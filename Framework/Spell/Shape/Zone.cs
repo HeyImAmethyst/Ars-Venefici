@@ -81,9 +81,9 @@ namespace ArsVenefici.Framework.Spell.Shape
             return new SpellCastResult(SpellCastResultType.SUCCESS);
         }
 
-        public override int ManaCost()
+        public override float ManaCost()
         {
-            return 3;
+            return 2.5f;
         }
 
         public override bool IsEndShape()

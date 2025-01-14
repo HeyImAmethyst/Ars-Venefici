@@ -49,6 +49,6 @@ namespace ArsVenefici.Framework.Spell.Shape
             return false;
         }
 
-        public abstract int ManaCost();
+        public abstract float ManaCost();
     }
 }

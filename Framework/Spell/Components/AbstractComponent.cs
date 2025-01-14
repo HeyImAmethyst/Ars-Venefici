@@ -29,6 +29,6 @@ namespace ArsVenefici.Framework.Spell.Components
         public abstract SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed);
 
         public abstract SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, TerrainFeatureHitResult target, int index, int ticksUsed);
-        public abstract int ManaCost();
+        public abstract float ManaCost();
     }
 }

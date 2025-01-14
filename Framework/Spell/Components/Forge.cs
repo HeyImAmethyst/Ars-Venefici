@@ -115,7 +115,7 @@ namespace ArsVenefici.Framework.Spell.Components
             return new SpellCastResult(SpellCastResultType.SUCCESS);
         }
 
-        public override int ManaCost()
+        public override float ManaCost()
         {
             return 5;
         }

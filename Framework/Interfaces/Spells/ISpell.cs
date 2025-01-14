@@ -76,7 +76,7 @@ namespace ArsVenefici.Framework.Interfaces.Spells
         /// </summary>
         /// <param name="caster">The player that casts this spell.</param>
         /// <returns>The amount of mana this spell costs.</returns>
-        int Mana();
+        float Mana();
 
         /// <returns>The list of spell parts in this spell.</returns>
         List<ISpellPart> Parts();

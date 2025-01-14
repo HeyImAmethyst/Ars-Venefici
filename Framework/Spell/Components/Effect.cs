@@ -18,9 +18,9 @@ namespace ArsVenefici.Framework.Spell.Components
     {
         private Buff buff;
         private string id;
-        private int manaCost;
+        private float manaCost;
 
-        public Effect(string id, int manaCost, Buff buff) : base(new SpellPartStats(SpellPartStatType.DURATION), new SpellPartStats(SpellPartStatType.POWER))
+        public Effect(string id, float manaCost, Buff buff) : base(new SpellPartStats(SpellPartStatType.DURATION), new SpellPartStats(SpellPartStatType.POWER))
         {
             this.id = id;
             this.manaCost = manaCost;
@@ -135,7 +135,7 @@ namespace ArsVenefici.Framework.Spell.Components
             return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
         }
 
-        public override int ManaCost()
+        public override float ManaCost()
         {
             return manaCost;
         }

@@ -27,6 +27,6 @@ namespace ArsVenefici.Framework.Spell.Modifiers
             return base.GetHashCode();
         }
 
-        public abstract int ManaCost();
+        public abstract float ManaCost();
     }
 }

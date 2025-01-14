@@ -69,7 +69,7 @@ namespace ArsVenefici.Framework.Spell.Components
             return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
         }
 
-        public override int ManaCost()
+        public override float ManaCost()
         {
             return 25;
         }

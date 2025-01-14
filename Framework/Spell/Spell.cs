@@ -303,10 +303,10 @@ namespace ArsVenefici.Framework.Spell
             return shapesWithModifiers.ToList();
         }
 
-        public int Mana()
+        public float Mana()
         {
-            int cost = 0;
-            int multiplier = 1;
+            float cost = 0;
+            float multiplier = 1;
 
             foreach (ISpellPart part in Parts())
             {

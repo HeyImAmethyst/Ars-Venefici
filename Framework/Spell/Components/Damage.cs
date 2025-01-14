@@ -27,9 +27,9 @@ namespace ArsVenefici.Framework.Spell.Components
 
         private string id;
 
-        private int manaCost;
+        private float manaCost;
 
-        public Damage(string id, int manaCost, ComponentDamageType damageType, Func<Character, double> damage, Predicate<Character> failIf) : base(new SpellPartStats(SpellPartStatType.DAMAGE), new SpellPartStats(SpellPartStatType.HEALING))
+        public Damage(string id, float manaCost, ComponentDamageType damageType, Func<Character, double> damage, Predicate<Character> failIf) : base(new SpellPartStats(SpellPartStatType.DAMAGE), new SpellPartStats(SpellPartStatType.HEALING))
         {
             this.id = id;
 
@@ -39,17 +39,17 @@ namespace ArsVenefici.Framework.Spell.Components
             this.damageType = damageType;
         }
 
-        public Damage(string id, int manaCost, ComponentDamageType damageType, Func<double> damage, Predicate<Character> failIf): this(id, manaCost, damageType, e => damage(), failIf)
+        public Damage(string id, float manaCost, ComponentDamageType damageType, Func<double> damage, Predicate<Character> failIf): this(id, manaCost, damageType, e => damage(), failIf)
         {
 
         }
 
-        public Damage(string id, int manaCost, ComponentDamageType damageType, Func<Character, double> damage): this(id, manaCost, damageType, damage, e => false)
+        public Damage(string id, float manaCost, ComponentDamageType damageType, Func<Character, double> damage): this(id, manaCost, damageType, damage, e => false)
         {
 
         }
 
-        public Damage(string id, int manaCost, ComponentDamageType damageType, Func<double> damage): this(id, manaCost, damageType, e => damage(), e => false)
+        public Damage(string id, float manaCost, ComponentDamageType damageType, Func<double> damage): this(id, manaCost, damageType, e => damage(), e => false)
         {
 
         }
@@ -347,7 +347,7 @@ namespace ArsVenefici.Framework.Spell.Components
             return damageType;
         }
 
-        public override int ManaCost()
+        public override float ManaCost()
         {
             return manaCost;
         }

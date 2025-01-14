@@ -11,11 +11,11 @@ namespace ArsVenefici.Framework.Spell.Modifiers
     public class GenericSpellModifier : AbstractModifier
     {
         string id = "";
-        int manaCost;
+        float manaCost;
 
         protected Dictionary<ISpellPartStat, ISpellPartStatModifier> modifiers = new Dictionary<ISpellPartStat, ISpellPartStatModifier>();
 
-        public GenericSpellModifier(int manaCost)
+        public GenericSpellModifier(float manaCost)
         {
             this.manaCost = manaCost;
         }
@@ -47,7 +47,7 @@ namespace ArsVenefici.Framework.Spell.Modifiers
             return this;
         }
 
-        public override int ManaCost()
+        public override float ManaCost()
         {
             return manaCost;
         }

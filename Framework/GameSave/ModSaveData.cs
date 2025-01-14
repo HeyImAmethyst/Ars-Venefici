@@ -15,7 +15,7 @@ namespace ArsVenefici.Framework.GameSave
     public sealed class ModSaveData
     {
         /// <summary>The number of mana points gained per magic level.</summary>
-        public int ManaPointsPerLevel { get; set; } = 100;
+        public int ManaPointsPerLevel { get; set; } = 200;
         public int ManaRegenRate { get; set; } = 2;
 
         public bool InfiniteMana { get; set; } = false;
@@ -28,7 +28,7 @@ namespace ArsVenefici.Framework.GameSave
 
         public void ResetValues()
         {
-            ManaPointsPerLevel = 100;
+            ManaPointsPerLevel = 200;
             ManaRegenRate = 2;
             InfiniteMana = false;
 

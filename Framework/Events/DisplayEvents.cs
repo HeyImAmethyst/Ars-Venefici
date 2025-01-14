@@ -313,7 +313,7 @@ namespace ArsVenefici.Framework.Events
             string spellName = "";
             int spellShapeGroupIndex = 0;
 
-            int manaCost = 0;
+            float manaCost = 0;
 
             string spellText;
 
@@ -332,7 +332,7 @@ namespace ArsVenefici.Framework.Events
             }
             else
             {
-                spellText = spellName + " | " + modEntryInstance.Helper.Translation.Get("ui.spell_label.shape_group.name") + ": " + spellShapeGroupIndex + " | " + modEntryInstance.Helper.Translation.Get("ui.mana_cost.name") + ": " + manaCost;
+                spellText = spellName + " | " + modEntryInstance.Helper.Translation.Get("ui.spell_label.shape_group.name") + ": " + spellShapeGroupIndex + " | " + modEntryInstance.Helper.Translation.Get("ui.mana_cost.name") + ": " + manaCost.ToString("#.##");
             }
 
             string text = spellPageIndex + " : " + spellText;

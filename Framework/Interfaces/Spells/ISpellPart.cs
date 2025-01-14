@@ -19,7 +19,7 @@ namespace ArsVenefici.Framework.Interfaces.Spells
 
         string GetId();
 
-        int ManaCost();
+        float ManaCost();
 
         /// <summary>
         /// The types of the spell parts.

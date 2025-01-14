@@ -80,24 +80,12 @@ namespace ArsVenefici.Framework.Spell
             Heal heal = new Heal(modEntry);
             LifeDrain lifeDrain = new LifeDrain();
             LifeTap lifeTap = new LifeTap();
-
-            // -> e instanceof Player p ? p.damageSources().playerAttack(p) : e.damageSources().mobAttack(e), Config.SERVER.DAMAGE)
-            //Func<double> physicalDamageValue = () => 5.0;
             
-            Func<double> physicalDamageValue = () => 8.0 * (Game1.player.CombatLevel + 1);
-            Damage physicalDamage = new Damage("physical_damage", 25, ComponentDamageType.Physical, physicalDamageValue);
-
-            Func<double> magicDamageValue = () => 8.0 * (Game1.player.CombatLevel + 1);
-            Damage magicDamage = new Damage("magic_damage", 25, ComponentDamageType.Magic, magicDamageValue);
-
-            Func<double> frostDamageValue = () => 8.0 * (Game1.player.CombatLevel + 1);
-            Damage frostDamage = new Damage("frost_damage", 25, ComponentDamageType.Frost, frostDamageValue);
-
-            Func<double> lightningDamageValue = () => 20.0 * (Game1.player.CombatLevel + 1);
-            Damage lightningDamage = new Damage("lightning_damage", 55, ComponentDamageType.Lightning, lightningDamageValue);
-
-            Func<double> fireDamageValue = () => 10.0 * (Game1.player.CombatLevel + 1);
-            Damage fireDamage = new Damage("fire_damage", 25, ComponentDamageType.Fire, fireDamageValue);
+            Damage physicalDamage = new Damage("physical_damage", 25, ComponentDamageType.Physical, () => 8.0 * (Game1.player.CombatLevel + 1));
+            Damage magicDamage = new Damage("magic_damage", 25, ComponentDamageType.Magic, () => 8.0 * (Game1.player.CombatLevel + 1));
+            Damage frostDamage = new Damage("frost_damage", 25, ComponentDamageType.Frost, () => 8.0 * (Game1.player.CombatLevel + 1));
+            Damage lightningDamage = new Damage("lightning_damage", 55, ComponentDamageType.Lightning, () => 20.0 * (Game1.player.CombatLevel + 1));
+            Damage fireDamage = new Damage("fire_damage", 25, ComponentDamageType.Fire, () => 10.0 * (Game1.player.CombatLevel + 1));
 
             Effect haste = new Effect("haste", 30, modEntry.buffs.hasteBuff);
             Effect regeneration = new Effect("regeneration", 30, modEntry.buffs.regenerationBuff);
@@ -137,33 +125,33 @@ namespace ArsVenefici.Framework.Spell
 
         private void AddModifiers()
         {
-            GenericSpellModifier damage = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.DAMAGE), DefaultSpellPartStatModifier.Add(5f));
+            GenericSpellModifier damage = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.DAMAGE), DefaultSpellPartStatModifier.Add(5f));
             //GenericSpellModifier damage = new GenericSpellModifier().addStatModifier(new SpellPartStats(SpellPartStatType.DAMAGE), DefaultSpellPartStatModifier.add(50f));
             damage.SetId("damage");
 
             //GenericSpellModifier range = new GenericSpellModifier().addStatModifier(new SpellPartStats(SpellPartStatType.RANGE), DefaultSpellPartStatModifier.multiply(4f));
-            GenericSpellModifier range = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.RANGE), DefaultSpellPartStatModifier.Add(1f));
+            GenericSpellModifier range = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.RANGE), DefaultSpellPartStatModifier.Add(1f));
             range.SetId("range");
 
-            GenericSpellModifier bounce = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.BOUNCE), DefaultSpellPartStatModifier.Add(2f));
+            GenericSpellModifier bounce = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.BOUNCE), DefaultSpellPartStatModifier.Add(2f));
             bounce.SetId("bounce");
 
-            GenericSpellModifier piercing = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.PIERCING), DefaultSpellPartStatModifier.COUNTING);
+            GenericSpellModifier piercing = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.PIERCING), DefaultSpellPartStatModifier.COUNTING);
             piercing.SetId("piercing");
 
-            GenericSpellModifier velocity = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.SPEED), DefaultSpellPartStatModifier.AddMultipliedBase(0.5f));
+            GenericSpellModifier velocity = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.SPEED), DefaultSpellPartStatModifier.AddMultipliedBase(0.5f));
             velocity.SetId("velocity");
 
-            GenericSpellModifier healing = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.HEALING), DefaultSpellPartStatModifier.Multiply(2f));
+            GenericSpellModifier healing = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.HEALING), DefaultSpellPartStatModifier.Multiply(2f));
             healing.SetId("healing");
 
-            GenericSpellModifier duration = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.DURATION), DefaultSpellPartStatModifier.Multiply(2f));
+            GenericSpellModifier duration = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.DURATION), DefaultSpellPartStatModifier.Multiply(2f));
             duration.SetId("duration");
 
-            GenericSpellModifier miningPower = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.MINING_TIER), DefaultSpellPartStatModifier.Add(1f));
+            GenericSpellModifier miningPower = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.MINING_TIER), DefaultSpellPartStatModifier.Add(1f));
             miningPower.SetId("mining_power");
 
-            GenericSpellModifier effectPower = new GenericSpellModifier(1).AddStatModifier(new SpellPartStats(SpellPartStatType.POWER), DefaultSpellPartStatModifier.COUNTING);
+            GenericSpellModifier effectPower = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.POWER), DefaultSpellPartStatModifier.COUNTING);
             effectPower.SetId("effect_power");
 
             spellParts.Add(damage.GetId(), damage);

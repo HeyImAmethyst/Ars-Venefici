@@ -60,9 +60,9 @@ namespace ArsVenefici.Framework.Spell.Shape
             return true;
         }
 
-        public override int ManaCost()
+        public override float ManaCost()
         {
-            return 1;
+            return 2;
         }
     }
 }
