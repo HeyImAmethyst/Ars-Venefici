@@ -225,7 +225,7 @@ namespace ArsVenefici.Framework.Events
                 Game1.player.lastClick = toolPixel;
 
                 //string s = ModEntry.JsonAssetsApi.GetBigCraftableId("Magic Altar");
-                string s = $"(BC){ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
+                string s = $"(BC){ModEntry.ArsVenificiContentPatcherId}_Magic_Altar";
 
                 //if (obj.QualifiedItemId.Equals("(O){{spacechase0.JsonAssets/BigCraftable: Magic Altar}}"))
 

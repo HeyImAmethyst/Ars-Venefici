@@ -38,7 +38,7 @@ namespace ArsVenefici
                     }
                     else if (Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_ManaRegeneration") == true)
                     {
-                        regenMana = e.IsMultipleOf(15);
+                        regenMana = e.IsMultipleOf(8);
                     }
                     else
                     {

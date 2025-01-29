@@ -51,7 +51,7 @@ namespace ArsVenefici.Framework.Skill
         private void AddOffense()
         {
 
-            SpellPartSkill projectile = new SpellPartSkill("projectile", new HashSet<SpellPartSkill>(), new Dictionary<Item, int>{ { ItemRegistry.Create("(W)32"), 1 } }, offenceTab, false);
+            SpellPartSkill projectile = new SpellPartSkill("projectile", new HashSet<SpellPartSkill>(), new Dictionary<Item, int>{ { ItemRegistry.Create("(W)32"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Tarma_Root"), 1 } }, offenceTab, false);
             
             SpellPartSkill physicalDamage = new SpellPartSkill("physical_damage", new HashSet<SpellPartSkill> { projectile }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5") , 1} }, offenceTab, false);
             
@@ -63,9 +63,9 @@ namespace ArsVenefici.Framework.Skill
             //SpellPartSkill beam = new SpellPartSkill("beam", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)32"), 1 }, { ItemRegistry.Create("(O)74"), 5 } }, offenceTab, false);
             SpellPartSkill damage = new SpellPartSkill("damage", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)848"), 5 } }, offenceTab, false); //210, 165
 
-            SpellPartSkill explosion = new SpellPartSkill("explosion", new HashSet<SpellPartSkill> { damage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)287"), 3 } }, offenceTab, false); //210, 300
+            SpellPartSkill explosion = new SpellPartSkill("explosion", new HashSet<SpellPartSkill> { damage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)287"), 3 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Desert_Nova"), 2 } }, offenceTab, false); //210, 300
 
-            SpellPartSkill wave = new SpellPartSkill("wave", new HashSet<SpellPartSkill> { velocity }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 } }, offenceTab, false); //210, 210
+            SpellPartSkill wave = new SpellPartSkill("wave", new HashSet<SpellPartSkill> { velocity }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Tarma_Root"), 1 } }, offenceTab, false); //210, 210
 
             SpellPartSkill magicDamage = new SpellPartSkill("magic_damage", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5"), 1 }, { ItemRegistry.Create("(O)769"), 1 }, { ItemRegistry.Create("(O)768"), 1 } }, offenceTab, false);
             SpellPartSkill frostDamage = new SpellPartSkill("frost_damage", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)5"), 1 }, { ItemRegistry.Create("(O)84"), 1 } }, offenceTab, false);
@@ -97,21 +97,21 @@ namespace ArsVenefici.Framework.Skill
 
         private void AddDefense()
         {
-            SpellPartSkill self = new SpellPartSkill("self", new HashSet<SpellPartSkill>(), new Dictionary<Item, int>(), defenseTab, false);
+            SpellPartSkill self = new SpellPartSkill("self", new HashSet<SpellPartSkill>(), new Dictionary<Item, int>() { { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Vinteum_Dust"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Aum"), 1 } }, defenseTab, false);
             
-            SpellPartSkill effect_power = new SpellPartSkill("effect_power", new HashSet<SpellPartSkill>() { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)787"), 1 }, { ItemRegistry.Create("(O)395"), 1 } }, defenseTab, false);
+            SpellPartSkill effect_power = new SpellPartSkill("effect_power", new HashSet<SpellPartSkill>() { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)787"), 1 }, { ItemRegistry.Create("(O)395"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Desert_Nova"), 1 } }, defenseTab, false);
 
             SpellPartSkill haste = new SpellPartSkill("haste", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)395"), 1 } }, defenseTab, false);
             SpellPartSkill regeneration = new SpellPartSkill("regeneration", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false);
-            SpellPartSkill mana_regeneration = new SpellPartSkill("mana_regeneration", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)" + ModEntry.ArsVenificiContentPatcherId + "_ManaElixir"), 1 } }, defenseTab, false);
-            SpellPartSkill heal = new SpellPartSkill("heal", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false); //210, 120
+            SpellPartSkill mana_regeneration = new SpellPartSkill("mana_regeneration", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)" + ModEntry.ArsVenificiContentPatcherId + "_Mana_Elixir"), 1 } }, defenseTab, false);
+            SpellPartSkill heal = new SpellPartSkill("heal", new HashSet<SpellPartSkill> { self }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Aum"), 1 } }, defenseTab, false); //210, 120
 
             
             SpellPartSkill lifeTap = new SpellPartSkill("life_tap", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)768"), 5 } }, defenseTab, false); //255, 120
 
             SpellPartSkill lifeDrain = new SpellPartSkill("life_drain", new HashSet<SpellPartSkill> { lifeTap }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false); //255, 165
 
-            SpellPartSkill healing = new SpellPartSkill("healing", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 } }, defenseTab, false);
+            SpellPartSkill healing = new SpellPartSkill("healing", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)773"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Aum"), 1 } }, defenseTab, false);
             
             SpellPartSkill dispel = new SpellPartSkill("dispel", new HashSet<SpellPartSkill> { heal }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)184"), 1 } }, defenseTab, false);
             SpellPartSkill zone = new SpellPartSkill("zone", new HashSet<SpellPartSkill> { dispel }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 } }, defenseTab, false); //210, 210
@@ -123,7 +123,7 @@ namespace ArsVenefici.Framework.Skill
 
             SpellPartSkill shield = new SpellPartSkill("shield", new HashSet<SpellPartSkill> { zone }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)72"), 1 }, { ItemRegistry.Create("(O)74"), 1 } }, defenseTab, false);
             
-            SpellPartSkill summon = new SpellPartSkill("summon", new HashSet<SpellPartSkill> { lifeDrain }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 }, { ItemRegistry.Create("(O)613"), 1 } }, defenseTab, false);
+            SpellPartSkill summon = new SpellPartSkill("summon", new HashSet<SpellPartSkill> { lifeDrain }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 }, { ItemRegistry.Create("(O)613"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Cerublossom"), 1 } }, defenseTab, false);
             SpellPartSkill duration = new SpellPartSkill("duration", new HashSet<SpellPartSkill> { summon }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)787"), 3 } }, defenseTab, false); //255, 345
 
             spellPartSkills.Add(self.GetId(), self);
@@ -157,8 +157,8 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill miningPower = new SpellPartSkill("mining_power", new HashSet<SpellPartSkill> { dig }, new Dictionary<Item, int>() { { ItemRegistry.Create(StardewValley.Object.diamondQID), 1 } }, utilityTab, false);
 
             SpellPartSkill plow = new SpellPartSkill("plow", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)330"), 15 } }, utilityTab, false);
-            SpellPartSkill createWater = new SpellPartSkill("create_water", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)599"), 1 } }, utilityTab, false);
-            SpellPartSkill grow = new SpellPartSkill("grow", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)465"), 3 } }, utilityTab, false);
+            SpellPartSkill createWater = new SpellPartSkill("create_water", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)599"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Wakebloom"), 1 } }, utilityTab, false);
+            SpellPartSkill grow = new SpellPartSkill("grow", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)465"), 3 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Aum"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Cerublossom"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Tarma_Root"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Desert_Nova"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Wakebloom"), 1 } }, utilityTab, false);
             SpellPartSkill range = new SpellPartSkill("range", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)767"), 5 } }, utilityTab, false);
 
             SpellPartSkill etherialTouch = new SpellPartSkill("etherial_touch", new HashSet<SpellPartSkill> { range }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)330"), 5 }, { ItemRegistry.Create("(O)767"), 5 } }, utilityTab, false);

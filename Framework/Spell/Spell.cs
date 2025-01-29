@@ -66,6 +66,15 @@ namespace ArsVenefici.Framework.Spell
 
         public bool IsEmpty()
         {
+            if (ShapeGroups() == null)
+                return true;
+
+            if (spellStack() == null)
+                return true;
+
+            if (spellStack().Parts == null)
+                return true;
+
             return !ShapeGroups().Any() || ShapeGroups().All(g => g.IsEmpty()) && spellStack().IsEmpty();
         }
 

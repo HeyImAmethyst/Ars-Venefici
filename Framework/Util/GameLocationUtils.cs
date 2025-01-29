@@ -41,7 +41,7 @@ namespace ArsVenefici.Framework.Util
 
             var characters = GetCharacters(entity, aABB);
 
-            ModEntry.INSTANCE.Monitor.Log(characters.Count().ToString(), StardewModdingAPI.LogLevel.Info);
+            //ModEntry.INSTANCE.Monitor.Log(characters.Count().ToString(), StardewModdingAPI.LogLevel.Info);
 
             if (characters != null || characters.Count() > 0)
             {

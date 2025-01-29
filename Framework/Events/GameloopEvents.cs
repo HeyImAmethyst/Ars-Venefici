@@ -468,12 +468,23 @@ namespace ArsVenefici.Framework.Events
 
                 if (modEntryInstance.farmerMagicHelper.LearnedWizardy)
                 {
-                    string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
+                    string magicAltarRecipe = $"{ModEntry.ArsVenificiContentPatcherId}_Magic_Altar";
 
-                    CraftingRecipe craftingRecipe = new CraftingRecipe(s);
+                    CraftingRecipe craftingRecipe = new CraftingRecipe(magicAltarRecipe);
 
-                    if (!Game1.player.craftingRecipes.Keys.Contains(s))
-                        Game1.player.craftingRecipes.Add(s, 0);
+                    if (!Game1.player.craftingRecipes.Keys.Contains(magicAltarRecipe))
+                        Game1.player.craftingRecipes.Add(magicAltarRecipe, 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Compound"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Compound", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Purified_Vinteum_Dust"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Purified_Vinteum_Dust", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
+                        Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
+
+                    //Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
 
                     modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
                 }

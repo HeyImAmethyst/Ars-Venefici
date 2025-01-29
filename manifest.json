@@ -1,7 +1,7 @@
 ﻿{
     "Name": "Ars Venefici",
     "Author": "HeyImAmethyst",
-    "Version": "1.7",
+    "Version": "1.8",
     "Description": "This mod adds magic to Stardew Valley.",
     "UniqueID": "HeyImAmethyst.ArsVenefici",
     "EntryDll": "ArsVenefici.dll",
@@ -20,6 +20,11 @@
         {
             "UniqueID": "Pathoschild.ContentPatcher",
             "MinimumVersion": "2.2.0",
+            "isRequired": true
+        },
+        {
+            "UniqueID": "mistyspring.ItemExtensions",
+            "MinimumVersion": "1.11.1",
             "isRequired": true
         }
     ],

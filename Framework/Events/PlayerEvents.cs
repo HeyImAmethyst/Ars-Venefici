@@ -1,5 +1,8 @@
 ﻿using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.Spell.Buffs;
 using ArsVenefici.Framework.Util;
+using ItemExtensions;
+using Microsoft.Xna.Framework.Graphics;
 using SpaceCore;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -31,21 +34,42 @@ namespace ArsVenefici.Framework.Events
                     return;
                 }
 
-                if (Game1.player.itemToEat != null && Game1.objectData != null)
+                if (Game1.player.itemToEat != null)
                 {
-                    if (Game1.objectData.TryGetValue(Game1.player.itemToEat.ItemId, out var data))
+
+                    if (Game1.objectData != null)
                     {
-                        if (data != null)
+                        if (Game1.objectData.TryGetValue(Game1.player.itemToEat.ItemId, out var data))
                         {
-                            if (data.CustomFields != null)
+                            if (data != null)
                             {
-                                if (data.CustomFields.TryGetValue($"{ModEntry.ArsVenificiContentPatcherId}/Mana", out string manaValue))
+                                if (data.CustomFields != null)
                                 {
-                                    if (int.TryParse(manaValue, out int value))
-                                        Game1.player.AddMana(value);
+                                    if (data.CustomFields.TryGetValue($"{ModEntry.ArsVenificiContentPatcherId}/Mana", out string manaValue))
+                                    {
+                                        if (int.TryParse(manaValue, out int value))
+                                            Game1.player.AddMana(value);
+                                    }
                                 }
                             }
                         }
+                    }
+
+                    if (Game1.player.itemToEat.QualifiedItemId.Equals("(O)" + ModEntry.ArsVenificiContentPatcherId + "_Mana_Martini") || Game1.player.itemToEat.QualifiedItemId.Equals("(O)" + ModEntry.ArsVenificiContentPatcherId + "_Mana_Juice"))
+                    {
+                        Buff manaRegenBuff = modEntryInstance.buffs.manaRegenerationBuff;
+
+                        Game1.player.applyBuff(
+                            new Buff
+                            (
+                                id: manaRegenBuff.id,
+                                displayName: manaRegenBuff.displayName,
+                                iconTexture: modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/icon/buff/mana_regeneration.png"),
+                                iconSheetIndex: manaRegenBuff.iconSheetIndex, //34
+                                duration: manaRegenBuff.millisecondsDuration * 2,
+                                effects: manaRegenBuff.effects
+                            )
+                        );
                     }
                 }
             }
@@ -87,8 +111,8 @@ namespace ArsVenefici.Framework.Events
             if (!modEntryInstance.farmerMagicHelper.LearnedWizardy && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
             {
 
-                string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
-                CraftingRecipe craftingRecipe = new CraftingRecipe(s);
+                string magicAltarRecipe = $"{ModEntry.ArsVenificiContentPatcherId}_Magic_Altar";
+                CraftingRecipe craftingRecipe = new CraftingRecipe(magicAltarRecipe);
 
                 //addCraftingRecipe
 
@@ -175,8 +199,14 @@ namespace ArsVenefici.Framework.Events
                 modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1); // let player start using magic immediately
                 Game1.player.eventsSeen.Add(modEntryInstance.farmerMagicHelper.LearnedWizardryEventId.ToString());
 
-                if (!Game1.player.craftingRecipes.Keys.Contains(s))
-                    Game1.player.craftingRecipes.Add(s, 0);
+                if (!Game1.player.craftingRecipes.Keys.Contains(magicAltarRecipe))
+                    Game1.player.craftingRecipes.Add(magicAltarRecipe, 0);
+
+                if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Compound"))
+                    Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Compound", 0);
+
+                if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Purified_Vinteum_Dust"))
+                    Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Purified_Vinteum_Dust", 0);
             }
         }
     }
