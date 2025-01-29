@@ -3,11 +3,11 @@
 	** Config
 	*********/
 
-	"config.position_x.name": "X Position",
-	"config.position_y.name": "Y Position",
+	"config.position_x.name": "Spell Lable X Position",
+	"config.position_y.name": "Spell Lable Y Position",
 
 	"config.position_x.tooltip": "The pixel X position at which to draw the spell lable, relative to the top-left corner of the screen.",
-	"config.position_y.tooltip": "The pixel X position at which to draw the spell lable, relative to the top-left corner of the screen.",
+	"config.position_y.tooltip": "The pixel Y position at which to draw the spell lable, relative to the top-left corner of the screen.",
 
 	"config.keyboard_controlls_section_title.name": "Keyboard Controlls",
 	"config.keyboard_controlls_section_title.tooltip": "When using a keyboard as input, these are the controlls that will be used for some of the mod's input functions.",

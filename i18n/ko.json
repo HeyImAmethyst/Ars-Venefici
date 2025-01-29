@@ -3,8 +3,8 @@
     ** Config
     *********/
 
-    "config.position_x.name": "X 좌표",
-    "config.position_y.name": "Y 좌표",
+    "config.position_x.name": "Spell Lable X Position",
+    "config.position_y.name": "Spell Lable Y Position",
 
     "config.position_x.tooltip": "화면의 왼쪽 위 모서리를 기준으로 마법 라벨을 그릴 X좌표의 타일 위치.",
     "config.position_y.tooltip": "화면의 왼쪽 위 모서리를 기준으로 마법 라벨을 그릴 Y좌표의 타일 위치.",
