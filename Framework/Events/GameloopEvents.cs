@@ -53,7 +53,7 @@ namespace ArsVenefici.Framework.Events
                     name: () => modEntryInstance.Helper.Translation.Get("config.position_x.name"),
                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.position_x.tooltip"),
                     getValue: () => modEntryInstance.Config.Position.X,
-                    setValue: value => modEntryInstance.Config.Position = new(value, modEntryInstance.Config.Position.X)
+                    setValue: value => modEntryInstance.Config.Position = new(value, modEntryInstance.Config.Position.Y)
                 );
 
                 configMenu.AddNumberOption(
@@ -61,7 +61,7 @@ namespace ArsVenefici.Framework.Events
                     name: () => modEntryInstance.Helper.Translation.Get("config.position_y.name"),
                     tooltip: () => modEntryInstance.Helper.Translation.Get("config.position_y.tooltip"),
                     getValue: () => modEntryInstance.Config.Position.Y,
-                    setValue: value => modEntryInstance.Config.Position = new(modEntryInstance.Config.Position.Y, value)
+                    setValue: value => modEntryInstance.Config.Position = new(modEntryInstance.Config.Position.X, value)
                 );
 
                 //Keyboard Controlls Config UI
