@@ -1,7 +1,10 @@
-﻿using ArsVenefici.Framework.Interfaces.Spells;
+﻿using ArsVenefici.Framework.GUI.Menus;
+using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
+using ItemExtensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewValley;
 using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
@@ -37,14 +40,18 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
         private LockState lockState = LockState.NONE;
 
-        public ShapeGroupArea(int x, int y, Action<SpellPartDraggable, int> onDrop, string name) : base(new Rectangle(x, y, WIDTH, HEIGHT), ROWS * COLUMNS, name)
+        SpellBookMenu spellBookMenu;
+
+        public ShapeGroupArea(int x, int y, Action<SpellPartDraggable, int> onDrop, string name, SpellBookMenu spellBookMenu) : base(new Rectangle(x, y, WIDTH, HEIGHT), ROWS * COLUMNS, name)
         {
             onDropAction = onDrop;
+            this.spellBookMenu = spellBookMenu;
         }
 
-        public ShapeGroupArea(int x, int y, Action<SpellPartDraggable, int> onDrop, string name, string lable) : base(new Rectangle(x, y, WIDTH, HEIGHT), ROWS * COLUMNS, name, lable)
+        public ShapeGroupArea(int x, int y, Action<SpellPartDraggable, int> onDrop, string name, string lable, SpellBookMenu spellBookMenu) : base(new Rectangle(x, y, WIDTH, HEIGHT), ROWS * COLUMNS, name, lable)
         {
             onDropAction = onDrop;
+            this.spellBookMenu = spellBookMenu;
         }
 
         public void SetLockState(LockState lockState)
@@ -85,6 +92,8 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
         public override void Draw(SpriteBatch spriteBatch, int positionX, int positionY, float pPartialTick)
         {
+            Rectangle labelRect = new Rectangle(bounds.X - 5, bounds.Y - 53, name.Length + 280, 45);
+            Vector2 mousePos = new Vector2(Game1.getMouseX(), Game1.getMouseY());
             if (lockState == LockState.ALL)
             {
                 IClickableMenu.drawTextureBox(spriteBatch, x, y, WIDTH, HEIGHT, Color.Gray);
@@ -92,6 +101,18 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
             else
             {
                 IClickableMenu.drawTextureBox(spriteBatch, x, y, WIDTH, HEIGHT, Color.White);
+            }
+
+            // drawTextureBox(spriteBatch, area.bounds.X - 5, area.bounds.Y - 53, area.name.Length + 280, 45, Color.White);
+
+            if (labelRect.Contains(mousePos))
+            {
+                string parsedText = Game1.parseText(ModEntry.INSTANCE.Helper.Translation.Get("ui.spell_book.shape_group_area.description"), Game1.smallFont, 230);
+
+                //IClickableMenu.drawHoverText(spriteBatch, parsedText, Game1.smallFont);
+
+                IClickableMenu.drawTextureBox(spriteBatch, spellBookMenu.xPositionOnScreen - 520, spellBookMenu.yPositionOnScreen + 200, 270, 375, Color.White);
+                Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(spellBookMenu.xPositionOnScreen - 500, spellBookMenu.yPositionOnScreen + 230), Game1.textColor);
             }
 
             for (int i = 0; i < ROWS; i++)
@@ -105,6 +126,7 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
                     contents[index].Draw(spriteBatch, x + j * SpellPartDraggable.SIZE + X_PADDING, y + i * SpellPartDraggable.SIZE + Y_PADDING, pPartialTick);
                 }
+
             }
         }
 

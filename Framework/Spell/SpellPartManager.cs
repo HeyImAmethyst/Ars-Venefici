@@ -40,7 +40,7 @@ namespace ArsVenefici.Framework.Spell
             Self self = new Self();
             Projectile projectile = new Projectile();
             Touch touch = new Touch();
-            EtherialTouch etherialTouch = new EtherialTouch();
+            EtherealTouch etherealTouch= new EtherealTouch();
             AoE aoE = new AoE();
             Zone zone = new Zone();
             Wave wave = new Wave();
@@ -54,7 +54,7 @@ namespace ArsVenefici.Framework.Spell
             spellParts.Add(self.GetId(), self);
             spellParts.Add(projectile.GetId(), projectile);
             spellParts.Add(touch.GetId(), touch);
-            spellParts.Add(etherialTouch.GetId(), etherialTouch);
+            spellParts.Add(etherealTouch.GetId(), etherealTouch);
             spellParts.Add(aoE.GetId(), aoE);
             spellParts.Add(zone.GetId(), zone);
             spellParts.Add(wave.GetId(), wave);

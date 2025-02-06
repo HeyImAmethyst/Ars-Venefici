@@ -34,9 +34,9 @@ namespace ArsVenefici.Framework.Skill
         {
             this.modEntry = modEntry;
 
-            offenceTab = MagicAltarTab.create(modEntry.Helper.Translation.Get("ui.magic_altar.offense_tab.name"), modEntry.Helper.ModContent.Load<Texture2D>("assets/gui/occulus/offense.png"), modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/offense.png"), MagicAltarTab.TEXTURE_WIDTH, MagicAltarTab.TEXTURE_HEIGHT, 226, 46, 0);
-            defenseTab = MagicAltarTab.create(modEntry.Helper.Translation.Get("ui.magic_altar.defense_tab.name"), modEntry.Helper.ModContent.Load<Texture2D>("assets/gui/occulus/defense.png"), modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/defense.png"), MagicAltarTab.TEXTURE_WIDTH, MagicAltarTab.TEXTURE_HEIGHT, 181, 46, 1);
-            utilityTab = MagicAltarTab.create(modEntry.Helper.Translation.Get("ui.magic_altar.utility_tab.name"), modEntry.Helper.ModContent.Load<Texture2D>("assets/gui/occulus/utility.png"), modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/utility.png"), MagicAltarTab.TEXTURE_WIDTH, MagicAltarTab.TEXTURE_HEIGHT, 136, 46, 2);
+            offenceTab = MagicAltarTab.create(modEntry.Helper.Translation.Get("ui.magic_altar.offense_tab.name"), modEntry.Helper.ModContent.Load<Texture2D>("assets/gui/occulus/offense.png"), modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/offense.png"), MagicAltarTab.TEXTURE_WIDTH, MagicAltarTab.TEXTURE_HEIGHT, 200, 50, 0); //226 //46
+            defenseTab = MagicAltarTab.create(modEntry.Helper.Translation.Get("ui.magic_altar.defense_tab.name"), modEntry.Helper.ModContent.Load<Texture2D>("assets/gui/occulus/defense.png"), modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/defense.png"), MagicAltarTab.TEXTURE_WIDTH, MagicAltarTab.TEXTURE_HEIGHT, 400, 50, 1); //181
+            utilityTab = MagicAltarTab.create(modEntry.Helper.Translation.Get("ui.magic_altar.utility_tab.name"), modEntry.Helper.ModContent.Load<Texture2D>("assets/gui/occulus/utility.png"), modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/utility.png"), MagicAltarTab.TEXTURE_WIDTH, MagicAltarTab.TEXTURE_HEIGHT, 400, 50, 2); //136
             
             PopluateDictionary();
         }
@@ -161,7 +161,7 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill grow = new SpellPartSkill("grow", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)465"), 3 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Aum"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Cerublossom"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Tarma_Root"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Desert_Nova"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Wakebloom"), 1 } }, utilityTab, false);
             SpellPartSkill range = new SpellPartSkill("range", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)767"), 5 } }, utilityTab, false);
 
-            SpellPartSkill etherialTouch = new SpellPartSkill("etherial_touch", new HashSet<SpellPartSkill> { range }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)330"), 5 }, { ItemRegistry.Create("(O)767"), 5 } }, utilityTab, false);
+            SpellPartSkill etherealTouch = new SpellPartSkill("ethereal_touch", new HashSet<SpellPartSkill> { range }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)330"), 5 }, { ItemRegistry.Create("(O)767"), 5 } }, utilityTab, false);
 
             SpellPartSkill harvest = new SpellPartSkill("harvest", new HashSet<SpellPartSkill> { plow }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)24"), 1 } }, utilityTab, false);
             SpellPartSkill channel = new SpellPartSkill("channel", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)24"), 10 } }, utilityTab, false);
@@ -176,7 +176,7 @@ namespace ArsVenefici.Framework.Skill
             spellPartSkills.Add(createWater.GetId(), createWater);
             spellPartSkills.Add(grow.GetId(), grow);
             spellPartSkills.Add(range.GetId(), range);
-            spellPartSkills.Add(etherialTouch.GetId(), etherialTouch);
+            spellPartSkills.Add(etherealTouch.GetId(), etherealTouch);
             spellPartSkills.Add(harvest.GetId(), harvest);
             spellPartSkills.Add(channel.GetId(), channel);
         }

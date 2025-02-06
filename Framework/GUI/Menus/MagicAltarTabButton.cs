@@ -7,6 +7,7 @@ using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,26 +22,38 @@ namespace ArsVenefici.Framework.GUI.Menus
         private readonly MagicAltarTab tab;
         public bool isHovered;
 
-        public MagicAltarTabButton(int index, int x, int y, MagicAltarTab tab, string name) : base(new Rectangle(x, y, SIZE, SIZE), name)
+        MagicAltarMenu menu;
+
+        public MagicAltarTabButton(int index, int x, int y, MagicAltarTab tab, string name, MagicAltarMenu menu) : base(new Rectangle(x, y, SIZE, SIZE), name)
         {
             this.index = index;
             this.xOffset = 0;
             this.yOffset = 0;
             this.tab = tab;
+            
+            this.menu = menu;
         }
-        public MagicAltarTabButton(int index, int x, int y, int xOffset, int yOffset, MagicAltarTab tab, string name) : base(new Rectangle(x, y, SIZE, SIZE), name)
+        public MagicAltarTabButton(int index, int x, int y, int xOffset, int yOffset, MagicAltarTab tab, string name, MagicAltarMenu menu) : base(new Rectangle(x, y, SIZE, SIZE), name)
         {
             this.index = index;
             this.xOffset = xOffset;
             this.yOffset = yOffset;
             this.tab = tab;
+
+            this.menu = menu;
         }
 
         public void Draw(SpriteBatch spriteBatch, int positionX, int positionY)
         {
             int scale = 2;
 
-            IClickableMenu.drawTextureBox(spriteBatch, bounds.X - 5, bounds.Y - 5, tab.GetIcon().Width + 40, tab.GetIcon().Height + 40, Color.White);
+            int tabIndex = GetIndex();
+
+            if (tabIndex == menu.activeTabIndex)
+                IClickableMenu.drawTextureBox(spriteBatch, bounds.X - 5, bounds.Y - 5, tab.GetIcon().Width + 40, tab.GetIcon().Height + 40, Color.Aqua);
+            else
+                IClickableMenu.drawTextureBox(spriteBatch, bounds.X - 5, bounds.Y - 5, tab.GetIcon().Width + 40, tab.GetIcon().Height + 40, Color.White);
+            
             spriteBatch.Draw(tab.GetIcon(), new Vector2(this.bounds.X + 2f * scale, this.bounds.Y + 2f * scale), null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             
             //isHovered = bounds.Contains(positionX, positionY);

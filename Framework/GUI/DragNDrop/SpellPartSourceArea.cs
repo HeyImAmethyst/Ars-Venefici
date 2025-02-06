@@ -154,6 +154,8 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
                         if (index >= list.Count()) return;
 
+                        if(list[index] == null) return;
+
                         cachedContents.Add(KeyValuePair.Create(list[index], KeyValuePair.Create(x + j * SpellPartDraggable.SIZE + X_PADDING, y + i * SpellPartDraggable.SIZE)));
                     }
                 }

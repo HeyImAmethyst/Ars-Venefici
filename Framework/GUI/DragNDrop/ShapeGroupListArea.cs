@@ -29,7 +29,7 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
                 //(part, index)-> onDrop.accept(part, finalI, index)
 
-                shapeGroups.Add(new ShapeGroupArea(x + i * ShapeGroupArea.WIDTH, y, (part, index) => onDrop.Invoke(part, finalI, index), name));
+                shapeGroups.Add(new ShapeGroupArea(x + i * ShapeGroupArea.WIDTH, y, (part, index) => onDrop.Invoke(part, finalI, index), name, menu));
             }
 
             SetLocks();
@@ -47,7 +47,7 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
                 //(part, index)-> onDrop.accept(part, finalI, index)
 
-                shapeGroups.Add(new ShapeGroupArea(x + i * ShapeGroupArea.WIDTH, y, (part, index) => onDrop.Invoke(part, finalI, index), name));
+                shapeGroups.Add(new ShapeGroupArea(x + i * ShapeGroupArea.WIDTH, y, (part, index) => onDrop.Invoke(part, finalI, index), name, menu));
             }
 
             SetLocks();

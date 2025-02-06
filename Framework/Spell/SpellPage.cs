@@ -29,7 +29,7 @@ namespace ArsVenefici.Framework.Spell
             {
                 //spellShapes.Add(new ShapeGroupArea(0, 0, null, ""));
 
-                spellShapes[i] = new ShapeGroupArea(0, 0, null, "");
+                spellShapes[i] = new ShapeGroupArea(0, 0, null, "", null);
             }
         }
 

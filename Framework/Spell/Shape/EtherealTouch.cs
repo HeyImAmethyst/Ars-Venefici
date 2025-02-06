@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace ArsVenefici.Framework.Spell.Shape
 {
-    public class EtherialTouch : AbstractShape
+    public class EtherealTouch : AbstractShape
     {
-        public EtherialTouch() : base()
+        public EtherealTouch() : base()
         {
            
         }
 
         public override string GetId()
         {
-            return "etherial_touch";
+            return "ethereal_touch";
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation level, List<ISpellModifier> modifiers, HitResult hit, int ticksUsed, int index, bool awardXp)

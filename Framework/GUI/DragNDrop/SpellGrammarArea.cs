@@ -1,6 +1,8 @@
-﻿using ArsVenefici.Framework.Interfaces.Spells;
+﻿using ArsVenefici.Framework.GUI.Menus;
+using ArsVenefici.Framework.Interfaces.Spells;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewValley;
 using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
@@ -15,14 +17,20 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
         private static int X_PADDING = 4;
         private Action<SpellPartDraggable, int> onDropAction;
 
-        public SpellGrammarArea(Rectangle bounds, Action<SpellPartDraggable, int> onDrop, string name) : base(bounds, 8, name)
+        SpellBookMenu spellBookMenu;
+
+        public SpellGrammarArea(Rectangle bounds, Action<SpellPartDraggable, int> onDrop, string name, SpellBookMenu spellBookMenu) : base(bounds, 8, name)
         {
             onDropAction = onDrop;
+
+            this.spellBookMenu = spellBookMenu;
         }
 
-        public SpellGrammarArea(Rectangle bounds, Action<SpellPartDraggable, int> onDrop, string name, string lable) : base(bounds, 8, name, lable)
+        public SpellGrammarArea(Rectangle bounds, Action<SpellPartDraggable, int> onDrop, string name, string lable, SpellBookMenu spellBookMenu) : base(bounds, 8, name, lable)
         {
             onDropAction = onDrop;
+
+            this.spellBookMenu = spellBookMenu;
         }
 
         public override SpellPartDraggable ElementAt(int mouseX, int mouseY)
@@ -50,9 +58,22 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
         {
             IClickableMenu.drawTextureBox(spriteBatch, x, y, width, height, Color.White);
 
+            Rectangle labelRect = new Rectangle(bounds.X - 5, bounds.Y - 53, name.Length + 280, 45);
+            Vector2 mousePos = new Vector2(Game1.getMouseX(), Game1.getMouseY());
+
             for (int i = 0; i < contents.Count(); i++)
             {
                 contents[i].Draw(spriteBatch, x + i * SpellPartDraggable.SIZE + X_PADDING, y, pPartialTick);
+            }
+
+            if (labelRect.Contains(mousePos))
+            {
+                string parsedText = Game1.parseText(ModEntry.INSTANCE.Helper.Translation.Get("ui.spell_book.spell_grammar_area.description"), Game1.smallFont, 230);
+
+                //IClickableMenu.drawHoverText(spriteBatch, parsedText, Game1.smallFont);
+
+                IClickableMenu.drawTextureBox(spriteBatch, spellBookMenu.xPositionOnScreen - 520, spellBookMenu.yPositionOnScreen + 200, 270, 250, Color.White);
+                Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(spellBookMenu.xPositionOnScreen - 500, spellBookMenu.yPositionOnScreen + 230), Game1.textColor);
             }
         }
 

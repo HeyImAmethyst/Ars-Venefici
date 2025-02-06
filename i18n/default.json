@@ -85,8 +85,8 @@
 	"spellpart.touch.name": "Touch",
 	"spellpart.touch.description": "Will target terrain that you touch.",
 
-	"spellpart.etherial_touch.name": "Etherial Touch",
-	"spellpart.etherial_touch.description": "Will target terrain under the mouse cursor.",
+	"spellpart.ethereal_touch.name": "Ethereal Touch",
+	"spellpart.ethereal_touch.description": "Will target terrain under the mouse cursor.",
 
 	"spellpart.aoe.name": "Area of Effect",
 	"spellpart.aoe.description": "Will cast the spell in an area around the place where it's triggered. This shape must be placed last.",
@@ -123,7 +123,7 @@
 	"spellpart.plow.description": "Plows tillable ground.",
 
 	"spellpart.grow.name": "Grow",
-	"spellpart.grow.description": "Grows tress and crops.",
+	"spellpart.grow.description": "Grows trees and crops.",
 
 	"spellpart.harvest.name": "Harvest",
 	"spellpart.harvest.description": "Harvests harvestable crops.",
@@ -237,10 +237,14 @@
 	"ui.spell_label.shape_group.name": "Shape Group",
 
 	"ui.spell_book.source_area.name": "Source Area",
-	"ui.spell_book.shape_group_area.name": "Shape Group Area",
-	"ui.spell_book.spell_grammar_area.name": "Spell Grammar Area",
-	"ui.spell_book.spell_name_textbox.name": "Spell Name",
 
+	"ui.spell_book.shape_group_area.name": "Shape Group Area",
+	"ui.spell_book.shape_group_area.description": "Where shapes (squares) and modifiers (diamonds) affecting those shapes are placed. Place them into a shape group starting from left to right with no gaps in between.",
+
+	"ui.spell_book.spell_grammar_area.name": "Spell Grammar Area",
+	"ui.spell_book.spell_grammar_area.description": "Where components (octagons) and modifiers (diamonds) affecting those components are placed.",
+
+	"ui.spell_book.spell_name_textbox.name": "Spell Name",
 
 	"ui.magic_altar.offense_tab.name": "Offense",
 	"ui.magic_altar.defense_tab.name": "Defense",

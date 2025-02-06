@@ -146,7 +146,7 @@ namespace ArsVenefici.Framework.GUI.Menus
 
                 sourceArea = new SpellPartSourceArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen - 100, 530, 190), modEntry, modEntry.Helper.Translation.Get("ui.spell_book.source_area.name"));
                 shapeGroupArea = new ShapeGroupListArea(xPositionOnScreen - 200, yPositionOnScreen + 150, this, (part, i, j) => OnPartDropped(part), modEntry.Helper.Translation.Get("ui.spell_book.shape_group_area.name"));
-                spellGrammarArea = new SpellGrammarArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen + 344, 436, 70), (part, i) => OnPartDropped(part), modEntry.Helper.Translation.Get("ui.spell_book.spell_grammar_area.name"));
+                spellGrammarArea = new SpellGrammarArea(new Rectangle(xPositionOnScreen - 142, yPositionOnScreen + 344, 436, 70), (part, i) => OnPartDropped(part), modEntry.Helper.Translation.Get("ui.spell_book.spell_grammar_area.name"), this);
 
                 dragAreas.Add(sourceArea);
                 dragAreas.Add(spellGrammarArea);

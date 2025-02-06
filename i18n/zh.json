@@ -85,8 +85,8 @@
     "spellpart.touch.name": "接触施法",
     "spellpart.touch.description": "当您触摸地形时，将选择该地形作为目标。",
 
-    "spellpart.etherial_touch.name": "光标触碰",
-    "spellpart.etherial_touch.description": "根据鼠标光标位置选择目标地形。",
+    "spellpart.ethereal_touch.name": "光标触碰",
+    "spellpart.ethereal_touch.description": "根据鼠标光标位置选择目标地形。",
 
     "spellpart.aoe.name": "影响范围",
     "spellpart.aoe.description": "在触发地点的周围施放这个魔法。此形状必须最后放置。",
@@ -237,8 +237,13 @@
     "ui.spell_label.shape_group.name": "形状组合",
 
     "ui.spell_book.source_area.name": "源魔法区域",
+
     "ui.spell_book.shape_group_area.name": "形状组合区域",
+    "ui.spell_book.shape_group_area.description": "Where shapes (squares) and modifiers (diamonds) affecting those shapes are placed. Place them into a shape group starting from left to right with no gaps in between.",
+
     "ui.spell_book.spell_grammar_area.name": "魔法语法区域",
+    "ui.spell_book.spell_grammar_area.description": "Where components (octagons) and modifiers (diamonds) affecting those components are placed.",
+
     "ui.spell_book.spell_name_textbox.name": "Spell Name",
 
     "ui.magic_altar.offense_tab.name": "攻击",

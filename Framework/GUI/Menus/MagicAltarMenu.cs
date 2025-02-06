@@ -39,8 +39,8 @@ namespace ArsVenefici.Framework.GUI.Menus
         public static int GUI_WIDTH = 210 + borderWidth * 2;
         public static int GUI_HEIGHT = 210 + borderWidth * 2 + Game1.tileSize;
 
-        private MagicAltarTabRenderer activeTab;
-        private int activeTabIndex = 0;
+        public MagicAltarTabRenderer activeTab;
+        public int activeTabIndex = 0;
 
         private Dictionary<MagicAltarTab, MagicAltarTabRenderer> occulusTabs = new Dictionary<MagicAltarTab, MagicAltarTabRenderer>();
         private readonly List<MagicAltarTabButton> tabButtons = new List<MagicAltarTabButton>();
@@ -57,23 +57,21 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         public static Vector2 GetAppropriateMenuPosition()
         {
-            //Game1.uiViewport.Width / 2 - (800 + IClickableMenu.borderWidth * 2) / 2
-
-            //int x = Game1.viewport.Size.Width / 2 - GUI_WIDTH / 2;
-            //int y = Game1.viewport.Size.Height / 2 - GUI_HEIGHT / 2;
 
             int x = Game1.uiViewport.Width / 2 - GUI_WIDTH / 2;
             int y = Game1.uiViewport.Height / 2 - GUI_HEIGHT / 2;
 
-            //int x = Game1.uiViewport.Width / 2 - (GUI_WIDTH + IClickableMenu.borderWidth * 2) / 2;
-            //int y = Game1.uiViewport.Height / 2 - (GUI_HEIGHT + IClickableMenu.borderWidth * 2) / 2;
-
             Vector2 defaultPosition = new Vector2(x, y);
 
-            //Using Both doesnt seem to fix my issue
+            if (defaultPosition.X + GUI_WIDTH > Game1.viewport.Width)
+            {
+                defaultPosition.X = 0;
+            }
 
-            //defaultPosition = defaultPosition * Game1.options.zoomLevel;
-            //defaultPosition = defaultPosition * (1f / Game1.options.zoomLevel);
+            if (defaultPosition.Y + GUI_HEIGHT > Game1.viewport.Height)
+            {
+                defaultPosition.Y = 0;
+            }
 
             return defaultPosition;
 
@@ -110,7 +108,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                 occulusTabs.Add(knowlegeManager.defenseTab, defenceTabRenderer);
                 occulusTabs.Add(knowlegeManager.utilityTab, utilityTabRenderer);
 
-                activeTabIndex = 0;
+                //activeTabIndex = 0;
                 setActiveTab(activeTabIndex);
 
                 int tabSize = 22;
@@ -121,7 +119,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                     int tabIndex = tab.GetIndex();
 
                     //OcculusTabButton occulusTabButton = new OcculusTabButton(tabIndex, 7 + tabIndex % 8 * (tabSize + 2), -tabSize, xPositionOnScreen - 150, yPositionOnScreen - 142, tab, tab.GetName());
-                    MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 135, tab, tab.GetName());
+                    MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 135, tab, tab.GetName(), this);
                     tabButtons.Add(occulusTabButton);
                 }
 
@@ -277,6 +275,8 @@ namespace ArsVenefici.Framework.GUI.Menus
                 if (tab.GetIndex() == activeTabIndex)
                     activeTab = kvp.Value;
             }
+
+            ((MagicAltarSkillTreeTabRenderer)activeTab).ResetOffset();
         }
     }
 }

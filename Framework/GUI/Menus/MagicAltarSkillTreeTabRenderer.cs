@@ -27,6 +27,8 @@ using ArsVenefici.Framework.GUI.SkillTree;
 using StardewValley.TerrainFeatures;
 using System.Linq;
 using System.Threading;
+using System.Runtime.CompilerServices;
+using ItemExtensions;
 
 namespace ArsVenefici.Framework.GUI.Menus
 {
@@ -34,13 +36,18 @@ namespace ArsVenefici.Framework.GUI.Menus
     {
         int SKILL_MARGIN_X = 50;
         int SKILL_MARGIN_Y = 40;
-        private static readonly float SKILL_SIZE = 32f;
+        private float SKILL_SIZE = 32f;
 
         private float SCALE = 1f;
+
         private int lastMouseX = 0;
         private int lastMouseY = 0;
         private float offsetX = 0;
         private float offsetY = 0;
+
+        private int virtualWidth;
+        private int virtualHeight;
+
         private SpellPartSkill hoverItem = null;
         bool isHoveringSkill = false;
 
@@ -60,10 +67,16 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         protected override void Init()
         {
-            SCALE = 2;
+            SCALE = 1f;
 
-            //offsetX = (magicOrbTab.GetStartX() - width / 2f);
-            offsetX = (magicAltarTab.GetStartX() - width / 2f) + 450;
+            SKILL_SIZE = 64 * SCALE;
+
+            offsetX = (magicAltarTab.GetStartX() - width / 2f) + 350;
+
+            if (magicAltarTab.GetName() == parent.modEntry.Helper.Translation.Get("ui.magic_altar.offense_tab.name"))
+            {
+                offsetX = (magicAltarTab.GetStartX() - width / 2f) + 300;
+            }
 
             if (offsetX < 0)
                 offsetX = 0;
@@ -71,7 +84,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             if (offsetX > textureWidth - width)
                 offsetX = textureWidth - width;
 
-            offsetY = magicAltarTab.GetStartY() - width / 2f;
+            offsetY = (magicAltarTab.GetStartY() - width / 2f) + 45;
 
             if (offsetY < 0)
                 offsetY = 0;
@@ -89,6 +102,30 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             skillTree = GetSampleTree(skills);
             TreeHelpers<SpellPartSkill>.CalculateNodePositions(skillTree);
+        }
+
+        public void ResetOffset()
+        {
+            offsetX = (magicAltarTab.GetStartX() - width / 2f);
+
+            if(magicAltarTab.GetName() == parent.modEntry.Helper.Translation.Get("ui.magic_altar.offense_tab.name"))
+            {
+                offsetX = (magicAltarTab.GetStartX() - width / 2f) + 300;
+            }
+
+            if (offsetX < 0)
+                offsetX = 0;
+
+            if (offsetX > textureWidth - width)
+                offsetX = textureWidth - width;
+
+            offsetY = (magicAltarTab.GetStartY() - width / 2f) + 45;
+
+            if (offsetY < 0)
+                offsetY = 0;
+
+            if (offsetY > textureHeight - height)
+                offsetY = textureHeight - height;
         }
 
         // converts list of sample items to hierarchial list of TreeNodeModels
@@ -126,6 +163,11 @@ namespace ArsVenefici.Framework.GUI.Menus
             float scaledWidth = width * (1 / SCALE);
             float scaledHeight = height * (1 / SCALE);
 
+            float minU = Math.Clamp(scaledOffsetX, 0, textureWidth - scaledWidth) / textureWidth;
+            float minV = Math.Clamp(scaledOffsetY, 0, textureHeight - scaledHeight) / textureHeight;
+            float maxU = Math.Clamp(scaledOffsetX + scaledWidth, scaledWidth, textureWidth) / textureWidth;
+            float maxV = Math.Clamp(scaledOffsetY + scaledHeight, scaledHeight, textureHeight) / textureHeight;
+
             if (parent.getDragging())
             {
                 offsetX = Math.Clamp(offsetX - (mouseX - lastMouseX), 0, textureWidth - scaledWidth);
@@ -155,7 +197,29 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             //Create Scissor Region
 
-            transformMatrix = Matrix.CreateTranslation(-offsetX, -offsetY, 0) * Matrix.CreateScale(SCALE, SCALE, 0);
+            if(width / Game1.options.preferredResolutionX > height / Game1.options.preferredResolutionY)
+            {
+                float aspect = height / Game1.options.preferredResolutionY;
+
+                virtualWidth = (int)(aspect * Game1.options.preferredResolutionX);
+                virtualHeight = (int)height;
+            }
+            else
+            {
+                float aspect = width / Game1.options.preferredResolutionX;
+
+
+                virtualWidth =width;
+                virtualHeight = (int)(aspect * Game1.options.preferredResolutionY);
+            }
+
+            transformMatrix = Matrix.CreateTranslation(-offsetX, -offsetY, 0);
+            //transformMatrix = Matrix.CreateTranslation(bounds.X - 10, bounds.Y - 10, 0);
+            //transformMatrix = Matrix.CreateScale(SCALE);
+            //transformMatrix = Matrix.CreateTranslation(posX - offsetX, posY - offsetY, 0);
+            //transformMatrix = Matrix.CreateTranslation(-offsetX, -offsetY, 0) * Matrix.CreateScale(SCALE, SCALE, 0);
+            //transformMatrix = Matrix.CreateScale(virtualWidth / Game1.options.preferredResolutionX) * Matrix.CreateTranslation(-offsetX, -offsetY, 0);
+            //transformMatrix = Matrix.CreateTranslation(-offsetX * SCALE, (float)Math.Floor(-offsetY * SCALE), 0) * Matrix.CreateScale(SCALE, SCALE, 0);
 
             spriteBatch.Begin(SpriteSortMode.Immediate, blendState: BlendState.AlphaBlend,null, null, rasterizerState: new RasterizerState { ScissorTestEnable = true }, null, transformMatrix);
 
@@ -195,10 +259,17 @@ namespace ArsVenefici.Framework.GUI.Menus
             // rectangle where node will be positioned
             var nodeRect = new Rectangle
                 (
-                    Convert.ToInt32(bounds.X + SKILL_MARGIN_X + (node.X * (SKILL_SIZE + SKILL_MARGIN_X))),
-                    (int)(bounds.Y + SKILL_MARGIN_Y + (node.Y * (SKILL_SIZE + SKILL_MARGIN_Y))), 
+                    (int)(bounds.X + SKILL_MARGIN_X + (node.X * (SKILL_SIZE + SKILL_MARGIN_X))),
+                    (int)(bounds.Y + SKILL_MARGIN_Y + (node.Y * (SKILL_SIZE + SKILL_MARGIN_Y))),
                     (int)SKILL_SIZE, (int)SKILL_SIZE
                 );
+
+            //var nodeRect = new Rectangle
+            //(
+            //    (int)(parent.xPositionOnScreen + SKILL_MARGIN_X + (node.X * (SKILL_SIZE + SKILL_MARGIN_X))),
+            //    (int)(parent.yPositionOnScreen + SKILL_MARGIN_Y + (node.Y * (SKILL_SIZE + SKILL_MARGIN_Y))),
+            //    (int)SKILL_SIZE, (int)SKILL_SIZE
+            //);
 
             //Draw lines
 
@@ -257,12 +328,13 @@ namespace ArsVenefici.Framework.GUI.Menus
             int offset;
 
             Color KNOWS_COLOR = Color.Blue;
-            Color UNKNOWN_SKILL_LINE_COLOR_MASK = new Color(KNOWS_COLOR.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue);
+            //Color UNKNOWN_SKILL_LINE_COLOR_MASK = new Color(KNOWS_COLOR.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue);
+            Color UNKNOWN_SKILL_LINE_COLOR_MASK = new Color(KNOWS_COLOR.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.DarkGray.PackedValue * Color.Gray.PackedValue);
 
             if (hasPrereq)
             {
-                //color = knows ? KNOWS_COLOR.PackedValue : (KNOWS_COLOR.PackedValue & UNKNOWN_SKILL_LINE_COLOR_MASK.PackedValue | 0xFF000000);
-                uColor = knows ? KNOWS_COLOR.PackedValue : (KNOWS_COLOR.PackedValue);
+                uColor = knows ? KNOWS_COLOR.PackedValue : (KNOWS_COLOR.PackedValue & UNKNOWN_SKILL_LINE_COLOR_MASK.PackedValue | 0xFF000000);
+                //uColor = knows ? KNOWS_COLOR.PackedValue : (KNOWS_COLOR.PackedValue);
                 offset = 1;
             }
             else

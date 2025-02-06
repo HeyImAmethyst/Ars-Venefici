@@ -85,8 +85,8 @@
     "spellpart.touch.name": "터치",
     "spellpart.touch.description": "손이 닿는 대상을 목표로 합니다.",
 
-    "spellpart.etherial_touch.name": "에테리얼 터치",
-    "spellpart.etherial_touch.description": "마우스 커서 아래의 지형을 대상으로 합니다.",
+    "spellpart.ethereal_touch.name": "에테리얼 터치",
+    "spellpart.ethereal_touch.description": "마우스 커서 아래의 지형을 대상으로 합니다.",
 
     "spellpart.aoe.name": "광휘의 영역",
     "spellpart.aoe.description": "발동 지점 주변에 마법의 영향을 퍼뜨립니다. 이 형태는 마지막에 배치되어야 합니다.",
@@ -237,8 +237,13 @@
     "ui.spell_label.shape_group.name": "형상 그룹",
 
     "ui.spell_book.source_area.name": "마력의 원천",
+
     "ui.spell_book.shape_group_area.name": "형상 그룹 영역",
+    "ui.spell_book.shape_group_area.description": "Where shapes (squares) and modifiers (diamonds) affecting those shapes are placed. Place them into a shape group starting from left to right with no gaps in between.",
+
     "ui.spell_book.spell_grammar_area.name": "마법 문법 영역",
+    "ui.spell_book.spell_grammar_area.description": "Where components (octagons) and modifiers (diamonds) affecting those components are placed.",
+
     "ui.spell_book.spell_name_textbox.name": "Spell Name",
 
     "ui.magic_altar.offense_tab.name": "공격 마법",

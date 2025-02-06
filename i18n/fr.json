@@ -85,8 +85,8 @@
 	"spellpart.touch.name": "* Toucher",
 	"spellpart.touch.description": "Ciblera le terrain que vous touchez.",
 
-	"spellpart.etherial_touch.name": "* Toucher éthéré",
-	"spellpart.etherial_touch.description": "Ciblera le terrain sous le curseur de la souris.",
+	"spellpart.ethereal_touch.name": "* Toucher éthéré",
+	"spellpart.ethereal_touch.description": "Ciblera le terrain sous le curseur de la souris.",
 
 	"spellpart.aoe.name": "* Zone d'effet",
 	"spellpart.aoe.description": "Lance le sort dans une zone autour de l'endroit où il est déclenché.\nCette forme doit être placée en dernier.",
@@ -236,8 +236,13 @@
 	"ui.spell_label.shape_group.name": "Groupe de formes",
 
 	"ui.spell_book.source_area.name": "Espace des sources",
+
 	"ui.spell_book.shape_group_area.name": "Espace des formes de zone",
+	"ui.spell_book.shape_group_area.description": "Where shapes (squares) and modifiers (diamonds) affecting those shapes are placed. Place them into a shape group starting from left to right with no gaps in between.",
+
 	"ui.spell_book.spell_grammar_area.name": "Espace de grammaire des sorts",
+	"ui.spell_book.spell_grammar_area.description": "Where components (octagons) and modifiers (diamonds) affecting those components are placed.",
+
 	"ui.spell_book.spell_name_textbox.name": "Spell Name",
 
 	"ui.magic_altar.offense_tab.name": "Attaque",

@@ -168,7 +168,7 @@ namespace ArsVenefici.Framework.Events
 
                         spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
-                    else if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is EtherialTouch)
+                    else if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is EtherealTouch)
                     {
                         //Vector2 mousePos = Utility.PointToVector2(Game1.getMousePosition()) + new Vector2(Game1.viewport.X, Game1.viewport.Y);
                         //Vector2 absoluteClampedMousePos = Utility.clampToTile(mousePos);
