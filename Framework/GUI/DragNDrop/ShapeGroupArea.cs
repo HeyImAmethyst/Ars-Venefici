@@ -115,14 +115,14 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
                 if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.tr)
                     val1 = 336;
 
-                int value = Math.Max(val1, (int)Game1.dialogueFont.MeasureString(shapeGroupAreaDescription == null ? "" : shapeGroupAreaDescription).X);
+                //int value = Math.Max(val1, (int)Game1.dialogueFont.MeasureString(shapeGroupAreaDescription == null ? "" : shapeGroupAreaDescription).X);
 
-                string parsedText = Game1.parseText(shapeGroupAreaDescription, Game1.smallFont, value);
+                string parsedText = Game1.parseText(shapeGroupAreaDescription, Game1.smallFont, val1);
 
                 //IClickableMenu.drawHoverText(spriteBatch, parsedText, Game1.smallFont);
 
-                IClickableMenu.drawTextureBox(spriteBatch, spellBookMenu.xPositionOnScreen - 520, spellBookMenu.yPositionOnScreen + 200, 270, 375, Color.White);
-                Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(spellBookMenu.xPositionOnScreen - 500, spellBookMenu.yPositionOnScreen + 230), Game1.textColor);
+                IClickableMenu.drawTextureBox(spriteBatch, spellBookMenu.xPositionOnScreen - 570, spellBookMenu.yPositionOnScreen + 200, 320, 355, Color.White);
+                Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(spellBookMenu.xPositionOnScreen - 545, spellBookMenu.yPositionOnScreen + 230), Game1.textColor);
             }
 
             for (int i = 0; i < ROWS; i++)

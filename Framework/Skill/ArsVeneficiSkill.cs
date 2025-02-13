@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using static StardewValley.Minigames.MineCart;
 
 namespace ArsVenefici.Framework.Skill
 {
@@ -48,7 +49,7 @@ namespace ArsVenefici.Framework.Skill
 
             this.ExperienceBarColor = new Microsoft.Xna.Framework.Color(180, 62, 232);
 
-            // Level 5
+            // Level 5 - track A
             ArsVeneficiSkill.ManaEfficiencyProfession = new ManaEfficiencyProfession(this, "ManaEfficiency1", 3)
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_effeciency_profession_icon.png"),
@@ -56,8 +57,7 @@ namespace ArsVenefici.Framework.Skill
                 Description = modEntry.Helper.Translation.Get("professions.ManaEfficiency1.description")
             };
 
-            this.Professions.Add(ArsVeneficiSkill.ManaEfficiencyProfession);
-
+            // Level 5 -track B
             ArsVeneficiSkill.ManaRegen1Profession = new GenericProfession(this, "ManaRegen1")
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_regen_profession_icon.png"),
@@ -65,6 +65,7 @@ namespace ArsVenefici.Framework.Skill
                 Description = modEntry.Helper.Translation.Get("professions.ManaRegen1.description")
             };
 
+            this.Professions.Add(ArsVeneficiSkill.ManaEfficiencyProfession);
             this.Professions.Add(ArsVeneficiSkill.ManaRegen1Profession);
 
             this.ProfessionsForLevels.Add(new ProfessionPair(5, ArsVeneficiSkill.ManaEfficiencyProfession, ArsVeneficiSkill.ManaRegen1Profession));
@@ -77,8 +78,6 @@ namespace ArsVenefici.Framework.Skill
                 Description = modEntry.Helper.Translation.Get("professions.ManaEfficiency2.description")
             };
 
-            this.Professions.Add(ArsVeneficiSkill.ManaEfficiency2Profession);
-
             ArsVeneficiSkill.ManaConservationProfession = new GenericProfession(this, "ManaConservation")
             {
                 Icon = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/interface/mana_conservation_profession_icon.png"),
@@ -86,6 +85,7 @@ namespace ArsVenefici.Framework.Skill
                 Description = modEntry.Helper.Translation.Get("professions.ManaConservation.description")
             };
 
+            this.Professions.Add(ArsVeneficiSkill.ManaEfficiency2Profession);
             this.Professions.Add(ArsVeneficiSkill.ManaConservationProfession);
 
             this.ProfessionsForLevels.Add(new ProfessionPair(10, ArsVeneficiSkill.ManaEfficiency2Profession, ArsVeneficiSkill.ManaConservationProfession, ArsVeneficiSkill.ManaEfficiencyProfession));
@@ -97,7 +97,6 @@ namespace ArsVenefici.Framework.Skill
                 Name = modEntry.Helper.Translation.Get("professions.ManaRegen2.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaRegen2.description")
             };
-            this.Professions.Add(ArsVeneficiSkill.ManaRegen2Profession);
 
             ArsVeneficiSkill.ManaReserveProfession = new ManaCapProfession(this, "ManaCap")
             {
@@ -105,6 +104,8 @@ namespace ArsVenefici.Framework.Skill
                 Name = modEntry.Helper.Translation.Get("professions.ManaCap.name"),
                 Description = modEntry.Helper.Translation.Get("professions.ManaCap.description")
             };
+
+            this.Professions.Add(ArsVeneficiSkill.ManaRegen2Profession);
             this.Professions.Add(ArsVeneficiSkill.ManaReserveProfession);
 
             this.ProfessionsForLevels.Add(new ProfessionPair(10, ArsVeneficiSkill.ManaRegen2Profession, ArsVeneficiSkill.ManaReserveProfession, ArsVeneficiSkill.ManaRegen1Profession));
