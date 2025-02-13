@@ -100,7 +100,7 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 > - self
 > - projectile
 > - touch
-> - etherial_touch
+> - ethereal_touch
 > - aoe
 > - zone
 > - wave
@@ -128,8 +128,11 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 > - fire_damage
 > - haste
 > - regeneration
+> - mana_regeneration 
 > - dispel
 > - forge
+> - shield 
+> - summon 
 > # Modifiers
 > - damage
 > - range
@@ -139,6 +142,7 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 > - healing
 > - duration
 > - mining_power
+> - effect_power
 
 # Additional Notes
 
