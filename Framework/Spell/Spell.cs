@@ -244,7 +244,8 @@ namespace ArsVenefici.Framework.Spell
 
                     int xp = xpTotal;
 
-                    if (continuous) xp /= 4;
+                    //if (continuous) xp /= 4;
+                    if (continuous) xp /= 2;
 
                     player.AddCustomSkillExperience(FarmerMagicHelper.Skill, xp);
                 }

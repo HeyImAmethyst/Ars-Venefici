@@ -162,7 +162,7 @@ namespace ArsVenefici.Framework.Events
                     Vector2 local = Vector2.One;
                     Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
 
-                    if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is Touch)
+                    if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && (spell.FirstShape(spell.CurrentShapeGroupIndex()) is Touch || spell.FirstShape(spell.CurrentShapeGroupIndex()) is Channel))
                     {
                         local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
 
