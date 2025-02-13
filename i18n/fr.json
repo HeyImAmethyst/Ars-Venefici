@@ -3,8 +3,8 @@
 	** Config
 	*********/
 
-	"config.position_x.name": "Spell Lable X Position",
-	"config.position_y.name": "Spell Lable Y Position",
+	"config.position_x.name": "Spell Label X Position",
+	"config.position_y.name": "Spell Label Y Position",
 
 	"config.position_x.tooltip": "La position X en pixels pour l’infobulle des sorts, relative au coin supérieur gauche de l'écran.",
 	"config.position_y.tooltip": "La position Y en pixels pour l’infobulle  des sorts, relative au coin supérieur gauche de l'écran.",

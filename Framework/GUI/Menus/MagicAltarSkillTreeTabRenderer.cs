@@ -59,10 +59,10 @@ namespace ArsVenefici.Framework.GUI.Menus
         StringBuilder learnedDescription = new StringBuilder();
         StringBuilder HoverTextStringBuilder = new StringBuilder();
 
-        public MagicAltarSkillTreeTabRenderer(MagicAltarTab magicOrbTab, MagicAltarMenu parent) : base(magicOrbTab, parent)
+        public MagicAltarSkillTreeTabRenderer(MagicAltarTab magicAltarTab, MagicAltarMenu parent) : base(magicAltarTab, parent)
         {
-            //Init(magicOrbTab.GetWidth() / 2, magicOrbTab.GetHeight() / 2, parent.width, parent.height, parent.xPositionOnScreen, parent.yPositionOnScreen);
-            Init(magicOrbTab.GetWidth() / 2, magicOrbTab.GetHeight() / 2, parent.width, parent.height, parent.xPositionOnScreen - 150, parent.yPositionOnScreen - 65);
+            //Init(magicAltarTab.GetWidth() / 2, magicAltarTab.GetHeight() / 2, parent.width, parent.height, parent.xPositionOnScreen, parent.yPositionOnScreen);
+            Init((magicAltarTab.GetWidth() / 2), (magicAltarTab.GetHeight() / 2), parent.width, parent.height, parent.xPositionOnScreen - 150, parent.yPositionOnScreen - 65);
         }
 
         protected override void Init()
@@ -426,7 +426,7 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             if (player != null && hoverItem != null && !helper.Knows(modEntry, player, hoverItem))
             {
-                modEntry.Monitor.Log("Mouse Clicked", StardewModdingAPI.LogLevel.Info);
+                //modEntry.Monitor.Log("Mouse Clicked", StardewModdingAPI.LogLevel.Info);
 
                 if (helper.CanLearn(modEntry, player, hoverItem))
                 {
@@ -434,7 +434,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                     {
                         player.Items.ReduceId(item.Key.QualifiedItemId, item.Value);
                     }
-
+                    
                     helper.Learn(modEntry, player, hoverItem);
                 }
             }

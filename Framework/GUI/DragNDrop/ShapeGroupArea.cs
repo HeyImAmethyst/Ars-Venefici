@@ -107,7 +107,17 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
             if (labelRect.Contains(mousePos))
             {
-                string parsedText = Game1.parseText(ModEntry.INSTANCE.Helper.Translation.Get("ui.spell_book.shape_group_area.description"), Game1.smallFont, 230);
+                string shapeGroupAreaDescription = ModEntry.INSTANCE.Helper.Translation.Get("ui.spell_book.shape_group_area.description");
+
+                int val1 = 272;
+                if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.fr)
+                    val1 = 384;
+                if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.tr)
+                    val1 = 336;
+
+                int value = Math.Max(val1, (int)Game1.dialogueFont.MeasureString(shapeGroupAreaDescription == null ? "" : shapeGroupAreaDescription).X);
+
+                string parsedText = Game1.parseText(shapeGroupAreaDescription, Game1.smallFont, value);
 
                 //IClickableMenu.drawHoverText(spriteBatch, parsedText, Game1.smallFont);
 

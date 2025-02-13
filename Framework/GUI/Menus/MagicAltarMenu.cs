@@ -190,7 +190,15 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             string dragLabel = modEntry.Helper.Translation.Get("ui.magic_altar.drag_label.description");
 
-            string parsedText = Game1.parseText(dragLabel.ToString(), Game1.smallFont, 230);
+            int val1 = 272;
+            if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.fr)
+                val1 = 384;
+            if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.tr)
+                val1 = 336;
+
+            int value = Math.Max(val1, (int)Game1.dialogueFont.MeasureString(dragLabel == null ? "" : dragLabel).X);
+
+            string parsedText = Game1.parseText(dragLabel.ToString(), Game1.smallFont, value);
 
             Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 500, yPositionOnScreen + 230), Game1.textColor);
 

@@ -52,7 +52,7 @@ namespace ArsVenefici.Framework.Skill
 
         public bool CanLearn(ModEntry modEntry, Farmer player, SpellPartSkill skill)
         {
-            bool canLearn = false;
+            bool canLearn = true;
 
             if (!skill.Cost().Any())
             {
@@ -62,14 +62,13 @@ namespace ArsVenefici.Framework.Skill
             {
                 foreach (Item item in skill.Cost().Keys)
                 {
-                    if (player.Items.CountId(item.QualifiedItemId) >= skill.Cost()[item])
+                    if (player.Items.CountId(item.QualifiedItemId) < skill.Cost()[item])
                     {
-                        canLearn = true;
+                        canLearn = false;
                     }
                 }
             }
 
-            //return canLearn && ((KnownKnowlege.Values.Any() && KnownKnowlege.Values.All(value => skill.Parents().Contains(value))) || !skill.Parents().Any());
             return canLearn && ((skill.Parents().Any() && skill.Parents().All(value => KnownSpellPartSkills.Values.Contains(value))) || !skill.Parents().Any());
         }
 
@@ -193,7 +192,9 @@ namespace ArsVenefici.Framework.Skill
                 else
                 {
                     modEntry.spellPartSkillManager.spellPartSkills.TryGetValue(rawSpellPart, out SpellPartSkill k);
-                    spellPartSkill.Add(k);
+
+                    if(k != null)
+                        spellPartSkill.Add(k);
                 }
             }
 

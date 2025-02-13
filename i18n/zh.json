@@ -3,8 +3,8 @@
 	** Config
 	*********/
 
-    "config.position_x.name": "Spell Lable X Position",
-    "config.position_y.name": "Spell Lable Y Position",
+    "config.position_x.name": "Spell Label X Position",
+    "config.position_y.name": "Spell Label Y Position",
 
     "config.position_x.tooltip": "屏幕上魔法标签相对于左上角的X轴像素位置。",
     "config.position_y.tooltip": "屏幕上魔法标签相对于左上角的Y轴像素位置。",
