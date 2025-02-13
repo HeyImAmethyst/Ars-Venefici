@@ -77,8 +77,8 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 - player_togglewizardry  <true | false> : Toggles the player's the ability to cast spells
 - player_learnspellpart < spellpartId > :  Allows the player to learn a spell part
 - player_forgetspellpart < spellpartId > : Allows the player to forget a spell part
-- player_learnallspellparts < spellpartId > : Allows the player to learn all spell parts
-- player_forgetallspellparts < spellpartId > : Allows the player to forget all spell parts
+- player_learnallspellparts: Allows the player to learn all spell parts
+- player_forgetallspellparts: Allows the player to forget all spell parts
 - player_knowsspellpart < spellpartId > : Checks if a player knows a spell part
 
 - save_manapointsperlevel < numberValue > : Sets the amount of mana players have per Wizardry level
@@ -93,6 +93,8 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 - save_growsicknessdurationmillisecondsgreaterthanorequaltoleveleight < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 8
 
 - save_growsicknessdurationmillisecondsgreaterthanorequaltolevelten < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 10
+
+- save_savedata: Returns the save data values for this mod
 
 # List of Spell Part Ids
 
