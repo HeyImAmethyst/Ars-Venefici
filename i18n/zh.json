@@ -3,8 +3,8 @@
 	** Config
 	*********/
 
-    "config.position_x.name": "Spell Label X Position",
-    "config.position_y.name": "Spell Label Y Position",
+    "config.position_x.name": "魔法标签X位置",
+    "config.position_y.name": "魔法标签Y位置",
 
     "config.position_x.tooltip": "屏幕上魔法标签相对于左上角的X轴像素位置。",
     "config.position_y.tooltip": "屏幕上魔法标签相对于左上角的Y轴像素位置。",
@@ -42,35 +42,35 @@
     "config.open_tutorial_text_key.name": "打开教程文本按钮",
     "config.open_tutorial_text_key.tooltip": "用于打开显示教程文本菜单的一系列按键绑定。",
 
-    "config.cast_spell_1_key.name": "Cast Spell Page 1",
-    "config.cast_spell_1_key.tooltip": "A list of keybinds to cast the spell in the 1st page of the spell book.",
+    "config.cast_spell_1_key.name": "施放第1页魔法",
+    "config.cast_spell_1_key.tooltip": "用于施放魔法书第1页魔法的快捷键列表。",
 
-    "config.cast_spell_2_key.name": "Cast Spell Page 2",
-    "config.cast_spell_2_key.tooltip": "A list of keybinds to cast the spell in the 2nd page of the spell book.",
+    "config.cast_spell_2_key.name": "施放第2页魔法",
+    "config.cast_spell_2_key.tooltip": "用于施放魔法书第2页魔法的快捷键列表。",
 
-    "config.cast_spell_3_key.name": "Cast Spell Page 3",
-    "config.cast_spell_3_key.tooltip": "A list of keybinds to cast the spell in the 3rd page of the spell book.",
+    "config.cast_spell_3_key.name": "施放第3页魔法",
+    "config.cast_spell_3_key.tooltip": "用于施放魔法书第3页魔法的快捷键列表。",
 
-    "config.cast_spell_4_key.name": "Cast Spell Page 4",
-    "config.cast_spell_4_key.tooltip": "A list of keybinds to cast the spell in the 4th page of the spell book.",
+    "config.cast_spell_4_key.name": "施放第4页魔法",
+    "config.cast_spell_4_key.tooltip": "用于施放魔法书第4页魔法的快捷键列表。",
 
-    "config.cast_spell_5_key.name": "Cast Spell Page 5",
-    "config.cast_spell_5_key.tooltip": "A list of keybinds to cast the spell in the 5th page of the spell book.",
+    "config.cast_spell_5_key.name": "施放第5页魔法",
+    "config.cast_spell_5_key.tooltip": "用于施放魔法书第5页魔法的快捷键列表。",
 
-    "config.cast_spell_6_key.name": "Cast Spell Page 6",
-    "config.cast_spell_6_key.tooltip": "A list of keybinds to cast the spell in the 6th page of the spell book.",
+    "config.cast_spell_6_key.name": "施放第6页魔法",
+    "config.cast_spell_6_key.tooltip": "用于施放魔法书第6页魔法的快捷键列表。",
 
-    "config.cast_spell_7_key.name": "Cast Spell Page 7",
-    "config.cast_spell_7_key.tooltip": "A list of keybinds to cast the spell in the 7th page of the spell book.",
+    "config.cast_spell_7_key.name": "施放第7页魔法",
+    "config.cast_spell_7_key.tooltip": "用于施放魔法书第7页魔法的快捷键列表。",
 
-    "config.cast_spell_8_key.name": "Cast Spell Page 8",
-    "config.cast_spell_8_key.tooltip": "A list of keybinds to cast the spell in the 8th page of the spell book.",
+    "config.cast_spell_8_key.name": "施放第8页魔法",
+    "config.cast_spell_8_key.tooltip": "用于施放魔法书第8页魔法的快捷键列表。",
 
-    "config.cast_spell_9_key.name": "Cast Spell Page 9",
-    "config.cast_spell_9_key.tooltip": "A list of keybinds to cast the spell in the 9th page of the spell book.",
+    "config.cast_spell_9_key.name": "施放第9页魔法",
+    "config.cast_spell_9_key.tooltip": "用于施放魔法书第9页魔法的快捷键列表。",
 
-    "config.cast_spell_10_key.name": "Cast Spell Page 10",
-    "config.cast_spell_10_key.tooltip": "A list of keybinds to cast the spell in the 10th page of the spell book.",
+    "config.cast_spell_10_key.name": "施放第10页魔法",
+    "config.cast_spell_10_key.tooltip": "用于施放魔法书第10页魔法的快捷键列表。",
 
     /*********
 	** Spell Parts
@@ -79,14 +79,14 @@
     "spellpart.self.name": "自身施法",
     "spellpart.self.description": "施法效果将应用于自己。",
 
-    "spellpart.projectile.name": "魔法弹",
-    "spellpart.projectile.description": "发射魔法能量球。",
+    "spellpart.projectile.name": "弹射物",
+    "spellpart.projectile.description": "发射魔法弹射物。",
 
-    "spellpart.touch.name": "接触施法",
-    "spellpart.touch.description": "当您触摸地形时，将选择该地形作为目标。",
+    "spellpart.touch.name": "触摸",
+    "spellpart.touch.description": "当你触摸地块时，将选择该地块作为目标。",
 
-    "spellpart.ethereal_touch.name": "光标触碰",
-    "spellpart.ethereal_touch.description": "根据鼠标光标位置选择目标地形。",
+    "spellpart.ethereal_touch.name": "光标触摸",
+    "spellpart.ethereal_touch.description": "根据鼠标光标位置选择目标地块。",
 
     "spellpart.aoe.name": "影响范围",
     "spellpart.aoe.description": "在触发地点的周围施放这个魔法。此形状必须最后放置。",
@@ -94,26 +94,26 @@
     "spellpart.zone.name": "魔法区域",
     "spellpart.zone.description": "创建持续作用的魔法区域。此形状必须最后放置，并将持续激活所附加的魔法效果。",
 
-    "spellpart.wave.name": "Wave",
-    "spellpart.wave.description": "Makes a zone that move forwards, applies the spell effect it was attached to.",
+    "spellpart.wave.name": "波动",
+    "spellpart.wave.description": "生成一个向前移动的区域，施加与其绑定的魔法效果。",
 
-    "spellpart.beam.name": "Beam",
-    "spellpart.beam.description": "Makes a Beam shape will continuously trigger the spell effect on whatever you're targeting",
+    "spellpart.beam.name": "光束",
+    "spellpart.beam.description": "生成一束光束，会持续对目标触发绑定的魔法效果。",
 
-    "spellpart.wall.name": "Wall",
-    "spellpart.wall.description": "Makes a wall in front of the caster that will continuously trigger the spell effect it was attached to. Needs a target shape before it and must be placed last.",
+    "spellpart.wall.name": "墙体",
+    "spellpart.wall.description": "在施法者前方生成一面墙，会持续触发绑定的魔法效果。需要在其前方有一个目标形状，并且必须放在最后。",
 
-    "spellpart.rune.name": "Rune",
-    "spellpart.rune.description": "Places a rune on the ground. The rune placed has only one use and triggers whatever spell is on it.",
+    "spellpart.rune.name": "符文",
+    "spellpart.rune.description": "在地上放置一个符文。放置的符文只能使用一次，触发绑定在其上的魔法。",
 
-    "spellpart.channel.name": "Channel",
-    "spellpart.channel.description": "Will continuously cast the spell in front of you",
+    "spellpart.channel.name": "通道",
+    "spellpart.channel.description": "持续在前方施放魔法。",
 
-    "spellpart.contingency_damage.name": "Contingency Damage",
-    "spellpart.contingency_damage.description": "Will cast the spell if the target takes damage. Disappers when the condition is met.",
+    "spellpart.contingency_damage.name": "伤害触发",
+    "spellpart.contingency_damage.description": "如果目标受到伤害，将施放魔法。条件满足后消失。",
 
-    "spellpart.contingency_health.name": "Contingency Health",
-    "spellpart.contingency_health.description": "Will cast the spell if the target gains health. Disappers when the condition is met.",
+    "spellpart.contingency_health.name": "治疗触发",
+    "spellpart.contingency_health.description": "如果目标获得生命值，将施放魔法。条件满足后消失。",
 
 
     "spellpart.dig.name": "挖掘",
@@ -152,38 +152,38 @@
     "spellpart.physical_damage.name": "物理伤害",
     "spellpart.physical_damage.description": "对目标造成物理伤害。",
 
-    "spellpart.magic_damage.name": "Magic Damage",
-    "spellpart.magic_damage.description": "Ignores armor and resistances and damages the target.",
+    "spellpart.magic_damage.name": "奥术伤害",
+    "spellpart.magic_damage.description": "无视护甲和抗性，对目标造成伤害。",
 
-    "spellpart.frost_damage.name": "Frost Damage",
-    "spellpart.frost_damage.description": "Damages the target using the power of ice. Enemies vulnerable to ice take more damage.",
+    "spellpart.frost_damage.name": "冰霜伤害",
+    "spellpart.frost_damage.description": "使用冰的力量对目标造成伤害。对具有冰弱点的敌人造成更多伤害。",
 
-    "spellpart.lightning_damage.name": "Lightning Damage",
-    "spellpart.lightning_damage.description": "Damages the target using the power of lightning.",
+    "spellpart.lightning_damage.name": "雷电伤害",
+    "spellpart.lightning_damage.description": "使用雷电的力量对目标造成伤害。",
 
-    "spellpart.fire_damage.name": "Fire Damage",
-    "spellpart.fire_damage.description": "Damages the target using the power of fire. Enemies vulnerable to fire take more damage.",
+    "spellpart.fire_damage.name": "火焰伤害",
+    "spellpart.fire_damage.description": "使用火焰的力量对目标造成伤害。对具有火焰弱点的敌人造成更多伤害。",
 
     "spellpart.haste.name": "加速",
     "spellpart.haste.description": "提升玩家的移动速度。",
 
-    "spellpart.regeneration.name": "Regeneration",
-    "spellpart.regeneration.description": "Regenerates the player's health over a period of time.",
+    "spellpart.regeneration.name": "再生",
+    "spellpart.regeneration.description": "在一段时间内恢复玩家的生命值。",
 
-    "spellpart.mana_regeneration.name": "Mana Regeneration",
-    "spellpart.mana_regeneration.description": "Regenerates the player's mana over a period of time.",
+    "spellpart.mana_regeneration.name": "魔力再生",
+    "spellpart.mana_regeneration.description": "在一段时间内恢复玩家的魔法值。",
 
-    "spellpart.dispel.name": "Dispel",
-    "spellpart.dispel.description": "Removes effects on your farmer.",
+    "spellpart.dispel.name": "驱散",
+    "spellpart.dispel.description": "移除玩家身上的效果。",
 
-    "spellpart.forge.name": "Forge",
-    "spellpart.forge.description": "Used to smelt items like they would in a furnace. Works well with dig.",
+    "spellpart.forge.name": "锻造",
+    "spellpart.forge.description": "用于熔炼物品，就像在熔炉中一样。与挖掘配合效果良好。",
 
-    "spellpart.shield.name": "Shield",
-    "spellpart.shield.description": "Creates an arcane energy to shield around a player target. The shield will reduce all damage taken.",
+    "spellpart.shield.name": "护盾",
+    "spellpart.shield.description": "为玩家目标创造一个奥术能量护盾。护盾可以减少所有受到的伤害。",
 
-    "spellpart.summon.name": "Summon",
-    "spellpart.summon.description": "Creates a spell to summon a junimo to protect you.",
+    "spellpart.summon.name": "召唤",
+    "spellpart.summon.description": "创造一个召唤一个精灵（祝尼魔）来保护你的魔法。",
 
 
     "spellpart.damage.name": "伤害增强",
@@ -205,20 +205,20 @@
     "spellpart.healing.description": "增强治疗组件的效果。",
 
     "spellpart.duration.name": "持续时间",
-    "spellpart.duration.description": "Adds additional time to spell parts that have a duration.",
+    "spellpart.duration.description": "为具有持续时间的魔法组件增加额外时间。",
 
     "spellpart.mining_power.name": "采矿强化",
     "spellpart.mining_power.description": "为挖掘魔法增加+1斧头/镐头等级。",
 
-    "spellpart.effect_power.name": "Effect Power",
-    "spellpart.effect_power.description": "Inceases the power of effect based components.",
+    "spellpart.effect_power.name": "效果强度",
+    "spellpart.effect_power.description": "增加基于效果的魔法组件的强度。",
 
     /*********
 	** Buffs/Debuffs
 	*********/
 
     "debuff.grow_sickness.name": "催长疾病",
-    "buff.mana_regeneration.name": "Mana Regeneration",
+    "buff.mana_regeneration.name": "魔法再生",
 
     /*********
 	** Spell Cast Warnings
@@ -239,22 +239,22 @@
     "ui.spell_book.source_area.name": "源魔法区域",
 
     "ui.spell_book.shape_group_area.name": "形状组合区域",
-    "ui.spell_book.shape_group_area.description": "Where shapes (squares) and modifiers (diamonds) affecting those shapes are placed. Place them into a shape group starting from left to right with no gaps in between.",
+    "ui.spell_book.shape_group_area.description": "放置形状（方形）和影响这些形状的修饰符（菱形）的地方。将它们从左到右依次放入形状组合区域，中间不要留有空隙。",
 
     "ui.spell_book.spell_grammar_area.name": "魔法语法区域",
-    "ui.spell_book.spell_grammar_area.description": "Where components (octagons) and modifiers (diamonds) affecting those components are placed.",
+    "ui.spell_book.spell_grammar_area.description": "放置魔法组件（八边形）和影响这些组件的修饰符（菱形）的地方。",
 
-    "ui.spell_book.spell_name_textbox.name": "Spell Name",
+    "ui.spell_book.spell_name_textbox.name": "魔法名称",
 
     "ui.magic_altar.offense_tab.name": "攻击",
     "ui.magic_altar.defense_tab.name": "防御",
     "ui.magic_altar.utility_tab.name": "实用",
 
-    "ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
+    "ui.magic_altar.drag_label.description": "可以通过鼠标左键拖动来移动标签窗口。如果使用手柄，则可以通过方向键上键切换拖动状态。",
 
-    "ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",
-    "ui.magic_altar.tooltip_name_not_learned.name": "(Not Learned)",
-    "ui.magic_altar.tooltip_name_learned.name": "(Learned)",
+    "ui.magic_altar.tooltip_name_cant_learn.name": "(无法学习)",
+    "ui.magic_altar.tooltip_name_not_learned.name": "(未学习)",
+    "ui.magic_altar.tooltip_name_learned.name": "(已学习)",
 
     /*********
 	** Skill/Professions
