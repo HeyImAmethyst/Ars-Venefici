@@ -70,6 +70,12 @@ Version 1.2.0 of this mod adds the ability for you to add food items that replen
 }
 ```
 
+# Rune Table
+
+Version 1.10 adds a new machine called a rune table. It will allow you to make different colored runes! You would need to craft a blank rune (which is a crafting recipe unlocked if you have learned wizardry) and an additional item (similar to how the furnace needs coal and the ore you need to smelt). To make any of the colored runes, an item with the color you are looking for needs to be placed into the table. So if you want a red rune, you need to have a red item (like a strawberry for example) and right click the table with it, while having a blank rune in your inventory. Some of the new items added with this mod can be used to make runes as well!
+
+Any item that has a color context tag that the rune table is able to make a rune for can be used. If you have [LookupAnything](https://www.nexusmods.com/stardewvalley/mods/541?tab=description), the item information menu should tell you if an item can be used to make a colored rune.
+
 The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If the value isn't a number or has any letters or other characters in it, the item will not replenish any mana.
 
 # Console Commands
