@@ -487,6 +487,12 @@ namespace ArsVenefici.Framework.Events
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
                         Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
 
+                    if (Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake") && Game1.player.mailForTomorrow.Contains("ArsVenefici.Mail.ManaManagement"))
+                        Game1.player.mailForTomorrow.Remove("ArsVenefici.Mail.ManaManagement");
+
+                    if (Game1.player.mailbox.Contains("ArsVenefici.Mail.ManaManagement") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
+                        Game1.player.mailbox.Remove("ArsVenefici.Mail.ManaManagement");
+
                     //Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
 
                     modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
