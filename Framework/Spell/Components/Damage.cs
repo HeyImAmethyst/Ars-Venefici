@@ -188,7 +188,7 @@ namespace ArsVenefici.Framework.Spell.Components
                 }
             }
 
-            if (living is Farmer farmer)
+            if (living is Farmer farmer && farmer != caster.entity)
             {
                 if (damage < 0)
                 {

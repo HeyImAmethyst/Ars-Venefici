@@ -44,10 +44,11 @@ namespace ArsVenefici.Framework.Spell.Shape
 
             float radius = helper.GetModifiedStat(1, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index);
             int duration = (int)(200 + helper.GetModifiedStat(100, new SpellPartStats(SpellPartStatType.DURATION), modifiers, spell, caster, hit, index));
+            int piercing = (int)helper.GetModifiedStat(0, new SpellPartStats(SpellPartStatType.PIERCING), modifiers, spell, caster, hit, index);
 
             Farmer farmer = caster.entity as Farmer;
 
-            WaveEffect waveEffect = new WaveEffect(modEntry, spell, position, radius, duration, farmer.FacingDirection);
+            WaveEffect waveEffect = new WaveEffect(modEntry, spell, position, piercing, radius, duration, farmer.FacingDirection);
             waveEffect.SetIndex(index);
             waveEffect.SetOwner(caster);
 

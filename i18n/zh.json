@@ -115,6 +115,9 @@
     "spellpart.contingency_health.name": "治疗触发",
     "spellpart.contingency_health.description": "如果目标获得生命值，将施放魔法。条件满足后消失。",
 
+    "spellpart.cone.name": "Cone",
+    "spellpart.cone.description": "Will cast the spell in a cone shape.",
+
 
     "spellpart.dig.name": "挖掘",
     "spellpart.dig.description": "破坏岩石、碎片，砍伐树木。",

@@ -164,6 +164,16 @@ namespace ArsVenefici.Framework.Spell
             return GameLocationUtils.Clip(new CharacterEntityWrapper(entity), fromTilePos.GetVector(), toTilePos.GetVector());
         }
 
+        public List<HitResult> TraceCone(ModEntry modEntry, Character entity, GameLocation level, int range)
+        {
+            Vector2 playerToolTile = Utils.AbsolutePosToTilePos(Utility.clampToTile(entity.GetToolLocation(true)));
+            Vector2 fromTileVec = playerToolTile;
+
+            TilePos fromTilePos = new TilePos(fromTileVec);
+
+            return GameLocationUtils.GetTilesInCone(new CharacterEntityWrapper(entity), fromTilePos.GetVector(), range);
+        }
+
         public float GetModifiedStat(float baseValue, ISpellPartStat stat, List<ISpellModifier> modifiers, ISpell spell, IEntity caster, HitResult target, int componentIndex)
         {
             componentIndex--;

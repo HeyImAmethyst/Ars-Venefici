@@ -11,6 +11,12 @@ namespace ArsVenefici.Framework.Util
 {
     public static class Utils
     {
+        public const float Deg2Rad = (float)(Math.PI * 2F / 360F);
+        public const float Rad2Deg = 1F / Deg2Rad;
+
+        public const float kEpsilon = 0.00001F;
+        public const float kEpsilonNormalSqrt = 1e-15f;
+
         public static T RequireNotNull<T>(T arg)
         {
             if (arg == null)
@@ -82,6 +88,33 @@ namespace ArsVenefici.Framework.Util
             return newEndPoint;
         }
 
+        public static float Angle(Vector2 from, Vector2 to)
+        {
+            // sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers
+            float denominator = (float)Math.Sqrt(from.LengthSquared() * to.LengthSquared());
+
+            if (denominator < kEpsilonNormalSqrt)
+                return 0F;
+
+            float dot = Math.Clamp(Vector2.Dot(from, to) / denominator, -1F, 1F);
+            return (float)Math.Acos(dot) * Rad2Deg;
+        }
+
+        public static float RemapValue(float value, float initialMin, float initialMax, float outputMin, float outputMax)
+        {
+            return outputMin + (value - initialMin) * (outputMax - outputMin) / (initialMax - initialMin);
+        }
+
+        public static float WrapValue(float value, float min, float max)
+        {
+            if (value > max)
+                return (value - max) + min;
+
+            if (value < min)
+                return max - (min - value);
+
+            return value;
+        }
 
         /*
          * 

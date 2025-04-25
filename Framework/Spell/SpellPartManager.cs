@@ -44,12 +44,13 @@ namespace ArsVenefici.Framework.Spell
             AoE aoE = new AoE();
             Zone zone = new Zone();
             Wave wave = new Wave();
-            //Beam beam = new Beam();
+            Beam beam = new Beam();
             Wall wall = new Wall();
             Rune rune = new Rune();
             Channel channel = new Channel();
             Contingency contingency_health = new Contingency("contingency_health", ContingencyType.HEALTH);
             Contingency contingency_damage = new Contingency("contingency_damage", ContingencyType.DAMAGE);
+            Cone cone = new Cone();
 
             spellParts.Add(self.GetId(), self);
             spellParts.Add(projectile.GetId(), projectile);
@@ -58,12 +59,13 @@ namespace ArsVenefici.Framework.Spell
             spellParts.Add(aoE.GetId(), aoE);
             spellParts.Add(zone.GetId(), zone);
             spellParts.Add(wave.GetId(), wave);
-            //spellParts.Add(beam.GetId(), beam);
+            spellParts.Add(beam.GetId(), beam);
             spellParts.Add(wall.GetId(), wall);
             spellParts.Add(rune.GetId(), rune);
             spellParts.Add(channel.GetId(), channel);
             spellParts.Add(contingency_health.GetId(), contingency_health);
             spellParts.Add(contingency_damage.GetId(), contingency_damage);
+            spellParts.Add(cone.GetId(), cone);
         }
 
         private void AddComonents()
@@ -151,7 +153,8 @@ namespace ArsVenefici.Framework.Spell
             GenericSpellModifier miningPower = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.MINING_TIER), DefaultSpellPartStatModifier.Add(1f));
             miningPower.SetId("mining_power");
 
-            GenericSpellModifier effectPower = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.POWER), DefaultSpellPartStatModifier.COUNTING);
+            //GenericSpellModifier effectPower = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.POWER), DefaultSpellPartStatModifier.COUNTING);
+            GenericSpellModifier effectPower = new GenericSpellModifier(1.25f).AddStatModifier(new SpellPartStats(SpellPartStatType.POWER), DefaultSpellPartStatModifier.Multiply(2f));
             effectPower.SetId("effect_power");
 
             spellParts.Add(damage.GetId(), damage);

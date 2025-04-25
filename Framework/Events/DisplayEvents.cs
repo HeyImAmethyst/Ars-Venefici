@@ -21,6 +21,10 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using static SpaceCore.Skills;
 using ArsVenefici.Framework.FarmerPlayer;
+using ItemExtensions.Additions;
+using ItemExtensions;
+using StardewValley.Objects;
+using System.Reflection;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -59,6 +63,7 @@ namespace ArsVenefici.Framework.Events
             RenderHitboxes(e.SpriteBatch, location, displayHitBoxes);
             RenderShield(e.SpriteBatch, location);
             RenderBeam(e.SpriteBatch);
+            //RenderAoE(e.SpriteBatch);
             RenderTouchIndicator(e.SpriteBatch);
 
             //draw active effects
@@ -72,6 +77,89 @@ namespace ArsVenefici.Framework.Events
                 return;
         }
 
+        public void RenderAoE(SpriteBatch spriteBatch)
+        {
+            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy || !FarmerMagicHelper.SpellCastingMode)
+                return;
+
+            SpellBook spellBook = Game1.player.GetSpellBook();
+            ISpell spell = spellBook.GetSpells()[spellBook.GetCurrentSpellIndex()];
+
+            if (spell != null)
+            {
+                if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer && (!Game1.player.isMoving()))
+                {
+                    Vector2 local = Vector2.One;
+                    Texture2D aoeTexture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/aoe/aoe.png");
+
+                    foreach (var item in spell.ShapeGroup(spell.CurrentShapeGroupIndex()).Parts())
+                    {
+                        if (item is AoE aoE && modEntryInstance.buttonEvents.spellKeyHoldTime > 0)
+                        {
+                            SpellCastResult spellCastResult = aoE.GetCastResult();
+
+                            if(spellCastResult != null)
+                            {
+                                if (spellCastResult.GetSpellCastResultType() == SpellCastResultType.SUCCESS)
+                                {
+                                    
+                                }
+                            }
+
+                            local = Utils.AbsolutePosToScreenPos(new Vector2(aoE.GetBoundingBox().X, aoE.GetBoundingBox().Y));
+
+                            //var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), new Rectangle((int)local.X, (int)local.Y, (int)width, (int)height));
+                            var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), aoE.GetBoundingBox());
+
+                            float speed = -0.3f;
+                            Rectangle imageSourceRect = new Rectangle(0, 0, 64, 16);
+
+                            //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite()
+                            //{
+                            //    texture = aoeTexture,
+                            //    initialParentTileIndex = 0,
+                            //    animationLength = 4,
+                            //    totalNumberOfLoops = 0,
+                            //    flicker = false,
+                            //    flipped = false,
+                            //    sourceRect = imageSourceRect,
+                            //    sourceRectStartingPos = new Vector2(imageSourceRect.X, imageSourceRect.Y),
+                            //    initialPosition = local,
+                            //    alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
+                            //    alpha = 0.2f,
+                            //    //motion = new Vector2(0.0f, speed),
+                            //    //acceleration = new Vector2(0.0f, 0.0f),
+                            //    interval = 99999f,
+                            //    layerDepth = (float)(aoE.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
+                            //    //scale = (float)size,
+                            //    scale = 8f,
+                            //    scaleChange = 0.01f,
+                            //    rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0),
+                            //    color = Color.White
+                            //};
+
+                            //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), local, false, 1f / 500f, new Color(0, 48, 255, 127))
+                            //{
+                            //    alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
+                            //    alpha = 0.2f,
+                            //    //motion = new Vector2(0.0f, speed),
+                            //    //acceleration = new Vector2(0.0f, 0.0f),
+                            //    interval = 99999f,
+                            //    layerDepth = (float)(aoE.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
+                            //    scale = 8f,
+                            //    scaleChange = 0.01f,
+                            //    rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0)
+                            //};
+
+                            //Game1.player.currentLocation.temporarySprites.Add(sprite);
+
+                            //spriteBatch.Draw(aoeTexture, local, imageSourceRect, Color.White, 0, Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
+                        }
+                    }
+                }
+            }
+        }
+
         public void RenderBeam(SpriteBatch spriteBatch)
         {
             if (!modEntryInstance.farmerMagicHelper.LearnedWizardy || !FarmerMagicHelper.SpellCastingMode)
@@ -83,7 +171,7 @@ namespace ArsVenefici.Framework.Events
 
             if (spell != null)
             {
-                if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer && /*Game1.player.CurrentTool != null &&*/ (Game1.oldKBState.IsKeyDown(Keys.LeftShift) || Game1.options.alwaysShowToolHitLocation) && /*this.CurrentTool.doesShowTileLocationMarker() &&*/ (!Game1.options.hideToolHitLocationWhenInMotion || !Game1.player.isMoving()))
+                if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer && (!Game1.player.isMoving()))
                 {
                     Vector2 local = Vector2.One;
                     Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/beam/beam.png");
@@ -96,34 +184,77 @@ namespace ArsVenefici.Framework.Events
 
                         //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
 
-                        ICursorPosition cursorPosition = modEntryInstance.Helper.Input.GetCursorPosition();
+                        //ICursorPosition cursorPosition = modEntryInstance.Helper.Input.GetCursorPosition();
 
-                        Vector2 absoluteClampedMousePos = Utility.clampToTile(cursorPosition.AbsolutePixels);
+                        //Vector2 absoluteClampedMousePos = Utility.clampToTile(cursorPosition.AbsolutePixels);
 
                         //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
                         //local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
-                        local = Utils.AbsolutePosToScreenPos(Game1.player.getStandingPosition());
+                        local = Utils.AbsolutePosToScreenPos(Game1.player.GetBoundingBox().Center.ToVector2());
 
                         //Vector2 dPos = local - Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
                         //Vector2 dPos = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos) - local;
 
-                        var screenMousePos = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+                        //var screenMousePos = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
 
 
-                        var localMouse = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
+                        //var localMouse = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
 
-                        spriteBatch.Draw(texture2, localMouse, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        //spriteBatch.Draw(texture2, localMouse, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
 
                         //var rotation = (float)Math.Atan2(dPos.Y, dPos.X);
-                        var rotation = (float)-Math.Atan2(local.Y - screenMousePos.Y, screenMousePos.X - local.X);
+                        //var rotation = (float)-Math.Atan2(local.Y - screenMousePos.Y, screenMousePos.X - local.X);
 
-                        float width = screenMousePos.X - local.X;
-                        float height = screenMousePos.Y - local.Y;
+                        //float width = screenMousePos.X - local.X;
+                        //float height = screenMousePos.Y - local.Y;
 
-                        var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), new Rectangle((int)local.X, (int)local.Y, (int)width, (int)height));
+                        Beam beam = spell.FirstShape(spell.CurrentShapeGroupIndex()) as Beam;
 
-                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 198, 22), Color.White, rotation, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        //var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), new Rectangle((int)local.X, (int)local.Y, (int)width, (int)height));
+                        var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), beam.GetHorizontalBoundingBox());
 
+                        ////Rectangle image = new Rectangle((int)local.X, (int)local.Y, 198, 22);
+                        //Rectangle image = new Rectangle(0, 0, 198, 22);
+                        //Rectangle boundingBox = beam.GetHorizontalBoundingBox();
+
+                        //double widthScale = 0, heightScale = 0;
+
+                        //if (image.Width != 0)
+                        //    widthScale = boundingBox.Width / (double)image.Width;
+
+                        //if (image.Height != 0)
+                        //    heightScale = boundingBox.Height / (double)image.Height;
+
+                        ////double scale = Math.Min(widthScale, heightScale);
+                        //double size = 1;
+
+                        float rotation = 0;
+
+                        if (Game1.player.FacingDirection == 1) // right
+                        {
+                            rotation = 0;
+                            local.Y -= 25;
+                        }
+
+                        if (Game1.player.FacingDirection == 3) // left
+                        {
+                            rotation = 180f;
+                            local.Y += 25;
+                        }
+
+                        if (Game1.player.FacingDirection == 0) // up
+                        {
+                            rotation = 270f;
+                            local.X -= 25;
+                        }
+
+                        if (Game1.player.FacingDirection == 2) // down
+                        {
+                            rotation = 90f;
+                            local.X += 25;
+                        }
+
+                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 198, 22), Color.White, MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
 
                     }
                 }
@@ -133,6 +264,7 @@ namespace ArsVenefici.Framework.Events
         private static double ExpandToBound(Rectangle image, Rectangle boundingBox)
         {
             double widthScale = 0, heightScale = 0;
+
             if (image.Width != 0)
                 widthScale = boundingBox.Width / (double)image.Width;
             if (image.Height != 0)

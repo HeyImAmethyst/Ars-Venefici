@@ -33,23 +33,39 @@ namespace ArsVenefici.Framework.Spell.Components
 
                 Farmer farmer = ((Farmer)caster.entity);
 
-                if (gameLocation.damageMonster(living.GetBoundingBox(), (int)damage, (int)(damage * (1f + farmer.buffs.AttackMultiplier)), false, farmer))
+                int monsterHealth = living.Health;
+
+                if (gameLocation.damageMonster(living.GetBoundingBox(), (int)damage, (int)(damage * (1f + farmer.buffs.AttackMultiplier)), true, farmer))
                 {
-                    farmer.health = Math.Min(farmer.maxHealth, farmer.health + (int)damage);
+                    float value = (Game1.random.Next((int)damage, (int)(damage * (1f + farmer.buffs.AttackMultiplier)) + 1) * monsterHealth * 0.01f) / 2;
+                    
+                    //int percentage = 25;
+                    //float result = (percentage / 100) * monsterHealth;
+                    //int finalValue = (int)Math.Min(value, result);
+
+                    int health = (int)(farmer.health + value);
+                    farmer.health = Math.Max(0, Math.Min(farmer.maxHealth, health));
                 }
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }
 
-            if (target.GetCharacter() is Farmer targetFarmer)
+            if (target.GetCharacter() is Farmer targetFarmer && target.GetCharacter() != caster.entity)
             {
+                Farmer farmer = ((Farmer)caster.entity);
                 var helper = SpellHelper.Instance();
-                float damage = helper.GetModifiedStat(2, new SpellPartStats(SpellPartStatType.DAMAGE), modifiers, spell, caster, target, index) * 2;
+                float damage = helper.GetModifiedStat(25, new SpellPartStats(SpellPartStatType.DAMAGE), modifiers, spell, caster, target, index) * 2;;
 
                 targetFarmer.health -= (int)damage;
 
-                Farmer farmer = ((Farmer)caster.entity);
-                farmer.health = Math.Min(farmer.maxHealth, farmer.health + (int)damage);
+                float value = (Game1.random.Next((int)damage, (int)(damage * (1f + farmer.buffs.AttackMultiplier)) + 1) * targetFarmer.health * 0.01f) / 2;
+                
+                //int percentage = 25;
+                //float result = (percentage / 100) * targetFarmer.health;
+                //int finalValue = (int)Math.Min(value, result);
+
+                int health = (int)(farmer.health + value);
+                farmer.health = Math.Max(0, Math.Min(farmer.maxHealth, health));
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }

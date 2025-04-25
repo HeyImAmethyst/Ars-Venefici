@@ -1,13 +1,19 @@
-﻿using StardewValley.TerrainFeatures;
-using StardewValley;
+﻿using ArsVenefici.Framework.Interfaces;
+using ArsVenefici.Framework.Spell.Components;
 using Microsoft.Xna.Framework;
-using ArsVenefici.Framework.Interfaces;
+using Newtonsoft.Json.Linq;
+using StardewValley;
+using StardewValley.Extensions;
+using StardewValley.Locations;
+using StardewValley.TerrainFeatures;
+using xTile;
+using static StardewValley.Minigames.TargetGame;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace ArsVenefici.Framework.Util
 {
     public static class GameLocationUtils
     {
-
         public static HitResult GetHitResult(Vector2 from, Vector2 to, IEntity entity)
         {
             HitResult hitResult = Clip(entity, from, to);
@@ -165,6 +171,173 @@ namespace ArsVenefici.Framework.Util
             return TerrainFeatureHitResult.Miss(to, dir, new TilePos(to));
         }
 
+        public static List<HitResult> GetTilesInCone(IEntity entity, Vector2 from, int range)
+        {
+            List<HitResult> list = new List<HitResult>();
+
+            Farmer farmer = entity.entity as Farmer;
+            GameLocation level = entity.GetGameLocation();
+
+            //int facingAngle = 0;
+
+            //if (farmer.FacingDirection == 1) //right
+            //{
+            //    facingAngle = 0;
+            //}
+
+            //if (farmer.FacingDirection == 3) //left
+            //{
+            //    facingAngle = 180;
+            //}
+
+            //if (farmer.FacingDirection == 0) // up
+            //{
+            //    facingAngle = 90;
+            //}
+
+            //if (farmer.FacingDirection == 2) // down
+            //{
+            //    facingAngle = 270;
+            //}
+
+            //0 degrees points up, 90 degrees points right, 180 degrees points down, and 270 degrees points left
+
+            int facingAngle = 90;
+
+            if (farmer.FacingDirection == 1) //right
+            {
+                facingAngle = 90;
+            }
+
+            if (farmer.FacingDirection == 3) //left
+            {
+                facingAngle = 270;
+            }
+
+            if (farmer.FacingDirection == 0) // up
+            {
+                facingAngle = 0;
+            }
+
+            if (farmer.FacingDirection == 2) // down
+            {
+                facingAngle = 180;
+            }
+
+            //float minAngle = MathHelper.ToRadians(facingAngle - 45);
+            //float maxAngle = MathHelper.ToRadians(facingAngle + 45);
+
+            float minAngle = facingAngle - 45;
+            float maxAngle = facingAngle + 45;
+
+            //minAngle = Utils.WrapValue(minAngle, 0, 360);
+            //maxAngle = Utils.WrapValue(maxAngle, 0, 360);
+
+            //ModEntry.INSTANCE.Monitor.Log("minAngle:" + minAngle, StardewModdingAPI.LogLevel.Info);
+            //ModEntry.INSTANCE.Monitor.Log("maxAngle:" + maxAngle, StardewModdingAPI.LogLevel.Info);
+
+            if (minAngle > maxAngle)
+            {
+                float temp = minAngle;
+
+                minAngle = maxAngle;
+                maxAngle = temp;
+
+                //ModEntry.INSTANCE.Monitor.Log("minAngleNew:" + minAngle, StardewModdingAPI.LogLevel.Info);
+                //ModEntry.INSTANCE.Monitor.Log("maxAngleNew:" + maxAngle, StardewModdingAPI.LogLevel.Info);
+            }
+
+            List<Vector2> positionsToAffect = new List<Vector2>();
+
+            for (int x = -range; x <= range; x++)
+            {
+                for (int y = -range; y <= range; y++)
+                {
+                    Vector2 sample = new Vector2(x, y);
+                    float sampleDistance = sample.Length();
+
+                    Vector2 position = sample + farmer.Tile;
+
+                    /* atan2 is the function you want for calculating the angle between the positive x axis and a ray between (0,0) and (x, y). 
+                     * If you had trouble with it before, it's probably because values weren't normalized.
+                     * 
+                     * Rather than converting your angles to radians, I'd just convert the atan2 output to degrees, normalize everything to the range 0..360, 
+                     * and make sure you have two different in-range checks depending on if maxAngle is less than minAngle, indicating wrapping.
+                    */
+
+                    //float theta = (float)Math.Acos(sample.X / sampleDistance);
+                    float theta = (float)Math.Atan2(sample.X, -sample.Y);
+                    float thetaDegrees = MathHelper.ToDegrees(theta);
+
+                    thetaDegrees = Utils.WrapValue(thetaDegrees, 0, 360);
+
+                    if(facingAngle == 0)
+                    {
+                        thetaDegrees = MathHelper.ToDegrees(theta);
+                    }
+
+                    //float normalizedAngle = Utils.RemapValue(thetaDegrees, minAngle, maxAngle, 0, 360);
+                    //ModEntry.INSTANCE.Monitor.Log("thetaDegrees:" + thetaDegrees, StardewModdingAPI.LogLevel.Info);
+
+                    if (sampleDistance <= range)
+                    {
+                        if (thetaDegrees >= minAngle && thetaDegrees <= maxAngle)
+                        {
+                            positionsToAffect.Add(position);
+                        }
+                    }
+                }
+            }
+
+            foreach (Vector2 position in positionsToAffect)
+            {
+                float dir = (float)-Math.Atan2(entity.GetPosition().Y - position.Y, position.X - entity.GetPosition().X);
+
+                if (level.terrainFeatures.TryGetValue(position, out TerrainFeature terrainFeature))
+                {
+                    TerrainFeatureHitResult terrainFeatureHitResult = new TerrainFeatureHitResult(position, dir, new TilePos(position), false);
+                    list.Add(terrainFeatureHitResult);
+                }
+                else if (level.objects.TryGetValue(position, out StardewValley.Object obj))
+                {
+                    TerrainFeatureHitResult terrainFeatureHitResult = new TerrainFeatureHitResult(position, dir, new TilePos(position), false);
+                    list.Add(terrainFeatureHitResult);
+                }
+                else
+                {
+                    TerrainFeatureHitResult terrainFeatureHitResult = TerrainFeatureHitResult.Miss(position, dir, new TilePos(position));
+                    list.Add(terrainFeatureHitResult);
+                }
+            }
+
+            //ModEntry.INSTANCE.Monitor.Log("positionsToAffect:" + positionsToAffect.Count, StardewModdingAPI.LogLevel.Info);
+            //ModEntry.INSTANCE.Monitor.Log("--------------------------", StardewModdingAPI.LogLevel.Info);
+
+            return list;
+        }
+
+        public static Vector2 CheckPoint(int radius, int x, int y, float percent, float startAngle)
+        {
+
+            // calculate endAngle
+            float endAngle = 360 / percent + startAngle;
+
+            // Calculate polar co-ordinates
+            float polarradius =
+                        (float)Math.Sqrt(x * x + y * y);
+
+            float Angle = (float)Math.Atan(y / x);
+
+            // Check whether polarradius is less then 
+            // radius of circle or not and Angle is 
+            // between startAngle and endAngle or not
+
+            if (Angle >= startAngle && Angle <= endAngle && polarradius < radius)
+                return new Vector2(x, y);
+            else
+                return Vector2.Zero;
+        }
+
         public static List<Character> GetCharacters(IEntity entity, Rectangle aABB, Predicate<Character> predicate)
         {
             List<Character> list = new List<Character>();
@@ -262,6 +435,34 @@ namespace ArsVenefici.Framework.Util
                 foreach (Farmer farmer in location.farmers)
                 {
                     if (farmer.GetBoundingBox().Intersects(aABB))
+                    {
+                        list.Add(farmer);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public static List<Character> GetCharacters(IEntity entity, Vector2 point)
+        {
+            List<Character> list = new List<Character>();
+
+            GameLocation location = entity.GetGameLocation();
+
+            if (location != null)
+            {
+                foreach (Character character in location.characters)
+                {
+                    if (character.Tile == point)
+                    {
+                        list.Add(character);
+                    }
+                }
+
+                foreach (Farmer farmer in location.farmers)
+                {
+                    if (farmer.Tile == point)
                     {
                         list.Add(farmer);
                     }

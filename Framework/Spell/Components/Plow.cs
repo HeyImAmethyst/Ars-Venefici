@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using xTile.Dimensions;
+using xTile.Tiles;
 using static ArsVenefici.Framework.GUI.DragNDrop.SpellPartDraggable;
 
 namespace ArsVenefici.Framework.Spell.Components
@@ -38,7 +39,7 @@ namespace ArsVenefici.Framework.Spell.Components
         {
             //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
 
-            TilePos blockPos = target.GetTilePos();
+            TilePos tilePos = target.GetTilePos();
 
             // create fake tools
             Hoe hoe = new();
@@ -50,29 +51,29 @@ namespace ArsVenefici.Framework.Spell.Components
                 modEntry.Helper.Reflection.GetField<Farmer>(t, "lastUser").SetValue(caster.entity as Farmer);
             }
 
-            Vector2 tile = blockPos.GetVector();
-            Vector2 toolPixel = (tile * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
+            Vector2 tilePosVector = tilePos.GetVector();
+            Vector2 toolPixel = (tilePosVector * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
 
             // skip if blocked
 
-            if (gameLocation.terrainFeatures.ContainsKey(tile))
+            if (gameLocation.terrainFeatures.ContainsKey(tilePosVector))
             {
-                if (gameLocation.terrainFeatures.TryGetValue(tile, out var terrainFeature))
+                if (gameLocation.terrainFeatures.TryGetValue(tilePosVector, out var terrainFeature))
                 {
-                    if (terrainFeature.performToolAction(hoe, 0, tile))
+                    if (terrainFeature.performToolAction(hoe, 0, tilePosVector))
                     {
-                        gameLocation.terrainFeatures.Remove(tile);
+                        gameLocation.terrainFeatures.Remove(tilePosVector);
                     }
                 }
             }
 
             // handle artifact spot, else skip if blocked
-            if (gameLocation.objects.TryGetValue(tile, out StardewValley.Object obj))
+            if (gameLocation.objects.TryGetValue(tilePosVector, out StardewValley.Object obj))
             {
                 if (obj.ParentSheetIndex == 590)
                 {
-                    gameLocation.digUpArtifactSpot(blockPos.GetTilePosX(), blockPos.GetTilePosY(), caster.entity as Farmer);
-                    gameLocation.objects.Remove(tile);
+                    gameLocation.digUpArtifactSpot(tilePos.GetTilePosX(), tilePos.GetTilePosY(), caster.entity as Farmer);
+                    gameLocation.objects.Remove(tilePosVector);
                     return new SpellCastResult(SpellCastResultType.SUCCESS);
                 }
                 else if(obj.QualifiedItemId == "(O)SeedSpot")
@@ -85,7 +86,7 @@ namespace ArsVenefici.Framework.Spell.Components
 
             // till dirt
             //if (gameLocation.doesTileHaveProperty(blockPos.GetTilePosX(), blockPos.GetTilePosY(), "Diggable", "Back") != null && !gameLocation.IsTileOccupiedBy(tile))
-            if (gameLocation.doesTileHaveProperty(blockPos.GetTilePosX(), blockPos.GetTilePosY(), "Diggable", "Back") != null)
+            if (gameLocation.doesTileHaveProperty(tilePos.GetTilePosX(), tilePos.GetTilePosY(), "Diggable", "Back") != null)
             {
                 //gameLocation.makeHoeDirt(tile);
                 //gameLocation.playSound("hoeHit", tile);
@@ -93,15 +94,24 @@ namespace ArsVenefici.Framework.Spell.Components
                 // select tool
                 Tool tool = hoe;
 
+                if (gameLocation.terrainFeatures.TryGetValue(tilePosVector, out TerrainFeature terrainFeature))
+                {
+                    switch (terrainFeature)
+                    {
+                        case HoeDirt dirt:
+                            return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
+                    }
+                }
+
                 ((Farmer)caster.entity).lastClick = toolPixel;
                 tool.DoFunction(gameLocation, (int)toolPixel.X, (int)toolPixel.Y, 0, ((Farmer)caster.entity));
 
                 //Game1.removeSquareDebrisFromTile(tileX, tileY);
                 //Game1.removeDebris(tileX, tileY);
 
-                gameLocation.temporarySprites.Add(new TemporaryAnimatedSprite(12, new Vector2(blockPos.GetTilePosX() * (float)Game1.tileSize, blockPos.GetTilePosY() * (float)Game1.tileSize), Color.White, 8, Game1.random.NextDouble() < 0.5, 50f));
-                gameLocation.temporarySprites.Add(new TemporaryAnimatedSprite(6, new Vector2(blockPos.GetTilePosX() * (float)Game1.tileSize, blockPos.GetTilePosY() * (float)Game1.tileSize), Color.White, 8, Game1.random.NextDouble() < 0.5, Vector2.Distance(tile, blockPos.GetVector()) * 30f));
-                gameLocation.checkForBuriedItem(blockPos.GetTilePosX(), blockPos.GetTilePosY(), false, false, caster.entity as Farmer);
+                gameLocation.temporarySprites.Add(new TemporaryAnimatedSprite(12, new Vector2(tilePos.GetTilePosX() * (float)Game1.tileSize, tilePos.GetTilePosY() * (float)Game1.tileSize), Color.White, 8, Game1.random.NextDouble() < 0.5, 50f));
+                gameLocation.temporarySprites.Add(new TemporaryAnimatedSprite(6, new Vector2(tilePos.GetTilePosX() * (float)Game1.tileSize, tilePos.GetTilePosY() * (float)Game1.tileSize), Color.White, 8, Game1.random.NextDouble() < 0.5, Vector2.Distance(tilePosVector, tilePos.GetVector()) * 30f));
+                gameLocation.checkForBuriedItem(tilePos.GetTilePosX(), tilePos.GetTilePosY(), false, false, caster.entity as Farmer);
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }

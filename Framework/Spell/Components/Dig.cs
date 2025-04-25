@@ -194,7 +194,8 @@ namespace ArsVenefici.Framework.Spell.Components
             if (obj is not Chest or null)
             {
                 // stones
-                if (obj.Name is "Weeds" or "Stone")
+                if (obj.Name is "Weeds" or "GreenRainWeeds0" or "GreenRainWeeds1" or "GreenRainWeeds2" or "GreenRainWeeds3" or "GreenRainWeeds4"
+                    or "GreenRainWeeds5" or "GreenRainWeeds6" or "GreenRainWeeds7" or "Stone" or "Torch")
                     return true;
 
                 // spawned mine objects
@@ -237,7 +238,8 @@ namespace ArsVenefici.Framework.Spell.Components
                     return true;
 
                 // weeds
-                if (obj.Name is "Weeds")
+                if (obj.Name is "Weeds" or "GreenRainWeeds0" or "GreenRainWeeds1" or "GreenRainWeeds2" or "GreenRainWeeds3" or "GreenRainWeeds4"
+                    or "GreenRainWeeds5" or "GreenRainWeeds6" or "GreenRainWeeds7" or "Torch")
                     return true;
 
                 // spawned mine objects

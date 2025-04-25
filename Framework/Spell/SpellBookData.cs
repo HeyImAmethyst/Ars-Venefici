@@ -149,8 +149,12 @@ namespace ArsVenefici.Framework.Spell
 
                 foreach (SpellPartDraggableJson spellPartDraggableJson in areaSpellPartDraggableJsons)
                 {
-                    SpellPartDraggable spellPartDraggable = new SpellPartDraggable(modEntry.spellPartManager.spellParts[spellPartDraggableJson.spellPartId], modEntry);
-                    areaSpellDraggables.Add(spellPartDraggable);
+                    if(modEntry.spellPartManager.spellParts.ContainsKey(spellPartDraggableJson.spellPartId) && modEntry.spellPartManager.spellParts[spellPartDraggableJson.spellPartId] != null)
+                    {
+                        SpellPartDraggable spellPartDraggable = new SpellPartDraggable(modEntry.spellPartManager.spellParts[spellPartDraggableJson.spellPartId], modEntry);
+                        areaSpellDraggables.Add(spellPartDraggable);
+                    }
+                    
                 }
 
                 SavedShapeGroupArea<SpellPartDraggable> shapeGroupArea = new SavedShapeGroupArea<SpellPartDraggable>();

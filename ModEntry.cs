@@ -27,6 +27,11 @@ namespace ArsVenefici
 {
     public class ModEntry : Mod
     {
+        //DONE: Create a way to grow the plants used in the mod
+        //DONE: Add tabletop spell range mechanic, a line depending on where you are facing (N, S, E, W) where you are facing, a 15ft or 30ft cone etc... 
+        //DONE: Change Effect Power modifier to be double the effect gained. That way smaller steps would be possible.
+        //DONE: Change the plow-effect to not work on already hoed tiles
+
         public static ModEntry INSTANCE;
 
         public static IModHelper helper;

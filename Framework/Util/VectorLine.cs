@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,10 +12,34 @@ namespace ArsVenefici.Framework.Util
     {
         public Vector2 p1, p2;
 
+        public VectorLine()
+        {
+            this.p1 = Vector2.Zero;
+            this.p2 = Vector2.Zero;
+        }
+
         public VectorLine(Vector2 p1, Vector2 p2)
         {
             this.p1 = p1;
             this.p2 = p2;
+        }
+
+        public void SetP1(Vector2 p1)
+        {
+            this.p1 = p1;
+        }
+
+        public void SetP2(Vector2 p2)
+        {
+            this.p2 = p2;
+        }
+
+        public Vector2 CalculateP2FromAngleAndDistance(float angle, int distance)
+        {
+            float x = (float)(p1.X + distance * Math.Cos(MathHelper.ToRadians(angle)));
+            float y = (float)(p1.Y + distance * Math.Sin(MathHelper.ToRadians(angle)));
+
+            return new Vector2(x, y);
         }
 
         public Vector2[] GetPoints(int quantity)

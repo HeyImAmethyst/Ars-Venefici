@@ -60,7 +60,7 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill velocity = new SpellPartSkill("velocity", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)395"), 1 } }, offenceTab, false);
 
             SpellPartSkill aoe = new SpellPartSkill("aoe", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)621"), 1 } }, offenceTab, false);
-            //SpellPartSkill beam = new SpellPartSkill("beam", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)32"), 1 }, { ItemRegistry.Create("(O)74"), 5 } }, offenceTab, false);
+            SpellPartSkill beam = new SpellPartSkill("beam", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(W)32"), 1 }, { ItemRegistry.Create("(O)74"), 5 } }, offenceTab, false);
             SpellPartSkill damage = new SpellPartSkill("damage", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)848"), 5 } }, offenceTab, false); //210, 165
 
             SpellPartSkill explosion = new SpellPartSkill("explosion", new HashSet<SpellPartSkill> { damage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)287"), 3 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Desert_Nova"), 2 } }, offenceTab, false); //210, 300
@@ -77,6 +77,8 @@ namespace ArsVenefici.Framework.Skill
             
             SpellPartSkill rune = new SpellPartSkill("rune", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)405"), 5 } }, offenceTab, false);
             
+            SpellPartSkill cone = new SpellPartSkill("cone", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)405"), 1 }, { ItemRegistry.Create("(O)311"), 3 } }, offenceTab, false);
+            
             spellPartSkills.Add(projectile.GetId(), projectile);
             spellPartSkills.Add(physicalDamage.GetId(), physicalDamage);
             spellPartSkills.Add(magicDamage.GetId(), magicDamage);
@@ -90,9 +92,10 @@ namespace ArsVenefici.Framework.Skill
             spellPartSkills.Add(aoe.GetId(), aoe);
             spellPartSkills.Add(explosion.GetId(), explosion);
             spellPartSkills.Add(wave.GetId(), wave);
-            //spellPartSkills.Add(beam.GetId(), beam);
+            spellPartSkills.Add(beam.GetId(), beam);
             spellPartSkills.Add(forge.GetId(), forge);
             spellPartSkills.Add(rune.GetId(), rune);
+            spellPartSkills.Add(cone.GetId(), cone);
         }
 
         private void AddDefense()

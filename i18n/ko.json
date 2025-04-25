@@ -115,6 +115,9 @@
     "spellpart.contingency_health.name": "Contingency Health",
     "spellpart.contingency_health.description": "Will cast the spell if the target gains health. Disappers when the condition is met.",
 
+    "spellpart.cone.name": "Cone",
+    "spellpart.cone.description": "Will cast the spell in a cone shape.",
+
 
     "spellpart.dig.name": "대지 개척",
     "spellpart.dig.description": "암석과 잔해를 파괴하고 나무를 베어냅니다.",
