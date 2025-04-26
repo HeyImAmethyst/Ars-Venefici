@@ -171,62 +171,21 @@ namespace ArsVenefici.Framework.Events
 
             if (spell != null)
             {
-                if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer && (!Game1.player.isMoving()))
+                if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer)
                 {
                     Vector2 local = Vector2.One;
                     Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/beam/beam.png");
-                    Texture2D texture2 = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
+                    //Texture2D texture2 = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
 
                     if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is Beam && modEntryInstance.buttonEvents.spellKeyHoldTime > 0)
                     {
-                        //Vector2 mousePos = Utility.PointToVector2(Game1.getMousePosition()) + new Vector2(Game1.viewport.X, Game1.viewport.Y);
-                        //Vector2 absoluteClampedMousePos = Utility.clampToTile(mousePos);
-
-                        //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
-
-                        //ICursorPosition cursorPosition = modEntryInstance.Helper.Input.GetCursorPosition();
-
-                        //Vector2 absoluteClampedMousePos = Utility.clampToTile(cursorPosition.AbsolutePixels);
-
-                        //local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
-                        //local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
                         local = Utils.AbsolutePosToScreenPos(Game1.player.GetBoundingBox().Center.ToVector2());
-
-                        //Vector2 dPos = local - Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
-                        //Vector2 dPos = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos) - local;
-
-                        //var screenMousePos = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
-
-
-                        //var localMouse = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
-
-                        //spriteBatch.Draw(texture2, localMouse, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
-
-                        //var rotation = (float)Math.Atan2(dPos.Y, dPos.X);
-                        //var rotation = (float)-Math.Atan2(local.Y - screenMousePos.Y, screenMousePos.X - local.X);
-
-                        //float width = screenMousePos.X - local.X;
-                        //float height = screenMousePos.Y - local.Y;
 
                         Beam beam = spell.FirstShape(spell.CurrentShapeGroupIndex()) as Beam;
 
                         //var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), new Rectangle((int)local.X, (int)local.Y, (int)width, (int)height));
                         var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), beam.GetHorizontalBoundingBox());
-
-                        ////Rectangle image = new Rectangle((int)local.X, (int)local.Y, 198, 22);
-                        //Rectangle image = new Rectangle(0, 0, 198, 22);
-                        //Rectangle boundingBox = beam.GetHorizontalBoundingBox();
-
-                        //double widthScale = 0, heightScale = 0;
-
-                        //if (image.Width != 0)
-                        //    widthScale = boundingBox.Width / (double)image.Width;
-
-                        //if (image.Height != 0)
-                        //    heightScale = boundingBox.Height / (double)image.Height;
-
-                        ////double scale = Math.Min(widthScale, heightScale);
-                        //double size = 1;
+                        //var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 28, 7), beam.GetHorizontalBoundingBox()) * 1;
 
                         float rotation = 0;
 
@@ -255,6 +214,7 @@ namespace ArsVenefici.Framework.Events
                         }
 
                         spriteBatch.Draw(texture, local, new Rectangle(0, 0, 198, 22), Color.White, MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
+                        //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 28, 7), Color.White, MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
 
                     }
                 }

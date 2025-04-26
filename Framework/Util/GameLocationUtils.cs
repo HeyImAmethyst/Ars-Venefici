@@ -160,7 +160,7 @@ namespace ArsVenefici.Framework.Util
                     //return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
                     return new TerrainFeatureHitResult(item, dir, new TilePos(item), false);
                 }
-                else
+                else 
                 {
                     //return new TerrainFeatureHitResult(from, dir, new TilePos(item), false);
                     continue;
@@ -171,6 +171,7 @@ namespace ArsVenefici.Framework.Util
             return TerrainFeatureHitResult.Miss(to, dir, new TilePos(to));
         }
 
+        //Code based on https://gamedev.stackexchange.com/questions/191285/generate-a-2d-field-of-view-cone
         public static List<HitResult> GetTilesInCone(IEntity entity, Vector2 from, int range)
         {
             List<HitResult> list = new List<HitResult>();
@@ -258,13 +259,6 @@ namespace ArsVenefici.Framework.Util
 
                     Vector2 position = sample + farmer.Tile;
 
-                    /* atan2 is the function you want for calculating the angle between the positive x axis and a ray between (0,0) and (x, y). 
-                     * If you had trouble with it before, it's probably because values weren't normalized.
-                     * 
-                     * Rather than converting your angles to radians, I'd just convert the atan2 output to degrees, normalize everything to the range 0..360, 
-                     * and make sure you have two different in-range checks depending on if maxAngle is less than minAngle, indicating wrapping.
-                    */
-
                     //float theta = (float)Math.Acos(sample.X / sampleDistance);
                     float theta = (float)Math.Atan2(sample.X, -sample.Y);
                     float thetaDegrees = MathHelper.ToDegrees(theta);
@@ -305,8 +299,14 @@ namespace ArsVenefici.Framework.Util
                 }
                 else
                 {
-                    TerrainFeatureHitResult terrainFeatureHitResult = TerrainFeatureHitResult.Miss(position, dir, new TilePos(position));
-                    list.Add(terrainFeatureHitResult);
+                    foreach (Character character in level.characters)
+                    {
+                        if(character.Tile == position)
+                        {
+                            CharacterHitResult characterHitResult = new CharacterHitResult(character);
+                            list.Add(characterHitResult);
+                        }
+                    }
                 }
             }
 
@@ -314,28 +314,6 @@ namespace ArsVenefici.Framework.Util
             //ModEntry.INSTANCE.Monitor.Log("--------------------------", StardewModdingAPI.LogLevel.Info);
 
             return list;
-        }
-
-        public static Vector2 CheckPoint(int radius, int x, int y, float percent, float startAngle)
-        {
-
-            // calculate endAngle
-            float endAngle = 360 / percent + startAngle;
-
-            // Calculate polar co-ordinates
-            float polarradius =
-                        (float)Math.Sqrt(x * x + y * y);
-
-            float Angle = (float)Math.Atan(y / x);
-
-            // Check whether polarradius is less then 
-            // radius of circle or not and Angle is 
-            // between startAngle and endAngle or not
-
-            if (Angle >= startAngle && Angle <= endAngle && polarradius < radius)
-                return new Vector2(x, y);
-            else
-                return Vector2.Zero;
         }
 
         public static List<Character> GetCharacters(IEntity entity, Rectangle aABB, Predicate<Character> predicate)
