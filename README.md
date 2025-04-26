@@ -117,6 +117,8 @@ The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If
 > - channel
 > - contingency_damage
 > - contingency_health
+> - cone
+> - beam
 > # Components
 > - dig
 > - plow
