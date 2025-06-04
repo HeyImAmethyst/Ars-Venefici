@@ -3,8 +3,8 @@
 	** Config
 	*********/
 
-	"config.position_x.name": "Spell Label X Position",
-	"config.position_y.name": "Spell Label Y Position",
+	"config.position_x.name": "Position X de l’infobulle des sorts",
+	"config.position_y.name": "Position Y de l’infobulle des sorts",
 
 	"config.position_x.tooltip": "La position X en pixels pour l’infobulle des sorts, relative au coin supérieur gauche de l'écran.",
 	"config.position_y.tooltip": "La position Y en pixels pour l’infobulle  des sorts, relative au coin supérieur gauche de l'écran.",
@@ -94,29 +94,29 @@
 	"spellpart.zone.name": "* Périmètre",
 	"spellpart.zone.description": "Lance le sort dans un périmètre autour de l'endroit où il est déclenché. \nCette forme doit être placée en dernier.\nCette forme continuera à agir de façon continue selon l’effet du sort initial.\nLa durée est en 'ticks' de jeu.",
 
-	"spellpart.wave.name": "Wave",
-	"spellpart.wave.description": "Makes a zone that move forwards, applies the spell effect it was attached to.",
+	"spellpart.wave.name": "* Onde",
+	"spellpart.wave.description": "Crée une zone qui se déplace vers l'avant et applique l'effet du sort auquel elle était attachée.",
 
-	"spellpart.beam.name": "Beam",
-	"spellpart.beam.description": "Makes a Beam shape will continuously trigger the spell effect on whatever you're targeting",
+	"spellpart.beam.name": "* Rayon",
+	"spellpart.beam.description": "Crée une forme de faisceau qui déclenche continuellement l'effet du sort sur ce que vous ciblez.",
 
-	"spellpart.wall.name": "Wall",
-	"spellpart.wall.description": "Makes a wall in front of the caster that will continuously trigger the spell effect it was attached to. Needs a target shape before it and must be placed last.",
+	"spellpart.wall.name": "* Mur",
+	"spellpart.wall.description": "Crée un mur devant le lanceur de sorts qui déclenchera continuellement l'effet du sort auquel il est rattaché. Il doit être précédé d'une forme cible et doit être placé en dernier.",
 
-	"spellpart.rune.name": "Rune",
-	"spellpart.rune.description": "Places a rune on the ground. The rune placed has only one use and triggers whatever spell is on it.",
+	"spellpart.rune.name": "* Rune",
+	"spellpart.rune.description": "Place une rune sur le sol. La rune placée n'a qu'une seule utilisation et déclenche le sort qu'elle contient.",
 
-	"spellpart.channel.name": "Channel",
-	"spellpart.channel.description": "Will continuously cast the spell in front of you",
+	"spellpart.channel.name": "* Canalisation",
+	"spellpart.channel.description": "Lance continuellement le sort devant vous.",
 
-	"spellpart.contingency_damage.name": "Contingency Damage",
-	"spellpart.contingency_damage.description": "Will cast the spell if the target takes damage. Disappers when the condition is met.",
+	"spellpart.contingency_damage.name": "* Contingence (Dégâts)",
+	"spellpart.contingency_damage.description": "Lance le sort si la cible subit des dégâts. Disparaît lorsque la condition est remplie.",
 
-	"spellpart.contingency_health.name": "Contingency Health",
-	"spellpart.contingency_health.description": "Will cast the spell if the target gains health. Disappers when the condition is met.",
+	"spellpart.contingency_health.name": "* Contingence (Soin)",
+	"spellpart.contingency_health.description": "Lance le sort si la cible gagne en santé. Disparaît lorsque la condition est remplie.",
 
-	"spellpart.cone.name": "Cone",
-	"spellpart.cone.description": "Will cast the spell in a cone shape.",
+	"spellpart.cone.name": "* Cône",
+	"spellpart.cone.description": "Lance le sort en forme de cône.",
 
 
 	"spellpart.dig.name": "CREUSER",
@@ -152,44 +152,45 @@
 	"spellpart.life_tap.name": "DRAINER LA MAGIE",
 	"spellpart.life_tap.description": "Endommage la cible et restaure votre mana en fonction des dégâts infligés.",
 
-	"spellpart.physical_damage.name": "BLESSER (physique)",
+	"spellpart.physical_damage.name": "ATTAQUER (physique)",
 	"spellpart.physical_damage.description": "Endommage physiquement la cible.",
 
-	"spellpart.magic_damage.name": "Magic Damage",
-	"spellpart.magic_damage.description": "Ignores armor and resistances and damages the target.",
+	"spellpart.magic_damage.name": "BLESSER (magique)",
+	"spellpart.magic_damage.description": "Ignore l'armure et les résistances et inflige directement des dégâts à la cible.",
 
-	"spellpart.frost_damage.name": "Frost Damage",
-	"spellpart.frost_damage.description": "Damages the target using the power of ice. Enemies vulnerable to ice take more damage.",
+	"spellpart.frost_damage.name": "GELER (froid)",
+	"spellpart.frost_damage.description": "Inflige des dégâts à la cible en utilisant le pouvoir de la glace. Les ennemis vulnérables à la glace subissent plus de dégâts.",
 
-	"spellpart.lightning_damage.name": "Lightning Damage",
-	"spellpart.lightning_damage.description": "Damages the target using the power of lightning.",
+	"spellpart.lightning_damage.name": "FOUDROYER (électricité)",
+	"spellpart.lightning_damage.description": "Endommage la cible en utilisant la puissance de la foudre.",
 
-	"spellpart.fire_damage.name": "Fire Damage",
-	"spellpart.fire_damage.description": "Damages the target using the power of fire. Enemies vulnerable to fire take more damage.",
+	"spellpart.fire_damage.name": "BRÛLER (feu)",
+	"spellpart.fire_damage.description": "Inflige des dégâts à la cible en utilisant la puissance du feu. Les ennemis vulnérables au feu subissent plus de dégâts.",
 
 	"spellpart.haste.name": "ACCÉLÉRER",
-	"spellpart.haste.description": "Augmente la vitesse du personnage.\n N’a actuellement d’effet possible que sur le lanceur.",
+	"spellpart.haste.description": "Augmente la vitesse du personnage.",
 
-	"spellpart.regeneration.name": "Regeneration",
-	"spellpart.regeneration.description": "Regenerates the player's health over a period of time.",
+	"spellpart.regeneration.name": "RÉGÉNÉRER",
+	"spellpart.regeneration.description": "Régénère la santé du joueur pendant un certain temps.",
 
-	"spellpart.mana_regeneration.name": "Mana Regeneration",
-	"spellpart.mana_regeneration.description": "Regenerates the player's mana over a period of time.",
+	"spellpart.mana_regeneration.name": "RÉCUPÉRER",
+	"spellpart.mana_regeneration.description": "Régénère le mana du joueur pendant un certain temps.",
 
-	"spellpart.dispel.name": "Dispel",
-	"spellpart.dispel.description": "Removes effects on your farmer.",
+	"spellpart.dispel.name": "DISSIPER",
+	"spellpart.dispel.description": "Supprime les effets sur votre agriculteur.",
 
-	"spellpart.forge.name": "Forge",
-	"spellpart.forge.description": "Used to smelt items like they would in a furnace. Works well with dig.",
+	"spellpart.forge.name": "FORGER",
+	"spellpart.forge.description": "Utilisé pour fondre les objets comme dans un fourneau. Fonctionne bien en combinaison avec CREUSER.",
 
-	"spellpart.shield.name": "Shield",
-	"spellpart.shield.description": "Creates an arcane energy to shield around a player target. The shield will reduce all damage taken.",
+	"spellpart.shield.name": "PROTÉGER",
+	"spellpart.shield.description": "Crée un bouclier d'énergie arcanique autour de la cible d'un joueur. Le bouclier réduit tous les dégâts subis.",
 
-	"spellpart.summon.name": "Summon",
-	"spellpart.summon.description": "Creates a spell to summon a junimo to protect you.",
+	"spellpart.summon.name": "CONVOQUER",
+	"spellpart.summon.description": "Crée un sort permettant d'invoquer un junimo pour vous protéger.",
+
 
 	"spellpart.damage.name": "Dégâts +",
-	"spellpart.damage.description": "Renforce les dégâts des composants de type dégâts.",
+	"spellpart.damage.description": "Renforce les dégâts des composants de type dégâts.\n(ATTAQUER, BLESSER, GELER, BRÛLER)",
 
 	"spellpart.range.name": "Portée +",
 	"spellpart.range.description": "Augmente la portée des formes de type Zone d'Effet et de certains composants.",
@@ -212,15 +213,15 @@
 	"spellpart.mining_power.name": "Outil +",
 	"spellpart.mining_power.description": "Ajoute un niveau d’amélioration à la hache ou la pioche sur les sorts de Creuser.",
 
-	"spellpart.effect_power.name": "Effect Power",
-	"spellpart.effect_power.description": "Inceases the power of effect based components.",
+	"spellpart.effect_power.name": "Puissance +",
+	"spellpart.effect_power.description": "Augmente la puissance des composants basés sur les effets.",
 
 	/*********
 	** Buffs/Debuffs
 	*********/
 
 	"debuff.grow_sickness.name": "Retard de croissance",
-	"buff.mana_regeneration.name": "Mana Regeneration",
+	"buff.mana_regeneration.name": "Régénération de mana",
 
 	/*********
 	** Spell Cast Warnings
@@ -246,7 +247,7 @@
 	"ui.spell_book.spell_grammar_area.name": "Espace de grammaire des sorts",
 	"ui.spell_book.spell_grammar_area.description": "Where components (octagons) and modifiers (diamonds) affecting those components are placed.",
 
-	"ui.spell_book.spell_name_textbox.name": "Spell Name",
+	"ui.spell_book.spell_name_textbox.name": "Nom du sort",
 
 	"ui.magic_altar.offense_tab.name": "Attaque",
 	"ui.magic_altar.defense_tab.name": "Défense",
@@ -254,10 +255,9 @@
 
 	"ui.magic_altar.drag_label.description": "La fenêtre peut être déplacée en déplaçant la souris avec le clic gauche. Si la manette est utilisée, utilisez la touche haut du d-pad.",
 
-
-	"ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",
-	"ui.magic_altar.tooltip_name_not_learned.name": "(Not Learned)",
-	"ui.magic_altar.tooltip_name_learned.name": "(Learned)",
+	"ui.magic_altar.tooltip_name_cant_learn.name": "[ne peut pas apprendre]\n------\nIl manque des pré-requis (ingrédients ou sorts).",
+	"ui.magic_altar.tooltip_name_not_learned.name": "[non appris]",
+	"ui.magic_altar.tooltip_name_learned.name": "[connu]",
 
 	/*********
 	** Skill/Professions
@@ -324,7 +324,7 @@
 	"event.learn_wizardry.wizard_dialogue_16": "Une fois que tu as le sort que tu veux, tu pourras le lancer.",
 
 	"event.learn_wizardry.message_8": "Pour lancer un sort, appuie sur Q.",
-	"event.learn_wizardry.message_9": "The information from this tutorial can be viewed again by pressing 'G'. Ces contrôles peuvent être ajustés dans le fichier de configuration d'Ars Venefici.",
+	"event.learn_wizardry.message_9": "Les informations de ce tutoriel peuvent être visualisées à nouveau en appuyant sur \"G\". Ces raccourcis peuvent être ajustés dans le fichier de configuration d'Ars Venefici.",
 
 	"event.learn_wizardry.wizard_dialogue_17": "Bonne chance dans tes aventures magiques.",
 
