@@ -1,5 +1,5 @@
-﻿using ArsVenefici.Framework.GUI.Menus;
-using ArsVenefici.Framework.Interfaces.Spells;
+﻿using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.GUI.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;

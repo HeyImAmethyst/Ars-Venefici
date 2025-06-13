@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.Util;
 using SpaceCore;
 using SpaceShared;
@@ -40,7 +42,7 @@ namespace ArsVenefici.Framework.Commands
                         modEntry.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
                     }
 
-                    Game1.player.eventsSeen.Add(modEntry.farmerMagicHelper.LearnedWizardryEventId.ToString());
+                    Game1.player.eventsSeen.Add(modEntry.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedWizardryEventId().ToString());
                     
                     CraftingRecipe craftingRecipe = new CraftingRecipe(s);
                    
@@ -52,7 +54,7 @@ namespace ArsVenefici.Framework.Commands
                 else if (value == false)
                 {
                     Game1.player.SetMaxMana(0);
-                    Game1.player.eventsSeen.Remove(modEntry.farmerMagicHelper.LearnedWizardryEventId.ToString());
+                    Game1.player.eventsSeen.Remove(modEntry.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedWizardryEventId().ToString());
 
                     //if (Game1.player.craftingRecipes.ContainsKey(s))
                     //    Game1.player.craftingRecipes.Remove(s);

@@ -9,7 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using StardewValley.Network;
 using static ArsVenefici.ModConfig;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells;
+using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.Spells.Registry;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -63,12 +65,13 @@ namespace ArsVenefici.Framework.Events
 
         public void OnNetworkCast(IncomingMessage msg)
         {
+            var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
             Farmer player = Game1.getFarmer(msg.FarmerID);
 
             if (player == null)
                 return;
 
-            SpellHelper spellHelper = SpellHelper.Instance();
+            var spellHelper = api.GetSpellHelper();
 
             spellHelper.CastSpell(player, modEntryInstance.buttonEvents.modKeyBinds);
         }

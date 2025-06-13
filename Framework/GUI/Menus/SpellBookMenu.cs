@@ -1,7 +1,7 @@
-﻿using ArsVenefici.Framework.GUI.DragNDrop;
+﻿using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.GUI.DragNDrop;
 using ArsVenefici.Framework.Interfaces;
-using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -1,5 +1,5 @@
 ﻿using ArsVenefici.Framework.GUI;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +10,7 @@ using SpaceCore;
 using ArsVenefici.Framework.Skill;
 using SpaceShared.APIs;
 using SpaceCore.Events;
-using ArsVenefici.Framework.Spell.Effects;
+using ArsVenefici.Framework.Spells.Effects;
 using ArsVenefici.Framework.Commands;
 using ArsVenefici.Framework.GameSave;
 using ArsVenefici.Framework.Events;
@@ -20,8 +20,11 @@ using Netcode;
 using StardewValley.Network;
 using System.Runtime.CompilerServices;
 using System;
-using ArsVenefici.Framework.Spell.Buffs;
+using ArsVenefici.Framework.Spells.Buffs;
 using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework;
 
 namespace ArsVenefici
 {
@@ -33,6 +36,7 @@ namespace ArsVenefici
         //DONE: Change the plow-effect to not work on already hoed tiles
 
         public static ModEntry INSTANCE;
+        public ArsVeneficiAPILoader arsVeneficiAPILoader = new ArsVeneficiAPILoader();
 
         public static IModHelper helper;
 
@@ -119,6 +123,7 @@ namespace ArsVenefici
         /// </summary>
         private void InitializeClasses()
         {
+            arsVeneficiAPILoader.SetAPI(new ArsVeneficiAPIImpl());
             farmerMagicHelper = new FarmerMagicHelper(this);
 
             SpaceCore.Skills.RegisterSkill(FarmerMagicHelper.Skill = new ArsVeneficiSkill(this));

@@ -1,18 +1,7 @@
 ﻿using HarmonyLib;
 using StardewModdingAPI;
-using StardewValley.Menus;
 using StardewValley;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using ArsVenefici.Framework.Magic;
-using static StardewValley.Minigames.TargetGame;
-using ArsVenefici.Framework.Interfaces.Magic;
 using StardewValley.Monsters;
-using ArsVenefici.Framework.Events;
 
 namespace ArsVenefici.Framework.Patches
 {

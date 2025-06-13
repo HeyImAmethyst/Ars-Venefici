@@ -1,4 +1,6 @@
-﻿using ArsVenefici.Framework.Skill;
+﻿using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.Skill;
+using ArsVenefici.Framework.Spells.Registry;
 using StardewModdingAPI;
 using StardewValley;
 using System;
@@ -24,9 +26,9 @@ namespace ArsVenefici.Framework.Commands
             {
                 string value = args[0];
 
-                if (modEntry.spellPartSkillManager.spellPartSkills.ContainsKey(value))
+                if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value))
                 {
-                    SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+                    var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
                     string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
 
@@ -43,7 +45,8 @@ namespace ArsVenefici.Framework.Commands
 
         public void LearnAllSpellParts(string command, string[] args)
         {
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+
             helper.LearnAll(modEntry, Game1.player);
 
             modEntry.Monitor.Log($"You learned all the spell parts!", LogLevel.Info);
@@ -55,9 +58,9 @@ namespace ArsVenefici.Framework.Commands
             {
                 string value = args[0];
 
-                if (modEntry.spellPartSkillManager.spellPartSkills.ContainsKey(value))
+                if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value))
                 {
-                    SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+                    var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
                     string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
 
@@ -74,7 +77,7 @@ namespace ArsVenefici.Framework.Commands
 
         public void ForgetAllSpellParts(string command, string[] args)
         {
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
             helper.ForgetAll(modEntry, Game1.player);
 
             modEntry.Monitor.Log($"You forgot all the spell parts!", LogLevel.Info);
@@ -86,9 +89,9 @@ namespace ArsVenefici.Framework.Commands
             {
                 string value = args[0];
 
-                if (modEntry.spellPartSkillManager.spellPartSkills.ContainsKey(value))
+                if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value))
                 {
-                    SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+                    var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
                     string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
 

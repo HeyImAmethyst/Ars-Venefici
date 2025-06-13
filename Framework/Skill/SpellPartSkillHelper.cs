@@ -1,5 +1,5 @@
-﻿using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Spell;
+﻿using ArsVenefici.Framework.API.Skill;
+using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using SpaceCore;
 using StardewValley;
@@ -83,7 +83,7 @@ namespace ArsVenefici.Framework.Skill
 
         public void Learn(ModEntry modEntry, Farmer player, string spellPartId)
         {
-            foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.spellPartSkills.Values)
+            foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
             {
                 if (skill.GetId().Equals(spellPartId) && !KnownSpellPartSkills.Keys.Contains(skill.GetId()))
                     KnownSpellPartSkills.Add(spellPartId, skill);
@@ -95,7 +95,7 @@ namespace ArsVenefici.Framework.Skill
 
         public void LearnAll(ModEntry modEntry, Farmer player)
         {
-            foreach(SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.spellPartSkills.Values)
+            foreach(SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
             {
                 if (!KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
                     KnownSpellPartSkills.Add(spellPartSkill.GetId(), spellPartSkill);
@@ -118,7 +118,7 @@ namespace ArsVenefici.Framework.Skill
 
         public void Forget(ModEntry modEntry, Farmer player, string spellPartId)
         {
-            foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.spellPartSkills.Values)
+            foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
             {
                 if (skill.GetId().Equals(spellPartId) && KnownSpellPartSkills.Keys.Contains(skill.GetId()))
                     KnownSpellPartSkills.Remove(spellPartId);
@@ -130,7 +130,7 @@ namespace ArsVenefici.Framework.Skill
 
         public void ForgetAll(ModEntry modEntry, Farmer player)
         {
-            foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.spellPartSkills.Values)
+            foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
             {
                 if (KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
                     KnownSpellPartSkills.Remove(spellPartSkill.GetId());
@@ -191,7 +191,7 @@ namespace ArsVenefici.Framework.Skill
                     spellPartSkill.Add(null);
                 else
                 {
-                    modEntry.spellPartSkillManager.spellPartSkills.TryGetValue(rawSpellPart, out SpellPartSkill k);
+                    modEntry.spellPartSkillManager.GetSpellPartSkills().TryGetValue(rawSpellPart, out SpellPartSkill k);
 
                     if(k != null)
                         spellPartSkill.Add(k);

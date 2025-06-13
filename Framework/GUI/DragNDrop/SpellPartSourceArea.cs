@@ -1,16 +1,13 @@
-﻿using ArsVenefici.Framework.Interfaces.Spells;
+﻿using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Skill;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ArsVenefici.Framework.Spells.Registry;
 
 namespace ArsVenefici.Framework.GUI.DragNDrop
 {
@@ -171,7 +168,9 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
             //        .toList();
 
             //return modEntry.spellPartManager.spellParts.Values.ToList();
-            return modEntry.spellPartManager.spellParts.Values.Where(e => SpellPartSkillHelper.Instance().Knows(modEntry, Game1.player, e.GetId())).ToList();
+
+            var knowlegeHelper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+            return modEntry.spellPartManager.GetSpellParts().Values.Where(e => knowlegeHelper.Knows(modEntry, Game1.player, e.GetId())).ToList();
         }
 
         public void SetCurrentOffset(int value)

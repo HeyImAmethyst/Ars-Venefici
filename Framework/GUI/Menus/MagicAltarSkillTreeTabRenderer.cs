@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using ArsVenefici.Framework.Util;
 using StardewValley.Locations;
 using System.Text;
-using ArsVenefici.Framework.Spell.Components;
+using ArsVenefici.Framework.Spells.Components;
 using static StardewValley.Minigames.CraneGame;
 using System.Runtime.Intrinsics;
 using Netcode;
@@ -29,6 +29,10 @@ using System.Linq;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using ItemExtensions;
+using ArsVenefici.Framework.API.Client;
+using ArsVenefici.Framework.API.Skill;
+using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.Spells.Registry;
 
 namespace ArsVenefici.Framework.GUI.Menus
 {
@@ -95,9 +99,9 @@ namespace ArsVenefici.Framework.GUI.Menus
             ModEntry modEntry = parent.modEntry;
             Farmer player = Game1.player;
 
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
-            skills = modEntry.spellPartSkillManager.spellPartSkills.Values.Where(skill => skill.GetOcculusTab().Equals(magicAltarTab)).ToHashSet();
+            skills = modEntry.spellPartSkillManager.GetSpellPartSkills().Values.Where(skill => skill.GetOcculusTab().Equals(magicAltarTab)).ToHashSet();
             skills.RemoveWhere(skill => skill.IsHidden() && !helper.Knows(modEntry, player, skill));
 
             skillTree = GetSampleTree(skills);
@@ -187,7 +191,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         protected override void RenderFg(SpriteBatch spriteBatch, int mouseX, int mouseY, float partialTicks)
         {
             ModEntry modEntry = parent.modEntry;
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
             Farmer player = Game1.player;
 
             if (player == null)
@@ -250,7 +254,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         // Tree rendering code adapted from https://rachel53461.wordpress.com/2014/04/20/algorithm-for-drawing-trees/
         #region Tree rendering
 
-        private void DrawNode(ModEntry modEntry, Farmer player, TreeNodeModel<SpellPartSkill> node, SpellPartSkillHelper helper, SpriteBatch spriteBatch)
+        private void DrawNode(ModEntry modEntry, Farmer player, TreeNodeModel<SpellPartSkill> node, ISpellPartSkillHelper helper, SpriteBatch spriteBatch)
         {
 
             bool knows = helper.Knows(modEntry, player, node.Item);
@@ -383,7 +387,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             ModEntry modEntry = parent.modEntry;
             Farmer player = Game1.player;
 
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
             positionSkillHoverRect(mouseX, mouseY, skillTree);
         }
@@ -422,7 +426,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         {
             ModEntry modEntry = parent.modEntry;
             Farmer player = Game1.player;
-            SpellPartSkillHelper helper = SpellPartSkillHelper.Instance();
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
             if (player != null && hoverItem != null && !helper.Knows(modEntry, player, hoverItem))
             {
@@ -440,7 +444,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             }
         }
 
-        public void DrawHoverToolTip(ModEntry modEntry, Farmer player, SpellPartSkillHelper helper, SpriteBatch spriteBatch)
+        public void DrawHoverToolTip(ModEntry modEntry, Farmer player, ISpellPartSkillHelper helper, SpriteBatch spriteBatch)
         {
 
             string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{hoverItem.GetId()}.name");
@@ -1033,11 +1037,13 @@ namespace ArsVenefici.Framework.GUI.Menus
 
                 int g = 0;
 
+                var helper = parent.modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+
                 foreach (SpellPartSkill parentSkill in knowlege.Parents())
                 {
                     //learnedDescription.AppendLine(parentSkill.GetId());
                     learnedDescription.AppendLine(parent.modEntry.Helper.Translation.Get($"spellpart.{parentSkill.GetId()}.name"));
-                    Utility.drawTextWithShadow(b, Game1.parseText(parent.modEntry.Helper.Translation.Get($"spellpart.{parentSkill.GetId()}.name"), Game1.smallFont, width - 8), Game1.smallFont, position + new Vector2(8f, 76 + knowlege.Cost().Count * 36 + num + 50 + g), SpellPartSkillHelper.Instance().Knows(parent.modEntry, Game1.player, parentSkill) ? Color.Green : Color.Red);
+                    Utility.drawTextWithShadow(b, Game1.parseText(parent.modEntry.Helper.Translation.Get($"spellpart.{parentSkill.GetId()}.name"), Game1.smallFont, width - 8), Game1.smallFont, position + new Vector2(8f, 76 + knowlege.Cost().Count * 36 + num + 50 + g), helper.Knows(parent.modEntry, Game1.player, parentSkill) ? Color.Green : Color.Red);
                     g += 20;
                 }
             }

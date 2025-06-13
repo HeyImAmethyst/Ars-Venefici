@@ -1,5 +1,7 @@
-﻿using ArsVenefici.Framework.FarmerPlayer;
-using ArsVenefici.Framework.Spell.Buffs;
+﻿using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.Spells.Buffs;
+using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.Util;
 using ItemExtensions;
 using Microsoft.Xna.Framework.Graphics;
@@ -108,7 +110,7 @@ namespace ArsVenefici.Framework.Events
 
         private void WizardEvent(string eventSong, string eventViewPort, string eventActors, string eventAttributes, string eventMove, GameLocation gameLocation)
         {
-            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
+            if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
             {
 
                 string magicAltarRecipe = $"{ModEntry.ArsVenificiContentPatcherId}_Magic_Altar";
@@ -188,7 +190,7 @@ namespace ArsVenefici.Framework.Events
 
 
                 //e.NewLocation.currentEvent = new Event(eventStr, ModEntry.LearnedMagicEventId);
-                gameLocation.currentEvent = new Event(eventStr, null, modEntryInstance.farmerMagicHelper.LearnedWizardryEventId.ToString());
+                gameLocation.currentEvent = new Event(eventStr, null, modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedWizardryEventId().ToString());
 
                 Game1.eventUp = true;
                 Game1.displayHUD = false;
@@ -197,7 +199,7 @@ namespace ArsVenefici.Framework.Events
 
                 Game1.player.AddCustomSkillExperience(FarmerMagicHelper.Skill, FarmerMagicHelper.Skill.ExperienceCurve[0]);
                 modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1); // let player start using magic immediately
-                Game1.player.eventsSeen.Add(modEntryInstance.farmerMagicHelper.LearnedWizardryEventId.ToString());
+                Game1.player.eventsSeen.Add(modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedWizardryEventId().ToString());
 
                 if (!Game1.player.craftingRecipes.Keys.Contains(magicAltarRecipe))
                     Game1.player.craftingRecipes.Add(magicAltarRecipe, 0);

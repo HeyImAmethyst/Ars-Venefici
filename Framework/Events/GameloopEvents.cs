@@ -10,12 +10,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Spell.Effects;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells.Effects;
+using ArsVenefici.Framework.Spells;
 using SpaceCore;
 using static ArsVenefici.ModConfig;
 using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.API;
+using ItemExtensions;
+using ArsVenefici.Framework.Spells.Registry;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -427,7 +430,7 @@ namespace ArsVenefici.Framework.Events
             if (Context.IsWorldReady)
             {
                 modEntryInstance.spellPartSkillManager = new SpellPartSkillManager(modEntryInstance);
-                SpellPartSkillHelper.Instance().UpdateIfNeeded(modEntryInstance, Game1.player);
+                modEntryInstance.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper().UpdateIfNeeded(modEntryInstance, Game1.player);
             }
         }
 
@@ -460,13 +463,14 @@ namespace ArsVenefici.Framework.Events
         /// <param name="e"> The Save Loaded Event arguement</param>
         public void OnDayStarted(object sender, DayStartedEventArgs e)
         {
+            var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
 
             if (Context.IsWorldReady)
             {
                 if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
                     return;
 
-                if (modEntryInstance.farmerMagicHelper.LearnedWizardy)
+                if (api.GetMagicHelper().LearnedWizardy(Game1.player))
                 {
                     string magicAltarRecipe = $"{ModEntry.ArsVenificiContentPatcherId}_Magic_Altar";
 
@@ -543,12 +547,14 @@ namespace ArsVenefici.Framework.Events
 
         public void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
+            var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
+
             if (Game1.activeClickableMenu == null || !Game1.eventUp || Context.IsPlayerFree)
                 modEntryInstance.dailyTracker.Update(modEntryInstance, e, Game1.currentLocation);
 
             if (Context.IsWorldReady)
             {
-                SpellHelper spellHelper = SpellHelper.Instance();
+                var spellHelper = api.GetSpellHelper();
                 Farmer farmer = Game1.player;
                 ISpell spell = farmer.GetSpellBook().GetCurrentSpell();
 

@@ -1,5 +1,5 @@
 ﻿using ArsVenefici.Framework.Interfaces;
-using ArsVenefici.Framework.Spell.Components;
+using ArsVenefici.Framework.Spells.Components;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using StardewValley;

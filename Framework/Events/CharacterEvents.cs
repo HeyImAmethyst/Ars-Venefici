@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Interfaces.Magic;
+﻿using ArsVenefici.Framework.API.Magic;
 using ArsVenefici.Framework.Magic;
 using StardewValley;
 using System;

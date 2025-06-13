@@ -1,5 +1,4 @@
-﻿using ArsVenefici.Framework.Interfaces.Spells;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Buildings;
 using System;
 using System.Collections.Generic;
@@ -15,6 +14,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ArsVenefici.Framework.API.Spell;
 
 namespace ArsVenefici.Framework.GUI.DragNDrop
 {

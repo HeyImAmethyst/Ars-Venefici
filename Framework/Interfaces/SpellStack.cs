@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Interfaces.Spells;
+﻿using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Util;
 using System;
 using System.Collections.Generic;

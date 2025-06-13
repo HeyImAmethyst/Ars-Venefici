@@ -1,8 +1,8 @@
 ﻿using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Spell.Components;
-using ArsVenefici.Framework.Spell.Modifiers;
-using ArsVenefici.Framework.Spell.Shape;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells.Components;
+using ArsVenefici.Framework.Spells.Modifiers;
+using ArsVenefici.Framework.Spells.Shape;
+using ArsVenefici.Framework.Spells;
 using StardewValley.Buffs;
 using StardewValley;
 using System;
@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArsVenefici.Framework.GUI.Menus;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley.GameData.Objects;
 using StardewValley.ItemTypeDefinitions;
@@ -18,17 +17,19 @@ using StardewValley.Internal;
 using StardewValley.Projectiles;
 using static StardewValley.Menus.CharacterCustomization;
 using StardewValley.Objects;
+using ArsVenefici.Framework.API.Skill;
 
 namespace ArsVenefici.Framework.Skill
 {
     public class SpellPartSkillManager
     {
-        public Dictionary<string, SpellPartSkill> spellPartSkills = new Dictionary<string, SpellPartSkill>();
         private ModEntry modEntry;
 
         public MagicAltarTab offenceTab;
         public MagicAltarTab defenseTab;
         public MagicAltarTab utilityTab;
+
+        private Dictionary<string, SpellPartSkill> spellPartSkills = new Dictionary<string, SpellPartSkill>();
 
         public SpellPartSkillManager(ModEntry modEntry)
         {
@@ -78,24 +79,23 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill rune = new SpellPartSkill("rune", new HashSet<SpellPartSkill> { physicalDamage }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)405"), 5 } }, offenceTab, false);
             
             SpellPartSkill cone = new SpellPartSkill("cone", new HashSet<SpellPartSkill> { aoe }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)405"), 1 }, { ItemRegistry.Create("(O)311"), 3 } }, offenceTab, false);
-            
-            spellPartSkills.Add(projectile.GetId(), projectile);
-            spellPartSkills.Add(physicalDamage.GetId(), physicalDamage);
-            spellPartSkills.Add(magicDamage.GetId(), magicDamage);
-            spellPartSkills.Add(frostDamage.GetId(), frostDamage);
-            spellPartSkills.Add(lightningDamage.GetId(), lightningDamage);
-            spellPartSkills.Add(fireDamage.GetId(), fireDamage);
-            spellPartSkills.Add(bounce.GetId(), bounce);
-            spellPartSkills.Add(piercing.GetId(), piercing);
-            spellPartSkills.Add(velocity.GetId(), velocity);
-            spellPartSkills.Add(damage.GetId(), damage);
-            spellPartSkills.Add(aoe.GetId(), aoe);
-            spellPartSkills.Add(explosion.GetId(), explosion);
-            spellPartSkills.Add(wave.GetId(), wave);
-            spellPartSkills.Add(beam.GetId(), beam);
-            spellPartSkills.Add(forge.GetId(), forge);
-            spellPartSkills.Add(rune.GetId(), rune);
-            spellPartSkills.Add(cone.GetId(), cone);
+
+            AddSpellPartSkill(projectile);
+            AddSpellPartSkill(physicalDamage);
+            AddSpellPartSkill(magicDamage);
+            AddSpellPartSkill(lightningDamage);
+            AddSpellPartSkill(fireDamage);
+            AddSpellPartSkill(bounce);
+            AddSpellPartSkill(piercing);
+            AddSpellPartSkill(velocity);
+            AddSpellPartSkill(damage);
+            AddSpellPartSkill(aoe);
+            AddSpellPartSkill(explosion);
+            AddSpellPartSkill(wave);
+            AddSpellPartSkill(beam);
+            AddSpellPartSkill(forge);
+            AddSpellPartSkill(rune);
+            AddSpellPartSkill(cone);
         }
 
         private void AddDefense()
@@ -129,23 +129,23 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill summon = new SpellPartSkill("summon", new HashSet<SpellPartSkill> { lifeDrain }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)74"), 1 }, { ItemRegistry.Create("(O)613"), 1 }, { ItemRegistry.Create($"(O){ModEntry.ArsVenificiContentPatcherId}_Cerublossom"), 1 } }, defenseTab, false);
             SpellPartSkill duration = new SpellPartSkill("duration", new HashSet<SpellPartSkill> { summon }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)787"), 3 } }, defenseTab, false); //255, 345
 
-            spellPartSkills.Add(self.GetId(), self);
-            spellPartSkills.Add(haste.GetId(), haste);
-            spellPartSkills.Add(regeneration.GetId(), regeneration);
-            spellPartSkills.Add(mana_regeneration.GetId(), mana_regeneration);
-            spellPartSkills.Add(heal.GetId(), heal);
-            spellPartSkills.Add(zone.GetId(), zone);
-            spellPartSkills.Add(lifeTap.GetId(), lifeTap);
-            spellPartSkills.Add(lifeDrain.GetId(), lifeDrain);
-            spellPartSkills.Add(duration.GetId(), duration);
-            spellPartSkills.Add(healing.GetId(), healing);
-            spellPartSkills.Add(dispel.GetId(), dispel);
-            spellPartSkills.Add(wall.GetId(), wall);
-            spellPartSkills.Add(contingency_damage.GetId(), contingency_damage);
-            spellPartSkills.Add(contingency_health.GetId(), contingency_health);
-            spellPartSkills.Add(shield.GetId(), shield);
-            spellPartSkills.Add(summon.GetId(), summon);
-            spellPartSkills.Add(effect_power.GetId(), effect_power);
+            AddSpellPartSkill(self);
+            AddSpellPartSkill(haste);
+            AddSpellPartSkill(regeneration);
+            AddSpellPartSkill(mana_regeneration);
+            AddSpellPartSkill(heal);
+            AddSpellPartSkill(zone);
+            AddSpellPartSkill(lifeTap);
+            AddSpellPartSkill(lifeDrain);
+            AddSpellPartSkill(duration);
+            AddSpellPartSkill(healing);
+            AddSpellPartSkill(dispel);
+            AddSpellPartSkill(wall);
+            AddSpellPartSkill(contingency_damage);
+            AddSpellPartSkill(contingency_health);
+            AddSpellPartSkill(shield);
+            AddSpellPartSkill(summon);
+            AddSpellPartSkill(effect_power);
         }
 
         private void AddUtility()
@@ -169,19 +169,28 @@ namespace ArsVenefici.Framework.Skill
             SpellPartSkill harvest = new SpellPartSkill("harvest", new HashSet<SpellPartSkill> { plow }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)24"), 1 } }, utilityTab, false);
             SpellPartSkill channel = new SpellPartSkill("channel", new HashSet<SpellPartSkill> { light }, new Dictionary<Item, int>() { { ItemRegistry.Create("(O)24"), 10 } }, utilityTab, false);
             
+            AddSpellPartSkill(touch);
+            AddSpellPartSkill(dig);
+            AddSpellPartSkill(blink);
+            AddSpellPartSkill(light);
+            AddSpellPartSkill(miningPower);
+            AddSpellPartSkill(plow);
+            AddSpellPartSkill(createWater);
+            AddSpellPartSkill(grow);
+            AddSpellPartSkill(range);
+            AddSpellPartSkill(etherealTouch);
+            AddSpellPartSkill(harvest);
+            AddSpellPartSkill(channel);
+        }
 
-            spellPartSkills.Add(touch.GetId(), touch);
-            spellPartSkills.Add(dig.GetId(), dig);
-            spellPartSkills.Add(blink.GetId(), blink);
-            spellPartSkills.Add(light.GetId(), light);
-            spellPartSkills.Add(miningPower.GetId(), miningPower);
-            spellPartSkills.Add(plow.GetId(), plow);
-            spellPartSkills.Add(createWater.GetId(), createWater);
-            spellPartSkills.Add(grow.GetId(), grow);
-            spellPartSkills.Add(range.GetId(), range);
-            spellPartSkills.Add(etherealTouch.GetId(), etherealTouch);
-            spellPartSkills.Add(harvest.GetId(), harvest);
-            spellPartSkills.Add(channel.GetId(), channel);
+        public void AddSpellPartSkill(SpellPartSkill skill)
+        {
+            spellPartSkills.Add(skill.GetId(), skill);
+        }
+
+        public Dictionary<string, SpellPartSkill> GetSpellPartSkills()
+        {
+            return spellPartSkills;
         }
     }
 }

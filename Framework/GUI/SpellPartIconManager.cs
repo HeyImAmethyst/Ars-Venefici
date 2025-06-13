@@ -1,5 +1,5 @@
-﻿using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Spell;
+﻿using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.Spells;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
@@ -18,13 +18,13 @@ namespace ArsVenefici.Framework.GUI
 
         public SpellPartIconManager(ModEntry modEntry)
         {
-            foreach (KeyValuePair<string, ISpellPart> item in modEntry.spellPartManager.spellParts)
+            foreach (KeyValuePair<string, ISpellPart> item in modEntry.spellPartManager.GetSpellParts())
             {
                 PoplulateSprites(item.Value, modEntry);
             }
         }
 
-        public void PoplulateSprites(ISpellPart spellPart, ModEntry modEntry)
+        public virtual void PoplulateSprites(ISpellPart spellPart, ModEntry modEntry)
         {
             try
             {

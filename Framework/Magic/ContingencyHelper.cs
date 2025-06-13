@@ -1,9 +1,11 @@
-﻿using ArsVenefici.Framework.GUI.DragNDrop;
+﻿using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.API.Magic;
+using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.GUI.DragNDrop;
 using ArsVenefici.Framework.Interfaces;
-using ArsVenefici.Framework.Interfaces.Magic;
-using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Spell;
-using ArsVenefici.Framework.Spell.Shape;
+using ArsVenefici.Framework.Spells;
+using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Spells.Shape;
 using ArsVenefici.Framework.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -165,7 +167,7 @@ namespace ArsVenefici.Framework.Magic
 
                     foreach (ContingencySpellPartJson contingencySpellPart in contingencyShapeGroupSpellPartJsons)
                     {
-                        ISpellPart spellPart = modEntry.spellPartManager.spellParts[contingencySpellPart.spellPartId];
+                        ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPart.spellPartId];
                         contingencyShapeGroupSpellParts.Add(spellPart);
                     }
 
@@ -176,11 +178,11 @@ namespace ArsVenefici.Framework.Magic
 
                 foreach (ContingencySpellPartJson contingencySpellPartJson in contingencySpellJson.spellGrammerList)
                 {
-                    ISpellPart spellPart = modEntry.spellPartManager.spellParts[contingencySpellPartJson.spellPartId];
+                    ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPartJson.spellPartId];
                     spellGrammerList.Add(spellPart);
                 }
 
-                Spell.Spell spell = new Spell.Spell(modEntry, shapeGroups, SpellStack.Of(spellGrammerList));
+                Spells.Spell spell = new Spells.Spell(modEntry, shapeGroups, SpellStack.Of(spellGrammerList));
 
                 ContingencyType cType = ContingencyType.NONE;
 
@@ -290,11 +292,11 @@ namespace ArsVenefici.Framework.Magic
             //        Codec.INT.FieldOf("index").ForGetter(Contingency => Contingency.Index)
             //    ).Apply(inst, Contingency.New));
 
-            public Contingency() : this(ModEntry.INSTANCE, ContingencyType.NONE, SpellHelper.Instance().makeSpell(SpellStack.Empty), 0) { }
+            public Contingency() : this(ModEntry.INSTANCE, ContingencyType.NONE, ModEntry.INSTANCE.arsVeneficiAPILoader.GetAPI().MakeSpell(SpellStack.Empty), 0) { }
 
             public void Execute(GameLocation level, Character target)
             {
-                SpellHelper.Instance().Invoke(modEntry, Spell, new CharacterEntityWrapper(target), level, new CharacterHitResult(target), 0, Index, true);
+                modEntry.arsVeneficiAPILoader.GetAPI().GetSpellHelper().Invoke(modEntry, Spell, new CharacterEntityWrapper(target), level, new CharacterHitResult(target), 0, Index, true);
             }
         }
     }

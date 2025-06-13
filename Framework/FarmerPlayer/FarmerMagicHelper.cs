@@ -1,5 +1,5 @@
 ﻿using ArsVenefici.Framework.GUI;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,19 +8,7 @@ using StardewModdingAPI;
 using StardewValley;
 using SpaceCore;
 using ArsVenefici.Framework.Skill;
-using SpaceShared.APIs;
-using SpaceCore.Events;
-using ArsVenefici.Framework.Spell.Effects;
-using ArsVenefici.Framework.Commands;
-using ArsVenefici.Framework.GameSave;
-using ArsVenefici.Framework.Events;
-using ArsVenefici.Framework.Interfaces.Spells;
-using ArsVenefici.Framework.Interfaces;
-using Netcode;
-using StardewValley.Network;
-using System.Runtime.CompilerServices;
-using System;
-using ArsVenefici.Framework.Spell.Buffs;
+using ArsVenefici.Framework.Spells.Registry;
 
 namespace ArsVenefici.Framework.FarmerPlayer
 {
@@ -30,13 +18,6 @@ namespace ArsVenefici.Framework.FarmerPlayer
 
         /// <remarks>This should only be accessed through <see cref="GetSpellBook"/> or <see cref="Extensions.GetSpellBook"/> to make sure an updated instance is retrieved.</remarks>
         private static readonly IDictionary<long, SpellBook> SpellBookCache = new Dictionary<long, SpellBook>();
-
-        /// <summary>The ID of the event in which the player learns magic from the Wizard.</summary>
-        //public static int LearnedMagicEventId { get; } = 90002;
-        public int LearnedWizardryEventId { get; } = 9918172;
-
-        /// <summary>Whether the current player learned wizardry.</summary>
-        public bool LearnedWizardy => Game1.player?.eventsSeen?.Contains(LearnedWizardryEventId.ToString()) == true ? true : false;
 
         public static ArsVeneficiSkill Skill;
 
@@ -52,8 +33,11 @@ namespace ArsVenefici.Framework.FarmerPlayer
         /// <param name="overrideWizardryLevel">The wizardry skill level, or <c>null</c> to get it from the player.</param>
         public void FixManaPoolIfNeeded(Farmer player, int? overrideWizardryLevel = null)
         {
+            var api = modEntry.arsVeneficiAPILoader.GetAPI();
+            var magicHelper = api.GetMagicHelper();
+
             // skip if player hasn't learned wizardry
-            if (!LearnedWizardy && overrideWizardryLevel is not > 0)
+            if (!magicHelper.LearnedWizardy(player) && overrideWizardryLevel is not > 0)
                 return;
 
             // get wizardry info

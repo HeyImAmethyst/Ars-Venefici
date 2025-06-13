@@ -1,6 +1,6 @@
 ﻿using ArsVenefici.Framework.GUI.Menus;
 using ArsVenefici.Framework.Skill;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using StardewModdingAPI.Events;
 using StardewModdingAPI;
@@ -15,6 +15,11 @@ using static ArsVenefici.ModConfig;
 using Microsoft.Xna.Framework;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.FarmerPlayer;
+using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.Spells.Registry;
+using ItemExtensions;
+using Newtonsoft.Json;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -40,17 +45,20 @@ namespace ArsVenefici.Framework.Events
         /// <param name="e">The event arguments.</param>
         public void OnButtonsChanged(object sender, ButtonsChangedEventArgs e)
         {
+            var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
+
+            Farmer farmer = Game1.player;
+
             if (Game1.activeClickableMenu != null)
                 return;
 
-            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy)
+            if (!api.GetMagicHelper().LearnedWizardy(farmer))
                 return;
 
-            Farmer farmer = Game1.player;
             SpellBook spellBook = farmer.GetSpellBook();
 
-            var spellHelper = SpellHelper.Instance();
-            SpellPartSkillHelper knowlegeHelper = SpellPartSkillHelper.Instance();
+            var spellHelper = api.GetSpellHelper();
+            var knowlegeHelper = modEntryInstance.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
             if (Context.IsPlayerFree)
             {
@@ -71,7 +79,8 @@ namespace ArsVenefici.Framework.Events
 
                 if (modKeyBinds.OpenSpellBookButtons.JustPressed())
                 {
-                    Game1.activeClickableMenu = new SpellBookMenu(modEntryInstance);
+                    //modEntryInstance.Monitor.Log("Open Spell Book", LogLevel.Info);
+                    api.OpenSpellBookGui(modEntryInstance);
                 }
 
                 //Toggle spell casting mode
@@ -128,16 +137,16 @@ namespace ArsVenefici.Framework.Events
 
                 //Show tutorial text
 
-                if (modEntryInstance.farmerMagicHelper.LearnedWizardy && modKeyBinds.OpenTutorialTextButtons.JustPressed())
+                if (api.GetMagicHelper().LearnedWizardy(farmer) && modKeyBinds.OpenTutorialTextButtons.JustPressed())
                 {
                     ShowTutorialText();
                 }
 
                 //Display magic altar menu
 
-                if (modEntryInstance.farmerMagicHelper.LearnedWizardy && (input.GetState(SButton.MouseRight) == SButtonState.Pressed || input.GetState(SButton.ControllerA) == SButtonState.Pressed))
+                if (api.GetMagicHelper().LearnedWizardy(farmer) && (input.GetState(SButton.MouseRight) == SButtonState.Pressed || input.GetState(SButton.ControllerA) == SButtonState.Pressed))
                 {
-                    DisplayMagicAltarMenu();
+                    DisplayMagicAltarMenu(farmer);
                 }
             }
         }
@@ -215,36 +224,14 @@ namespace ArsVenefici.Framework.Events
             Game1.activeClickableMenu = new LetterViewerMenu(tutorialTextString.ToString());
         }
 
-        private void DisplayMagicAltarMenu()
+        private void DisplayMagicAltarMenu(Farmer farmer)
         {
-            Vector2 toolLocationTile = Utils.AbsolutePosToTilePos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
-            Vector2 toolPixel = toolLocationTile * Game1.tileSize + new Vector2(Game1.tileSize / 2f); // center of tile
-
-            if (Game1.player.currentLocation.objects.TryGetValue(toolLocationTile, out StardewValley.Object obj))
-            {
-                Game1.player.lastClick = toolPixel;
-
-                //string s = ModEntry.JsonAssetsApi.GetBigCraftableId("Magic Altar");
-                string s = $"(BC){ModEntry.ArsVenificiContentPatcherId}_Magic_Altar";
-
-                //if (obj.QualifiedItemId.Equals("(O){{spacechase0.JsonAssets/BigCraftable: Magic Altar}}"))
-
-                //craftingAltarTokenString.UpdateContext();
-                //string value = craftingAltarTokenString.Value;
-
-                if (obj.QualifiedItemId.Equals(s))
-                {
-                    obj.readyForHarvest.Value = true;
-
-                    if (obj.checkForAction(Game1.player, true))
-                    {
-                        Game1.activeClickableMenu = new MagicAltarMenu(modEntryInstance);
-                    }
-                }
-            }
+            modEntryInstance.Monitor.Log("Open Altar", LogLevel.Info);
+            var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
+            api.OpenMagicAltarGui(farmer);
         }
 
-        private void CastSpell(SpellHelper spellHelper, SpellBook spellBook, Farmer farmer)
+        private void CastSpell(ISpellHelper spellHelper, SpellBook spellBook, Farmer farmer)
         {
             if (modKeyBinds.CastSpellButtons.JustPressed())
                 spellHelper.CastSpell(farmer, modKeyBinds);

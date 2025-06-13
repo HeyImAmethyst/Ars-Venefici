@@ -1,7 +1,8 @@
-﻿using ArsVenefici.Framework.GUI.DragNDrop;
-using ArsVenefici.Framework.Interfaces.GUI;
+﻿using ArsVenefici.Framework.API.Client;
+using ArsVenefici.Framework.API.Skill;
+using ArsVenefici.Framework.GUI.DragNDrop;
 using ArsVenefici.Framework.Skill;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using Force.DeepCloner;
 using Microsoft.Xna.Framework;

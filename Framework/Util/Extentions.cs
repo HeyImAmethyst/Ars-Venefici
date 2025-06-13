@@ -1,5 +1,5 @@
 ﻿using ArsVenefici.Framework.FarmerPlayer;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells;
 using Microsoft.Xna.Framework;
 using SpaceShared.APIs;
 using StardewModdingAPI;
@@ -7,6 +7,7 @@ using StardewValley;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,20 @@ namespace ArsVenefici.Framework.Util
 {
     public static class Extentions
     {
+        public static IEnumerable<Type> GetLoadableTypes(this Assembly assembly)
+        {
+            if (assembly == null) throw new ArgumentNullException("assembly");
+
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                return e.Types.Where(t => t != null);
+            }
+        }
+
         //*****MATH*****
 
         private const double DegToRad = Math.PI / 180;

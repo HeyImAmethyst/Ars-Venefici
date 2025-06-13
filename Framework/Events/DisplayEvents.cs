@@ -1,10 +1,9 @@
 ﻿using ArsVenefici.Framework.GUI.Menus;
-using ArsVenefici.Framework.Interfaces.Magic;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Magic;
-using ArsVenefici.Framework.Spell.Effects;
-using ArsVenefici.Framework.Spell.Shape;
-using ArsVenefici.Framework.Spell;
+using ArsVenefici.Framework.Spells.Effects;
+using ArsVenefici.Framework.Spells.Shape;
+using ArsVenefici.Framework.Spells;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -25,6 +24,10 @@ using ItemExtensions.Additions;
 using ItemExtensions;
 using StardewValley.Objects;
 using System.Reflection;
+using ArsVenefici.Framework.API.Magic;
+using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.Spells.Registry;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -79,7 +82,7 @@ namespace ArsVenefici.Framework.Events
 
         public void RenderAoE(SpriteBatch spriteBatch)
         {
-            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy || !FarmerMagicHelper.SpellCastingMode)
+            if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) || !FarmerMagicHelper.SpellCastingMode)
                 return;
 
             SpellBook spellBook = Game1.player.GetSpellBook();
@@ -162,7 +165,7 @@ namespace ArsVenefici.Framework.Events
 
         public void RenderBeam(SpriteBatch spriteBatch)
         {
-            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy || !FarmerMagicHelper.SpellCastingMode)
+            if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) || !FarmerMagicHelper.SpellCastingMode)
                 return;
 
             SpellBook spellBook = Game1.player.GetSpellBook();
@@ -240,7 +243,7 @@ namespace ArsVenefici.Framework.Events
         public void RenderTouchIndicator(SpriteBatch spriteBatch)
         {
 
-            if (!modEntryInstance.farmerMagicHelper.LearnedWizardy || !FarmerMagicHelper.SpellCastingMode)
+            if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) || !FarmerMagicHelper.SpellCastingMode)
                 return;
 
             SpellBook spellBook = Game1.player.GetSpellBook();
@@ -386,7 +389,7 @@ namespace ArsVenefici.Framework.Events
             if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree || !FarmerMagicHelper.SpellCastingMode)
                 return;
 
-            if (!modEntryInstance.farmerMagicHelper .LearnedWizardy)
+            if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player))
                 return;
 
             int x = modEntryInstance.Config.Position.X;

@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Interfaces.GUI;
+﻿using ArsVenefici.Framework.API.Client;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
