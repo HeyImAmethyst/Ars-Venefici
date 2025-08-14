@@ -1,0 +1,133 @@
+{
+	//Objects
+	
+	"object.mana_elixir.name": "Élixir de mana",
+	"object.mana_elixir.description" : "Un élixir qui vous rend 350 mana.",
+	
+	"object.mana_cake.name": "Gâteau de mana",
+	"object.mana_cake.description": "Un gâteau qui vous rend 160 mana.",
+	
+	"object.mana_martini.name": "Martini Mana",
+	"object.mana_martini.description": "Un cocktail magique qui vous donne de la régénération de mana pendant une minute.",
+	
+	"object.mana_juice.name": "Jus de mana",
+	"object.mana_juice.description": "Un jus magique qui vous donne de la régénération de mana pendant une minute.",
+	
+	"object.aum.name": "Aum",
+	"object.aum.description": "Fleur magique aux propriétés curatives. On la trouve dans des environnements verdoyants et luxuriants.",
+	
+	"object.cerublossom.name": "Floraison de Ceru",
+	"object.cerublossom.description": "Une fleur bleue magique qui s'épanouit dans des environnements verdoyants et luxuriants.",
+	
+	"object.desert_nova.name": "Renouveau du désert",
+	"object.desert_nova.description": "Une plante du désert qui possède des propriétés magiques extraordinaires.",
+	
+	"object.tarma_root.name": "Racine de Tarma",
+	"object.tarma_root.description": "Une racine magique qui est plus légère qu'elle n'en a l'air. On la trouve dans les régions montagneuses.",
+	
+	"object.wakebloom.name": "Réveil fleuri",
+	"object.wakebloom.description": "Une fleur magique que l'on trouve près de beaucoup d'eau.",
+	
+	"object.magic_seeds.name": "Mélange de graines magiques",
+	"object.magic_seeds.description": "À planter en n’importe quelle saison.\nIl faut 7 jours pour arriver à maturité.\nProduit un végétal aléatoire arcanique qui aide à la récupération de mana.",
+	
+	"object.arcane_compound.name": "Composé arcanique",
+	"object.arcane_compound.description": "Une poudre composée de réactifs magiques. Elle peut être chauffée pour créer des cendres arcaniques.",
+	
+	"object.arcane_ash.name": "Cendre arcanique",
+	"object.arcane_ash.description": "Une poudre composée de réactifs arcaniques qui a été chauffée et réduite en cendre.",
+	
+	"object.vinteum_dust.name": "Minerai fragmenté de vinteum",
+	"object.vinteum_dust.description": "Du minerai de vinteum, fragmenté en poudre.",
+	
+	"object.purified_vinteum_dust.name": "Poudre purifiée de vinteum",
+	"object.purified_vinteum_dust.description": "De la poudre de vinteum qui a été purifiée.",
+	
+	"object.chimerite.name": "Chimèrite",
+	"object.chimerite.description": "Une pierre magique qui se transforme dans toutes les couleurs.",
+	
+	"object.moonstone.name": "Hécatolite",
+	"object.moonstone.description": "Une pierre qui brille comme la lune. On l’appelle aussi simplement « pierre de lune ».",
+	"object.sunstone.name": "Héliolite",
+	
+	"object.sunstone.description": "Une pierre que l'on trouve dans les régions très chaudes. Surnommée également « pierre de soleil ».",
+	
+	"object.chimerite_ore.name": "Filon de chimérite",
+	"object.chimerite_ore.description": "Une veine contenant de la chimèrite.",
+	
+	"object.vinteum_ore.name": "Filon de vinteum",
+	"object.vinteum_ore.description": "Une veine contenant du vinteum.",
+	
+	"object.moonstone_ore.name": "Filon d’hécatolite",
+	"object.moonstone_ore.description": "Une veine contenant de l’hécatolite (pierre de lune).",
+	
+	"object.sunstone_ore.name": "Filon d’héliolite",
+	"object.sunstone_ore.description": "Une veine contenant de l’héliolite (pierre de soleil).",
+	
+	"object.blank_rune.name": "Rune vierge",
+	"object.blank_rune.description": "Une pierre runique ordinaire sans symbole apparent.",
+	
+	"object.white_rune.name": "Rune blanche",
+	"object.white_rune.description": "Une pierre runique portant le symbole d'une rune blanche.",
+	
+	"object.light_gray_rune.name": "Rune gris clair",
+	"object.light_gray_rune.description": "Une pierre runique portant le symbole d'une rune gris clair.",
+	
+	"object.gray_rune.name": "Rune grise",
+	"object.gray_rune.description": "Une pierre runique portant le symbole d'une rune grise.",
+	
+	"object.black_rune.name": "Rune noire",
+	"object.black_rune.description": "Une pierre runique portant le symbole d'une rune noire.",
+	
+	"object.brown_rune.name": "Rune marron",
+	"object.brown_rune.description": "Une pierre runique portant le symbole d'une rune marron.",
+	
+	"object.red_rune.name": "Rune rouge",
+	"object.red_rune.description": "Une pierre runique portant le symbole d'une rune rouge.",
+	
+	"object.orange_rune.name": "Rune orange",
+	"object.orange_rune.description": "Une pierre runique portant le symbole d'une rune orange.",
+	
+	"object.yellow_rune.name": "Rune jaune",
+	"object.yellow_rune.description": "Une pierre runique portant le symbole d'une rune jaune.",
+	
+	"object.lime_rune.name": "Rune vert citron",
+	"object.lime_rune.description": "Une pierre runique portant le symbole d'une rune vert citron.",
+	
+	"object.green_rune.name": "Rune verte",
+	"object.green_rune.description": "Une pierre runique portant le symbole d'une rune verte.",
+	
+	"object.cyan_rune.name": "Rune cyan",
+	"object.cyan_rune.description": "Une pierre runique portant le symbole d'une rune cyan.",
+	
+	"object.light_blue_rune.name": "Rune bleu clair",
+	"object.light_blue_rune.description": "Une pierre runique portant le symbole d'une rune bleu clair.",
+	
+	"object.blue_rune.name": "Rune bleue",
+	"object.blue_rune.description": "Une pierre runique portant le symbole d'une rune bleue.",
+	
+	"object.purple_rune.name": "Rune violette",
+	"object.purple_rune.description": "Une pierre runique portant le symbole d'une rune violett.",
+	
+	"object.magenta_rune.name": "Rune magenta",
+	"object.magenta_rune.description": "Une pierre runique portant le symbole d'une rune magenta.",
+	
+	"object.pink_rune.name": "Rune rose",
+	"object.pink_rune.description": "Une pierre runique portant le symbole d'une rune rose.",
+	
+	"object.spell_rune.name": "Rune de sort",
+	"object.spell_rune.description": "Une pierre runique qui lance le sort qui lui est lié.",
+	
+	//Big Craftables
+	
+	"big_craftable.magic_altar.name": "Autel magique",
+	"big_craftable.magic_altar.description" : "Un autel magique qui permet aux apprentis sorciers d’apprendre des nouvelles parties de sorts.",
+	
+	"big_craftable.rune_table.name": "Table runique",
+	"big_craftable.rune_table.description" : "Une table magique qui permet aux sorciers de fabriquer des runes.",
+	
+	//Mail
+	
+	"mail.mana_management.title.name": "Gestion de la mana",
+	"mail.mana_management.text": "Salutations @.^^J'ai oublié de mentionner un aspect important du lancement de sorts lorsque je vous ai présenté la création de sorts. Tout sort consomme du mana lorsqu'il est lancé. Si vous n'avez pas assez de mana pour lancer un sort, celui-ci échouera.^^Vous régénérerez la mana au fil du temps, mais vous rencontrerez souvent des situations où vous aurez besoin de reconstituer le mana rapidement. Il existe des objets que vous pouvez fabriquer pour vous aider. ^^ Je vous donne la recette d'un gâteau que vous pouvez fabriquer rapidement pour reconstituer un peu de mana. La guilde des aventuriers et le saloon vendront également des recettes pour fabriquer des objets de mana qui vous aideront à reconstituer votre mana.^^Bonne chance dans votre découverte de la sorcellerie. ^- Rasmodius, Sorcier"
+}

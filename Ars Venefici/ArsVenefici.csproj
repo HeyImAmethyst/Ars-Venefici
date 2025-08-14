@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<RootNamespace>ArsVenefici</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Version>1.12.0</Version>
+		<EnableHarmony>true</EnableHarmony>
+		<GamePath>$(StardewValleyGamePath)</GamePath>
+		<BaseOutputPath></BaseOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.2" />
+		<Reference Include="SpaceCore" HintPath="$(StardewValleyGamePath)\mods\[A] Core Mods\SpaceCore\SpaceCore.dll" Private="False" />
+		<Reference Include="ContentPatcher" HintPath="$(StardewValleyGamePath)\mods\[A] Core Mods\ContentPatcher\ContentPatcher.dll" Private="False" />
+		<Reference Include="ItemExtensions" HintPath="$(StardewValleyGamePath)\mods\[A] Core Mods\ItemExtensions\ItemExtensions.dll" Private="False" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Framework\API\Event\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ContentPacks Include="../[CP] Ars Venifici" Version="$(Version)" />
+	</ItemGroup>
+
+</Project>

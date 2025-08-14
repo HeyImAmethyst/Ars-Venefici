@@ -1,0 +1,21 @@
+﻿{
+    "Name": "[CP] Ars Venefici",
+	"Author": "HeyImAmethyst",
+	"Version": "1.12.0",
+	"MinimumApiVersion": "3.7.0",
+    "Description": "Content Patcher content pack for Ars Venefici",
+    "UniqueID": "HeyImAmethyst.CP.ArsVenefici",
+	"dependencies": 
+	[
+		{
+			"UniqueID": "mistyspring.ItemExtensions",
+			"MinimumVersion": "1.11.1",
+			"isRequired": true
+		}
+	],
+    "ContentPackFor":
+    {
+        "UniqueID": "Pathoschild.ContentPatcher"
+    },
+	"UpdateKeys": []
+}

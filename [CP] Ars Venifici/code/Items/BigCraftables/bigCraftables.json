@@ -1,0 +1,44 @@
+{
+	"Changes": 
+	[
+		{
+            "Action": "EditData",
+            "Target": "Data/BigCraftables",
+            "Entries": 
+			{
+                "{{ModId}}_Magic_Altar": 
+				{
+                    "Name": "{{ModId}}_Magic_Altar",
+                    "Displayname": "{{i18n:big_craftable.magic_altar.name}}",
+                    "Description": "{{i18n:big_craftable.magic_altar.description}}",
+                    "Type": "Crafting",
+                    "Category": -9 ,
+                    "Price": 1000,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Magic_Altar",
+                    "SpriteIndex": 0
+                },
+				"{{ModId}}_Rune_Table": 
+				{
+                    "Name": "{{ModId}}_Rune_Table",
+                    "Displayname": "{{i18n:big_craftable.rune_table.name}}",
+                    "Description": "{{i18n:big_craftable.rune_table.description}}",
+                    "Type": "Crafting",
+                    "Category": -9 ,
+                    "Price": 1000,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Rune_Table",
+                    "SpriteIndex": 0
+                }
+            }
+        },
+		{
+            "Action": "Load",
+            "Target": "Mods/{{ModId}}/{{ModId}}_Magic_Altar",
+            "FromFile": "assets/BigCraftables/magic_altar.png"
+        },
+		{
+            "Action": "Load",
+            "Target": "Mods/{{ModId}}/{{ModId}}_Rune_Table",
+            "FromFile": "assets/BigCraftables/rune_table.png"
+        }
+	]
+}

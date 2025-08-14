@@ -1,0 +1,133 @@
+{
+	//Objects
+
+	"object.mana_elixir.name": "魔法药水",
+	"object.mana_elixir.description": "一种能补充350点魔力的药水",
+
+	"object.mana_cake.name": "魔法蛋糕",
+	"object.mana_cake.description": "一种能补充160点魔力的蛋糕。",
+
+	"object.mana_martini.name": "魔法马丁尼",
+	"object.mana_martini.description": "一种可以获得一分钟的魔力再生的魔法鸡尾酒，。",
+
+	"object.mana_juice.name": "魔法果汁",
+	"object.mana_juice.description": "一种可以获得一分钟的魔力再生的魔法果汁。",
+
+	"object.aum.name": "全知草",
+	"object.aum.description": "一种具有治疗功效的魔法花朵。生长在郁郁葱葱的环境中。",
+
+	"object.cerublossom.name": "奥蓝堇",
+	"object.cerublossom.description": "一种充满魔法的蓝色花朵，生长在郁郁葱葱的环境中。",
+
+	"object.desert_nova.name": "沙漠新星",
+	"object.desert_nova.description": "一种具有非凡的魔力的沙漠植物。",
+
+	"object.tarma_root.name": "塔玛根",
+	"object.tarma_root.description": "一种比看上去更轻的魔法树根。它生长在山区。",
+
+	"object.wakebloom.name": "觉苏莲",
+	"object.wakebloom.description": "一种充满魔法的花朵，在很多水域附近都能找到。",
+	
+	"object.magic_seeds.name": "Magic Seeds",
+	"object.magic_seeds.description" : "An assortment of wild magic seeds.",
+
+	"object.arcane_compound.name": "奥术化合物",
+	"object.arcane_compound.description": "一种由魔法试剂制成的粉末，可以加热制成灰烬。",
+
+	"object.arcane_ash.name": "奥术粉末",
+	"object.arcane_ash.description": "一种由魔法试剂制成的粉末，已经被加热成灰烬。",
+
+	"object.vinteum_dust.name": "温特姆粉末",
+	"object.vinteum_dust.description": "从温特姆矿石中提取的魔法粉末。",
+
+	"object.purified_vinteum_dust.name": "纯净温特姆粉末",
+	"object.purified_vinteum_dust.description": "经过净化的温特姆粉末。",
+
+	"object.chimerite.name": "秘鸣宝石",
+	"object.chimerite.description": "一块具有魔力的闪耀宝石，能够变换出所有颜色。",
+
+	"object.moonstone.name": "月亮石",
+	"object.moonstone.description": "一种像月亮一样闪亮的石头",
+
+	"object.sunstone.name": "太阳石",
+	"object.sunstone.description": "一种在非常炎热地区发现的石头。",
+
+	"object.chimerite_ore.name": "秘鸣矿石",
+	"object.chimerite_ore.description": "一种含有秘鸣矿石的石头。",
+
+	"object.vinteum_ore.name": "温特姆矿石",
+	"object.vinteum_ore.description": "一种含有温特姆的矿石。",
+
+	"object.moonstone_ore.name": "月球石矿石",
+	"object.moonstone_ore.description": "一种含有月球石的矿石。",
+
+	"object.sunstone_ore.name": "太阳石矿石",
+	"object.sunstone_ore.description": "一种含有太阳石的矿石。",
+
+	"object.blank_rune.name": "空白符文",
+	"object.blank_rune.description": "一种没有符文符号的普通符文。",
+
+	"object.white_rune.name": "白符文",
+	"object.white_rune.description": "一种有白色符文符号的符文。",
+
+	"object.light_gray_rune.name": "浅灰色符文",
+	"object.light_gray_rune.description": "一种有浅灰色符文符号的符文。",
+
+	"object.gray_rune.name": "灰色符文",
+	"object.gray_rune.description": "一种有灰色符文符号的符文。",
+
+	"object.black_rune.name": "黑色符文",
+	"object.black_rune.description": "一种有黑色符文符号的符文。",
+
+	"object.brown_rune.name": "棕色符文",
+	"object.brown_rune.description": "一种有灰色符文符号的符文。",
+
+	"object.red_rune.name": "红色符文",
+	"object.red_rune.description": "一种有红色符文符号的符文。",
+
+	"object.orange_rune.name": "橙色符文",
+	"object.orange_rune.description": "一种有橙色符文符号的符文。",
+
+	"object.yellow_rune.name": "黄色符文",
+	"object.yellow_rune.description": "一种有黄色符文符号的符文。",
+
+	"object.lime_rune.name": "黄绿色符文",
+	"object.lime_rune.description": "一种有黄绿色符文符号的符文。",
+
+	"object.green_rune.name": "绿色符文",
+	"object.green_rune.description": "一种有绿色符文符号的符文。",
+
+	"object.cyan_rune.name": "青色符文",
+	"object.cyan_rune.description": "一种有青色符文符号的符文。",
+
+	"object.light_blue_rune.name": "浅蓝色符文",
+	"object.light_blue_rune.description": "一种有浅蓝色符文符号的符文。",
+
+	"object.blue_rune.name": "蓝色符文",
+	"object.blue_rune.description": "一种有蓝色符文符号的符文。",
+
+	"object.purple_rune.name": "紫色符文",
+	"object.purple_rune.description": "一种有紫色符文符号的符文。",
+
+	"object.magenta_rune.name": "品红色符文",
+	"object.magenta_rune.description": "一种有品红色符文符号的符文。",
+
+	"object.pink_rune.name": "粉红色符文",
+	"object.pink_rune.description": "一种有粉红色符文符号的符文。",
+
+	"object.spell_rune.name": "法术符文",
+	"object.spell_rune.description": "一个能够施放附着在其上的魔法的符文。",
+
+	//Big Craftables
+
+	"big_craftable.magic_altar.name": "魔法祭坛",
+	"big_craftable.magic_altar.description": "一个魔法祭坛，允许法师学习新的魔法组件。",
+
+	"big_craftable.rune_table.name": "符文桌",
+	"big_craftable.rune_table.description": "一张能让法师制作符文的魔法桌子。",
+
+	//Mail
+
+	"mail.mana_management.title.name": "魔力管理",
+	"mail.mana_management.text": "你好 @。^^当我向你介绍咒语创作时，我忘记提到施法的一个重要部分了。施放任何魔法都会消耗魔力。如果你没有足够的魔力来施放魔法，魔法就会失败。^^随着时间的推移，你的魔力会逐渐恢复，但你经常会遇到需要快速补充魔力的情况。你可以制作一些物品来帮助你。^^我为你提供了一个蛋糕的配方，这种蛋糕可以补充少量的魔力。冒险者公会和酒馆现在也会出售制作魔力物品的配方，这些物品可以帮助你更快地补充的魔力。^^祝你在魔法之旅中好运。^-M·拉斯莫迪斯，法师"
+}

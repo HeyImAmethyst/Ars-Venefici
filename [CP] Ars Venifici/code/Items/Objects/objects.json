@@ -1,0 +1,796 @@
+{
+	"Changes": 
+	[
+		{
+            "Action": "EditData",
+            "Target": "Data/Objects",
+            "Entries": 
+			{
+				//Food
+				
+				"{{ModId}}_Mana_Elixir": 
+				{
+                    "Name": "{{ModId}}_Mana_Elixir",
+                    "Displayname": "{{i18n:object.mana_elixir.name}}",
+                    "Description": "{{i18n:object.mana_elixir.description}}",
+					"Edibility" : 30,
+                    "Type": "Basic",
+                    "Category": -7 ,
+                    "Price": 1000,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Mana_Elixir",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_blue"
+					],
+					"CustomFields": 
+					{
+						"{{ModId}}/Mana": "350"
+					}
+				},
+				"{{ModId}}_Mana_Cake": 
+				{
+                    "Name": "{{ModId}}_Mana_Cake", 
+                    "Displayname": "{{i18n:object.mana_cake.name}}",
+                    "Description": "{{i18n:object.mana_cake.description}}",
+					"Edibility" : 20,
+                    "Type": "Basic",
+                    "Category": -8 ,
+                    "Price": 1000,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Mana_Cake",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_blue"
+					],
+					"CustomFields": 
+					{
+						"{{ModId}}/Mana": "160"
+					}
+				},
+				"{{ModId}}_Mana_Martini": 
+				{
+                    "Name": "{{ModId}}_Mana_Martini", 
+                    "Displayname": "{{i18n:object.mana_martini.name}}",
+                    "Description": "{{i18n:object.mana_martini.description}}",
+					"Edibility" : 20,
+                    "Type": "Cooking",
+                    "Category": -7,
+                    "Price": 1000,
+					"IsDrink" : true,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Mana_Martini",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_blue"
+					]
+				},
+				"{{ModId}}_Mana_Juice": 
+				{
+                    "Name": "{{ModId}}_Mana_Juice", 
+                    "Displayname": "{{i18n:object.mana_juice.name}}",
+                    "Description": "{{i18n:object.mana_juice.description}}",
+					"Edibility" : 20,
+                    "Type": "Cooking",
+                    "Category": -7 ,
+                    "Price": 1000,
+					"IsDrink" : true,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Mana_Juice",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_blue"
+					]
+				},
+				
+				//Foragables
+				
+				"{{ModId}}_Aum": 
+				{
+                    "Name": "{{ModId}}_Aum", 
+                    "Displayname": "{{i18n:object.aum.name}}",
+                    "Description": "{{i18n:object.aum.description}}",
+					"Edibility" : -300,
+                    "Type": "Forage",
+                    "Category": -81 ,
+                    "Price": 40,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Aum",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_pink"
+					]
+				},
+				"{{ModId}}_Cerublossom": 
+				{
+                    "Name": "{{ModId}}_Cerublossom", 
+                    "Displayname": "{{i18n:object.cerublossom.name}}",
+                    "Description": "{{i18n:object.cerublossom.description}}",
+					"Edibility" : -300,
+                    "Type": "Forage",
+                    "Category": -81 ,
+                    "Price": 40,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Cerublossom",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_blue"
+					]
+				},
+				"{{ModId}}_Desert_Nova": 
+				{
+                    "Name": "{{ModId}}_Desert_Nova", 
+                    "Displayname": "{{i18n:object.desert_nova.name}}",
+                    "Description": "{{i18n:object.desert_nova.description}}",
+					"Edibility" : -300,
+                    "Type": "Forage",
+                    "Category": -81 ,
+                    "Price": 85,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Desert_Nova",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_red"
+					]
+				},
+				"{{ModId}}_Tarma_Root": 
+				{
+                    "Name": "{{ModId}}_Tarma_Root", 
+                    "Displayname": "{{i18n:object.tarma_root.name}}",
+                    "Description": "{{i18n:object.tarma_root.description}}",
+					"Edibility" : -300,
+                    "Type": "Forage",
+                    "Category": -81 ,
+                    "Price": 40,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Tarma_Root",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_brown"
+					]
+				},
+				"{{ModId}}_Wakebloom": 
+				{
+                    "Name": "{{ModId}}_Wakebloom", 
+                    "Displayname": "{{i18n:object.wakebloom.name}}",
+                    "Description": "{{i18n:object.wakebloom.description}}",
+					"Edibility" : -300,
+                    "Type": "Forage",
+                    "Category": -81 ,
+                    "Price": 70,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Wakebloom",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_pink"
+					]
+				},
+				"{{ModId}}_Magic_Seeds": 
+				{
+                    "Name": "{{ModId}}_Magic_Seeds", 
+                    "Displayname": "{{i18n:object.magic_seeds.name}}",
+                    "Description": "{{i18n:object.magic_seeds.description}}",
+					"Edibility" : -300,
+                    "Type": "Seeds",
+                    "Category": -74,
+                    "Price": 35,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Magic_Seeds",
+                    "SpriteIndex": 0
+				},
+				
+				//Crafting
+				
+				"{{ModId}}_Arcane_Compound": 
+				{
+                    "Name": "{{ModId}}_Arcane_Compound",
+                    "Displayname": "{{i18n:object.arcane_compound.name}}",
+                    "Description": "{{i18n:object.arcane_compound.description}}",
+                    "Type": "Crafting",
+                    "Category": -8,
+					"Price": 75,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Arcane_Compound",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_orange"
+					]
+				},
+				"{{ModId}}_Arcane_Ash": 
+				{
+                    "Name": "{{ModId}}_Arcane_Ash",
+                    "Displayname": "{{i18n:object.arcane_ash.name}}",
+                    "Description": "{{i18n:object.arcane_ash.description}}",
+                    "Type": "Crafting",
+                    "Category": -8,
+					"Price": 100,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Arcane_Ash",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_pale_violet_red"
+					]
+				},
+				"{{ModId}}_Purified_Vinteum_Dust": 
+				{
+                    "Name": "{{ModId}}_Purified_Vinteum_Dust",
+                    "Displayname": "{{i18n:object.purified_vinteum_dust.name}}",
+                    "Description": "{{i18n:object.purified_vinteum_dust.description}}",
+                    "Type": "Crafting",
+                    "Category": -8,
+					"Price": 100,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Purified_Vinteum_Dust",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_purple"
+					]
+				},
+				
+				//Minerals
+				
+				"{{ModId}}_Vinteum_Dust": 
+				{
+                    "Name": "{{ModId}}_Vinteum_Dust",
+                    "Displayname": "{{i18n:object.vinteum_dust.name}}",
+                    "Description": "{{i18n:object.vinteum_dust.description}}",
+                    "Type": "Basic",
+					"Price": 65,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Vinteum_Dust",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_blue"
+					]
+				},
+				//"{{ModId}}_Chimerite": 
+				//{
+                //    "Name": "{{ModId}}_Chimerite",
+                //    "Displayname": "{{i18n:object.chimerite.name}}",
+                //    "Description": "{{i18n:object.chimerite.description}}",
+                //    "Type": "Minerals",
+                //    "Category": -2,
+				//	"Price": 200,
+                //    "Texture": "Mods/{{ModId}}/{{ModId}}_Chimerite",
+                //    "SpriteIndex": 0
+				//},
+				"{{ModId}}_Moonstone": 
+				{
+                    "Name": "{{ModId}}_Moonstone",
+                    "Displayname": "{{i18n:object.moonstone.name}}",
+                    "Description": "{{i18n:object.moonstone.description}}",
+                    "Type": "Minerals",
+                    "Category": -2,
+					"Price": 350,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Moonstone",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_iron"
+					]
+				},
+				"{{ModId}}_Sunstone": 
+				{
+                    "Name": "{{ModId}}_Sunstone",
+                    "Displayname": "{{i18n:object.sunstone.name}}",
+                    "Description": "{{i18n:object.sunstone.description}}",
+                    "Type": "Minerals",
+                    "Category": -2,
+					"Price": 450,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Sunstone",
+                    "SpriteIndex": 0,
+					"ContextTags": 
+					[
+					  "color_orange"
+					]
+				},
+				
+				//Runes
+				
+				"{{ModId}}_Blank_Rune": 
+				{
+                    "Name": "{{ModId}}_Blank_Rune",
+                    "Displayname": "{{i18n:object.blank_rune.name}}",
+                    "Description": "{{i18n:object.blank_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 230,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Blank_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_White_Rune": 
+				{
+                    "Name": "{{ModId}}_White_Rune",
+                    "Displayname": "{{i18n:object.white_rune.name}}",
+                    "Description": "{{i18n:object.white_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_White_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Light_Gray_Rune": 
+				{
+                    "Name": "{{ModId}}_Light_Gray_Rune",
+                    "Displayname": "{{i18n:object.light_gray_rune.name}}",
+                    "Description": "{{i18n:object.light_gray_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Light_Gray_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Gray_Rune": 
+				{
+                    "Name": "{{ModId}}_Gray_Rune",
+                    "Displayname": "{{i18n:object.gray_rune.name}}",
+                    "Description": "{{i18n:object.gray_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Gray_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Black_Rune": 
+				{
+                    "Name": "{{ModId}}_Black_Rune",
+                    "Displayname": "{{i18n:object.black_rune.name}}",
+                    "Description": "{{i18n:object.black_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Black_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Brown_Rune": 
+				{
+                    "Name": "{{ModId}}_Brown_Rune",
+                    "Displayname": "{{i18n:object.brown_rune.name}}",
+                    "Description": "{{i18n:object.brown_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Brown_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Red_Rune": 
+				{
+                    "Name": "{{ModId}}_Red_Rune",
+                    "Displayname": "{{i18n:object.red_rune.name}}",
+                    "Description": "{{i18n:object.red_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Red_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Orange_Rune": 
+				{
+                    "Name": "{{ModId}}_Orange_Rune",
+                    "Displayname": "{{i18n:object.orange_rune.name}}",
+                    "Description": "{{i18n:object.orange_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Orange_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Yellow_Rune": 
+				{
+                    "Name": "{{ModId}}_Yellow_Rune",
+                    "Displayname": "{{i18n:object.yellow_rune.name}}",
+                    "Description": "{{i18n:object.yellow_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Yellow_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Lime_Rune": 
+				{
+                    "Name": "{{ModId}}_Lime_Rune",
+                    "Displayname": "{{i18n:object.lime_rune.name}}",
+                    "Description": "{{i18n:object.lime_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Lime_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Green_Rune": 
+				{
+                    "Name": "{{ModId}}_Green_Rune",
+                    "Displayname": "{{i18n:object.green_rune.name}}",
+                    "Description": "{{i18n:object.green_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Green_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Cyan_Rune": 
+				{
+                    "Name": "{{ModId}}_Cyan_Rune",
+                    "Displayname": "{{i18n:object.cyan_rune.name}}",
+                    "Description": "{{i18n:object.cyan_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Cyan_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Light_Blue_Rune": 
+				{
+                    "Name": "{{ModId}}_Light_Blue_Rune",
+                    "Displayname": "{{i18n:object.light_blue_rune.name}}",
+                    "Description": "{{i18n:object.light_blue_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8 ,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Light_Blue_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Blue_Rune": 
+				{
+                    "Name": "{{ModId}}_Blue_Rune",
+                    "Displayname": "{{i18n:object.blue_rune.name}}",
+                    "Description": "{{i18n:object.blue_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Blue_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Purple_Rune": 
+				{
+                    "Name": "{{ModId}}_Purple_Rune",
+                    "Displayname": "{{i18n:object.purple_rune.name}}",
+                    "Description": "{{i18n:object.purple_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Purple_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Magenta_Rune": 
+				{
+                    "Name": "{{ModId}}_Magenta_Rune",
+                    "Displayname": "{{i18n:object.magenta_rune.name}}",
+                    "Description": "{{i18n:object.magenta_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Magenta_Rune",
+                    "SpriteIndex": 0
+				},
+				"{{ModId}}_Pink_Rune": 
+				{
+                    "Name": "{{ModId}}_Pink_Rune",
+                    "Displayname": "{{i18n:object.pink_rune.name}}",
+                    "Description": "{{i18n:object.pink_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -8,
+					"Price": 500,
+                    "Texture": "Mods/{{ModId}}/{{ModId}}_Pink_Rune",
+                    "SpriteIndex": 0
+				},
+				
+				//Spell Part Rune
+				
+				"HeyImAmethyst.ArsVenefici_Rune": 
+				{
+                    "Name": "HeyImAmethyst.ArsVenefici_Rune",
+                    "Displayname": "{{i18n:object.spell_rune.name}}",
+                    "Description": "{{i18n:object.spell_rune.description}}",
+                    "Type": "Crafting",
+                    "Category": -24 ,
+                    "Texture": "Mods/HeyImAmethyst.ArsVenefici/HeyImAmethyst.ArsVenefici_Rune",
+                    "SpriteIndex": 0
+				}
+            }
+        },
+		
+		//Custom Ore
+		
+		{
+			"Action": "EditData",
+			"Target": "Mods/mistyspring.ItemExtensions/Resources",
+			"Entries": 
+			{
+				//"{{ModId}}_Chimerite_Ore": 
+				//{
+				//	"Texture": "Mods/{{ModId}}/{{ModId}}_Chimerite_Ore",
+				//	"Description": "{{i18n:object.chimerite_ore.description}}",
+				//	"DisplayName": "{{i18n:object.chimerite_ore.name}}",
+				//	"SpriteIndex": 0,
+				//	"Health": 10,
+				//	"Sound": "hammer",
+				//	"BreakingSound": "stoneCrack",
+				//	"Debris": "stone",
+				//	"ItemDropped": "(O){{ModId}}_Chimerite",
+				//	"Tool": "Pickaxe",
+				//	"MinToolLevel": 0,
+				//	"MinDrops": 1,
+				//	"MaxDrops": 3,
+				//	"MineSpawns": 
+				//	[
+				//		{
+				//			"Floors": "1/-999",
+				//			"SpawnFrequency": 0.03,
+				//			"Type": "All" 
+				//		}
+				//	]
+				//},
+				"{{ModId}}_Vinteum_Ore": 
+				{
+					"Texture": "Mods/{{ModId}}/{{ModId}}_Vinteum_Ore",
+					"Description": "{{i18n:object.vinteum_ore.description}}",
+					"DisplayName": "{{i18n:object.vinteum_ore.name}}",
+					"SpriteIndex": 0,
+					"Health": 10,
+					"Sound": "hammer",
+					"BreakingSound": "stoneCrack",
+					"Debris": "stone",
+					"ItemDropped": "(O){{ModId}}_Vinteum_Dust",
+					"Tool": "Pickaxe",
+					"MinToolLevel": 0,
+					"MinDrops": 1,
+					"MaxDrops": 2,
+					"MineSpawns": 
+					[
+						{
+							"Floors": "1/-999",
+							"SpawnFrequency": 0.03,
+							"Type": "All" 
+						}
+					]
+				},
+				"{{ModId}}_Moonstone_Ore": 
+				{
+					"Texture": "Mods/{{ModId}}/{{ModId}}_Moonstone_Ore",
+					"Description": "{{i18n:object.moonstone_ore.description}}",
+					"DisplayName": "{{i18n:object.moonstone_ore.name}}",
+					"SpriteIndex": 0,
+					"Health": 10,
+					"Sound": "hammer",
+					"BreakingSound": "stoneCrack",
+					"Debris": "stone",
+					"ItemDropped": "(O){{ModId}}_Moonstone",
+					"Tool": "Pickaxe",
+					"MinToolLevel": 0,
+					"MinDrops": 1,
+					"MaxDrops": 2,
+					"MineSpawns": 
+					[
+						{
+							"Floors": "1/-999",
+							"SpawnFrequency": 0.01,
+							"Type": "All" 
+						}
+					]
+				},
+				"{{ModId}}_Sunstone_Ore": 
+				{
+					"Texture": "Mods/{{ModId}}/{{ModId}}_Sunstone_Ore",
+					"Description": "{{i18n:object.sunstone_ore.description}}",
+					"DisplayName": "{{i18n:object.sunstone_ore.name}}",
+					"SpriteIndex": 0,
+					"Health": 10,
+					"Sound": "hammer",
+					"BreakingSound": "stoneCrack",
+					"Debris": "stone",
+					"ItemDropped": "(O){{ModId}}_Sunstone",
+					"Tool": "Pickaxe",
+					"MinToolLevel": 0,
+					"MinDrops": 1,
+					"MaxDrops": 1,
+					"MineSpawns": 
+					[
+						{
+							"Floors": "80/-999",
+							"SpawnFrequency": 0.01,
+							"Type": "All" 
+						}
+					]
+				}
+			}
+		},
+		
+		//Item Images
+		
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Mana_Elixir",
+			"FromFile": "assets/Objects/mana_elixir.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Mana_Cake",
+			"FromFile": "assets/Objects/mana_cake.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Mana_Martini",
+			"FromFile": "assets/Objects/mana_martini.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Mana_Juice",
+			"FromFile": "assets/Objects/mana_juice.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Aum",
+			"FromFile": "assets/Objects/aum.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Cerublossom",
+			"FromFile": "assets/Objects/cerublossom.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Desert_Nova",
+			"FromFile": "assets/Objects/desert_nova.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Tarma_Root",
+			"FromFile": "assets/Objects/tarma_root.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Wakebloom",
+			"FromFile": "assets/Objects/wakebloom.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Magic_Seeds",
+			"FromFile": "assets/Objects/magic_seeds.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Arcane_Compound",
+			"FromFile": "assets/Objects/arcane_compound.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Arcane_Ash",
+			"FromFile": "assets/Objects/arcane_ash.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Vinteum_Dust",
+			"FromFile": "assets/Objects/vinteum_dust.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Purified_Vinteum_Dust",
+			"FromFile": "assets/Objects/purified_vinteum_dust.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Chimerite",
+			"FromFile": "assets/Objects/chimerite.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Moonstone",
+			"FromFile": "assets/Objects/moonstone.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Sunstone",
+			"FromFile": "assets/Objects/sunstone.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Chimerite_Ore",
+			"FromFile": "assets/Objects/chimerite_ore.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Vinteum_Ore",
+			"FromFile": "assets/Objects/vinteum_ore.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Moonstone_Ore",
+			"FromFile": "assets/Objects/moonstone_ore.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Sunstone_Ore",
+			"FromFile": "assets/Objects/sunstone_ore.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Blank_Rune",
+			"FromFile": "assets/Objects/blank_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_White_Rune",
+			"FromFile": "assets/Objects/white_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Light_Gray_Rune",
+			"FromFile": "assets/Objects/light_gray_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Gray_Rune",
+			"FromFile": "assets/Objects/gray_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Black_Rune",
+			"FromFile": "assets/Objects/black_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Brown_Rune",
+			"FromFile": "assets/Objects/brown_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Red_Rune",
+			"FromFile": "assets/Objects/red_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Orange_Rune",
+			"FromFile": "assets/Objects/orange_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Yellow_Rune",
+			"FromFile": "assets/Objects/yellow_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Lime_Rune",
+			"FromFile": "assets/Objects/lime_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Green_Rune",
+			"FromFile": "assets/Objects/green_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Cyan_Rune",
+			"FromFile": "assets/Objects/cyan_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Light_Blue_Rune",
+			"FromFile": "assets/Objects/light_blue_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Blue_Rune",
+			"FromFile": "assets/Objects/blue_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Purple_Rune",
+			"FromFile": "assets/Objects/purple_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Magenta_Rune",
+			"FromFile": "assets/Objects/magenta_rune.png"
+		},
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/{{ModId}}_Pink_Rune",
+			"FromFile": "assets/Objects/pink_rune.png"
+		},
+		{
+			 "Action": "Load",
+			 "Target": "Mods/HeyImAmethyst.ArsVenefici/HeyImAmethyst.ArsVenefici_Rune",
+			 "FromFile": "assets/Objects/spell_rune.png"
+		}
+	]
+}

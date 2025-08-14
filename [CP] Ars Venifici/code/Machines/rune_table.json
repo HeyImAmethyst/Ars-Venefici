@@ -1,0 +1,381 @@
+{
+    "Changes": 
+	[
+		{
+            "Action": "EditData",
+            "Target": "Data/Machines",
+            "Entries": 
+			{
+                "(BC){{ModId}}_Rune_Table": 
+				{
+					"HasInput": false,
+					"HasOutput": false,
+					"InteractMethod": null,
+					"OutputRules": 
+					[
+						{
+							"Id": "{{ModId}}_White_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_white" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_White_Rune",
+									"ItemId": "(O){{ModId}}_White_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						}, 
+						{
+							"Id": "{{ModId}}_Light_Gray_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_iron" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Light_Gray_Rune",
+									"ItemId": "(O){{ModId}}_Light_Gray_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Gray_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_gray" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Gray_Rune",
+									"ItemId": "(O){{ModId}}_Gray_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Black_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_black" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Black_Rune",
+									"ItemId": "(O){{ModId}}_Black_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Brown_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_brown" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Brown_Rune",
+									"ItemId": "(O){{ModId}}_Brown_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Red_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_red" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Red_Rune",
+									"ItemId": "(O){{ModId}}_Red_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Orange_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_orange" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Orange_Rune",
+									"ItemId": "(O){{ModId}}_Orange_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Yellow_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_yellow" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Yellow_Rune",
+									"ItemId": "(O){{ModId}}_Yellow_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Lime_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_lime" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Lime_Rune",
+									"ItemId": "(O){{ModId}}_Lime_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Green_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_green" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Green_Rune",
+									"ItemId": "(O){{ModId}}_Green_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Cyan_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_cyan" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Cyan_Rune",
+									"ItemId": "(O){{ModId}}_Cyan_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Light_Blue_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_light_cyan" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Light_Blue_Rune",
+									"ItemId": "(O){{ModId}}_Light_Blue_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Blue_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_blue" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Blue_Rune",
+									"ItemId": "(O){{ModId}}_Blue_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Purple_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_purple" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Purple_Rune",
+									"ItemId": "(O){{ModId}}_Purple_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Magenta_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_pale_violet_red" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Magenta_Rune",
+									"ItemId": "(O){{ModId}}_Magenta_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						},
+						{
+							"Id": "{{ModId}}_Pink_Rune",
+							"Triggers": 
+							[
+								{
+									"Id": "ItemPlacedInMachine",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredTags": [ "color_pink" ],
+									"RequiredCount": 1
+								}
+							],
+							"OutputItem": 
+							[
+								{
+									"Id": "(O){{ModId}}_Pink_Rune",
+									"ItemId": "(O){{ModId}}_Pink_Rune",
+									"CopyQuality": false,
+									"CopyPrice": false
+								}
+							],
+							"MinutesUntilReady": 50
+						}
+					],
+					"AdditionalConsumedItems": 
+					[
+						{
+							"ItemId": "(O){{ModId}}_Blank_Rune",
+							"RequiredCount": 1,
+							"InvalidCountMessage": "[LocalizedText Strings\\StringsFromCSFiles:Object.cs.12772]"
+						}
+					]
+				}
+            }
+        }
+    ]
+}

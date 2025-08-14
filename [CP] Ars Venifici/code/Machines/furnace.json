@@ -1,0 +1,34 @@
+{
+    "Changes": 
+	[
+        {
+            "Action": "EditData",
+            "Target": "Data/Machines",
+            "TargetField": ["(BC)13", "OutputRules"],
+            "Entries": 
+			{
+                "{{ModId}}_Arcane_Ash": 
+				{
+                    "Id": "{{ModId}}_Arcane_Ash",
+                    "Triggers": 
+					[
+                        {
+                            "Trigger": "ItemPlacedInMachine",
+                            "RequiredItemId": "(O){{ModId}}_Arcane_Compound",
+                            "RequiredCount": 1
+                        }
+                    ],
+                    "OutputItem": 
+					[
+                        {
+                            "ItemId": "(O){{ModId}}_Arcane_Ash",
+                            "CopyQuality": false,
+                            "CopyPrice": true
+                        }
+                    ],
+                    "MinutesUntilReady": 20
+                }
+            }
+        }
+    ]
+}

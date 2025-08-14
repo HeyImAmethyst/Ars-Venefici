@@ -1,0 +1,48 @@
+{
+	"Changes": 
+	[
+		{
+			"Action": "EditData",
+            "Target": "Data/Crops",
+			"Entries": 
+			{
+				"{{ModId}}_Magic_Seeds": 
+				{
+					"Seasons": 
+					[
+					  "Spring",
+					  "Summer",
+					  "Fall",
+					  "Winter"
+					],
+					"DaysInPhase": 
+					[
+					  3,
+					  4
+					],
+					"RegrowDays": -1,
+					"IsRaised": false,
+					"IsPaddyCrop": false,
+					"NeedsWatering": true,
+					"PlantableLocationRules": null,
+					"HarvestItemId": "{{ModId}}_Cerublossom",
+					"HarvestMinStack": 1,
+					"HarvestMaxStack": 1,
+					"HarvestMaxIncreasePerFarmingLevel": 0.0,
+					"ExtraHarvestChance": 0.0,
+					"HarvestMethod": "Grab",
+					"HarvestMinQuality": 0,
+					"HarvestMaxQuality": null,
+					"TintColors": [],
+					"Texture": "TileSheets\\crops",
+					"SpriteIndex": 23,
+					"CountForMonoculture": false,
+					"CountForPolyculture": false,
+					"CustomFields": {
+						"Kronosta.ForageCrops/Spawns": "{{ModId}}_Aum {{ModId}}_Cerublossom {{ModId}}_Desert_Nova {{ModId}}_Tarma_Root {{ModId}}_Wakebloom"
+					}
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,44 @@
+{
+    "Format": "2.0.0",
+    "Changes": 
+	[
+		
+		//Includes
+		{
+            "Action": "Include",
+            "FromFile": "code/Items/BigCraftables/bigCraftables.json"
+        },
+		{
+            "Action": "Include",
+            "FromFile": "code/Items/Objects/objects.json"
+        },
+		{
+            "Action": "Include",
+            "FromFile": "code/Crops/crops.json"
+        },
+		{
+            "Action": "Include",
+            "FromFile": "code/Recipes/recipes.json"
+        },
+		{
+            "Action": "Include",
+            "FromFile": "code/Mail/mail.json"
+        },
+		{
+            "Action": "Include",
+            "FromFile": "code/Machines/furnace.json"
+        },
+		{
+            "Action": "Include",
+            "FromFile": "code/Machines/rune_table.json"
+        },
+		{
+            "Action": "Include",
+            "FromFile": "code/Shops/shops.json"
+        },
+		{
+            "Action": "Include",
+            "FromFile": "code/Locations/forageDefault.json"
+        },
+    ]
+}

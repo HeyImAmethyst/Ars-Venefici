@@ -1,0 +1,134 @@
+
+{
+    //Objects
+   
+    "object.mana_elixir.name": "마나 엘릭서",
+    "object.mana_elixir.description" : "350만큼의 마나를 보충하는 엘릭서입니다.",
+	
+	"object.mana_cake.name": "Mana Cake",
+	"object.mana_cake.description" : "A cake that replenishes 160 mana.",
+	
+	"object.mana_martini.name": "Mana Martini",
+	"object.mana_martini.description" : "A magical cocktail that gives mana regeneration for a minute.",
+	
+	"object.mana_juice.name": "Mana Juice",
+	"object.mana_juice.description" : "A magical juice that gives mana regeneration for a minute.",
+	
+	"object.aum.name": "Aum",
+	"object.aum.description" : "A magical flower with healing properties. Found in lush, green environments.",
+	
+	"object.cerublossom.name": "Cerublossom",
+	"object.cerublossom.description" : "A magical blue flower that thrives in lush, green environments.",
+	
+	"object.desert_nova.name": "Desert Nova",
+	"object.desert_nova.description" : "A desert plant that has extraordinary magical properties.",
+	
+	"object.tarma_root.name": "Tarma Root",
+	"object.tarma_root.description" : "A magical root that is lighter than it looks. Found in mountainous areas.",
+	
+	"object.wakebloom.name": "Wakebloom",
+	"object.wakebloom.description" : "A magical flower found near lots of water.",
+	
+	"object.magic_seeds.name": "Magic Seeds",
+	"object.magic_seeds.description" : "An assortment of wild magic seeds.",
+	
+	"object.arcane_compound.name": "Arcane Compound",
+	"object.arcane_compound.description" : "A powder made up of magical reagents. Can be heated to create an ash",
+	
+	"object.arcane_ash.name": "Arcane Ash",
+	"object.arcane_ash.description" : "A powder made up of magical reagents that has been heated to an ash.",
+	
+	"object.vinteum_dust.name": "Vinteum Dust",
+	"object.vinteum_dust.description" : "A magical powder obtained from vinteum ore.",
+	
+	"object.purified_vinteum_dust.name": "Purified Vinteum Dust",
+	"object.purified_vinteum_dust.description" : "Vinteum dust that has been purified.",
+	
+	"object.chimerite.name": "Chimerite",
+	"object.chimerite.description" : "A magical shimering stone that shifts to all colors.",
+	
+	"object.moonstone.name": "Moonstone",
+	"object.moonstone.description" : "A stone that shines like the moon.",
+	
+	"object.sunstone.name": "Sunstone",
+	"object.sunstone.description" : "A stone found in very hot areas.",
+	
+	"object.chimerite_ore.name": "Chimerite Ore",
+	"object.chimerite_ore.description" : "A ore containing chimerite.",
+	
+	"object.vinteum_ore.name": "Vinteum Ore",
+	"object.vinteum_ore.description" : "An ore containing vinteum.",
+	
+	"object.moonstone_ore.name": "Moonstone Ore",
+	"object.moonstone_ore.description" : "An ore containing moonstone.",
+	
+	"object.sunstone_ore.name": "Sunstone Ore",
+	"object.sunstone_ore.description" : "An ore containing sunstone.",
+	
+	"object.blank_rune.name": "Blank Rune",
+	"object.blank_rune.description" : "An ordinary rune with no rune symbol on it.",
+	
+	"object.white_rune.name": "White Rune",
+	"object.white_rune.description" : "A rune with a white rune symbol on it.",
+	
+	"object.light_gray_rune.name": "Light Gray Rune",
+	"object.light_gray_rune.description" : "A rune with a light gray rune symbol on it.",
+	
+	"object.gray_rune.name": "Gray Rune",
+	"object.gray_rune.description" : "A rune with a gray rune symbol on it.",
+	
+	"object.black_rune.name": "Black Rune",
+	"object.black_rune.description" : "A rune with a black rune symbol on it.",
+	
+	"object.brown_rune.name": "Brown Rune",
+	"object.brown_rune.description" : "A rune with a brown rune symbol on it.",
+	
+	"object.red_rune.name": "Red Rune",
+	"object.red_rune.description" : "A rune with a red rune symbol on it.",
+	
+	"object.orange_rune.name": "Orange Rune",
+	"object.orange_rune.description" : "A rune with a orange rune symbol on it.",
+	
+	"object.yellow_rune.name": "Yellow Rune",
+	"object.yellow_rune.description" : "A rune with a yellow rune symbol on it.",
+	
+	"object.lime_rune.name": "Lime Rune",
+	"object.lime_rune.description" : "A rune with a lime rune symbol on it.",
+	
+	"object.green_rune.name": "Green Rune",
+	"object.green_rune.description" : "A rune with a green rune symbol on it.",
+	
+	"object.cyan_rune.name": "Cyan Rune",
+	"object.cyan_rune.description" : "A rune with a cyan rune symbol on it.",
+	
+	"object.light_blue_rune.name": "Light Blue Rune",
+	"object.light_blue_rune.description" : "A rune with a light blue rune symbol on it.",
+	
+	"object.blue_rune.name": "Blue Rune",
+	"object.blue_rune.description" : "A rune with a blue rune symbol on it.",
+	
+	"object.purple_rune.name": "Purple Rune",
+	"object.purple_rune.description" : "A rune with a purple rune symbol on it.",
+	
+	"object.magenta_rune.name": "Magenta Rune",
+	"object.magenta_rune.description" : "A rune with a magenta rune symbol on it.",
+	
+	"object.pink_rune.name": "Pink Rune",
+	"object.pink_rune.description" : "A rune with a pink rune symbol on it.",
+	
+	"object.spell_rune.name": "Spell Rune",
+	"object.spell_rune.description" : "A rune that casts a spell it is attached to. ",
+   
+    //Big Craftables
+   
+    "big_craftable.magic_altar.name": "마법 제단",
+    "big_craftable.magic_altar.description" : "마법을 구성할 수 있는 마법의 제단입니다.",
+	
+	"big_craftable.rune_table.name": "Rune Table",
+	"big_craftable.rune_table.description" : "A magical table that allows wizards to make runes.",
+	
+	//Mail
+	
+	"mail.mana_management.title.name": "Mana Management",
+	"mail.mana_management.text": "Greetings @.^^I failed to mention one important part about casting spells when I introduced you to spell creation. Any spell will consume mana when casted. If you do not have enough mana for a spell cast, the spell will fail.^^You will regenerate mana overtime, but you may often encounter situations were you need to replenish mana quickly. There are items that you can make to help you with this.^^I am providing a recipe for a cake you can make that replenishes a bit of mana. The Adventurer's guild and the Saloon will now also sell recipes to make mana items that will help replenish more mana.^^Good luck on your magic endeavors. ^-M. Rasmodius, Wizard"
+}

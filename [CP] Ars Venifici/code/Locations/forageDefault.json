@@ -1,0 +1,450 @@
+{
+	"Changes": 
+	[
+		/*----------------------------------------------------
+		Location - Cindersap Forest
+		----------------------------------------------------*/
+		
+		{
+            "Action": "EditData",
+            "Target": "Data/Locations",
+            "TargetField": ["Forest", "Forage"],
+            "Entries": 
+			{
+                "{{ModId}}_Cerublossom": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Cerublossom",
+                    "ItemId": "(O){{ModId}}_Cerublossom",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Aum": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Aum",
+                    "ItemId": "(O){{ModId}}_Aum",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                }
+			}
+		},
+		
+		/*----------------------------------------------------
+		Location - Secret Woods
+		----------------------------------------------------*/
+		
+		{
+            "Action": "EditData",
+            "Target": "Data/Locations",
+            "TargetField": ["Woods", "Forage"],
+            "Entries": 
+			{
+                "{{ModId}}_Cerublossom": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Cerublossom",
+                    "ItemId": "(O){{ModId}}_Cerublossom",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Aum": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Aum",
+                    "ItemId": "(O){{ModId}}_Aum",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                }
+			}
+		},
+		
+		/*----------------------------------------------------
+		Location - Backwoods
+		----------------------------------------------------*/
+		
+		{
+            "Action": "EditData",
+            "Target": "Data/Locations",
+            "TargetField": ["Backwoods", "Forage"],
+            "Entries": 
+			{
+                "{{ModId}}_Cerublossom": 
+				{
+                    "Chance": 0.4,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Cerublossom",
+                    "ItemId": "(O){{ModId}}_Cerublossom",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Tarma_Root": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Tarma_Root",
+                    "ItemId": "(O){{ModId}}_Tarma_Root",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Aum": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Aum",
+                    "ItemId": "(O){{ModId}}_Aum",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                }
+			}
+		},
+		
+		/*----------------------------------------------------
+		Location - BusStop
+		----------------------------------------------------*/
+		
+		{
+            "Action": "EditData",
+            "Target": "Data/Locations",
+            "TargetField": ["BusStop", "Forage"],
+            "Entries": 
+			{
+                "{{ModId}}_Cerublossom": 
+				{
+                    "Chance": 0.7,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Cerublossom",
+                    "ItemId": "(O){{ModId}}_Cerublossom",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Aum": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Aum",
+                    "ItemId": "(O){{ModId}}_Aum",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                }
+			}
+		},
+		
+		/*----------------------------------------------------
+		Location - Mountains
+		----------------------------------------------------*/
+		
+		{
+            "Action": "EditData",
+            "Target": "Data/Locations",
+            "TargetField": ["Mountain", "Forage"],
+            "Entries": 
+			{
+                "{{ModId}}_Cerublossom": 
+				{
+                    "Chance": 0.7,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Cerublossom",
+                    "ItemId": "(O){{ModId}}_Cerublossom",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Tarma_Root": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Tarma_Root",
+                    "ItemId": "(O){{ModId}}_Tarma_Root",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Wakebloom": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Wakebloom",
+                    "ItemId": "(O){{ModId}}_Wakebloom",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Aum": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Aum",
+                    "ItemId": "(O){{ModId}}_Aum",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                }
+			}
+		},
+		
+		/*----------------------------------------------------
+		Location - Railroad
+		----------------------------------------------------*/
+		
+		{
+            "Action": "EditData",
+            "Target": "Data/Locations",
+            "TargetField": ["Railroad", "Forage"],
+            "Entries": 
+			{
+                "{{ModId}}_Cerublossom": 
+				{
+                    "Chance": 0.7,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Cerublossom",
+                    "ItemId": "(O){{ModId}}_Cerublossom",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Tarma_Root": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Tarma_Root",
+                    "ItemId": "(O){{ModId}}_Tarma_Root",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                },
+				"{{ModId}}_Aum": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Aum",
+                    "ItemId": "(O){{ModId}}_Aum",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                }
+			}
+		},
+		
+		/*----------------------------------------------------
+		Location - Beach
+		----------------------------------------------------*/
+		
+        {
+            "Action": "EditData",
+            "Target": "Data/Locations",
+            "TargetField": ["Beach", "Forage"],
+            "Entries": 
+			{
+				"{{ModId}}_Wakebloom": 
+				{
+                    "Chance": 0.85,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Wakebloom",
+                    "ItemId": "(O){{ModId}}_Wakebloom",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                }
+			}
+		},
+		
+		/*----------------------------------------------------
+		Location - Desert
+		----------------------------------------------------*/
+		
+		{
+            "Action": "EditData",
+            "Target": "Data/Locations",
+            "TargetField": ["Desert", "Forage"],
+			"Entries": 
+			{
+                "{{ModId}}_Desert_Nova": 
+				{
+                    "Chance": 0.9,
+                    "Condition": "SEASON spring summer fall winter",
+                    "Id": "(O){{ModId}}_Desert_Nova",
+                    "ItemId": "(O){{ModId}}_Desert_Nova",
+                    "RandomItemId": null,
+                    "MinStack": -1,
+                    "MaxStack": -1,
+                    "Quality": -1,
+                    "ToolUpgradeLevel": -1,
+                    "IsRecipe": false,
+                    "StackModifiers": null,
+                    "StackModifierMode": "Stack",
+                    "QualityModifiers": null,
+                    "QualityModifierMode": "Stack",
+                    "ModData": null,
+                    "PerItemCondition": null
+                }
+			}
+		}
+	]
+}

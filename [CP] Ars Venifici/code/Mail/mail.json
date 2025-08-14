@@ -1,0 +1,14 @@
+{
+	"Changes":
+	[
+		{
+			"LogName":"Add Mail",
+			"Action": "EditData",
+			"Target": "Data/Mail",
+            "Entries": 
+			{
+				"ArsVenefici.Mail.ManaManagement": "{{i18n:mail.mana_management.text}}%item craftingRecipe HeyImAmethyst.CP.ArsVenefici_Mana_Cake %%[letterbg 2][#]{{i18n:mail.mana_management.title.name}}"
+			}
+		}
+	]
+}

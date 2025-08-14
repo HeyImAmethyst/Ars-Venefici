@@ -1,0 +1,51 @@
+{
+	"Changes": 
+	[
+		{
+            "Action": "EditData",
+            "Target": "Data/Shops",
+            "TargetField": [
+                "AdventureShop",
+                "Items"
+            ],
+            "Entries": 
+			{
+                "{{ModId}}_Mana_Elixir": 
+				{
+                    "Id": "(O){{ModId}}_Mana_Elixir (Recipe)",
+                    "ItemId": "(O){{ModId}}_Mana_Elixir",
+                    "Price": "3000",
+                    "IsRecipe": "true",
+					"Condition": "PLAYER_HAS_SEEN_EVENT Any 9918172"
+                }
+            }
+        },
+		{
+            "Action": "EditData",
+            "Target": "Data/Shops",
+            "TargetField": [
+                "Saloon",
+                "Items"
+            ],
+            "Entries": 
+			{
+				"{{ModId}}_Mana_Martini": 
+				{
+                    "Id": "(O){{ModId}}_Mana_Martini (Recipe)",
+                    "ItemId": "(O){{ModId}}_Mana_Martini",
+                    "Price": "5000",
+                    "IsRecipe": "true",
+					"Condition": "PLAYER_HAS_SEEN_EVENT Any 9918172"
+                },
+				"{{ModId}}_Mana_Juice": 
+				{
+                    "Id": "(O){{ModId}}_Mana_Juice (Recipe)",
+                    "ItemId": "(O){{ModId}}_Mana_Juice",
+                    "Price": "2000",
+                    "IsRecipe": "true",
+					"Condition": "PLAYER_HAS_SEEN_EVENT Any 9918172"
+                }
+            }
+        }
+	]
+}
