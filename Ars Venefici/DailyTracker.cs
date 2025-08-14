@@ -21,14 +21,14 @@ namespace ArsVenefici
         private int dailyGrowCastCount = 0;
         private int maxDailyGrowCastCount = 2;
 
-        public void Update(ModEntry modEntry, UpdateTickedEventArgs e, GameLocation gameLocation)
+        public void Update(ModEntry modEntry, Farmer farmer, UpdateTickedEventArgs e, GameLocation gameLocation)
         {
 
             if (gameLocation != null && Game1.activeClickableMenu == null && Game1.game1.IsActive)
             {
                 if (Game1.shouldTimePass())
                 {
-                    var ext = Game1.player.GetExtData();
+                    var ext = farmer.GetExtData();
 
                     bool regenMana = false;
 
@@ -36,18 +36,20 @@ namespace ArsVenefici
                     {
                         regenMana = e.IsMultipleOf(540);
                     }
-                    else if (Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_ManaRegeneration") == true)
-                    {
-                        regenMana = e.IsMultipleOf(8);
-                    }
                     else
                     {
                         regenMana = e.IsMultipleOf(420);
                     }
 
-                    if (Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_HealthRegeneration") == true)
+                    if (farmer.hasBuff("HeyImAmethyst.ArsVenifici_ManaRegeneration") == true)
                     {
-                        if (Game1.player.buffs.AppliedBuffs.TryGetValue("HeyImAmethyst.ArsVenifici_HealthRegeneration", out Buff buff))
+                        //regenMana = e.IsMultipleOf(8);
+                        regenMana = e.IsMultipleOf(30);
+                    }
+
+                    if (farmer.hasBuff("HeyImAmethyst.ArsVenifici_HealthRegeneration") == true)
+                    {
+                        if (farmer.buffs.AppliedBuffs.TryGetValue("HeyImAmethyst.ArsVenifici_HealthRegeneration", out Buff buff))
                         {
                             //if (ext.StaminaRegen > 0)
                             //{
@@ -82,7 +84,7 @@ namespace ArsVenefici
                                 {
                                     int whole = (int)Math.Truncate(ext.healthBuffer);
                                     ext.healthBuffer -= whole;
-                                    Game1.player.health = Math.Min(Game1.player.health + whole, Game1.player.maxHealth);
+                                    farmer.health = Math.Min(farmer.health + whole, farmer.maxHealth);
                                 }
                             }
                         }
@@ -99,20 +101,20 @@ namespace ArsVenefici
 
                         //int manaRegenValue = (int)(2 * factor);
 
-                        int levelAmount = Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill);
+                        int levelAmount = farmer.GetCustomSkillLevel(FarmerMagicHelper.Skill);
 
-                        if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaRegen1Profession))
+                        if (farmer.HasCustomProfession(ArsVeneficiSkill.ManaRegen1Profession))
                             levelAmount *= 2;
-                        else if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaRegen2Profession))
+                        else if (farmer.HasCustomProfession(ArsVeneficiSkill.ManaRegen2Profession))
                             levelAmount *= 4;
 
                         int manaRegenValue = 0;
 
-                        if (Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_ManaRegeneration") == true)
+                        if (farmer.hasBuff("HeyImAmethyst.ArsVenifici_ManaRegeneration") == true)
                         {
-                            if (Game1.player.buffs.AppliedBuffs.TryGetValue("HeyImAmethyst.ArsVenifici_ManaRegeneration", out Buff buff))
+                            if (farmer.buffs.AppliedBuffs.TryGetValue("HeyImAmethyst.ArsVenifici_ManaRegeneration", out Buff buff))
                             {
-                                ext.ManaRegen = 0.5f;
+                                ext.ManaRegen = 1f;
 
                                 if (buff.customFields != null || buff.customFields.Count > 0)
                                 {
@@ -137,16 +139,19 @@ namespace ArsVenefici
                                     //    manaRegenValue = Math.Min(Game1.player.GetCurrentMana() + whole, Game1.player.GetMaxMana());
                                     //}
 
-                                    manaRegenValue = (int)(ext.ManaRegen * levelAmount);
+                                    //manaRegenValue = (int)(ext.ManaRegen * levelAmount);
+                                    manaRegenValue = modEntry.ModSaveData.ManaRegenRate * (int)(ext.ManaRegen * levelAmount);
+                                    farmer.AddMana(manaRegenValue);
                                 }
                             }
                         }
                         else
                         {
                             manaRegenValue = modEntry.ModSaveData.ManaRegenRate * levelAmount;
+                            farmer.AddMana(manaRegenValue);
                         }
 
-                        Game1.player.AddMana(manaRegenValue);
+                        //farmer.AddMana(manaRegenValue);
                     }
                 }
             }

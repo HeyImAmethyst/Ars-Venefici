@@ -558,9 +558,6 @@ namespace ArsVenefici.Framework.Events
         {
             var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
 
-            if (Game1.activeClickableMenu == null || !Game1.eventUp || Context.IsPlayerFree)
-                modEntryInstance.dailyTracker.Update(modEntryInstance, e, Game1.currentLocation);
-
             if (Context.IsWorldReady)
             {
                 var spellHelper = api.GetSpellHelper();
@@ -569,6 +566,9 @@ namespace ArsVenefici.Framework.Events
 
                 //modEntryInstance.Monitor.Log(spellKeyHoldTime.ToString(), LogLevel.Info);
                 //modEntryInstance.Monitor.Log(spell.IsContinuous().ToString(), LogLevel.Info);
+
+                if (Game1.activeClickableMenu == null || !Game1.eventUp || Context.IsPlayerFree)
+                    modEntryInstance.dailyTracker.Update(modEntryInstance, farmer, e, Game1.currentLocation);
 
 
                 if (spell.IsContinuous() && modEntryInstance.buttonEvents.spellKeyHoldTime > 1)
