@@ -25,6 +25,7 @@ using ArsVenefici.Framework.FarmerPlayer;
 using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework;
+using ArsVenefici.Framework.ContentPacks;
 
 namespace ArsVenefici
 {
@@ -47,6 +48,11 @@ namespace ArsVenefici
         public ModConfig Config;
         public ModSaveData ModSaveData;
         public const string SAVEDATA = "HeyImAmethyst-ArsVenifici-SaveData";
+
+        // Instance of ContentPackHelper
+        public ContentPackHelper PackHelper;
+
+        public string contentPackSpellIconsDirectory = "assets/icon/spellpart/";
 
         public FarmerMagicHelper farmerMagicHelper;
         public HarmonyHelper harmonyHelper;
@@ -74,6 +80,7 @@ namespace ArsVenefici
         public GameloopEvents gameloopEvents;
         public MultiplayerEvents multiplayerEvents;
         public PlayerEvents playerEvents;
+        public SpellPartEvents spellPartEvents;
 
         //Mana bar texture
 
@@ -124,6 +131,7 @@ namespace ArsVenefici
         private void InitializeClasses()
         {
             arsVeneficiAPILoader.SetAPI(new ArsVeneficiAPIImpl());
+            PackHelper = new ContentPackHelper(this);
             farmerMagicHelper = new FarmerMagicHelper(this);
 
             SpaceCore.Skills.RegisterSkill(FarmerMagicHelper.Skill = new ArsVeneficiSkill(this));
@@ -133,7 +141,8 @@ namespace ArsVenefici
             dailyTracker = new DailyTracker();
             buffs = new Buffs(this);
             spellPartManager = new SpellPartManager(this);
-            spellPartIconManager = new SpellPartIconManager(this);
+            spellPartIconManager = new SpellPartIconManager(this, PackHelper);
+            spellPartSkillManager = new SpellPartSkillManager(this);
 
             buttonEvents = new ButtonEvents(this);
             characterEvents = new CharacterEvents();
@@ -141,6 +150,7 @@ namespace ArsVenefici
             gameloopEvents = new GameloopEvents(this);
             multiplayerEvents = new MultiplayerEvents(this);
             playerEvents = new PlayerEvents(this);
+            spellPartEvents = new SpellPartEvents(this);
 
             harmonyHelper = new HarmonyHelper(this);
         }
@@ -172,6 +182,9 @@ namespace ArsVenefici
             helper.Events.GameLoop.DayStarted += gameloopEvents.OnDayStarted;
             helper.Events.GameLoop.UpdateTicked += gameloopEvents.OnUpdateTicked;
             helper.Events.GameLoop.OneSecondUpdateTicking += gameloopEvents.OnOneSecondUpdateTicking;
+
+            spellPartEvents.AddSpellParts += spellPartEvents.OnAddSpellParts;
+            spellPartEvents.AddSpellPartSkills += spellPartEvents.OnAddSpellPartSkills;
 
             helper.Events.Player.Warped += playerEvents.OnWarped;
             SpaceEvents.OnItemEaten += playerEvents.OnItemEaten;

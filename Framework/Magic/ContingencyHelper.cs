@@ -167,8 +167,20 @@ namespace ArsVenefici.Framework.Magic
 
                     foreach (ContingencySpellPartJson contingencySpellPart in contingencyShapeGroupSpellPartJsons)
                     {
-                        ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPart.spellPartId];
-                        contingencyShapeGroupSpellParts.Add(spellPart);
+                        if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
+                        {
+                            if (modEntry.spellPartManager.GetSpellParts()[contingencySpellPart.spellPartId] != null)
+                            {
+                                ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPart.spellPartId];
+                                contingencyShapeGroupSpellParts.Add(spellPart);
+                            }
+
+                            if (modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPart.spellPartId] != null)
+                            {
+                                ISpellPart spellPart = modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPart.spellPartId];
+                                contingencyShapeGroupSpellParts.Add(spellPart);
+                            }
+                        }
                     }
 
                     ShapeGroup shapeGroup = ShapeGroup.Of(contingencyShapeGroupSpellParts);
@@ -178,8 +190,20 @@ namespace ArsVenefici.Framework.Magic
 
                 foreach (ContingencySpellPartJson contingencySpellPartJson in contingencySpellJson.spellGrammerList)
                 {
-                    ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPartJson.spellPartId];
-                    spellGrammerList.Add(spellPart);
+                    if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
+                    {
+                        if (modEntry.spellPartManager.GetSpellParts()[contingencySpellPartJson.spellPartId] != null)
+                        {
+                            ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPartJson.spellPartId];
+                            spellGrammerList.Add(spellPart);
+                        }
+
+                        if (modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPartJson.spellPartId] != null)
+                        {
+                            ISpellPart spellPart = modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPartJson.spellPartId];
+                            spellGrammerList.Add(spellPart);
+                        }
+                    }
                 }
 
                 Spells.Spell spell = new Spells.Spell(modEntry, shapeGroups, SpellStack.Of(spellGrammerList));

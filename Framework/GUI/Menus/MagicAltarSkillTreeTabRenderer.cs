@@ -33,6 +33,9 @@ using ArsVenefici.Framework.API.Client;
 using ArsVenefici.Framework.API.Skill;
 using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.Spells.Registry;
+using StardewValley.Extensions;
+using ArsVenefici.Framework.API.Spell;
+using StardewModdingAPI;
 
 namespace ArsVenefici.Framework.GUI.Menus
 {
@@ -43,6 +46,8 @@ namespace ArsVenefici.Framework.GUI.Menus
         private float SKILL_SIZE = 32f;
 
         private float SCALE = 1f;
+        private float FULLSCREEN_WINDOW_SCALE = 1.7f;
+        private float SKILL_TREE_SCALE = 1f;
 
         private int lastMouseX = 0;
         private int lastMouseY = 0;
@@ -56,6 +61,9 @@ namespace ArsVenefici.Framework.GUI.Menus
         bool isHoveringSkill = false;
 
         HashSet<SpellPartSkill> skills;
+        HashSet<SpellPartSkill> contentPackSkills;
+        HashSet<SpellPartSkill> allSkills;
+        
         private TreeNodeModel<SpellPartSkill> skillTree;
 
         Matrix transformMatrix;
@@ -73,7 +81,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         {
             SCALE = 1f;
 
-            SKILL_SIZE = 64 * SCALE;
+            SKILL_SIZE = 64 * SKILL_TREE_SCALE;
 
             offsetX = (magicAltarTab.GetStartX() - width / 2f) + 350;
 
@@ -101,11 +109,22 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
-            skills = modEntry.spellPartSkillManager.GetSpellPartSkills().Values.Where(skill => skill.GetOcculusTab().Equals(magicAltarTab)).ToHashSet();
-            skills.RemoveWhere(skill => skill.IsHidden() && !helper.Knows(modEntry, player, skill));
+            if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
+            {
+                skills = modEntry.spellPartSkillManager.GetSpellPartSkills().Values.Where(skill => skill.GetOcculusTab().Equals(magicAltarTab)).ToHashSet();
+                contentPackSkills = modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values.Where(skill => skill.GetOcculusTab().Equals(magicAltarTab)).ToHashSet();
 
-            skillTree = GetSampleTree(skills);
-            TreeHelpers<SpellPartSkill>.CalculateNodePositions(skillTree);
+                skills.RemoveWhere(skill => skill.IsHidden() && !helper.Knows(modEntry, player, skill));
+                contentPackSkills.RemoveWhere(skill => skill.IsHidden() && !helper.Knows(modEntry, player, skill));
+
+                allSkills = new HashSet<SpellPartSkill>();
+
+                allSkills.AddRange(skills);
+                allSkills.AddRange(contentPackSkills);
+
+                skillTree = GetSampleTree(allSkills);
+                TreeHelpers<SpellPartSkill>.CalculateNodePositions(skillTree);
+            }
         }
 
         public void ResetOffset()
@@ -161,11 +180,31 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         protected override void RenderBg(SpriteBatch spriteBatch, int mouseX, int mouseY, float partialTicks)
         {
+
+            int w = 0;
+            int h = 0;
+
+            if (parent.isFullScreen)
+            {
+
+                w = magicAltarTab.GetWidth() / 2;
+                h = magicAltarTab.GetHeight() / 2;
+
+                bounds = new Rectangle(parent.xPositionOnScreen - 350, 100, (int)(w * FULLSCREEN_WINDOW_SCALE), (int)(h * FULLSCREEN_WINDOW_SCALE));
+            }
+            else
+            {
+                w = magicAltarTab.GetWidth() / 2;
+                h = magicAltarTab.GetHeight() / 2;
+
+                bounds = new Rectangle(parent.xPositionOnScreen - 150, parent.yPositionOnScreen - 65, w, h);
+            }
+
             float scaledOffsetX = offsetX * SCALE;
             float scaledOffsetY = offsetY * SCALE;
 
-            float scaledWidth = width * (1 / SCALE);
-            float scaledHeight = height * (1 / SCALE);
+            float scaledWidth = w * (1 / SCALE);
+            float scaledHeight = h * (1 / SCALE);
 
             float minU = Math.Clamp(scaledOffsetX, 0, textureWidth - scaledWidth) / textureWidth;
             float minV = Math.Clamp(scaledOffsetY, 0, textureHeight - scaledHeight) / textureHeight;
@@ -183,9 +222,17 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             Rectangle sourceRect = new Rectangle((int)offsetX, (int)offsetY, (int)scaledWidth, (int)scaledHeight);
 
-            IClickableMenu.drawTextureBox(spriteBatch, bounds.X - 10, bounds.Y - 10, bounds.Width + 20, bounds.Height + 20, Color.White);
 
-            spriteBatch.Draw(magicAltarTab.GetBackground(), bounds, sourceRect, Color.White);
+            if (parent.isFullScreen)
+            {
+                IClickableMenu.drawTextureBox(spriteBatch, bounds.X - 10, bounds.Y - 10, bounds.Width + 20, bounds.Height + 20, Color.White);
+                spriteBatch.Draw(magicAltarTab.GetBackground(), new Vector2(bounds.X, bounds.Y), sourceRect, Color.White, 0, Vector2.Zero, FULLSCREEN_WINDOW_SCALE, SpriteEffects.None, 0);
+            }
+            else
+            {
+                IClickableMenu.drawTextureBox(spriteBatch, bounds.X - 10, bounds.Y - 10, bounds.Width + 20, bounds.Height + 20, Color.White);
+                spriteBatch.Draw(magicAltarTab.GetBackground(), bounds, sourceRect, Color.White);
+            }
         }
 
         protected override void RenderFg(SpriteBatch spriteBatch, int mouseX, int mouseY, float partialTicks)
@@ -197,11 +244,36 @@ namespace ArsVenefici.Framework.GUI.Menus
             if (player == null)
                 return;
 
+            if (parent.isFullScreen)
+            {
+                //SKILL_SIZE = (float)((64 * FULLSCREEN_WINDOW_SCALE) * SCALE);
+                SKILL_SIZE = (float)(64 * SKILL_TREE_SCALE);
+            }
+            else
+            {
+                SKILL_SIZE = 64 * SKILL_TREE_SCALE;
+            }
+
+            CreateScissor(modEntry, player, spriteBatch, helper, mouseX, mouseY, partialTicks);
+
+            if (hoverItem != null)
+            {
+                DrawHoverToolTip(modEntry, player, helper, spriteBatch);
+            }
+
+            if (!isHoveringSkill)
+            {
+                hoverItem = null;
+            }
+        }
+
+        public void CreateScissor(ModEntry modEntry, Farmer player, SpriteBatch spriteBatch, ISpellPartSkillHelper helper, int mouseX, int mouseY, float partialTicks)
+        {
             spriteBatch.End();
 
             //Create Scissor Region
 
-            if(width / Game1.options.preferredResolutionX > height / Game1.options.preferredResolutionY)
+            if (width / Game1.options.preferredResolutionX > height / Game1.options.preferredResolutionY)
             {
                 float aspect = height / Game1.options.preferredResolutionY;
 
@@ -213,7 +285,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                 float aspect = width / Game1.options.preferredResolutionX;
 
 
-                virtualWidth =width;
+                virtualWidth = width;
                 virtualHeight = (int)(aspect * Game1.options.preferredResolutionY);
             }
 
@@ -225,7 +297,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             //transformMatrix = Matrix.CreateScale(virtualWidth / Game1.options.preferredResolutionX) * Matrix.CreateTranslation(-offsetX, -offsetY, 0);
             //transformMatrix = Matrix.CreateTranslation(-offsetX * SCALE, (float)Math.Floor(-offsetY * SCALE), 0) * Matrix.CreateScale(SCALE, SCALE, 0);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, blendState: BlendState.AlphaBlend,null, null, rasterizerState: new RasterizerState { ScissorTestEnable = true }, null, transformMatrix);
+            spriteBatch.Begin(SpriteSortMode.Immediate, blendState: BlendState.AlphaBlend, null, null, rasterizerState: new RasterizerState { ScissorTestEnable = true }, null, transformMatrix);
 
             Rectangle clippingRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
             spriteBatch.GraphicsDevice.ScissorRectangle = bounds;
@@ -239,15 +311,106 @@ namespace ArsVenefici.Framework.GUI.Menus
             //End Scissor Region
 
             spriteBatch.Begin(blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp);
+        }
 
-            if (hoverItem != null)
+        private void positionSkillHoverRect(float mouseX, float mouseY, TreeNodeModel<SpellPartSkill> node)
+        {
+            var nodeRect = new Rectangle
+                (
+                    Convert.ToInt32(bounds.X + SKILL_MARGIN_X + (node.X * (SKILL_SIZE + SKILL_MARGIN_X))),
+                    (int)(bounds.Y + SKILL_MARGIN_Y + (node.Y * (SKILL_SIZE + SKILL_MARGIN_Y))),
+                    (int)SKILL_SIZE, (int)SKILL_SIZE
+                );
+
+            Vector2 vector = Vector2.Transform(nodeRect.Location.ToVector2(), transformMatrix);
+
+            Rectangle rect = new Rectangle((int)vector.X, (int)vector.Y, (int)SKILL_SIZE + 16, (int)SKILL_SIZE + 16);
+            //Rectangle rect = new Rectangle((int)vector.X, (int)vector.Y, (int)SKILL_SIZE, (int)SKILL_SIZE);
+
+            if (rect.Contains(mouseX, mouseY) && bounds.Contains(mouseX, mouseY))
             {
-                DrawHoverToolTip(modEntry, player, helper, spriteBatch);
+                hoverItem = node.Item;
+                isHoveringSkill = true;
+            }
+            else
+            {
+                isHoveringSkill = false;
             }
 
-            if (!isHoveringSkill)
+            foreach (var item in node.Children)
             {
-                hoverItem = null;
+                positionSkillHoverRect(mouseX, mouseY, item);
+            }
+        }
+
+        public override void MouseHover(float mouseX, float mouseY)
+        {
+            ModEntry modEntry = parent.modEntry;
+            Farmer player = Game1.player;
+
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+
+            positionSkillHoverRect(mouseX, mouseY, skillTree);
+        }
+
+        public override void MouseClicked(float mouseX, float mouseY)
+        {
+            ModEntry modEntry = parent.modEntry;
+            Farmer player = Game1.player;
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+
+            if (player != null && hoverItem != null && !helper.Knows(modEntry, player, hoverItem))
+            {
+                //modEntry.Monitor.Log("Mouse Clicked", StardewModdingAPI.LogLevel.Info);
+
+                if (helper.CanLearn(modEntry, player, hoverItem))
+                {
+                    foreach (var item in hoverItem.Cost())
+                    {
+                        player.Items.ReduceId(item.Key.QualifiedItemId, item.Value);
+                    }
+
+                    helper.Learn(modEntry, player, hoverItem);
+                }
+            }
+        }
+
+        public override void MouseScroll(int direction)
+        {
+            ModEntry modEntry = parent.modEntry;
+            Farmer player = Game1.player;
+            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+
+            //modEntry.Monitor.Log(direction.ToString(), LogLevel.Info);
+
+            //if (direction > 0)
+            //{
+            //    if (SKILL_TREE_SCALE < 1f)
+            //        SKILL_TREE_SCALE = 1f;
+            //    else
+            //        SKILL_TREE_SCALE -= 0.5f;
+            //}
+            //else if (direction < 0)
+            //{
+            //    if (SKILL_TREE_SCALE > 2f)
+            //        SKILL_TREE_SCALE = 2f;
+            //    else
+            //        SKILL_TREE_SCALE += 0.5f;
+            //}
+
+            if (SKILL_TREE_SCALE < 1f)
+                SKILL_TREE_SCALE = 1f;
+
+            if (SKILL_TREE_SCALE > 2f)
+                SKILL_TREE_SCALE = 2f;
+
+            if (direction > 0)
+            {
+                SKILL_TREE_SCALE += 0.5f;
+            }
+            else if (direction < 0)
+            {
+                SKILL_TREE_SCALE -= 0.5f;
             }
         }
 
@@ -277,7 +440,14 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             //Draw lines
 
-            DrawNodeLines(modEntry, nodeRect, hasPrereq, knows, node, spriteBatch);
+            int lineSize = 4;
+
+            if(parent.isFullScreen)
+                lineSize = 8;
+            else
+                lineSize = 4;
+
+            DrawNodeLines(modEntry, nodeRect, hasPrereq, knows, node, spriteBatch, lineSize);
 
             //Draw content
 
@@ -320,13 +490,16 @@ namespace ArsVenefici.Framework.GUI.Menus
                 color = Color.White;
             }
 
-            Texture2D skillTexture = modEntry.spellPartIconManager.GetSprite(node.Item.GetId());
+            if (modEntry.spellPartIconManager.GetSprite(node.Item.GetId()) != null)
+            {
+                Texture2D skillTexture = modEntry.spellPartIconManager.GetSprite(node.Item.GetId());
 
-            //spriteBatch.Draw(skillTexture, new Rectangle((int)skillPos.X, (int)skillPos.Y, (int)SKILL_SIZE, (int)SKILL_SIZE), color);
-            spriteBatch.Draw(skillTexture, nodeRect, color);
+                //spriteBatch.Draw(skillTexture, new Rectangle((int)skillPos.X, (int)skillPos.Y, (int)SKILL_SIZE, (int)SKILL_SIZE), color);
+                spriteBatch.Draw(skillTexture, nodeRect, color);
+            }
         }
 
-        private void DrawNodeLines(ModEntry modEntry, Rectangle nodeRect, bool hasPrereq, bool knows, TreeNodeModel<SpellPartSkill> node, SpriteBatch spriteBatch)
+        private void DrawNodeLines(ModEntry modEntry, Rectangle nodeRect, bool hasPrereq, bool knows, TreeNodeModel<SpellPartSkill> node, SpriteBatch spriteBatch, int lineWidth)
         {
             uint uColor;
             int offset;
@@ -353,7 +526,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 var nodeTopMiddle = new Point(nodeRect.X + (nodeRect.Width / 2), nodeRect.Y);
                 //spriteBatch.DrawLine(NODE_PEN, nodeTopMiddle, new Point(nodeTopMiddle.X, nodeTopMiddle.Y - (SKILL_MARGIN_Y / 2)));
-                DrawSprite.DrawLine(spriteBatch, nodeTopMiddle.ToVector2(), new Point(nodeTopMiddle.X, nodeTopMiddle.Y - (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), 4);
+                DrawSprite.DrawLine(spriteBatch, nodeTopMiddle.ToVector2(), new Point(nodeTopMiddle.X, nodeTopMiddle.Y - (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), lineWidth);
             }
 
             // draw line to children
@@ -361,7 +534,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 var nodeBottomMiddle = new Point(nodeRect.X + (nodeRect.Width / 2), nodeRect.Y + nodeRect.Height);
                 //spriteBatch.DrawLine(NODE_PEN, nodeBottomMiddle, new Point(nodeBottomMiddle.X, nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2)));
-                DrawSprite.DrawLine(spriteBatch, nodeBottomMiddle.ToVector2(), new Point(nodeBottomMiddle.X, nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), 4);
+                DrawSprite.DrawLine(spriteBatch, nodeBottomMiddle.ToVector2(), new Point(nodeBottomMiddle.X, nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), lineWidth);
 
 
                 // draw line over children
@@ -375,80 +548,41 @@ namespace ArsVenefici.Framework.GUI.Menus
                         nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2));
 
                     //spriteBatch.DrawLine(NODE_PEN, childrenLineStart, childrenLineEnd);
-                    DrawSprite.DrawLine(spriteBatch, childrenLineStart.ToVector2(), childrenLineEnd.ToVector2(), new Color(uColor), 4);
+                    DrawSprite.DrawLine(spriteBatch, childrenLineStart.ToVector2(), childrenLineEnd.ToVector2(), new Color(uColor), 8);
                 }
             }
         }
 
         #endregion
 
-        public override void MouseHover(float mouseX, float mouseY)
-        {
-            ModEntry modEntry = parent.modEntry;
-            Farmer player = Game1.player;
-
-            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
-
-            positionSkillHoverRect(mouseX, mouseY, skillTree);
-        }
-
-        private void positionSkillHoverRect(float mouseX, float mouseY, TreeNodeModel<SpellPartSkill> node)
-        {
-            var nodeRect = new Rectangle
-                (
-                    Convert.ToInt32(bounds.X + SKILL_MARGIN_X + (node.X * (SKILL_SIZE + SKILL_MARGIN_X))),
-                    (int)(bounds.Y + SKILL_MARGIN_Y + (node.Y * (SKILL_SIZE + SKILL_MARGIN_Y))),
-                    (int)SKILL_SIZE, (int)SKILL_SIZE
-                );
-
-            Vector2 vector = Vector2.Transform(nodeRect.Location.ToVector2(), transformMatrix);
-
-            Rectangle rect = new Rectangle((int)vector.X, (int)vector.Y, (int)SKILL_SIZE + 16, (int)SKILL_SIZE + 16);
-            //Rectangle rect = new Rectangle((int)vector.X, (int)vector.Y, (int)SKILL_SIZE, (int)SKILL_SIZE);
-
-            if (rect.Contains(mouseX, mouseY))
-            {
-                hoverItem = node.Item;
-                isHoveringSkill = true;
-            }
-            else
-            {
-                isHoveringSkill = false;
-            }
-
-            foreach (var item in node.Children)
-            {
-                positionSkillHoverRect(mouseX, mouseY, item);
-            }
-        }
-
-        public override void MouseClicked(float mouseX, float mouseY)
-        {
-            ModEntry modEntry = parent.modEntry;
-            Farmer player = Game1.player;
-            var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
-
-            if (player != null && hoverItem != null && !helper.Knows(modEntry, player, hoverItem))
-            {
-                //modEntry.Monitor.Log("Mouse Clicked", StardewModdingAPI.LogLevel.Info);
-
-                if (helper.CanLearn(modEntry, player, hoverItem))
-                {
-                    foreach (var item in hoverItem.Cost())
-                    {
-                        player.Items.ReduceId(item.Key.QualifiedItemId, item.Value);
-                    }
-                    
-                    helper.Learn(modEntry, player, hoverItem);
-                }
-            }
-        }
+        #region Tooltip
 
         public void DrawHoverToolTip(ModEntry modEntry, Farmer player, ISpellPartSkillHelper helper, SpriteBatch spriteBatch)
         {
 
-            string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{hoverItem.GetId()}.name");
-            string spellPartDescriptionText = modEntry.Helper.Translation.Get($"spellpart.{hoverItem.GetId()}.description");
+            //string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{hoverItem.GetId()}.name");
+            //string spellPartDescriptionText = modEntry.Helper.Translation.Get($"spellpart.{hoverItem.GetId()}.description");
+
+            string spellPartNameText = "";
+            string spellPartDescriptionText = "";
+
+            foreach (KeyValuePair<string, ISpellPart> item in modEntry.spellPartManager.GetSpellParts())
+            {
+                if (item.Value.GetId() == hoverItem.GetId())
+                {
+                    spellPartNameText = item.Value.DisplayName();
+                    spellPartDescriptionText = item.Value.DisplayDiscription();
+                }
+            }
+
+            foreach (KeyValuePair<string, ISpellPart> item in modEntry.spellPartManager.GetContentPackSpellParts())
+            {
+                if (item.Value.GetId() == hoverItem.GetId())
+                {
+                    spellPartNameText = item.Value.DisplayName();
+                    spellPartDescriptionText = item.Value.DisplayDiscription();
+                }
+            }
 
             bool knows = helper.Knows(modEntry, player, hoverItem);
 
@@ -1048,5 +1182,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                 }
             }
         }
+
+        #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.Characters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -42,6 +43,38 @@ namespace ArsVenefici.Framework.Util
             l.Reverse();
 
             return GetFirstMatching(l, predicate);
+        }
+
+        // Stolen SpaceShared which was stolen from SMAPI
+        public static void InvokeEvent(string name, IEnumerable<Delegate> handlers, object sender)
+        {
+            var args = new EventArgs();
+            foreach (EventHandler handler in handlers.Cast<EventHandler>())
+            {
+                try
+                {
+                    handler.Invoke(sender, args);
+                }
+                catch (Exception e)
+                {
+                    //Log.Error($"Exception while handling event {name}:\n{e}");
+                }
+            }
+        }
+
+        public static void InvokeEvent<T>(string name, IEnumerable<Delegate> handlers, object sender, T args)
+        {
+            foreach (EventHandler<T> handler in handlers.Cast<EventHandler<T>>())
+            {
+                try
+                {
+                    handler.Invoke(sender, args);
+                }
+                catch (Exception e)
+                {
+                    //Log.Error($"Exception while handling event {name}:\n{e}");
+                }
+            }
         }
 
         //---------------------------------------

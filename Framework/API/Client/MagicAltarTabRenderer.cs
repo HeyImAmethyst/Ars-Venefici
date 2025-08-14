@@ -88,5 +88,10 @@ namespace ArsVenefici.Framework.API.Client
         {
 
         }
+
+        public virtual void MouseScroll(int direction)
+        {
+
+        }
     }
 }

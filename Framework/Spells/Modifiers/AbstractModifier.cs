@@ -28,5 +28,15 @@ namespace ArsVenefici.Framework.Spells.Modifiers
         }
 
         public abstract float ManaCost();
+
+        public virtual string DisplayName()
+        {
+            return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.name");
+        }
+
+        public virtual string DisplayDiscription()
+        {
+            return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.description");
+        }
     }
 }

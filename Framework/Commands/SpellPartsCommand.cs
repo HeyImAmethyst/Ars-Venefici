@@ -26,19 +26,22 @@ namespace ArsVenefici.Framework.Commands
             {
                 string value = args[0];
 
-                if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value))
+                if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
                 {
-                    var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+                    if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value) || modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().ContainsKey(value))
+                    {
+                        var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
-                    string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
+                        string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
 
-                    helper.Learn(modEntry, Game1.player, value);
+                        helper.Learn(modEntry, Game1.player, value);
 
-                    modEntry.Monitor.Log($"You learned the spell part {spellPartNameText}!", LogLevel.Info);
-                }
-                else
-                {
-                    modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
+                        modEntry.Monitor.Log($"You learned the spell part {spellPartNameText}!", LogLevel.Info);
+                    }
+                    else
+                    {
+                        modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
+                    }
                 }
             }
         }
@@ -58,19 +61,22 @@ namespace ArsVenefici.Framework.Commands
             {
                 string value = args[0];
 
-                if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value))
+                if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
                 {
-                    var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+                    if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value) || modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().ContainsKey(value))
+                    {
+                        var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
 
-                    string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
+                        string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
 
-                    helper.Forget(modEntry, Game1.player, value);
+                        helper.Forget(modEntry, Game1.player, value);
 
-                    modEntry.Monitor.Log($"You forgot the spell part {spellPartNameText}!", LogLevel.Info);
-                }
-                else
-                {
-                    modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
+                        modEntry.Monitor.Log($"You forgot the spell part {spellPartNameText}!", LogLevel.Info);
+                    }
+                    else
+                    {
+                        modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
+                    }
                 }
             }
         }
@@ -89,24 +95,27 @@ namespace ArsVenefici.Framework.Commands
             {
                 string value = args[0];
 
-                if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value))
+                if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
                 {
-                    var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
-
-                    string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
-
-                    if (helper.Knows(modEntry, Game1.player, value))
+                    if (modEntry.spellPartSkillManager.GetSpellPartSkills().ContainsKey(value) || modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().ContainsKey(value))
                     {
-                        modEntry.Monitor.Log($"You know the spell part {spellPartNameText}!", LogLevel.Info);
+                        var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+
+                        string spellPartNameText = modEntry.Helper.Translation.Get($"spellpart.{value}.name");
+
+                        if (helper.Knows(modEntry, Game1.player, value))
+                        {
+                            modEntry.Monitor.Log($"You know the spell part {spellPartNameText}!", LogLevel.Info);
+                        }
+                        else
+                        {
+                            modEntry.Monitor.Log($"You do not know the spell part {spellPartNameText}!", LogLevel.Info);
+                        }
                     }
                     else
                     {
-                        modEntry.Monitor.Log($"You do not know the spell part {spellPartNameText}!", LogLevel.Info);
+                        modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
                     }
-                }
-                else
-                {
-                    modEntry.Monitor.Log($"The name {value} is not a valid spell part id!", LogLevel.Info);
                 }
             }
         }

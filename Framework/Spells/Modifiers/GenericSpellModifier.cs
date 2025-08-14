@@ -1,4 +1,5 @@
 ﻿using ArsVenefici.Framework.API.Spell;
+using StardewModdingAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,16 @@ namespace ArsVenefici.Framework.Spells.Modifiers
     {
         string id = "";
         float manaCost;
+        IModHelper modHelper;
 
         protected Dictionary<ISpellPartStat, ISpellPartStatModifier> modifiers = new Dictionary<ISpellPartStat, ISpellPartStatModifier>();
 
-        public GenericSpellModifier(string id, float manaCost)
+        public GenericSpellModifier(string id, IModHelper modHelper,float manaCost)
         {
             this.id = id;
             this.manaCost = manaCost;
+
+            this.modHelper = modHelper;
         }
 
         public override string GetId()
@@ -51,6 +55,16 @@ namespace ArsVenefici.Framework.Spells.Modifiers
         public override float ManaCost()
         {
             return manaCost;
+        }
+
+        public override string DisplayName()
+        {
+            return modHelper.Translation.Get($"spellpart.{GetId()}.name");
+        }
+
+        public override string DisplayDiscription()
+        {
+            return modHelper.Translation.Get($"spellpart.{GetId()}.description");
         }
     }
 }

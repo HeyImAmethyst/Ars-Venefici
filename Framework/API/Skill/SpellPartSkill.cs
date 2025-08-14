@@ -28,6 +28,14 @@ namespace ArsVenefici.Framework.API.Skill
             this.hidden = hidden;
         }
 
+        public SpellPartSkill(string id, Dictionary<Item, int> cost, MagicAltarTab tab, bool hidden)
+        {
+            this.id = id;
+            this.cost = cost;
+            this.tab = tab;
+            this.hidden = hidden;
+        }
+
         public MagicAltarTab GetOcculusTab()
         {
             return tab;
@@ -36,6 +44,16 @@ namespace ArsVenefici.Framework.API.Skill
         public HashSet<SpellPartSkill> Parents()
         {
             return parents;
+        }
+
+        public void SetParents(HashSet<SpellPartSkill> parents)
+        {
+            this.parents = parents;
+        }
+
+        public void SetParents(params SpellPartSkill[] parents)
+        {
+            this.parents = new HashSet<SpellPartSkill>(parents);
         }
 
         public Dictionary<Item, int> Cost()

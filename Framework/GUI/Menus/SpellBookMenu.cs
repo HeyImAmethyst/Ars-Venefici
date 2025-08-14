@@ -130,6 +130,11 @@ namespace ArsVenefici.Framework.GUI.Menus
             SetUpPositions();
         }
 
+        protected override void Init()
+        {
+
+        }
+
         protected override void SetUpPositions()
         {
             if (modEntry != null)

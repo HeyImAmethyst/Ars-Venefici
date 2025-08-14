@@ -40,6 +40,8 @@ namespace ArsVenefici.Framework.Events
         /// <remarks> This is used to load the content packs</remarks>
         public void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
+            // Read The Content Packs
+            modEntryInstance.PackHelper.ReadContentPacks();
 
             var configMenu = modEntryInstance.Helper.ModRegistry.GetGenericModConfigMenuApi(modEntryInstance.Monitor);
 
@@ -415,6 +417,12 @@ namespace ArsVenefici.Framework.Events
                     ModEntry.ItemExtensionsApi = api;
                 }
             }
+
+            //modEntryInstance.spellPartManager.PopluateDictionary();
+            //modEntryInstance.spellPartSkillManager.PopluateDictionary();
+
+            modEntryInstance.spellPartEvents.InvokeOnAddSpellParts();
+            modEntryInstance.spellPartEvents.InvokeOnAddSpellPartSkills();
         }
 
         public void OnSaveCreating(object sender, SaveCreatingEventArgs e)
@@ -429,7 +437,8 @@ namespace ArsVenefici.Framework.Events
 
             if (Context.IsWorldReady)
             {
-                modEntryInstance.spellPartSkillManager = new SpellPartSkillManager(modEntryInstance);
+                //modEntryInstance.spellPartSkillManager = new SpellPartSkillManager(modEntryInstance);
+                modEntryInstance.spellPartIconManager.PoplulateSprites();
                 modEntryInstance.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper().UpdateIfNeeded(modEntryInstance, Game1.player);
             }
         }

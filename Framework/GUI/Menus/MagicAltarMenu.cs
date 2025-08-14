@@ -3,6 +3,7 @@ using ArsVenefici.Framework.API.Skill;
 using ArsVenefici.Framework.GUI.DragNDrop;
 using ArsVenefici.Framework.Skill;
 using ArsVenefici.Framework.Spells;
+using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.Util;
 using Force.DeepCloner;
 using Microsoft.Xna.Framework;
@@ -35,7 +36,7 @@ namespace ArsVenefici.Framework.GUI.Menus
     {
         public ModEntry modEntry;
         SpellBook spellBook;
-        SpellPartSkillManager knowlegeManager;
+        SpellPartSkillManager spellPartSkillManager;
 
         public static int GUI_WIDTH = 210 + borderWidth * 2;
         public static int GUI_HEIGHT = 210 + borderWidth * 2 + Game1.tileSize;
@@ -44,14 +45,20 @@ namespace ArsVenefici.Framework.GUI.Menus
         public int activeTabIndex = 0;
 
         private Dictionary<MagicAltarTab, MagicAltarTabRenderer> occulusTabs = new Dictionary<MagicAltarTab, MagicAltarTabRenderer>();
+        
         private readonly List<MagicAltarTabButton> tabButtons = new List<MagicAltarTabButton>();
+        private readonly List<MagicAltarTabButton> tabButtonsFullScreen = new List<MagicAltarTabButton>();
+
+        private ClickableTextureComponent fullScreenToggleButton;
+
+        public bool isFullScreen = false;
 
         public MagicAltarMenu(ModEntry modEntry)
            : base((int)GetAppropriateMenuPosition().X, (int)GetAppropriateMenuPosition().Y, GUI_WIDTH, GUI_HEIGHT, true)
         {
             this.modEntry = modEntry;
             spellBook = Game1.player.GetSpellBook();
-            this.knowlegeManager = modEntry.spellPartSkillManager;
+            this.spellPartSkillManager = modEntry.spellPartSkillManager;
 
             UpdateMenu();
         }
@@ -88,7 +95,34 @@ namespace ArsVenefici.Framework.GUI.Menus
             this.xPositionOnScreen = (int)GetAppropriateMenuPosition().X;
             this.yPositionOnScreen = (int)GetAppropriateMenuPosition().Y;
 
-            SetUpPositions();
+            //SetUpPositions();
+            UpdateMenu();
+        }
+
+        protected override void Init()
+        {
+            if (modEntry != null && spellBook != null)
+            {
+
+                //modEntry.Monitor.Log(occulusTabs.Count.ToString(), LogLevel.Info);
+
+                //occulusTabs.Clear();
+
+                //MagicAltarSkillTreeTabRenderer offenceTabRenderer = new MagicAltarSkillTreeTabRenderer(spellPartSkillManager.offenceTab, this);
+                //MagicAltarSkillTreeTabRenderer defenceTabRenderer = new MagicAltarSkillTreeTabRenderer(spellPartSkillManager.defenseTab, this);
+                //MagicAltarSkillTreeTabRenderer utilityTabRenderer = new MagicAltarSkillTreeTabRenderer(spellPartSkillManager.utilityTab, this);
+
+                //occulusTabs.Add(spellPartSkillManager.offenceTab, offenceTabRenderer);
+                //occulusTabs.Add(spellPartSkillManager.defenseTab, defenceTabRenderer);
+                //occulusTabs.Add(spellPartSkillManager.utilityTab, utilityTabRenderer);
+
+                //upperRightCloseButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 700, yPositionOnScreen - 100, 48, 48), Game1.mouseCursors, new Rectangle(337, 494, 12, 12), 4f)
+                //{
+                //    myID = 9175502
+                //};
+
+                //setActiveTab(activeTabIndex);
+            }
         }
 
         protected override void SetUpPositions()
@@ -99,15 +133,27 @@ namespace ArsVenefici.Framework.GUI.Menus
                     return;
 
                 occulusTabs.Clear();
+
+                MagicAltarSkillTreeTabRenderer offenceTabRenderer = new MagicAltarSkillTreeTabRenderer(ArsSpellPartSkills.offenceTab, this);
+                MagicAltarSkillTreeTabRenderer defenceTabRenderer = new MagicAltarSkillTreeTabRenderer(ArsSpellPartSkills.defenseTab, this);
+                MagicAltarSkillTreeTabRenderer utilityTabRenderer = new MagicAltarSkillTreeTabRenderer(ArsSpellPartSkills.utilityTab, this);
+
+                occulusTabs.Add(ArsSpellPartSkills.offenceTab, offenceTabRenderer);
+                occulusTabs.Add(ArsSpellPartSkills.defenseTab, defenceTabRenderer);
+                occulusTabs.Add(ArsSpellPartSkills.utilityTab, utilityTabRenderer);
+
+                upperRightCloseButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 600, yPositionOnScreen - 150, 48, 48), Game1.mouseCursors, new Rectangle(337, 494, 12, 12), 4f)
+                {
+                    myID = 9175502
+                };
+
+                fullScreenToggleButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 605, yPositionOnScreen - 100, 48, 48), Game1.mouseCursors, new Rectangle(256, 256, 10, 10), 4f)
+                {
+                    myID = 91755081
+                };
+
                 tabButtons.Clear();
-
-                MagicAltarSkillTreeTabRenderer offenceTabRenderer = new MagicAltarSkillTreeTabRenderer(knowlegeManager.offenceTab, this);
-                MagicAltarSkillTreeTabRenderer defenceTabRenderer = new MagicAltarSkillTreeTabRenderer(knowlegeManager.defenseTab, this);
-                MagicAltarSkillTreeTabRenderer utilityTabRenderer = new MagicAltarSkillTreeTabRenderer(knowlegeManager.utilityTab, this);
-
-                occulusTabs.Add(knowlegeManager.offenceTab, offenceTabRenderer);
-                occulusTabs.Add(knowlegeManager.defenseTab, defenceTabRenderer);
-                occulusTabs.Add(knowlegeManager.utilityTab, utilityTabRenderer);
+                tabButtonsFullScreen.Clear();
 
                 //activeTabIndex = 0;
                 setActiveTab(activeTabIndex);
@@ -120,14 +166,27 @@ namespace ArsVenefici.Framework.GUI.Menus
                     int tabIndex = tab.GetIndex();
 
                     //OcculusTabButton occulusTabButton = new OcculusTabButton(tabIndex, 7 + tabIndex % 8 * (tabSize + 2), -tabSize, xPositionOnScreen - 150, yPositionOnScreen - 142, tab, tab.GetName());
-                    MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 135, tab, tab.GetName(), this);
-                    tabButtons.Add(occulusTabButton);
+                    //MagicAltarTabButton occulusTabButton = null;
+
+                    //MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 135, tab, tab.GetName(), this);
+                    //tabButtons.Add(occulusTabButton);
+
+                    if (isFullScreen)
+                    {
+                        MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 305, tab, tab.GetName(), this);
+                        tabButtonsFullScreen.Add(occulusTabButton);
+                    }
+                    else
+                    {
+                        //MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, 0, 0, tab, tab.GetName(), this);
+                        MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 135, tab, tab.GetName(), this);
+                        tabButtons.Add(occulusTabButton);
+                    }
+
+                    //MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 135, tab, tab.GetName(), this);
+                    //tabButtons.Add(occulusTabButton);
                 }
 
-                upperRightCloseButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 500, yPositionOnScreen - 150, 48, 48), Game1.mouseCursors, new Rectangle(337, 494, 12, 12), 4f)
-                {
-                    myID = 9175502
-                };
             }
         }
 
@@ -137,7 +196,9 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 allClickableComponents = new List<ClickableComponent>(this.tabButtons.Count + 1);
                 this.allClickableComponents.AddRange(this.tabButtons);
+                this.allClickableComponents.AddRange(this.tabButtonsFullScreen);
                 this.allClickableComponents.Add(this.upperRightCloseButton);
+                this.allClickableComponents.Add(this.fullScreenToggleButton);
             }
         }
 
@@ -176,18 +237,68 @@ namespace ArsVenefici.Framework.GUI.Menus
             int x = xPositionOnScreen;
             int y = yPositionOnScreen;
 
-            if(activeTab != null)
+            if (activeTab != null)
                 activeTab.Draw(spriteBatch, pMouseX, pMouseY, 0);
 
-            foreach (MagicAltarTabButton tabButton in tabButtons)
+            //activeTab.Draw(spriteBatch, pMouseX, pMouseY, 0);
+
+            foreach (MagicAltarTabRenderer renderer in occulusTabs.Values)
             {
-                if (tabButton != null)
+                if (isFullScreen)
                 {
-                    tabButton.Draw(spriteBatch, x, y);
+                    foreach (MagicAltarTabButton tabButton in tabButtonsFullScreen)
+                    {
+                        if (tabButton != null)
+                        {
+                            tabButton.visible = true;
+                            tabButton.Draw(spriteBatch, x, y);
+                        }
+                    }
+
+                    foreach (MagicAltarTabButton tabButton in tabButtons)
+                    {
+                        if (tabButton != null)
+                        {
+                            tabButton.visible = false;
+                        }
+                    }
+
+                    if (fullScreenToggleButton.containsPoint(pMouseX, pMouseY))
+                    {
+                        drawToolTip(spriteBatch, modEntry.Helper.Translation.Get("ui.magic_altar.shrink.name"), null, null);
+                    }
+                }
+                else
+                {
+                    foreach (MagicAltarTabButton tabButton in tabButtons)
+                    {
+                        if (tabButton != null)
+                        {
+                            tabButton.visible = true;
+                            tabButton.Draw(spriteBatch, x, y);
+                        }
+                    }
+
+                    foreach (MagicAltarTabButton tabButton in tabButtonsFullScreen)
+                    {
+                        if (tabButton != null)
+                        {
+                            tabButton.visible = false;
+                        }
+                    }
+
+
+                    if (fullScreenToggleButton.containsPoint(pMouseX, pMouseY))
+                    {
+                        drawToolTip(spriteBatch, modEntry.Helper.Translation.Get("ui.magic_altar.enlarge.name"), null, null);
+                    }
                 }
             }
 
-            IClickableMenu.drawTextureBox(spriteBatch, xPositionOnScreen - 520, yPositionOnScreen + 200, 320, 250, Color.White);
+            if (fullScreenToggleButton != null)
+                fullScreenToggleButton.draw(spriteBatch);
+
+            //fullScreenToggleButton.draw(spriteBatch);
 
             string dragLabel = modEntry.Helper.Translation.Get("ui.magic_altar.drag_label.description");
 
@@ -201,9 +312,17 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             string parsedText = Game1.parseText(dragLabel.ToString(), Game1.smallFont, val1);
 
-            Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 500, yPositionOnScreen + 230), Game1.textColor);
-
-
+            if (isFullScreen)
+            {
+                IClickableMenu.drawTextureBox(spriteBatch, xPositionOnScreen - 720, yPositionOnScreen + 200, 320, 250, Color.White);
+                Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 700, yPositionOnScreen + 230), Game1.textColor);
+            }
+            else
+            {
+                IClickableMenu.drawTextureBox(spriteBatch, xPositionOnScreen - 520, yPositionOnScreen + 200, 320, 250, Color.White);
+                Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 500, yPositionOnScreen + 230), Game1.textColor);
+            }
+            
             // draw cursor
             drawMouse(spriteBatch);
         }
@@ -214,27 +333,57 @@ namespace ArsVenefici.Framework.GUI.Menus
         /// <param name="playSound">Whether to enable sound.</param>
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
+            base.receiveLeftClick(x, y, playSound);
 
             if (activeTab != null)
                 activeTab.MouseClicked(x, y);
 
-            foreach (MagicAltarTabButton button in tabButtons)
+            foreach (MagicAltarTabButton button in tabButtonsFullScreen)
             {
-                Rectangle rect = new Rectangle(button.bounds.X, button.bounds.Y, button.GetTab().GetIcon().Width + 20, button.GetTab().GetIcon().Width + 20);
-
-                if (rect.Contains(x, y))
+                if (button.visible)
                 {
-                    int tabIndex = button.GetIndex();
-                    setActiveTab(tabIndex);
+                    Rectangle rect = new Rectangle(button.bounds.X, button.bounds.Y, button.GetTab().GetIcon().Width + 20, button.GetTab().GetIcon().Width + 20);
 
-                    Game1.playSound("grassyStep");
+                    if (rect.Contains(x, y))
+                    {
+                        int tabIndex = button.GetIndex();
+                        setActiveTab(tabIndex);
 
-                    button.scale -= 0.5f;
-                    button.scale = Math.Max(3.5f, button.scale);
+                        Game1.playSound("grassyStep");
+
+                        button.scale -= 0.5f;
+                        button.scale = Math.Max(3.5f, button.scale);
+                    }
                 }
             }
 
-            base.receiveLeftClick(x, y, playSound);
+
+            foreach (MagicAltarTabButton button in tabButtons)
+            {
+                if (button.visible)
+                {
+                    Rectangle rect = new Rectangle(button.bounds.X, button.bounds.Y, button.GetTab().GetIcon().Width + 20, button.GetTab().GetIcon().Width + 20);
+
+                    if (rect.Contains(x, y))
+                    {
+                        int tabIndex = button.GetIndex();
+                        setActiveTab(tabIndex);
+
+                        Game1.playSound("grassyStep");
+
+                        button.scale -= 0.5f;
+                        button.scale = Math.Max(3.5f, button.scale);
+                    }
+                }
+            }
+
+            if (fullScreenToggleButton != null && fullScreenToggleButton.containsPoint(x, y))
+            {
+                isFullScreen = !isFullScreen;
+                UpdateMenu();
+
+                Game1.playSound("grassyStep");
+            }
         }
 
         public override void leftClickHeld(int x, int y)
@@ -262,15 +411,46 @@ namespace ArsVenefici.Framework.GUI.Menus
             if (activeTab != null)
                 activeTab.MouseHover(x, y);
 
-            foreach (MagicAltarTabButton tabButton in tabButtons)
+            foreach (MagicAltarTabButton tabButton in tabButtonsFullScreen)
             {
-                if (tabButton != null)
+                if(tabButton.visible)
                 {
-                    tabButton.IsHovered(x, y);
+                    if (tabButton != null)
+                    {
+                        tabButton.IsHovered(x, y);
+
+                        tabButton.scale -= 0.5f;
+                        tabButton.scale = Math.Max(3.5f, tabButton.scale);
+                    }
                 }
             }
 
+            foreach (MagicAltarTabButton tabButton in tabButtons)
+            {
+                if (tabButton.visible)
+                {
+                    if (tabButton != null)
+                    {
+                        tabButton.IsHovered(x, y);
+
+                        tabButton.scale -= 0.5f;
+                        tabButton.scale = Math.Max(3.5f, tabButton.scale);
+                    }
+                }
+            }
+
+            if (fullScreenToggleButton != null)
+                fullScreenToggleButton.tryHover(x, y, 0.5f);
+
             base.performHoverAction(x, y);
+        }
+
+        public override void receiveScrollWheelAction(int direction)
+        {
+            if (activeTab != null)
+                activeTab.MouseScroll(direction);
+
+            base.receiveScrollWheelAction(direction);
         }
 
         private void setActiveTab(int tabIndex)
@@ -285,7 +465,8 @@ namespace ArsVenefici.Framework.GUI.Menus
                     activeTab = kvp.Value;
             }
 
-            ((MagicAltarSkillTreeTabRenderer)activeTab).ResetOffset();
+            if (activeTab != null)
+                ((MagicAltarSkillTreeTabRenderer)activeTab).ResetOffset();
         }
     }
 }

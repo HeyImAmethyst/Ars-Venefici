@@ -43,9 +43,10 @@ namespace ArsVenefici.Framework.Spells.Registry
         public static ObjectHolder<AbstractComponent> SHIELD = RegisterComponent(new ObjectHolder<AbstractComponent>(new Shield()));
         public static ObjectHolder<AbstractComponent> SUMMON = RegisterComponent(new ObjectHolder<AbstractComponent>(new Summon()));
 
-        private static ObjectHolder<AbstractComponent> RegisterComponent(ObjectHolder<AbstractComponent> obj)
+        public static ObjectHolder<AbstractComponent> RegisterComponent(ObjectHolder<AbstractComponent> obj)
         {
             ObjectHolder<AbstractComponent> toReturn = COMPONENTS.Register(obj);
+            ModEntry.INSTANCE.Monitor.Log("Registered Component " + obj.Get().GetId(), StardewModdingAPI.LogLevel.Info);
             return toReturn;
         }
     }

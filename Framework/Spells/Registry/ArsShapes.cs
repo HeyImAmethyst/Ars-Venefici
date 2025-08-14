@@ -1,4 +1,5 @@
 ﻿using ArsVenefici.Framework.API.Magic;
+using ArsVenefici.Framework.Spells.Modifiers;
 using ArsVenefici.Framework.Spells.Shape;
 using ArsVenefici.Framework.Util;
 using System;
@@ -29,9 +30,10 @@ namespace ArsVenefici.Framework.Spells.Registry
         public static ObjectHolder<AbstractShape> CONTINGENCY_DAMAGE = RegisterShape(new ObjectHolder<AbstractShape>(new Contingency("contingency_damage", ContingencyType.DAMAGE)));
         public static ObjectHolder<AbstractShape> CONE = RegisterShape(new ObjectHolder<AbstractShape>(new Cone()));
 
-        private static ObjectHolder<AbstractShape> RegisterShape(ObjectHolder<AbstractShape> obj)
+        public static ObjectHolder<AbstractShape> RegisterShape(ObjectHolder<AbstractShape> obj)
         {
             ObjectHolder<AbstractShape> toReturn = SHAPES.Register(obj);
+            ModEntry.INSTANCE.Monitor.Log("Registered Shape " + obj.Get().GetId(), StardewModdingAPI.LogLevel.Info);
             return toReturn;
         }
     }

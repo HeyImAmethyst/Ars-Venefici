@@ -83,28 +83,48 @@ namespace ArsVenefici.Framework.Skill
 
         public void Learn(ModEntry modEntry, Farmer player, string spellPartId)
         {
-            foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
+            if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
             {
-                if (skill.GetId().Equals(spellPartId) && !KnownSpellPartSkills.Keys.Contains(skill.GetId()))
-                    KnownSpellPartSkills.Add(spellPartId, skill);
+                foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
+                {
+                    if (skill.GetId().Equals(spellPartId) && !KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                        KnownSpellPartSkills.Add(spellPartId, skill);
+                }
+
+                foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values)
+                {
+                    if (skill.GetId().Equals(spellPartId) && !KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                        KnownSpellPartSkills.Add(spellPartId, skill);
+                }
+
+                SyncToPlayer(player);
+                UpdateIfNeeded(modEntry, player);
             }
-            
-            SyncToPlayer(player);
-            UpdateIfNeeded(modEntry, player);
         }
 
         public void LearnAll(ModEntry modEntry, Farmer player)
         {
-            foreach(SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
+            if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
             {
-                if (!KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
-                    KnownSpellPartSkills.Add(spellPartSkill.GetId(), spellPartSkill);
+                foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
+                {
+                    if (!KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
+                        KnownSpellPartSkills.Add(spellPartSkill.GetId(), spellPartSkill);
 
-                //Learn(modEntry, player, spellPartSkill);
+                    //Learn(modEntry, player, spellPartSkill);
+                }
+
+                foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values)
+                {
+                    if (!KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
+                        KnownSpellPartSkills.Add(spellPartSkill.GetId(), spellPartSkill);
+
+                    //Learn(modEntry, player, spellPartSkill);
+                }
+
+                SyncToPlayer(player);
+                UpdateIfNeeded(modEntry, player);
             }
-
-            SyncToPlayer(player);
-            UpdateIfNeeded(modEntry, player);
         }
 
         public void Forget(ModEntry modEntry, Farmer player, SpellPartSkill skill)
@@ -118,28 +138,48 @@ namespace ArsVenefici.Framework.Skill
 
         public void Forget(ModEntry modEntry, Farmer player, string spellPartId)
         {
-            foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
+            if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
             {
-                if (skill.GetId().Equals(spellPartId) && KnownSpellPartSkills.Keys.Contains(skill.GetId()))
-                    KnownSpellPartSkills.Remove(spellPartId);
-            }
+                foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
+                {
+                    if (skill.GetId().Equals(spellPartId) && KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                        KnownSpellPartSkills.Remove(spellPartId);
+                }
 
-            SyncToPlayer(player);
-            UpdateIfNeeded(modEntry, player);
+                foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values)
+                {
+                    if (skill.GetId().Equals(spellPartId) && KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                        KnownSpellPartSkills.Remove(spellPartId);
+                }
+
+                SyncToPlayer(player);
+                UpdateIfNeeded(modEntry, player);
+            }
         }
 
         public void ForgetAll(ModEntry modEntry, Farmer player)
         {
-            foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
+            if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
             {
-                if (KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
-                    KnownSpellPartSkills.Remove(spellPartSkill.GetId());
+                foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
+                {
+                    if (KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
+                        KnownSpellPartSkills.Remove(spellPartSkill.GetId());
 
-                //Forget(modEntry, player, spellPartSkill);
+                    //Forget(modEntry, player, spellPartSkill);
+                }
+
+                foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values)
+                {
+                    if (KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
+                        KnownSpellPartSkills.Remove(spellPartSkill.GetId());
+
+                    //Forget(modEntry, player, spellPartSkill);
+                }
+
+                SyncToPlayer(player);
+                UpdateIfNeeded(modEntry, player);
             }
-
-            SyncToPlayer(player);
-            UpdateIfNeeded(modEntry, player);
         }
 
         public IDictionary<string, SpellPartSkill> GetKnownSpellPartSkills(ModEntry modEntry, Farmer player)
@@ -191,10 +231,17 @@ namespace ArsVenefici.Framework.Skill
                     spellPartSkill.Add(null);
                 else
                 {
-                    modEntry.spellPartSkillManager.GetSpellPartSkills().TryGetValue(rawSpellPart, out SpellPartSkill k);
+                    if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
+                    {
+                        modEntry.spellPartSkillManager.GetSpellPartSkills().TryGetValue(rawSpellPart, out SpellPartSkill spellPart);
+                        modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().TryGetValue(rawSpellPart, out SpellPartSkill contentPackSpellPart);
 
-                    if(k != null)
-                        spellPartSkill.Add(k);
+                        if (spellPart != null)
+                            spellPartSkill.Add(spellPart);
+
+                        if (contentPackSpellPart != null)
+                            spellPartSkill.Add(contentPackSpellPart);
+                    }
                 }
             }
 

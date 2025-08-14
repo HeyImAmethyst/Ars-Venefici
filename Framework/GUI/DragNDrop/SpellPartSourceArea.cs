@@ -169,8 +169,20 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
 
             //return modEntry.spellPartManager.spellParts.Values.ToList();
 
-            var knowlegeHelper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
-            return modEntry.spellPartManager.GetSpellParts().Values.Where(e => knowlegeHelper.Knows(modEntry, Game1.player, e.GetId())).ToList();
+            List<ISpellPart> allSpellParts = new List<ISpellPart>();
+
+            var spellPartSkillHelper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper();
+
+            if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
+            {
+                List<ISpellPart> sp = modEntry.spellPartManager.GetSpellParts().Values.Where(e => spellPartSkillHelper.Knows(modEntry, Game1.player, e.GetId())).ToList();
+                List<ISpellPart> csp = modEntry.spellPartManager.GetContentPackSpellParts().Values.Where(e => spellPartSkillHelper.Knows(modEntry, Game1.player, e.GetId())).ToList();
+
+                allSpellParts.AddRange(sp);
+                allSpellParts.AddRange(csp);
+            }
+
+            return allSpellParts;
         }
 
         public void SetCurrentOffset(int value)

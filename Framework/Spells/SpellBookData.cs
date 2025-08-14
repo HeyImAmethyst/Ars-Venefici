@@ -149,12 +149,19 @@ namespace ArsVenefici.Framework.Spells
 
                 foreach (SpellPartDraggableJson spellPartDraggableJson in areaSpellPartDraggableJsons)
                 {
-                    if(modEntry.spellPartManager.GetSpellParts().ContainsKey(spellPartDraggableJson.spellPartId) && modEntry.spellPartManager.GetSpellParts()[spellPartDraggableJson.spellPartId] != null)
+                    if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
                     {
-                        SpellPartDraggable spellPartDraggable = new SpellPartDraggable(modEntry.spellPartManager.GetSpellParts()[spellPartDraggableJson.spellPartId], modEntry);
-                        areaSpellDraggables.Add(spellPartDraggable);
+                        if (modEntry.spellPartManager.GetSpellParts().ContainsKey(spellPartDraggableJson.spellPartId) && modEntry.spellPartManager.GetSpellParts().ContainsKey(spellPartDraggableJson.spellPartId) && modEntry.spellPartManager.GetSpellParts()[spellPartDraggableJson.spellPartId] != null)
+                        {
+                            SpellPartDraggable spellPartDraggable = new SpellPartDraggable(modEntry.spellPartManager.GetSpellParts()[spellPartDraggableJson.spellPartId], modEntry);
+                            areaSpellDraggables.Add(spellPartDraggable);
+                        }
+                        else if (modEntry.spellPartManager.GetContentPackSpellParts().ContainsKey(spellPartDraggableJson.spellPartId) && modEntry.spellPartManager.GetContentPackSpellParts().ContainsKey(spellPartDraggableJson.spellPartId) && modEntry.spellPartManager.GetContentPackSpellParts()[spellPartDraggableJson.spellPartId] != null)
+                        {
+                            SpellPartDraggable spellPartDraggable = new SpellPartDraggable(modEntry.spellPartManager.GetContentPackSpellParts()[spellPartDraggableJson.spellPartId], modEntry);
+                            areaSpellDraggables.Add(spellPartDraggable);
+                        }
                     }
-                    
                 }
 
                 SavedShapeGroupArea<SpellPartDraggable> shapeGroupArea = new SavedShapeGroupArea<SpellPartDraggable>();
@@ -165,8 +172,19 @@ namespace ArsVenefici.Framework.Spells
 
             foreach (SpellPartDraggableJson spellPartDraggableJson in spellPageJson.spellGrammerList)
             {
-                SpellPartDraggable spellPartDraggable = new SpellPartDraggable(modEntry.spellPartManager.GetSpellParts()[spellPartDraggableJson.spellPartId], modEntry);
-                spellGrammerList.Add(spellPartDraggable);
+                if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
+                {
+                    if (modEntry.spellPartManager.GetSpellParts().ContainsKey(spellPartDraggableJson.spellPartId) && modEntry.spellPartManager.GetSpellParts()[spellPartDraggableJson.spellPartId] != null)
+                    {
+                        SpellPartDraggable spellPartDraggable = new SpellPartDraggable(modEntry.spellPartManager.GetSpellParts()[spellPartDraggableJson.spellPartId], modEntry);
+                        spellGrammerList.Add(spellPartDraggable);
+                    }
+                    else if (modEntry.spellPartManager.GetContentPackSpellParts().ContainsKey(spellPartDraggableJson.spellPartId) && modEntry.spellPartManager.GetContentPackSpellParts()[spellPartDraggableJson.spellPartId] != null)
+                    {
+                        SpellPartDraggable spellPartDraggable = new SpellPartDraggable(modEntry.spellPartManager.GetContentPackSpellParts()[spellPartDraggableJson.spellPartId], modEntry);
+                        spellGrammerList.Add(spellPartDraggable);
+                    }
+                }
             }
 
             SavedShapeGroupArea<SpellPartDraggable>[] shapeGroupsAreasArray = new SavedShapeGroupArea<SpellPartDraggable>[5];

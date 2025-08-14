@@ -27,12 +27,16 @@ namespace ArsVenefici.Framework.GUI.Menus
         public ModdedClickableMenu(int x, int y, int width, int height, bool showUpperRightCloseButton = false)
             : base(x, y, width, height, showUpperRightCloseButton)
         {
+
+            Init();
             UpdateMenu();
         }
 
         public ModdedClickableMenu(int x, int y, int width, int height, Action<string, int> onChanged, bool showUpperRightCloseButton = false)
             : base(x, y, width, height, showUpperRightCloseButton)
         {
+
+            Init();
             UpdateMenu(onChanged);
         }
 
@@ -47,6 +51,8 @@ namespace ArsVenefici.Framework.GUI.Menus
         {
             SetUpPositions();
         }
+
+        protected abstract void Init();
 
         /// <summary>Regenerate the UI.</summary>
         protected abstract void SetUpPositions();

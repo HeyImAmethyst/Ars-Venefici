@@ -253,6 +253,9 @@
 	"ui.magic_altar.defense_tab.name": "Defense",
 	"ui.magic_altar.utility_tab.name": "Utility",
 
+	"ui.magic_altar.enlarge.name": "Enlarge",
+	"ui.magic_altar.shrink.name": "Shrink",
+
 	"ui.magic_altar.drag_label.description": "Tab window can be moved by dragging the mouse with left click. If gamepad is being used, toggle the dragging using d-pad Up.",
 
 	"ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",

@@ -252,8 +252,10 @@
 	"ui.magic_altar.defense_tab.name": "Défense",
 	"ui.magic_altar.utility_tab.name": "Utilitaire",
 
-	"ui.magic_altar.drag_label.description": "La fenêtre peut être déplacée en déplaçant la souris avec le clic gauche. Si la manette est utilisée, utilisez la touche haut du d-pad.",
+	"ui.magic_altar.enlarge.name": "Enlarge",
+	"ui.magic_altar.shrink.name": "Shrink",
 
+	"ui.magic_altar.drag_label.description": "La fenêtre peut être déplacée en déplaçant la souris avec le clic gauche. Si la manette est utilisée, utilisez la touche haut du d-pad.",
 
 	"ui.magic_altar.tooltip_name_cant_learn.name": "(Can't Learn)",
 	"ui.magic_altar.tooltip_name_not_learned.name": "(Not Learned)",

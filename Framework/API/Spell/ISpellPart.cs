@@ -21,6 +21,10 @@ namespace ArsVenefici.Framework.API.Spell
 
         float ManaCost();
 
+        string DisplayName();
+
+        string DisplayDiscription();
+
         /// <summary>
         /// The types of the spell parts.
         /// </summary>
