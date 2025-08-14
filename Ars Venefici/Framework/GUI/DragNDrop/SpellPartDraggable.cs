@@ -39,8 +39,27 @@ namespace ArsVenefici.Framework.GUI.DragNDrop
         {
             string id = content.GetId();
             sprite = modEntry.spellPartIconManager.GetSprite(id);
-            nametranslationKey = modEntry.Helper.Translation.Get($"spellpart.{id}.name");
-            descriptiontranslationKey = modEntry.Helper.Translation.Get($"spellpart.{id}.description");
+
+            //nametranslationKey = modEntry.Helper.Translation.Get($"spellpart.{id}.name");
+            //descriptiontranslationKey = modEntry.Helper.Translation.Get($"spellpart.{id}.description");
+
+            foreach (KeyValuePair<string, ISpellPart> item in modEntry.spellPartManager.GetSpellParts())
+            {
+                if (item.Value.GetId() == id)
+                {
+                    nametranslationKey = item.Value.DisplayName();
+                    descriptiontranslationKey = item.Value.DisplayDiscription();
+                }
+            }
+
+            foreach (KeyValuePair<string, ISpellPart> item in modEntry.spellPartManager.GetContentPackSpellParts())
+            {
+                if (item.Value.GetId() == id)
+                {
+                    nametranslationKey = item.Value.DisplayName();
+                    descriptiontranslationKey = item.Value.DisplayDiscription();
+                }
+            }
         }
 
         public ISpellPart GetPart()

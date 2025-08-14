@@ -385,8 +385,8 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             spellBook.GetCurrentSpellPage().SetName(nameBox.Text);
 
-            string spellPartNameText = null;
-            string spellPartDescriptionText = null;
+            string spellPartNameText = "";
+            string spellPartDescriptionText = "";
 
             if (dragged != null)
             {
