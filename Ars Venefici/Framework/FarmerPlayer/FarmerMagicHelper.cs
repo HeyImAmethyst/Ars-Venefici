@@ -67,6 +67,12 @@ namespace ArsVenefici.Framework.FarmerPlayer
             }
         }
 
+        public void WalkOfLifeResetFix()
+        {
+            Game1.player.AddCustomSkillExperience(Skill, Skill.ExperienceCurve[0]);
+            modEntry.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1);
+        }
+
         /// <summary>Get a self-updating view of a player's magic metadata.</summary>
         /// <param name="player">The player whose spell book to get.</param>
         public static SpellBook GetSpellBook(Farmer player)

@@ -588,6 +588,17 @@ namespace ArsVenefici.Framework.Events
                     if (effect != null)
                         effect.Update(e);
                 }
+
+                if (modEntryInstance.isWalkOfLifeInstalled)
+                {
+                    var magicHelper = api.GetMagicHelper();
+
+                    if (magicHelper.LearnedWizardy(farmer) && farmer.GetCustomSkillLevel(FarmerMagicHelper.Skill) == 0)
+                    {
+                        modEntryInstance.farmerMagicHelper.WalkOfLifeResetFix();
+                    }
+                    
+                }
             }
         }
 

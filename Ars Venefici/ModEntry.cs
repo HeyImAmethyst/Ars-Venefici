@@ -31,11 +31,6 @@ namespace ArsVenefici
 {
     public class ModEntry : Mod
     {
-        //DONE: Create a way to grow the plants used in the mod
-        //DONE: Add tabletop spell range mechanic, a line depending on where you are facing (N, S, E, W) where you are facing, a 15ft or 30ft cone etc... 
-        //DONE: Change Effect Power modifier to be double the effect gained. That way smaller steps would be possible.
-        //DONE: Change the plow-effect to not work on already hoed tiles
-
         public static ModEntry INSTANCE;
         public ArsVeneficiAPILoader arsVeneficiAPILoader = new ArsVeneficiAPILoader();
 
@@ -92,6 +87,7 @@ namespace ArsVenefici
 
         public bool isSVEInstalled;
         public bool isItemExtensionsInstalled;
+        public bool isWalkOfLifeInstalled;
 
         public static Random RandomGen = new Random();
 
@@ -110,6 +106,7 @@ namespace ArsVenefici
 
             CheckIfSVEIsInstalled();
             CheckIfItemExtensionsIsInstalled();
+            CheckIfWalkOfLifeIsInstalled();
 
             commands.AddCommands();
 
@@ -213,6 +210,12 @@ namespace ArsVenefici
         {
             isItemExtensionsInstalled = Helper.ModRegistry.IsLoaded("mistyspring.ItemExtensions");
             Monitor.Log($"Item Extensions Installed: {isItemExtensionsInstalled}", LogLevel.Trace);
+        }
+
+        private void CheckIfWalkOfLifeIsInstalled()
+        {
+            isWalkOfLifeInstalled = Helper.ModRegistry.IsLoaded("DaLion.Professions");
+            Monitor.Log($"Walk of Life Installed: {isItemExtensionsInstalled}", LogLevel.Trace);
         }
     }
 }
