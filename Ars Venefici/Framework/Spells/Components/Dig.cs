@@ -112,7 +112,8 @@ namespace ArsVenefici.Framework.Spells.Components
                     return new SpellCastResult(SpellCastResultType.SUCCESS);
                 }
             }
-            else if (gameLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature feature) && feature is not HoeDirt or Flooring)
+            
+            if (gameLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature feature) && feature is not HoeDirt or Flooring)
             {
                 if (feature is Tree)
                 {
@@ -145,8 +146,9 @@ namespace ArsVenefici.Framework.Spells.Components
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
             }
+
             //else if (axe.UpgradeLevel >= 2 || pickaxe.UpgradeLevel >= 2)
-            else if (toolLevel >= 2)
+            if (toolLevel >= 2)
             {
 
                 ICollection<ResourceClump> clumps = gameLocation.resourceClumps;
