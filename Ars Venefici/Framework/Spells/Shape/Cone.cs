@@ -29,6 +29,9 @@ namespace ArsVenefici.Framework.Spells.Shape
         {
             var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellHelper();
 
+            SpellCastResult spellCastResult;
+            bool appliedToAtLeastOneEntity = false;
+
             int range = (int)helper.GetModifiedStat(1, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index);
 
             int coneRange = range;
@@ -44,10 +47,29 @@ namespace ArsVenefici.Framework.Spells.Shape
 
             foreach (HitResult hitResult in hitResults)
             {
-                helper.Invoke(modEntry, spell, caster, level, hitResult, ticksUsed, index, awardXp);
+                //helper.Invoke(modEntry, spell, caster, level, hitResult, ticksUsed, index, awardXp);
+
+                if (hitResult == null)
+                {
+                    spellCastResult = new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
+                    return spellCastResult;
+                }
+
+                if (helper.Invoke(modEntry, spell, caster, level, hitResult, ticksUsed, index, awardXp) == new SpellCastResult(SpellCastResultType.SUCCESS))
+                {
+                    appliedToAtLeastOneEntity = true;
+                }
             }
 
-            return new SpellCastResult(SpellCastResultType.SUCCESS);
+            if (appliedToAtLeastOneEntity)
+            {
+                spellCastResult = new SpellCastResult(SpellCastResultType.SUCCESS);
+                return spellCastResult;
+            }
+
+            spellCastResult = new SpellCastResult(SpellCastResultType.SUCCESS);
+
+            return spellCastResult;
         }
 
         public override bool NeedsToComeFirst()

@@ -177,13 +177,13 @@
 	"spellpart.mana_regeneration.description": "Regenerates the player's mana over a period of time.",
 
 	"spellpart.dispel.name": "Dispel",
-	"spellpart.dispel.description": "Removes effects on your farmer.",
+	"spellpart.dispel.description": "Removes negative effects on your farmer.",
 
 	"spellpart.forge.name": "Forge",
 	"spellpart.forge.description": "Used to smelt items like they would in a furnace. Works well with dig.",
 
 	"spellpart.shield.name": "Shield",
-	"spellpart.shield.description": "Creates an arcane energy to shield around a player target. The shield will reduce all damage taken.",
+	"spellpart.shield.description": "Creates an arcane energy to shield around a player target. The shield will grant invinciblility while it is active.",
 
 	"spellpart.summon.name": "Summon",
 	"spellpart.summon.description": "Creates a spell to summon a junimo to protect you.",

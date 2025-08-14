@@ -38,6 +38,7 @@ namespace ArsVenefici.Framework.Spells.Shape
             if (hit != null)
             {
                 //position = Utils.ConvertToTilePos(Utility.clampToTile(hit.GetLocation()));
+                //position = hit.GetLocation();
                 position = hit.GetLocation();
             }
             else

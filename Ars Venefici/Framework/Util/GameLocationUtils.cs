@@ -299,13 +299,18 @@ namespace ArsVenefici.Framework.Util
                 }
                 else
                 {
-                    foreach (Character character in level.characters)
+                    //foreach (Character character in level.characters)
+                    //{
+                    //    if(character.Tile == position)
+                    //    {
+                            
+                    //    }
+                    //}
+
+                    foreach (Character character in GetCharacters(entity, position))
                     {
-                        if(character.Tile == position)
-                        {
-                            CharacterHitResult characterHitResult = new CharacterHitResult(character);
-                            list.Add(characterHitResult);
-                        }
+                        CharacterHitResult characterHitResult = new CharacterHitResult(character);
+                        list.Add(characterHitResult);
                     }
                 }
             }

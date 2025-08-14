@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Spells.Registry;
+using StardewValley.GameData.Buffs;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -41,9 +42,23 @@ namespace ArsVenefici.Framework.Spells.Components
                 //    farmer.buffs.Remove(effect.id);
                 //}
 
-                farmer.buffs.Clear();
+                //farmer.buffs.Clear();
+                //return farmer.buffs.AppliedBuffs.Count() == 0 ? new SpellCastResult(SpellCastResultType.EFFECT_FAILED) : new SpellCastResult(SpellCastResultType.SUCCESS);
 
-                return farmer.buffs.AppliedBuffs.Count() == 0 ? new SpellCastResult(SpellCastResultType.EFFECT_FAILED) : new SpellCastResult(SpellCastResultType.SUCCESS);
+                foreach (Buff buff in farmer.buffs.AppliedBuffs.Values)
+                {
+                    BuffData buffData = new BuffData();
+
+                    if(DataLoader.Buffs(Game1.content).TryGetValue(buff.id, out buffData))
+                    {
+                        if (buffData.IsDebuff)
+                        {
+                            farmer.buffs.Remove(buff.id);
+                        }
+                    }
+                }
+
+                return new SpellCastResult(SpellCastResultType.SUCCESS);
             }
 
             return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);

@@ -29,6 +29,7 @@ using ArsVenefici.Framework.ContentPacks;
 
 namespace ArsVenefici
 {
+
     public class ModEntry : Mod
     {
         public static ModEntry INSTANCE;

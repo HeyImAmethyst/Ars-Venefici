@@ -135,8 +135,9 @@ namespace ArsVenefici.Framework.Spells.Components
                             monster.Name.Equals("Lava Bat"))
                         {
                             damage *= 3;
-                            monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
                         }
+
+                        monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
 
                         gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
 
@@ -157,8 +158,9 @@ namespace ArsVenefici.Framework.Spells.Components
                             monster.Name.Equals("Frost Bat"))
                         {
                             damage *= 3;
-                            monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
                         }
+
+                        monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
 
                         gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
 
