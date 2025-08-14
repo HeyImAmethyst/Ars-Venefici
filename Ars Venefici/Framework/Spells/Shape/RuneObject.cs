@@ -21,6 +21,11 @@ namespace ArsVenefici.Framework.Spells.Shape
 
         string itemID = "HeyImAmethyst.ArsVenefici_Rune";
 
+        public RuneObject()
+        {
+
+        }
+
         public RuneObject(ModEntry modEntry, GameLocation gameLocation, HitResult hitResult, int index, ISpell spell, Vector2 tileLocation, int initialStack = 1, bool isRecipe = false, int price = -1, int quality = 0)
         {
             itemID = base.ValidateUnqualifiedItemId(itemID);
@@ -102,9 +107,39 @@ namespace ArsVenefici.Framework.Spells.Shape
             return true;
         }
 
+        public void SetModEntry(ModEntry modEntry)
+        {
+            this.modEntry = modEntry;
+        }
+
+        public void SetSpell(ISpell spell)
+        {
+            this.spell = spell;
+        }
+
         public ISpell GetSpell()
         {
             return this.spell;
+        }
+
+        public void SetHitResult (HitResult hitResult)
+        {
+            this.hitResult = hitResult;
+        }
+
+        public void SetIndex(int index)
+        {
+            this.index = index;
+        }
+
+        public void SetGameLocation(GameLocation gameLocation)
+        {
+            this.gameLocation = gameLocation;
+        }
+
+        public void SetItemID(string itemID)
+        {
+            this.itemID = itemID;
         }
     }
 }
