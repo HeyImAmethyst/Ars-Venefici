@@ -474,6 +474,8 @@ namespace ArsVenefici.Framework.Events
         {
             var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
 
+            modEntryInstance.dailyTracker.SetDailyGrowCastCount(0);
+
             if (Context.IsWorldReady)
             {
                 if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
@@ -549,8 +551,6 @@ namespace ArsVenefici.Framework.Events
                 {
                     modEntryInstance.dailyTracker.SetMaxDailyGrowCastCount(2);
                 }
-
-                modEntryInstance.dailyTracker.SetDailyGrowCastCount(0);
             }
         }
 
