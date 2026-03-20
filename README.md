@@ -34,7 +34,7 @@ To gain access to crafting spells and the wizardry skill, you need to be at 4 he
 - Then you will need to place one or multiple components, which are octagons, into the spell grammar section of the page.
 - You can change the way shapes, and components behave with modifiers, which are diamonds.
 - Be sure to give your spell a name. Once you have created your spell, you can close your spell book and the spell will be saved.
-- A spell label that show the current selected spell will appear on the screen once the spell book menu is closed. It can be moved with shift + the OemTilde button (~)
+- A spell label that show the current selected spell will appear on the screen once the spell book menu is closed. It can be moved with shift + the D3 button (can be changed in the config)
 - Use 'Z' and 'X' to move through your list of spells. You can also use shift and 'Z' and shift and 'X' to cycle through a spell's shape groups
 - Once you have the spell you want, you will be able to cast it. To cast a spell, press Q. 
 - These controls can be adjusted in Ars Venefici's config file or if you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) installed, a section for the Ars Venefici config should appear in its menu, allowing you to edit the config values in game.
