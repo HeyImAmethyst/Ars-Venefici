@@ -99,7 +99,6 @@ Any item that has a color context tag that the rune table is able to make a rune
 >- save_hastebasevalueamount < numberValue > : Sets the base amount value for the haste affect
 >- save_enablepvp <true | false> : Toggles pvp
 
-
 >- save_savedata: Returns the save data values for this mod
 
 # List of Spell Part Ids
