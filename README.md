@@ -61,7 +61,7 @@ Every shape and modifier is multiplied together to create a multiplier value. Ev
 
 # Adding New Items That Replenish Mana
 
-As of version 1.13, to add new items that replenish mana you would have to add an additional context tag.
+As of version 1.13, to add new items that replenish mana you would have to add an additional context tag
 [See MoonSlime's mana bar API for more information](https://www.nexusmods.com/stardewvalley/mods/39117).
 
 [Take a look at this wiki page for a guide to add in custom items via Content Patcher﻿](https://stardewvalleywiki.com/Modding:Items#Define_a_custom_item).
