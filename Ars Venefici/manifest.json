@@ -5,7 +5,7 @@
     "Description": "This mod adds magic to Stardew Valley.",
     "UniqueID": "HeyImAmethyst.ArsVenefici",
     "EntryDll": "ArsVenefici.dll",
-    "MinimumApiVersion": "4.1.4",
+    "MinimumApiVersion": "4.3.2",
     "dependencies": [
         {
             "UniqueID": "spacechase0.SpaceCore",
