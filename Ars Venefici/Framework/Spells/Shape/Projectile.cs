@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.API;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
@@ -30,6 +31,11 @@ namespace ArsVenefici.Framework.Spells.Shape
         public override string GetId()
         {
             return "projectile";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.None;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation level, List<ISpellModifier> modifiers, HitResult hit, int ticksUsed, int index, bool awardXp)

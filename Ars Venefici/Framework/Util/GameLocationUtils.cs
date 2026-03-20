@@ -179,28 +179,6 @@ namespace ArsVenefici.Framework.Util
             Farmer farmer = entity.entity as Farmer;
             GameLocation level = entity.GetGameLocation();
 
-            //int facingAngle = 0;
-
-            //if (farmer.FacingDirection == 1) //right
-            //{
-            //    facingAngle = 0;
-            //}
-
-            //if (farmer.FacingDirection == 3) //left
-            //{
-            //    facingAngle = 180;
-            //}
-
-            //if (farmer.FacingDirection == 0) // up
-            //{
-            //    facingAngle = 90;
-            //}
-
-            //if (farmer.FacingDirection == 2) // down
-            //{
-            //    facingAngle = 270;
-            //}
-
             //0 degrees points up, 90 degrees points right, 180 degrees points down, and 270 degrees points left
 
             int facingAngle = 90;
@@ -225,14 +203,8 @@ namespace ArsVenefici.Framework.Util
                 facingAngle = 180;
             }
 
-            //float minAngle = MathHelper.ToRadians(facingAngle - 45);
-            //float maxAngle = MathHelper.ToRadians(facingAngle + 45);
-
             float minAngle = facingAngle - 45;
             float maxAngle = facingAngle + 45;
-
-            //minAngle = Utils.WrapValue(minAngle, 0, 360);
-            //maxAngle = Utils.WrapValue(maxAngle, 0, 360);
 
             //ModEntry.INSTANCE.Monitor.Log("minAngle:" + minAngle, StardewModdingAPI.LogLevel.Info);
             //ModEntry.INSTANCE.Monitor.Log("maxAngle:" + maxAngle, StardewModdingAPI.LogLevel.Info);

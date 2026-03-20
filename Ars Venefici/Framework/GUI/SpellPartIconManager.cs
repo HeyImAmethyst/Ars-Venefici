@@ -54,7 +54,8 @@ namespace ArsVenefici.Framework.GUI
         {
             try
             {
-                spellPartSprites.Add(spellPart.GetId(), modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/spellpart/" + spellPart.GetId() + ".png"));
+                if(!spellPartSprites.ContainsKey(spellPart.GetId()))
+                    spellPartSprites.Add(spellPart.GetId(), modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/spellpart/" + spellPart.GetId() + ".png"));
             }
             catch (ContentLoadException e)
             {
@@ -75,7 +76,8 @@ namespace ArsVenefici.Framework.GUI
 
                         if (spellPart.GetId() == Path.GetFileNameWithoutExtension(texture2D.Name))
                         {
-                            contentPackSpellPartSprites.Add(spellPart.GetId(), texture2D);
+                            if (!contentPackSpellPartSprites.ContainsKey(spellPart.GetId()))
+                                contentPackSpellPartSprites.Add(spellPart.GetId(), texture2D);
                         }
                     }
                 }

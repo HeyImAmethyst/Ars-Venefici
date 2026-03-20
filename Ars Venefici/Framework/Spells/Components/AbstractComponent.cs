@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.API.Spell;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
@@ -42,5 +43,7 @@ namespace ArsVenefici.Framework.Spells.Components
         {
             return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.description");
         }
+
+        public abstract MagicType GetMagicType();
     }
 }

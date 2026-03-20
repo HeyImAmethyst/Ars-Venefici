@@ -10,6 +10,8 @@ using SpaceCore;
 using StardewValley;
 using StardewValley.Menus;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Affinity;
+using System.Collections.Generic;
 
 namespace ArsVenefici.Framework.Spells
 {
@@ -345,6 +347,47 @@ namespace ArsVenefici.Framework.Spells
             cost *= multiplier;
 
             return cost;
+        }
+
+        public MagicType GetMagicType()
+        {
+            ISpellPart spellPart;
+
+            List<ISpellPart> none = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.None).ToList();
+            List<ISpellPart> earth = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Earth).ToList();
+            List<ISpellPart> water = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Water).ToList();
+            List<ISpellPart> air = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Air).ToList();
+            List<ISpellPart> fire = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Fire).ToList();
+            List<ISpellPart> nature = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Nature).ToList();
+            List<ISpellPart> ice = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Ice).ToList();
+            List<ISpellPart> lightning = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Lightning).ToList();
+            List<ISpellPart> life = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Life).ToList();
+            List<ISpellPart> arcane = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Arcane).ToList();
+            List<ISpellPart> darkness = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Darkness).ToList();
+
+            List<ISpellPart>[] mostArray = { none , earth , water , air , fire , nature , ice , lightning , life , arcane , darkness };
+
+            //Sort the array with the largest first
+
+            for (int i = 0; i < mostArray.Count(); i++)
+            {
+                //Loop for comparing the neighboring elements
+
+                for (int j = 1; j < mostArray.Count() - i; j++)
+                {
+                    //If the elements are not in order, swap them
+
+                    if (mostArray[j - 1].Count() < mostArray[j].Count())
+                    {
+                        List<ISpellPart> temp = mostArray[j - 1];
+                        mostArray[j - 1] = mostArray[j];
+                        mostArray[j] = temp;
+                    }
+                }
+            }
+
+            return mostArray.First().First().GetMagicType();
+
         }
 
         public List<ShapeGroup> ShapeGroups()

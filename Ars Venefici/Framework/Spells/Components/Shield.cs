@@ -11,6 +11,7 @@ using ArsVenefici.Framework.Spells.Buffs;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -24,6 +25,11 @@ namespace ArsVenefici.Framework.Spells.Components
         public override string GetId()
         {
             return "shield";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.Arcane;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

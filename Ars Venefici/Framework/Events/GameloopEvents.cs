@@ -392,7 +392,7 @@ namespace ArsVenefici.Framework.Events
 
             // hook Mana Bar
             {
-                var manaBar = modEntryInstance.Helper.ModRegistry.GetApi<IManaBarApi>("spacechase0.ManaBar");
+                var manaBar = modEntryInstance.Helper.ModRegistry.GetApi<IManaBarApi>("moonslime.ManaBarAPI");
 
                 if (manaBar == null)
                 {
@@ -421,6 +421,8 @@ namespace ArsVenefici.Framework.Events
             //modEntryInstance.spellPartManager.PopluateDictionary();
             //modEntryInstance.spellPartSkillManager.PopluateDictionary();
 
+            //modEntryInstance.spellPartIconManager.PoplulateSprites();
+
             modEntryInstance.spellPartEvents.InvokeOnAddSpellParts();
             modEntryInstance.spellPartEvents.InvokeOnAddSpellPartSkills();
         }
@@ -438,6 +440,7 @@ namespace ArsVenefici.Framework.Events
             if (Context.IsWorldReady)
             {
                 //modEntryInstance.spellPartSkillManager = new SpellPartSkillManager(modEntryInstance);
+                
                 modEntryInstance.spellPartIconManager.PoplulateSprites();
                 modEntryInstance.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper().UpdateIfNeeded(modEntryInstance, Game1.player);
             }

@@ -85,6 +85,7 @@ namespace ArsVenefici
                                     int whole = (int)Math.Truncate(ext.healthBuffer);
                                     ext.healthBuffer -= whole;
                                     farmer.health = Math.Min(farmer.health + whole, farmer.maxHealth);
+                                    modEntry.characterEvents.InvokeOnCharacterHeal(farmer);
                                 }
                             }
                         }

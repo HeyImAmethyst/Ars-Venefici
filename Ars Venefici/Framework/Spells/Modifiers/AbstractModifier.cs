@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.API.Spell;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.Spell;
 using StardewModdingAPI;
 using System;
 using System.Collections.Generic;
@@ -38,5 +39,7 @@ namespace ArsVenefici.Framework.Spells.Modifiers
         {
             return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.description");
         }
+
+        public abstract MagicType GetMagicType();
     }
 }

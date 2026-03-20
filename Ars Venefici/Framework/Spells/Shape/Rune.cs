@@ -14,6 +14,8 @@ using StardewValley.ItemTypeDefinitions;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.CustomObjects;
+using ArsVenefici.Framework.Affinity;
 
 namespace ArsVenefici.Framework.Spells.Shape
 {
@@ -27,6 +29,11 @@ namespace ArsVenefici.Framework.Spells.Shape
         public override string GetId()
         {
             return "rune";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.None;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation level, List<ISpellModifier> modifiers, HitResult hit, int ticksUsed, int index, bool awardXp)

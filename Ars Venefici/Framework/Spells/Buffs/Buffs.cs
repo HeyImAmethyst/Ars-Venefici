@@ -46,6 +46,7 @@ namespace ArsVenefici.Framework.Spells.Buffs
                 effects: new BuffEffects()
                 {
                     Speed = { 2 } // shortcut for buff.Speed.Value = 10
+                    //Speed = { modEntry.ModSaveData.HasteBaseValueAmount } // shortcut for buff.Speed.Value = 10
                 }
             );
 

@@ -2,10 +2,10 @@
 	//Objects
 	
 	"object.mana_elixir.name": "Élixir de mana",
-	"object.mana_elixir.description" : "Un élixir qui vous rend 350 mana.",
+	"object.mana_elixir.description" : "Un élixir qui vous rend mana.",
 	
 	"object.mana_cake.name": "Gâteau de mana",
-	"object.mana_cake.description": "Un gâteau qui vous rend 160 mana.",
+	"object.mana_cake.description": "Un gâteau qui vous rend mana.",
 	
 	"object.mana_martini.name": "Martini Mana",
 	"object.mana_martini.description": "Un cocktail magique qui vous donne de la régénération de mana pendant une minute.",

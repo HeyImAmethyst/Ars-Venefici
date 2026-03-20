@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Affinity;
 
 namespace ArsVenefici.Framework.Spells.Shape
 {
@@ -20,6 +21,11 @@ namespace ArsVenefici.Framework.Spells.Shape
         public Wall() : base(new SpellPartStats(SpellPartStatType.DURATION), new SpellPartStats(SpellPartStatType.RANGE))
         {
 
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.None;
         }
 
         public override string GetId()

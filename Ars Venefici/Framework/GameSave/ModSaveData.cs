@@ -25,6 +25,9 @@ namespace ArsVenefici.Framework.GameSave
         public int GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix { get; set; } = 84000;
         public int GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight { get; set; } = 42000;
         public int GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen { get; set; } = 21000;
+        
+        public int HasteBaseValueAmount { get; set; } = 2;
+        public bool EnablePVP { get; set; } = false;
 
         public void ResetValues()
         {
@@ -37,6 +40,9 @@ namespace ArsVenefici.Framework.GameSave
             GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix = 84000;
             GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight = 42000;
             GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen = 21000;
+
+            HasteBaseValueAmount = 2;
+            EnablePVP = false;
         }
 
         public override string ToString()
@@ -52,6 +58,8 @@ namespace ArsVenefici.Framework.GameSave
             sb.AppendLine("Grow Sickness Duration In Milliseconds Greater Than Or Equal To Level Six: " + GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix);
             sb.AppendLine("Grow Sickness Duration In Milliseconds Greater Than Or Equal To Level Eight: " + GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight);
             sb.AppendLine("Grow Sickness Duration In Milliseconds Greater Than Or Equal To Level Ten: " + GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen);
+            sb.AppendLine("Haste Base Value Amount: " + HasteBaseValueAmount);
+            sb.AppendLine("Enable PVP: " + EnablePVP);
 
             return sb.ToString();
         }

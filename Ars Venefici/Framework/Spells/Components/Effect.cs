@@ -8,6 +8,8 @@ using Netcode;
 using StardewValley;
 using StardewValley.Buffs;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Affinity;
+using StardewValley.Network.NetEvents;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -16,17 +18,24 @@ namespace ArsVenefici.Framework.Spells.Components
         private Buff buff;
         private string id;
         private float manaCost;
+        private MagicType magicType;
 
-        public Effect(string id, float manaCost, Buff buff) : base(new SpellPartStats(SpellPartStatType.DURATION), new SpellPartStats(SpellPartStatType.POWER))
+        public Effect(string id, MagicType magicType, float manaCost, Buff buff) : base(new SpellPartStats(SpellPartStatType.DURATION), new SpellPartStats(SpellPartStatType.POWER))
         {
             this.id = id;
             this.manaCost = manaCost;
             this.buff = buff;
+            this.magicType = magicType;
         }
 
         public override string GetId()
         {
             return id;
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return magicType;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)
@@ -42,14 +51,18 @@ namespace ArsVenefici.Framework.Spells.Components
             if (target.GetCharacter() != null && target.GetCharacter() is Farmer farmer)
             {
 
+                //
+
                 Buff newBuffInstance = new Buff(
                       id: buff.id,
                       displayName: buff.displayName,
                       iconTexture: Game1.buffsIcons,
                       iconSheetIndex: buff.iconSheetIndex, //34
                       duration: duration,
-                      effects: buff.effects
+                      effects: buff.id.Equals("HeyImAmethyst.ArsVenifici_Haste") ? new BuffEffects() { Speed = { modEntry.ModSaveData.HasteBaseValueAmount } } : buff.effects 
                 );
+
+                //modEntry.ModSaveData.HasteBaseValueAmount
 
                 if (newBuffInstance.id.Equals("HeyImAmethyst.ArsVenifici_ManaRegeneration"))
                 {
@@ -60,6 +73,14 @@ namespace ArsVenefici.Framework.Spells.Components
                 {
                     newBuffInstance.iconTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/buff/health_regeneration.png");
                 }
+
+                //if (newBuffInstance.id.Equals("HeyImAmethyst.ArsVenifici_Haste"))
+                //{
+                //    BuffEffects effects = new BuffEffects()
+                //    {
+                //        Speed = { modEntry.ModSaveData.HasteBaseValueAmount }
+                //    };
+                //}
 
                 if (newBuffInstance.HasAnyEffects())
                 {

@@ -29,6 +29,15 @@ using ArsVenefici.Framework.ContentPacks;
 
 namespace ArsVenefici
 {
+    //DONE?: Fix same key has already been added error in SpellPartIconManager.PoplulateSprites when reloading a save in the same session
+
+    //TODO???: Fix duration not working (Duration is working on my end. Idk whats going on.)
+
+    //TODO???: Fix bug with AOE/wave + cone combination (Somehow, randomly, it seems to be working on my end)
+
+    //TODO: BUG - It appears that when using the AOE modifier on any skill makes it free to cast in my current multiplayer game. The spell has an associated cost listed, but when casting it it does not actually drain any mana. These casts also do not increase experience at all.
+    //TODO: Fix  wave shape devolves into only working on the 2nd, 3rd, 5th, and 7th tiles facing away from your character, in multiplayer
+    //TODO: Fix  Wave + AOE on multiplayer: starts off as a "Wall" spell animation and only activates the spell if you walk in the opposite direction of how the spell is being fired. And when it does fire, it's super glitchy/laggy
 
     public class ModEntry : Mod
     {

@@ -36,18 +36,11 @@ namespace ArsVenefici
             PatchWithHarmony();
         }
 
-        /// <summary>
-        /// Harmony patch for accessory length and skin color length.
-        /// </summary>
         private void PatchWithHarmony()
         {
-            // Patch the skin color length and skin colors in the save menu
             PatchFarmer();
         }
 
-        /// <summary>
-        /// Patches changeSkinColor and SaveFileSlot using a harmony patches.
-        /// </summary>
         private void PatchFarmer()
         {
             farmerContingencyPatch.Apply(harmony);

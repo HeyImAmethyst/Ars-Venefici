@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.Interfaces;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
 using StardewValley;

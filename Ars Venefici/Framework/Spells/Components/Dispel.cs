@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Spells.Registry;
 using StardewValley.GameData.Buffs;
+using ArsVenefici.Framework.Affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -19,6 +20,11 @@ namespace ArsVenefici.Framework.Spells.Components
         public override string GetId()
         {
             return "dispel";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.Arcane;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

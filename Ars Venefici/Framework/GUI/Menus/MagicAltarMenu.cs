@@ -147,7 +147,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                     myID = 9175502
                 };
 
-                fullScreenToggleButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 605, yPositionOnScreen - 100, 48, 48), Game1.mouseCursors, new Rectangle(256, 256, 10, 10), 4f)
+                fullScreenToggleButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 605, yPositionOnScreen - 100, 48, 48), Game1.mouseCursors, new Rectangle(146, 384, 9, 9), 4f)
                 {
                     myID = 91755081
                 };
@@ -246,6 +246,8 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 if (isFullScreen)
                 {
+                    fullScreenToggleButton.sourceRect = new Rectangle(155, 384, 9, 9);
+
                     foreach (MagicAltarTabButton tabButton in tabButtonsFullScreen)
                     {
                         if (tabButton != null)
@@ -270,6 +272,8 @@ namespace ArsVenefici.Framework.GUI.Menus
                 }
                 else
                 {
+                    fullScreenToggleButton.sourceRect = new Rectangle(146, 384, 9, 9);
+
                     foreach (MagicAltarTabButton tabButton in tabButtons)
                     {
                         if (tabButton != null)
@@ -296,7 +300,9 @@ namespace ArsVenefici.Framework.GUI.Menus
             }
 
             if (fullScreenToggleButton != null)
+            {
                 fullScreenToggleButton.draw(spriteBatch);
+            }
 
             //fullScreenToggleButton.draw(spriteBatch);
 
@@ -440,7 +446,9 @@ namespace ArsVenefici.Framework.GUI.Menus
             }
 
             if (fullScreenToggleButton != null)
+            {
                 fullScreenToggleButton.tryHover(x, y, 0.5f);
+            }
 
             base.performHoverAction(x, y);
         }

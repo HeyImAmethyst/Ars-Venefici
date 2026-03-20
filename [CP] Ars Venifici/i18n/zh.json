@@ -2,10 +2,10 @@
 	//Objects
 
 	"object.mana_elixir.name": "魔法药水",
-	"object.mana_elixir.description": "一种能补充350点魔力的药水",
+	"object.mana_elixir.description": "An elixir that replenishes mana.",
 
 	"object.mana_cake.name": "魔法蛋糕",
-	"object.mana_cake.description": "一种能补充160点魔力的蛋糕。",
+	"object.mana_cake.description": "A cake that replenishes mana.",
 
 	"object.mana_martini.name": "魔法马丁尼",
 	"object.mana_martini.description": "一种可以获得一分钟的魔力再生的魔法鸡尾酒，。",

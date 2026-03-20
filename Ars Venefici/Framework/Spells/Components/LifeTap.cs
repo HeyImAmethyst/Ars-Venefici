@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.API;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
@@ -24,6 +25,11 @@ namespace ArsVenefici.Framework.Spells.Components
         public override string GetId()
         {
             return "life_tap";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.Life;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)
@@ -53,20 +59,28 @@ namespace ArsVenefici.Framework.Spells.Components
 
             if (target.GetCharacter() is Farmer targetFarmer && target.GetCharacter() != caster.entity)
             {
-                Farmer farmer = ((Farmer)caster.entity);
-                var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellHelper();
-                float damage = helper.GetModifiedStat(2, new SpellPartStats(SpellPartStatType.DAMAGE), modifiers, spell, caster, target, index) * 2;
+                if (modEntry.ModSaveData.EnablePVP)
+                {
+                    Farmer farmer = ((Farmer)caster.entity);
+                    var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellHelper();
+                    float damage = helper.GetModifiedStat(2, new SpellPartStats(SpellPartStatType.DAMAGE), modifiers, spell, caster, target, index) * 2;
 
-                targetFarmer.health -= (int)damage;
-                float value = (Game1.random.Next((int)damage, (int)(damage * (1f + farmer.buffs.AttackMultiplier)) + 1) * targetFarmer.health * 0.07f) / 1.0f;
+                    targetFarmer.health -= (int)damage;
+                    float value = (Game1.random.Next((int)damage, (int)(damage * (1f + farmer.buffs.AttackMultiplier)) + 1) * targetFarmer.health * 0.07f) / 1.0f;
+
+                    //int percentage = 25;
+                    //float result = (percentage / 100) * targetFarmer.health;
+                    //int finalValue = (int)Math.Min(value, result);
+
+                    farmer.AddMana((int)value);
+
+                    return new SpellCastResult(SpellCastResultType.SUCCESS);
+                }
+                else
+                {
+                    return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
+                }
                 
-                //int percentage = 25;
-                //float result = (percentage / 100) * targetFarmer.health;
-                //int finalValue = (int)Math.Min(value, result);
-
-                farmer.AddMana((int)value);
-
-                return new SpellCastResult(SpellCastResultType.SUCCESS);
             }
 
             return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);

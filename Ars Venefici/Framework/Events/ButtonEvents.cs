@@ -226,7 +226,7 @@ namespace ArsVenefici.Framework.Events
 
         private void DisplayMagicAltarMenu(Farmer farmer)
         {
-            modEntryInstance.Monitor.Log("Open Altar", LogLevel.Info);
+            //modEntryInstance.Monitor.Log("Open Altar", LogLevel.Info);
             var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
             api.OpenMagicAltarGui(farmer);
         }

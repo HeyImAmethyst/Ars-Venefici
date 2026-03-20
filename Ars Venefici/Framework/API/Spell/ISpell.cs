@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.Interfaces;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
 using StardewValley;
@@ -6,6 +7,7 @@ using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,5 +90,7 @@ namespace ArsVenefici.Framework.API.Spell
 
         /// <returns>The spell stack for this spell.</returns>
         SpellStack spellStack();
+
+        MagicType GetMagicType();
     }
 }

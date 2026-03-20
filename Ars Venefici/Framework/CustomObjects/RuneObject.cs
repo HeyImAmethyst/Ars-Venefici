@@ -7,7 +7,7 @@ using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.API;
 
-namespace ArsVenefici.Framework.Spells.Shape
+namespace ArsVenefici.Framework.CustomObjects
 {
     public class RuneObject : StardewValley.Object
     {
@@ -28,25 +28,25 @@ namespace ArsVenefici.Framework.Spells.Shape
 
         public RuneObject(ModEntry modEntry, GameLocation gameLocation, HitResult hitResult, int index, ISpell spell, Vector2 tileLocation, int initialStack = 1, bool isRecipe = false, int price = -1, int quality = 0)
         {
-            itemID = base.ValidateUnqualifiedItemId(itemID);
-            base.stack.Value = initialStack;
+            itemID = ValidateUnqualifiedItemId(itemID);
+            stack.Value = initialStack;
             base.isRecipe.Value = isRecipe;
             base.quality.Value = quality;
-            base.ItemId = itemID;
-            base.ResetParentSheetIndex();
+            ItemId = itemID;
+            ResetParentSheetIndex();
 
-            this.canBeSetDown.Value = true;
-            this.canBeGrabbed.Value = false;
-            this.isSpawnedObject.Value = false;
+            canBeSetDown.Value = true;
+            canBeGrabbed.Value = false;
+            isSpawnedObject.Value = false;
 
-            this.TileLocation = tileLocation;
+            TileLocation = tileLocation;
 
             this.modEntry = modEntry;
             this.gameLocation = gameLocation;
             this.spell = spell;
             this.hitResult = hitResult;
             this.index = index;
-            this.ParentSheetIndex = 0;
+            ParentSheetIndex = 0;
         }
 
         public void CastAttatchedSpell(Character who, HitResult hitResult, int index)
@@ -61,7 +61,7 @@ namespace ArsVenefici.Framework.Spells.Shape
 
             foreach (Character character in gameLocation.characters.ToList())
             {
-                if (gameLocation.objects.TryGetValue(this.TileLocation, out var obj))
+                if (gameLocation.objects.TryGetValue(TileLocation, out var obj))
                 {
                     if (character != null)
                     {
@@ -71,7 +71,7 @@ namespace ArsVenefici.Framework.Spells.Shape
                         {
                             CastAttatchedSpell(Game1.player, new CharacterHitResult(character), index);
                             shakeTimer = 200;
-                            gameLocation.objects.Remove(this.TileLocation);
+                            gameLocation.objects.Remove(TileLocation);
                         }
                     }
                 }
@@ -79,7 +79,7 @@ namespace ArsVenefici.Framework.Spells.Shape
 
             foreach (Farmer farmer in gameLocation.farmers.ToList())
             {
-                if (gameLocation.objects.TryGetValue(this.TileLocation, out var obj))
+                if (gameLocation.objects.TryGetValue(TileLocation, out var obj))
                 {
                     if (farmer != null)
                     {
@@ -89,10 +89,10 @@ namespace ArsVenefici.Framework.Spells.Shape
                         {
                             CastAttatchedSpell(farmer, new CharacterHitResult(farmer), index);
                             shakeTimer = 200;
-                            gameLocation.objects.Remove(this.TileLocation);
+                            gameLocation.objects.Remove(TileLocation);
                         }
                     }
-                    
+
                 }
             }
         }
@@ -119,10 +119,10 @@ namespace ArsVenefici.Framework.Spells.Shape
 
         public ISpell GetSpell()
         {
-            return this.spell;
+            return spell;
         }
 
-        public void SetHitResult (HitResult hitResult)
+        public void SetHitResult(HitResult hitResult)
         {
             this.hitResult = hitResult;
         }

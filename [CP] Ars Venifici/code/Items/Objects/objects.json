@@ -21,12 +21,9 @@
                     "SpriteIndex": 0,
 					"ContextTags": 
 					[
-					  "color_blue"
-					],
-					"CustomFields": 
-					{
-						"{{ModId}}/Mana": "350"
-					}
+					  "color_blue",
+					  "moonslime.ManaBarApi.ManaFill/350"
+					]
 				},
 				"{{ModId}}_Mana_Cake": 
 				{
@@ -41,12 +38,9 @@
                     "SpriteIndex": 0,
 					"ContextTags": 
 					[
-					  "color_blue"
-					],
-					"CustomFields": 
-					{
-						"{{ModId}}/Mana": "160"
-					}
+					  "color_blue",
+					  "moonslime.ManaBarApi.ManaFill/160"
+					]
 				},
 				"{{ModId}}_Mana_Martini": 
 				{

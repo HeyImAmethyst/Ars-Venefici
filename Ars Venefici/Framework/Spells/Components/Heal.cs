@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using ArsVenefici.Framework.Events;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -27,6 +28,11 @@ namespace ArsVenefici.Framework.Spells.Components
         public override string GetId()
         {
             return "heal";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.Life;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation level, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.Spells.Components;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.Spells.Components;
 using ArsVenefici.Framework.Spells.Shape;
 using ArsVenefici.Framework.Util;
 using ItemExtensions;
@@ -28,15 +29,15 @@ namespace ArsVenefici.Framework.Spells.Registry
         public static ObjectHolder<AbstractComponent> LIFEDRAIN = RegisterComponent(new ObjectHolder<AbstractComponent>(new LifeDrain()));
         public static ObjectHolder<AbstractComponent> LIFETAP = RegisterComponent(new ObjectHolder<AbstractComponent>(new LifeTap()));
         
-        public static ObjectHolder<AbstractComponent> PHYSICALDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("physical_damage", 25, ComponentDamageType.Physical, () => 8.0 * (Game1.player.CombatLevel + 1))));
-        public static ObjectHolder<AbstractComponent> MAGICDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("magic_damage", 25, ComponentDamageType.Magic, () => 8.0 * (Game1.player.CombatLevel + 1))));
-        public static ObjectHolder<AbstractComponent> FROSTDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("frost_damage", 25, ComponentDamageType.Frost, () => 8.0 * (Game1.player.CombatLevel + 1))));
-        public static ObjectHolder<AbstractComponent> LIGHTNINGDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("lightning_damage", 55, ComponentDamageType.Lightning, () => 20.0 * (Game1.player.CombatLevel + 1))));
-        public static ObjectHolder<AbstractComponent> FIREDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("fire_damage", 25, ComponentDamageType.Fire, () => 10.0 * (Game1.player.CombatLevel + 1))));
+        public static ObjectHolder<AbstractComponent> PHYSICALDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("physical_damage", MagicType.Earth, 25, ComponentDamageType.Physical, () => 8.0 * (Game1.player.CombatLevel + 1))));
+        public static ObjectHolder<AbstractComponent> MAGICDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("magic_damage", MagicType.Arcane, 25, ComponentDamageType.Magic, () => 8.0 * (Game1.player.CombatLevel + 1))));
+        public static ObjectHolder<AbstractComponent> FROSTDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("frost_damage", MagicType.Ice, 25, ComponentDamageType.Frost, () => 8.0 * (Game1.player.CombatLevel + 1))));
+        public static ObjectHolder<AbstractComponent> LIGHTNINGDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("lightning_damage", MagicType.Lightning, 55, ComponentDamageType.Lightning, () => 20.0 * (Game1.player.CombatLevel + 1))));
+        public static ObjectHolder<AbstractComponent> FIREDAMAGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Damage("fire_damage", MagicType.Fire, 25, ComponentDamageType.Fire, () => 10.0 * (Game1.player.CombatLevel + 1))));
         
-        public static ObjectHolder<AbstractComponent> HASTE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Effect("haste", 30, ModEntry.INSTANCE.buffs.hasteBuff)));
-        public static ObjectHolder<AbstractComponent> REGENERATION = RegisterComponent(new ObjectHolder<AbstractComponent>(new Effect("regeneration", 30, ModEntry.INSTANCE.buffs.regenerationBuff)));
-        public static ObjectHolder<AbstractComponent> MANA_REGENERATION = RegisterComponent(new ObjectHolder<AbstractComponent>(new Effect("mana_regeneration", 30, ModEntry.INSTANCE.buffs.manaRegenerationBuff)));
+        public static ObjectHolder<AbstractComponent> HASTE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Effect("haste", MagicType.Lightning, 30, ModEntry.INSTANCE.buffs.hasteBuff)));
+        public static ObjectHolder<AbstractComponent> REGENERATION = RegisterComponent(new ObjectHolder<AbstractComponent>(new Effect("regeneration", MagicType.Life, 30, ModEntry.INSTANCE.buffs.regenerationBuff)));
+        public static ObjectHolder<AbstractComponent> MANA_REGENERATION = RegisterComponent(new ObjectHolder<AbstractComponent>(new Effect("mana_regeneration", MagicType.Life, 30, ModEntry.INSTANCE.buffs.manaRegenerationBuff)));
         public static ObjectHolder<AbstractComponent> DISPEL = RegisterComponent(new ObjectHolder<AbstractComponent>(new Dispel()));
         
         public static ObjectHolder<AbstractComponent> FORGE = RegisterComponent(new ObjectHolder<AbstractComponent>(new Forge(ModEntry.INSTANCE)));

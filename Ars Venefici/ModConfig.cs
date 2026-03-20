@@ -81,7 +81,7 @@ namespace ArsVenefici
 
                 modKeyBinds.OpenSpellBookButtons = new KeybindList(new Keybind(SButton.LeftShift, SButton.B));
                 modKeyBinds.SpellToggles = new KeybindList(new Keybind(SButton.OemTilde));
-                modKeyBinds.MoveSpellLabelButtons = new KeybindList(new Keybind(SButton.LeftShift, SButton.OemTilde));
+                modKeyBinds.MoveSpellLabelButtons = new KeybindList(new Keybind(SButton.LeftShift, SButton.D5));
                 modKeyBinds.NextSpellButtons = new KeybindList(new Keybind(SButton.X));
                 modKeyBinds.NextShapeGroupButtons = new KeybindList(new Keybind(SButton.LeftShift, SButton.X));
                 modKeyBinds.PreviousSpellButtons = new KeybindList(new Keybind(SButton.Z));

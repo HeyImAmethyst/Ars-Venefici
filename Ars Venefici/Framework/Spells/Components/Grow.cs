@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.API.Spell;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.FarmerPlayer;
 using ArsVenefici.Framework.GameSave;
 using ArsVenefici.Framework.Interfaces;
@@ -25,6 +26,11 @@ namespace ArsVenefici.Framework.Spells.Components
         public override string GetId()
         {
             return "grow";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.Nature;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

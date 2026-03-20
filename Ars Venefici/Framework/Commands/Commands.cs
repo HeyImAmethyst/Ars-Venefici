@@ -241,6 +241,57 @@ namespace ArsVenefici.Framework.Commands
                     }
                 });
 
+            AddCommand("save_hastebasevalueamount", "Sets the base amount value for the haste affect.\n\nUsage: save_hastebasevalueamount <value>\n- value: the base amount value for the haste affect",
+            (string command, string[] args) =>
+            {
+                int value;
+
+                if (args.Length > 0 && args[0] != null && int.TryParse(args[0], out value))
+                {
+                    if (!Game1.IsMasterGame)
+                    {
+                        modEntryInstance.Monitor.Log("Player is not the host. Changes have not been made");
+                        return;
+                    }
+
+                    modEntryInstance.ModSaveData.HasteBaseValueAmount = value;
+
+                    modEntryInstance.Helper.Data.WriteSaveData(ModEntry.SAVEDATA, modEntryInstance.ModSaveData);
+
+                    modEntryInstance.Helper.Multiplayer.SendMessage(
+                        new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
+                        ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                    modEntryInstance.Monitor.Log("The base amount value for the haste effect has been set to " + value.ToString(), LogLevel.Info);
+
+                }
+            });
+
+            AddCommand("save_enablepvp", "Toggles pvp.\n\nUsage: save_enablepvp <value>\n- value: true or false",
+            (string command, string[] args) =>
+            {
+                bool value;
+
+                if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
+                {
+                    if (!Game1.IsMasterGame)
+                    {
+                        modEntryInstance.Monitor.Log("Player is not the host. Changes have not been made");
+                        return;
+                    }
+
+                    modEntryInstance.ModSaveData.EnablePVP = value;
+
+                    modEntryInstance.Helper.Data.WriteSaveData(ModEntry.SAVEDATA, modEntryInstance.ModSaveData);
+
+                    modEntryInstance.Helper.Multiplayer.SendMessage(
+                        new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
+                        ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                    modEntryInstance.Monitor.Log("PvP has been set to " + value.ToString(), LogLevel.Info);
+                }
+            });
+
             AddCommand("save_savedata", "Returns the save data values for this mod", (string command, string[] args) =>
             {
                 if (!Game1.IsMasterGame)

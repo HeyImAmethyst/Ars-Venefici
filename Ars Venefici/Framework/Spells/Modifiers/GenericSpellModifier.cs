@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.API.Spell;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.Spell;
 using StardewModdingAPI;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,18 @@ namespace ArsVenefici.Framework.Spells.Modifiers
         float manaCost;
         IModHelper modHelper;
 
+        private MagicType magicType;
+
         protected Dictionary<ISpellPartStat, ISpellPartStatModifier> modifiers = new Dictionary<ISpellPartStat, ISpellPartStatModifier>();
 
-        public GenericSpellModifier(string id, IModHelper modHelper,float manaCost)
+        public GenericSpellModifier(string id, MagicType magicType, IModHelper modHelper,float manaCost)
         {
             this.id = id;
             this.manaCost = manaCost;
 
             this.modHelper = modHelper;
+
+            this.magicType = magicType;
         }
 
         public override string GetId()
@@ -33,6 +38,11 @@ namespace ArsVenefici.Framework.Spells.Modifiers
         public void SetId(string id)
         {
             this.id = id;
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return magicType;
         }
 
         public override ISpellPartStatModifier GetStatModifier(ISpellPartStat stat)

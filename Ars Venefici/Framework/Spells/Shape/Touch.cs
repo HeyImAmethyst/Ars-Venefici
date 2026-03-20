@@ -5,6 +5,7 @@ using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
 using StardewValley;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Affinity;
 
 namespace ArsVenefici.Framework.Spells.Shape
 {
@@ -13,6 +14,11 @@ namespace ArsVenefici.Framework.Spells.Shape
         public Touch() : base()
         {
            
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.None;
         }
 
         public override string GetId()

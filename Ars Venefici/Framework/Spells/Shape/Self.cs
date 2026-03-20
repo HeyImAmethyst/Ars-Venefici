@@ -1,4 +1,5 @@
-﻿using ArsVenefici.Framework.API.Spell;
+﻿using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
@@ -14,6 +15,10 @@ namespace ArsVenefici.Framework.Spells.Shape
 {
     public class Self : AbstractShape
     {
+        public override MagicType GetMagicType()
+        {
+            return MagicType.None;
+        }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, HitResult target, int ticksUsed, int index, bool awardXp)
         {

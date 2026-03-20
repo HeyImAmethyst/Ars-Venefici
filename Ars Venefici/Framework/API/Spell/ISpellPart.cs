@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using ArsVenefici.Framework.Affinity;
+using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace ArsVenefici.Framework.API.Spell
 
         /// <returns>The type of this spell part.</returns>
         SpellPartType GetType();
+
+        MagicType GetMagicType();
 
         string GetId();
 

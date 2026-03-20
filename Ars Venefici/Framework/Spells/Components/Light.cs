@@ -12,6 +12,9 @@ using static ArsVenefici.Framework.GUI.DragNDrop.SpellPartDraggable;
 using xTile.Dimensions;
 using StardewValley.Locations;
 using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.CustomObjects;
+using StardewValley.Objects;
+using ArsVenefici.Framework.Affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -29,14 +32,23 @@ namespace ArsVenefici.Framework.Spells.Components
             return "light";
         }
 
+        public override MagicType GetMagicType()
+        {
+            return MagicType.Lightning;
+        }
+
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)
         {
+
+            if(Game1.eventUp)
+                return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
 
             Farmer player = ((Farmer)caster.entity);
 
             TilePos tile = new TilePos(Utils.AbsolutePosToTilePos(Utility.clampToTile(target.GetCharacter().getStandingPosition())));
 
             Torch torch = new Torch();
+            //Chest torch = new Chest();
 
             if(!gameLocation.objects.ContainsKey(tile.GetVector()))
             {

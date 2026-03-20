@@ -15,6 +15,7 @@ using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -30,6 +31,11 @@ namespace ArsVenefici.Framework.Spells.Components
         public override string GetId()
         {
             return "dig";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.Earth;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

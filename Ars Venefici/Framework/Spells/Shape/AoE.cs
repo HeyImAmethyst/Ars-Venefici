@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.Magic;
 
 namespace ArsVenefici.Framework.Spells.Shape
 {
@@ -24,6 +26,11 @@ namespace ArsVenefici.Framework.Spells.Shape
         public override string GetId()
         {
             return "aoe";
+        }
+
+        public override MagicType GetMagicType()
+        {
+            return MagicType.None;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, HitResult hit, int ticksUsed, int index, bool awardXp)
@@ -129,7 +136,7 @@ namespace ArsVenefici.Framework.Spells.Shape
                 scale = (float)size,
                 scaleChange = 0.01f,
                 //rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0),
-                color = Color.White
+                color = MagicHelper.Instance().GetColorForMagicType(spell)
             };
 
             //Rectangle imageSourceRect = new Rectangle(372, 1956, 10, 10);
