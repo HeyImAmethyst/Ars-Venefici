@@ -61,46 +61,46 @@ Every shape and modifier is multiplied together to create a multiplier value. Ev
 
 # Adding New Items That Replenish Mana
 
-Version 1.2.0 of this mod adds the ability for you to add food items that replenish mana using Content Patcher! [Take a look at this wiki page for a guide to add in custom items via Content Patcher﻿](https://stardewvalleywiki.com/Modding:Items#Define_a_custom_item). For your item to replenish mana, add this field to your item:
+As of vrsion 1.13, to add new items that replenish mana you would have to add an additional context tag.
+[See MoonSlime's mana bar API for more information](https://www.nexusmods.com/stardewvalley/mods/39117).
 
-```
-"CustomFields":
-{
-    ﻿"HeyImAmethyst.CP.ArsVenefici/Mana": "NUMBERVALUEHERE"
-}
-```
+[Take a look at this wiki page for a guide to add in custom items via Content Patcher﻿](https://stardewvalleywiki.com/Modding:Items#Define_a_custom_item).
+
 
 # Rune Table
 
 Version 1.10 adds a new machine called a rune table. It will allow you to make different colored runes! You would need to craft a blank rune (which is a crafting recipe unlocked if you have learned wizardry) and an additional item (similar to how the furnace needs coal and the ore you need to smelt). To make any of the colored runes, an item with the color you are looking for needs to be placed into the table. So if you want a red rune, you need to have a red item (like a strawberry for example) and right click the table with it, while having a blank rune in your inventory. Some of the new items added with this mod can be used to make runes as well!
 
-Any item that has a color context tag that the rune table is able to make a rune for can be used. If you have [LookupAnything](https://www.nexusmods.com/stardewvalley/mods/541?tab=description), the item information menu should tell you if an item can be used to make a colored rune.
+Any item that has a color context tag that the rune table is able to make a rune for can be used. If you have [LookupAnything](https://www.nexusmods.com/stardewvalley/mods/541), the item information menu should tell you if an item can be used to make a colored rune.
 
-The value in "NUMBERVALUEHERE" needs to be a number (ex: "20", "150", "200"). If the value isn't a number or has any letters or other characters in it, the item will not replenish any mana.
 
 # Console Commands
 
-- player_togglewizardry  <true | false> : Toggles the player's the ability to cast spells
-- player_learnspellpart < spellpartId > :  Allows the player to learn a spell part
-- player_forgetspellpart < spellpartId > : Allows the player to forget a spell part
-- player_learnallspellparts: Allows the player to learn all spell parts
-- player_forgetallspellparts: Allows the player to forget all spell parts
-- player_knowsspellpart < spellpartId > : Checks if a player knows a spell part
+>- player_togglewizardry  <true | false> : Toggles the player's the ability to cast spells
+>- player_learnspellpart < spellpartId > :  Allows the player to learn a spell part
+>- player_forgetspellpart < spellpartId > : Allows the player to forget a spell part
+>- player_learnallspellparts: Allows the player to learn all spell parts
+>- player_forgetallspellparts: Allows the player to forget all spell parts
+>- player_knowsspellpart < spellpartId > : Checks if a player knows a spell part
 
-- save_manapointsperlevel < numberValue > : Sets the amount of mana players have per Wizardry level
-- save_manaregenrate < numberValue > : Sets the mana regen rate of players
-- save_enableinfinitemana <true | false> : Toggles infinate mana
-- save_enablegrowsickness <true | false> : Toggles the grow sickness debuff
+>- save_manapointsperlevel < numberValue > : Sets the amount of mana players have per Wizardry level
+>- save_manaregenrate < numberValue > : Sets the mana regen rate of players
+>- save_enableinfinitemana <true | false> : Toggles infinate mana
+>- save_enablegrowsickness <true | false> : Toggles the grow sickness debuff
 
-- save_growsicknessdurationmillisecondslessthanlevelsix < numberValue > :  Sets the grow sickness debuff duration for Wizardry levels less than level 6
+>- save_growsicknessdurationmillisecondslessthanlevelsix < numberValue > :  Sets the grow sickness debuff duration for Wizardry levels less than level 6
 
-- save_growsicknessdurationmillisecondsgreaterthanorequaltolevelsix < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 6
+>- save_growsicknessdurationmillisecondsgreaterthanorequaltolevelsix < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 6
 
-- save_growsicknessdurationmillisecondsgreaterthanorequaltoleveleight < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 8
+>- save_growsicknessdurationmillisecondsgreaterthanorequaltoleveleight < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 8
 
-- save_growsicknessdurationmillisecondsgreaterthanorequaltolevelten < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 10
+>- save_growsicknessdurationmillisecondsgreaterthanorequaltolevelten < numberValue > : Sets the grow sickness debuff duration for Wizardry levels greater than or equal to level 10
 
-- save_savedata: Returns the save data values for this mod
+>- save_hastebasevalueamount < numberValue > : Sets the base amount value for the haste affect
+>- save_enablepvp <true | false> : Toggles pvp
+
+
+>- save_savedata: Returns the save data values for this mod
 
 # List of Spell Part Ids
 
