@@ -74,8 +74,11 @@ namespace ArsVenefici.Framework.Skill
 
         public void Learn(ModEntry modEntry, Farmer player, SpellPartSkill skill)
         {
-            if (!KnownSpellPartSkills.Keys.Contains(skill.GetId()))
-                KnownSpellPartSkills.Add(skill.GetId(), skill);
+            if(skill != null)
+            {
+                if (!KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                    KnownSpellPartSkills.Add(skill.GetId(), skill);
+            }
 
             SyncToPlayer(player);
             UpdateIfNeeded(modEntry, player);
@@ -87,14 +90,20 @@ namespace ArsVenefici.Framework.Skill
             {
                 foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
                 {
-                    if (skill.GetId().Equals(spellPartId) && !KnownSpellPartSkills.Keys.Contains(skill.GetId()))
-                        KnownSpellPartSkills.Add(spellPartId, skill);
+                    if (skill != null)
+                    {
+                        if (skill.GetId().Equals(spellPartId) && !KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                            KnownSpellPartSkills.Add(spellPartId, skill);
+                    }
                 }
 
                 foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values)
                 {
-                    if (skill.GetId().Equals(spellPartId) && !KnownSpellPartSkills.Keys.Contains(skill.GetId()))
-                        KnownSpellPartSkills.Add(spellPartId, skill);
+                    if (skill != null)
+                    {
+                        if (skill.GetId().Equals(spellPartId) && !KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                            KnownSpellPartSkills.Add(spellPartId, skill);
+                    }
                 }
 
                 SyncToPlayer(player);
@@ -108,16 +117,22 @@ namespace ArsVenefici.Framework.Skill
             {
                 foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
                 {
-                    if (!KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
-                        KnownSpellPartSkills.Add(spellPartSkill.GetId(), spellPartSkill);
+                    if (spellPartSkill != null)
+                    {
+                        if (!KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
+                            KnownSpellPartSkills.Add(spellPartSkill.GetId(), spellPartSkill);
+                    }
 
                     //Learn(modEntry, player, spellPartSkill);
                 }
 
                 foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values)
                 {
-                    if (!KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
-                        KnownSpellPartSkills.Add(spellPartSkill.GetId(), spellPartSkill);
+                    if (spellPartSkill != null)
+                    {
+                        if (!KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
+                            KnownSpellPartSkills.Add(spellPartSkill.GetId(), spellPartSkill);
+                    }
 
                     //Learn(modEntry, player, spellPartSkill);
                 }
@@ -129,8 +144,11 @@ namespace ArsVenefici.Framework.Skill
 
         public void Forget(ModEntry modEntry, Farmer player, SpellPartSkill skill)
         {
-            if(KnownSpellPartSkills.Keys.Contains(skill.GetId()))
-                KnownSpellPartSkills.Remove(skill.GetId());
+            if (skill != null)
+            {
+                if (KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                    KnownSpellPartSkills.Remove(skill.GetId());
+            }
 
             SyncToPlayer(player);
             UpdateIfNeeded(modEntry, player);
@@ -142,14 +160,21 @@ namespace ArsVenefici.Framework.Skill
             {
                 foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
                 {
-                    if (skill.GetId().Equals(spellPartId) && KnownSpellPartSkills.Keys.Contains(skill.GetId()))
-                        KnownSpellPartSkills.Remove(spellPartId);
+                    if(skill != null)
+                    {
+                        if (skill.GetId().Equals(spellPartId) && KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                            KnownSpellPartSkills.Remove(spellPartId);
+                    }
+                    
                 }
 
                 foreach (SpellPartSkill skill in modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values)
                 {
-                    if (skill.GetId().Equals(spellPartId) && KnownSpellPartSkills.Keys.Contains(skill.GetId()))
-                        KnownSpellPartSkills.Remove(spellPartId);
+                    if (skill != null)
+                    {
+                        if (skill.GetId().Equals(spellPartId) && KnownSpellPartSkills.Keys.Contains(skill.GetId()))
+                            KnownSpellPartSkills.Remove(spellPartId);
+                    }
                 }
 
                 SyncToPlayer(player);
@@ -163,16 +188,22 @@ namespace ArsVenefici.Framework.Skill
             {
                 foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetSpellPartSkills().Values)
                 {
-                    if (KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
-                        KnownSpellPartSkills.Remove(spellPartSkill.GetId());
-
+                    if (spellPartSkill != null)
+                    {
+                        if (KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
+                            KnownSpellPartSkills.Remove(spellPartSkill.GetId());
+                    }
+                    
                     //Forget(modEntry, player, spellPartSkill);
                 }
 
                 foreach (SpellPartSkill spellPartSkill in modEntry.spellPartSkillManager.GetContentPackSpellPartSkills().Values)
                 {
-                    if (KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
-                        KnownSpellPartSkills.Remove(spellPartSkill.GetId());
+                    if(spellPartSkill != null)
+                    {
+                        if (KnownSpellPartSkills.Keys.Contains(spellPartSkill.GetId()))
+                            KnownSpellPartSkills.Remove(spellPartSkill.GetId());
+                    }
 
                     //Forget(modEntry, player, spellPartSkill);
                 }
@@ -201,19 +232,22 @@ namespace ArsVenefici.Framework.Skill
         /// <param name="raw">The raw serialized string.</param>
         private IDictionary<string, SpellPartSkill> ParseKnownSpellPartSkills(ModEntry modEntry, string raw)
         {
-            Dictionary<string, SpellPartSkill> spells = new();
+            Dictionary<string, SpellPartSkill> spellParts = new();
 
             if (raw != null)
             {
-                foreach (SpellPartSkill spell in this.ParseSpellPartSkill(modEntry, raw))
+                foreach (SpellPartSkill spellPartSkill in this.ParseSpellPartSkill(modEntry, raw))
                 {
                     //spells[spell.GetId()] = spell;
 
-                    spells.Add(spell.GetId(), spell);
+                    if(spellPartSkill != null)
+                    {
+                        spellParts.Add(spellPartSkill.GetId(), spellPartSkill);
+                    }
                 }
             }
 
-            return spells;
+            return spellParts;
         }
 
         /// <summary>Parse a serialized spell part skill list.</summary>
