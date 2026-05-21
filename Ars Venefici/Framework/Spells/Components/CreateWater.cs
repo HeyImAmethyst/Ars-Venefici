@@ -44,16 +44,19 @@ namespace ArsVenefici.Framework.Spells.Components
         {
             //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
 
+            //Get positions
             TilePos pos = target.GetTilePos();
             Vector2 tile = pos.GetVector();
             Vector2 toolPixel = (tile * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
 
+            //Create watering can
             WateringCan wateringCan = new WateringCan();
             wateringCan.UpgradeLevel = 4;
             wateringCan.IsEfficient = true; // don't drain stamina
             wateringCan.IsBottomless = true;
             modEntry.Helper.Reflection.GetField<Farmer>(wateringCan, "lastUser").SetValue(caster.entity as Farmer);
 
+            //Perform actions with watering can
             if (gameLocation.objects.TryGetValue(tile, out StardewValley.Object obj))
             {
                 ((Farmer)caster.entity).lastClick = toolPixel;

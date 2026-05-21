@@ -93,7 +93,7 @@ namespace ArsVenefici.Framework.Events
                 if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer && (!Game1.player.isMoving()))
                 {
                     Vector2 local = Vector2.One;
-                    Texture2D aoeTexture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/aoe/aoe.png");
+                    //Texture2D aoeTexture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/aoe/aoe.png");
 
                     foreach (var item in spell.ShapeGroup(spell.CurrentShapeGroupIndex()).Parts())
                     {
@@ -105,58 +105,57 @@ namespace ArsVenefici.Framework.Events
                             {
                                 if (spellCastResult.GetSpellCastResultType() == SpellCastResultType.SUCCESS)
                                 {
-                                    
+                                    //local = Utils.AbsolutePosToScreenPos(new Vector2(aoE.GetBoundingBox().X, aoE.GetBoundingBox().Y));
+
+                                    ////var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), new Rectangle((int)local.X, (int)local.Y, (int)width, (int)height));
+                                    //var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), aoE.GetBoundingBox());
+
+                                    //float speed = -0.3f;
+                                    //Rectangle imageSourceRect = new Rectangle(0, 0, 64, 16);
+
+                                    //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite()
+                                    //{
+                                    //    texture = ModTextures.AOE,
+                                    //    initialParentTileIndex = 0,
+                                    //    animationLength = 4,
+                                    //    totalNumberOfLoops = 0,
+                                    //    flicker = false,
+                                    //    flipped = false,
+                                    //    sourceRect = imageSourceRect,
+                                    //    sourceRectStartingPos = new Vector2(imageSourceRect.X, imageSourceRect.Y),
+                                    //    initialPosition = local,
+                                    //    alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
+                                    //    alpha = 0.2f,
+                                    //    //motion = new Vector2(0.0f, speed),
+                                    //    //acceleration = new Vector2(0.0f, 0.0f),
+                                    //    interval = 99999f,
+                                    //    layerDepth = (float)(aoE.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
+                                    //    scale = (float)size,
+                                    //    //scale = 8f,
+                                    //    scaleChange = 0.01f,
+                                    //    rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0),
+                                    //    color = Color.White
+                                    //};
+
+                                    //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), local, false, 1f / 500f, new Color(0, 48, 255, 127))
+                                    //{
+                                    //    alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
+                                    //    alpha = 0.2f,
+                                    //    //motion = new Vector2(0.0f, speed),
+                                    //    //acceleration = new Vector2(0.0f, 0.0f),
+                                    //    interval = 99999f,
+                                    //    layerDepth = (float)(aoE.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
+                                    //    scale = 8f,
+                                    //    scaleChange = 0.01f,
+                                    //    rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0)
+                                    //};
+
+                                    //Game1.player.currentLocation.temporarySprites.Add(sprite);
+
+                                    //spriteBatch.Draw(aoeTexture, local, imageSourceRect, Color.White, 0, Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
                                 }
                             }
 
-                            local = Utils.AbsolutePosToScreenPos(new Vector2(aoE.GetBoundingBox().X, aoE.GetBoundingBox().Y));
-
-                            //var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), new Rectangle((int)local.X, (int)local.Y, (int)width, (int)height));
-                            var size = ExpandToBound(new Rectangle((int)local.X, (int)local.Y, 198, 22), aoE.GetBoundingBox());
-
-                            float speed = -0.3f;
-                            Rectangle imageSourceRect = new Rectangle(0, 0, 64, 16);
-
-                            //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite()
-                            //{
-                            //    texture = aoeTexture,
-                            //    initialParentTileIndex = 0,
-                            //    animationLength = 4,
-                            //    totalNumberOfLoops = 0,
-                            //    flicker = false,
-                            //    flipped = false,
-                            //    sourceRect = imageSourceRect,
-                            //    sourceRectStartingPos = new Vector2(imageSourceRect.X, imageSourceRect.Y),
-                            //    initialPosition = local,
-                            //    alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
-                            //    alpha = 0.2f,
-                            //    //motion = new Vector2(0.0f, speed),
-                            //    //acceleration = new Vector2(0.0f, 0.0f),
-                            //    interval = 99999f,
-                            //    layerDepth = (float)(aoE.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
-                            //    //scale = (float)size,
-                            //    scale = 8f,
-                            //    scaleChange = 0.01f,
-                            //    rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0),
-                            //    color = Color.White
-                            //};
-
-                            //TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), local, false, 1f / 500f, new Color(0, 48, 255, 127))
-                            //{
-                            //    alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
-                            //    alpha = 0.2f,
-                            //    //motion = new Vector2(0.0f, speed),
-                            //    //acceleration = new Vector2(0.0f, 0.0f),
-                            //    interval = 99999f,
-                            //    layerDepth = (float)(aoE.GetBoundingBox().Bottom - 3 - Game1.random.Next(5)) / 10000f,
-                            //    scale = 8f,
-                            //    scaleChange = 0.01f,
-                            //    rotationChange = (float)((double)Game1.random.Next(-5, 6) * 3.1415927410125732 / 256.0)
-                            //};
-
-                            //Game1.player.currentLocation.temporarySprites.Add(sprite);
-
-                            //spriteBatch.Draw(aoeTexture, local, imageSourceRect, Color.White, 0, Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
                         }
                     }
                 }
@@ -177,7 +176,7 @@ namespace ArsVenefici.Framework.Events
                 if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer)
                 {
                     Vector2 local = Vector2.One;
-                    Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/beam/beam.png");
+                    //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/beam/beam.png");
                     //Texture2D texture2 = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
 
                     if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is Beam && modEntryInstance.buttonEvents.spellKeyHoldTime > 0)
@@ -216,7 +215,7 @@ namespace ArsVenefici.Framework.Events
                             local.X += 25;
                         }
 
-                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 198, 22), MagicHelper.Instance().GetColorForMagicType(spell), MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
+                        spriteBatch.Draw(ModTextures.BEAM, local, new Rectangle(0, 0, 198, 22), MagicHelper.Instance().GetColorForMagicType(spell), MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
                         //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 198, 22), Color.White, MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
                         //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 28, 7), Color.White, MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
 
@@ -257,13 +256,13 @@ namespace ArsVenefici.Framework.Events
                 if (Game1.activeClickableMenu == null && !Game1.eventUp && Game1.player.IsLocalPlayer && (!Game1.player.isMoving()))
                 {
                     Vector2 local = Vector2.One;
-                    Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
+                    //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/farmer/touch_indicator.png");
 
                     if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && (spell.FirstShape(spell.CurrentShapeGroupIndex()) is Touch || spell.FirstShape(spell.CurrentShapeGroupIndex()) is Channel))
                     {
                         local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
 
-                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), MagicHelper.Instance().GetColorForMagicType(spell), 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        spriteBatch.Draw(ModTextures.TOUCH, local, new Rectangle(0, 0, 64, 64), MagicHelper.Instance().GetColorForMagicType(spell), 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                         //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
                     else if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is EtherealTouch)
@@ -278,7 +277,7 @@ namespace ArsVenefici.Framework.Events
                         Vector2 absoluteClampedMousePos = Utility.clampToTile(cursorPosition.AbsolutePixels);
                         local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
 
-                        spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), MagicHelper.Instance().GetColorForMagicType(spell), 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        spriteBatch.Draw(ModTextures.TOUCH, local, new Rectangle(0, 0, 64, 64), MagicHelper.Instance().GetColorForMagicType(spell), 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                         //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
                 }
@@ -294,7 +293,7 @@ namespace ArsVenefici.Framework.Events
                     if (farmer.hasBuff("HeyImAmethyst.ArsVenifici_Shield"))
                     {
                         Vector2 local = Vector2.One;
-                        Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/projectile/projectile.png");
+                        //Texture2D texture = modEntryInstance.Helper.ModContent.Load<Texture2D>("assets/projectile/projectile.png");
 
                         Vector2 farmerBoundingBox = farmer.GetBoundingBox().Center.ToVector2();
                         Vector2 pos = new Vector2(farmerBoundingBox.X - 125, farmerBoundingBox.Y - 165);
@@ -306,7 +305,7 @@ namespace ArsVenefici.Framework.Events
                         Color color = new Color(255, 255, 255, 100);
                         //Color color = Color.White * 0.5f;
 
-                        spriteBatch.Draw(texture, Utils.AbsolutePosToScreenPos(pos), new Rectangle(0, 0, 30, 30), color, 0.0f, Vector2.Zero, 8f, SpriteEffects.None, pos.Y / 10000f);
+                        spriteBatch.Draw(ModTextures.PROJECTILE, Utils.AbsolutePosToScreenPos(pos), new Rectangle(0, 0, 30, 30), color, 0.0f, Vector2.Zero, 8f, SpriteEffects.None, pos.Y / 10000f);
 
                         spriteBatch.End();
 

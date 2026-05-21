@@ -41,6 +41,7 @@ namespace ArsVenefici.Framework.Spells.Components
 
             var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellHelper();
 
+            //Only heal players
             if (target.GetCharacter() is Farmer living) 
             {
                 float healing = helper.GetModifiedStat(15, new SpellPartStats(SpellPartStatType.HEALING), modifiers, spell, caster, target, index);

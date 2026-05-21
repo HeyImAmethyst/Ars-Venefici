@@ -45,7 +45,8 @@ namespace ArsVenefici.Framework.Spells.Effects
             NetFields.AddField(Index);
             //this.NetFields.AddField(this.TexId);
 
-            Tex = modEntry.Helper.ModContent.Load<Texture2D>("assets/projectile/projectile.png");
+            //Tex = modEntry.Helper.ModContent.Load<Texture2D>("assets/projectile/projectile.png");
+            Tex = ModTextures.PROJECTILE;
 
             damagesMonsters.Value = true;
         }
@@ -79,19 +80,12 @@ namespace ArsVenefici.Framework.Spells.Effects
             //this.TexId.Value = modEntry.Helper.ModContent.($"magic/{this.Spell.ParentSchoolId}/{this.Spell.Id}/projectile.png");
         }
 
-        //
-        // Summary:
-        //     Handle the projectile hitting an obstacle.
-        //
-        // Parameters:
-        //   location:
-        //     The location containing the projectile.
-        //
-        //   target:
-        //     The target player or monster that was hit, if applicable.
-        //
-        //   terrainFeature:
-        //     The terrain feature that was hit, if applicable.
+        /// <summary>
+        /// Handle the projectile hitting an obstacle.
+        /// </summary>
+        /// <param name="location">The location containing the projectile.</param>
+        /// <param name="target">The target player or monster that was hit, if applicable.</param>
+        /// <param name="terrainFeature">The terrain feature that was hit, if applicable.</param>
         private void behaviorOnCollision(GameLocation location, Character target, TerrainFeature terrainFeature)
         {
             bool flag = true;
@@ -130,6 +124,12 @@ namespace ArsVenefici.Framework.Spells.Effects
             }
         }
 
+        /// <summary>
+        /// Handle the projectile hitting an obstacle.
+        /// </summary>
+        /// <param name="location">The location containing the projectile.</param>
+        /// <param name="target">The target player or monster that was hit, if applicable.</param>
+        /// <param name="obj">The object that was hit, if applicable.</param>
         private void behaviorOnCollision(GameLocation location, Character target, StardewValley.Object obj)
         {
             bool flag = true;
@@ -168,6 +168,12 @@ namespace ArsVenefici.Framework.Spells.Effects
             }
         }
 
+        /// <summary>
+        /// Handle the projectile hitting an obstacle.
+        /// </summary>
+        /// <param name="location">The location containing the projectile.</param>
+        /// <param name="target">The target player or monster that was hit, if applicable.</param>
+        /// <param name="clump">The resource clump that was hit, if applicable.</param>
         private void behaviorOnCollision(GameLocation location, Character target, ResourceClump clump)
         {
             bool flag = true;
@@ -206,6 +212,13 @@ namespace ArsVenefici.Framework.Spells.Effects
             }
         }
 
+        /// <summary>
+        /// Check if the projectile is colliding with a character or object
+        /// </summary>
+        /// <param name="location">The location containing the projectile.</param>
+        /// <param name="target">The target player or monster that was hit, if applicable.</param>
+        /// <param name="obj">The object that was hit, if applicable.</param>
+        /// <returns></returns>
         public bool isColliding(GameLocation location, out Character target, out StardewValley.Object obj)
         {
             target = null;
@@ -251,6 +264,13 @@ namespace ArsVenefici.Framework.Spells.Effects
             return false;
         }
 
+        /// <summary>
+        /// Check if the projectile is colliding with a character or resource clump
+        /// </summary>
+        /// <param name="location">The location containing the projectile.</param>
+        /// <param name="target">The target player or monster that was hit, if applicable.</param>
+        /// <param name="obj">The resource clump that was hit, if applicable.</param>
+        /// <returns></returns>
         public bool isColliding(GameLocation location, out Character target, out ResourceClump clump)
         {
             target = null;
@@ -309,6 +329,7 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             return false;
         }
+
 
         public override void behaviorOnCollisionWithMonster(NPC npc, GameLocation location)
         {

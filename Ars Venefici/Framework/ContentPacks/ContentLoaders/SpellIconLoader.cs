@@ -50,7 +50,7 @@ namespace ArsVenefici.Framework.ContentPacks.ContentLoaders
         }
 
         /// <summary>
-        /// Loads Skin Tone from a Content Pack.
+        /// Loads spell icon from a content pack.
         /// </summary>
         public void LoadSpellIcons(IContentPack contentPack)
         {
@@ -120,7 +120,7 @@ namespace ArsVenefici.Framework.ContentPacks.ContentLoaders
         }
 
         /// <summary>
-        /// Adds Skin Tone to list of added Skin Tones.
+        /// Adds Spell Icon to list of added Skin Tones.
         /// </summary>
         private void AddSpellIconsToList()
         {

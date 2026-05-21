@@ -47,7 +47,7 @@ namespace ArsVenefici.Framework.Spells.Shape
             if (range == 3) coneRange = 8;
             if (range == 4) coneRange = 10;
 
-            ModEntry.INSTANCE.Monitor.Log("coneRange:" + coneRange, StardewModdingAPI.LogLevel.Info);
+            //ModEntry.INSTANCE.Monitor.Log("coneRange:" + coneRange, StardewModdingAPI.LogLevel.Info);
 
             List <HitResult> hitResults = helper.TraceCone(modEntry, (Character)caster.entity, level, coneRange);
 

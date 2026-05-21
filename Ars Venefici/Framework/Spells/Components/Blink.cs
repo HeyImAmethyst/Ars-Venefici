@@ -38,18 +38,17 @@ namespace ArsVenefici.Framework.Spells.Components
             var helper = modEntry.arsVeneficiAPILoader.GetAPI().GetSpellHelper();
             int radius = (int)helper.GetModifiedStat(5, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, target, index) * 4;
 
-            Farmer entity = caster.entity as Farmer;
+            Farmer farmer = caster.entity as Farmer;
 
+            //Convert the tile position of the hit result to absolute position
             Vector2 tilePos = target.GetTilePos().GetVector();
             Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
 
-            entity.position.X = absolutePos.X - entity.GetBoundingBox().Width / 2;
-            entity.position.Y = absolutePos.Y - entity.GetBoundingBox().Height / 2;
+            //Set the farmer's position
+            farmer.position.X = absolutePos.X - farmer.GetBoundingBox().Width / 2;
+            farmer.position.Y = absolutePos.Y - farmer.GetBoundingBox().Height / 2;
 
-            //entity.setTileLocation(tilePos);
-
-
-            entity.playNearbySoundLocal("powerup");
+            farmer.playNearbySoundLocal("powerup");
 
             return new SpellCastResult(SpellCastResultType.SUCCESS);
         }

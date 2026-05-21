@@ -1,5 +1,6 @@
 ﻿using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
+using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
@@ -33,7 +34,8 @@ namespace ArsVenefici.Framework.Spells.Effects
 
             this.spell = spell;
 
-            this.Tex = Game1.content.Load<Texture2D>("Characters\\Junimo");
+            //this.Tex = Game1.content.Load<Texture2D>("Characters\\Junimo");
+            this.Tex = ModTextures.JUNIMO;
             this.pos = source.GetPosition();
 
             this.PrevSummonerLoc = source.GetGameLocation();

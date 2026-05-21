@@ -36,16 +36,16 @@ namespace ArsVenefici.Framework.FarmerPlayer
             var api = modEntry.arsVeneficiAPILoader.GetAPI();
             var magicHelper = api.GetMagicHelper();
 
-            // skip if player hasn't learned wizardry
+            //Skip if player hasn't learned wizardry
             if (!magicHelper.LearnedWizardy(player) && overrideWizardryLevel is not > 0)
                 return;
 
-            // get wizardry info
+            //Get wizardry info
             int wizardryLevel = overrideWizardryLevel ?? player.GetCustomSkillLevel(Skill);
 
             SpellBook spellBook = Game1.player.GetSpellBook();
 
-            // fix mana pool
+            //Fix mana pool
 
             //if(LearnedWizardy)
             //{

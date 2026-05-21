@@ -15,7 +15,7 @@ namespace ArsVenefici.Framework.ContentPacks
 
         ContentLoaders.SpellIconLoader spellIconLoader;
 
-        // List of Skin Color Models
+        // List of Spell Icon Models
         public List<SpellIconModel> SpellIconsList = new List<SpellIconModel>();
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace ArsVenefici.Framework.ContentPacks
 
 
         /// <summary>
-        /// Load Skin Color from a Content Pack.
+        /// Load Spell Icon from a Content Pack.
         /// </summary>
         /// <param name="contentPack">The Current Content Pack.</param>
         private void LoadSpellIcons(IContentPack contentPack)

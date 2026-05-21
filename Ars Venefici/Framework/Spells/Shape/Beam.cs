@@ -52,14 +52,16 @@ namespace ArsVenefici.Framework.Spells.Shape
 
             Rectangle rectangle = new Rectangle();
 
-            Vector2 hTilePos = new Vector2(standingPosition.X + radius, standingPosition.Y);
-            Vector2 hAbsoluteTilePos = Utils.TilePosToAbsolutePos(hTilePos);
+            Vector2 horizonalTilePos = new Vector2(standingPosition.X + radius, standingPosition.Y);
+            Vector2 horizontalAbsoluteTilePos = Utils.TilePosToAbsolutePos(horizonalTilePos);
 
             //wallEffect.SetBoundingBox(new Rectangle((int)(absolutePos.X), (int)(absolutePos.Y), 1 * Game1.tileSize, (int)(boundingBoxRadius)));
-            Rectangle hRectangle = new Rectangle((int)hAbsoluteTilePos.X, (int)hAbsoluteTilePos.Y, (int)radius * Game1.tileSize, Game1.tileSize);
+            Rectangle horizontalRectangle = new Rectangle((int)horizontalAbsoluteTilePos.X, (int)horizontalAbsoluteTilePos.Y, (int)radius * Game1.tileSize, Game1.tileSize);
 
-            SetHorizontalBoundingBox(hRectangle);
+            //Used for sprite sizing in the RenderBeam method in Display Events 
+            SetHorizontalBoundingBox(horizontalRectangle);
 
+            //Affect characters and objects based on the caster's fasing direction
             if (farmer.FacingDirection == 1) //right
             {
                 Vector2 tilePos = new Vector2(standingPosition.X + radius, standingPosition.Y);

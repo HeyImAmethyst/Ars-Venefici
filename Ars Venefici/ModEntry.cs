@@ -39,6 +39,12 @@ namespace ArsVenefici
     //TODO: Fix  wave shape devolves into only working on the 2nd, 3rd, 5th, and 7th tiles facing away from your character, in multiplayer
     //TODO: Fix  Wave + AOE on multiplayer: starts off as a "Wall" spell animation and only activates the spell if you walk in the opposite direction of how the spell is being fired. And when it does fire, it's super glitchy/laggy
 
+    //TODO: Add affinity mechanic
+
+    //Fixed github issue #4 from AlanBF1992
+    //Added more comments and summaries to code and methods to make understanding the code easier
+    //Cleaned up some code
+
     public class ModEntry : Mod
     {
         public static ModEntry INSTANCE;
@@ -46,18 +52,24 @@ namespace ArsVenefici
 
         public static IModHelper helper;
 
+        //-----------------Mod Related Strings-----------------
+
         public static string ArsVenificiContentPatcherId = "HeyImAmethyst.CP.ArsVenefici";
         public static string ArsVenificiModId = "HeyImAmethyst.ArsVenefici";
         public const string MsgCast = "HeyImAmethyst.ArsVenifici.Cast";
+
+        //-----------------Config and Save Data-----------------
 
         public ModConfig Config;
         public ModSaveData ModSaveData;
         public const string SAVEDATA = "HeyImAmethyst-ArsVenifici-SaveData";
 
-        // Instance of ContentPackHelper
-        public ContentPackHelper PackHelper;
+        //-----------------Content Packs-----------------
 
+        public ContentPackHelper PackHelper;
         public string contentPackSpellIconsDirectory = "assets/icon/spellpart/";
+
+        //-----------------Class Intances-----------------
 
         public FarmerMagicHelper farmerMagicHelper;
         public HarmonyHelper harmonyHelper;
@@ -67,17 +79,17 @@ namespace ArsVenefici
         public SpellPartIconManager spellPartIconManager;
         public SpellPartSkillManager spellPartSkillManager;
 
-        //Commands
+        //-----------------Commands-----------------
 
         Commands commands;
 
-        //APIs
+        //-----------------APIs-----------------
 
         public static IManaBarApi ManaBarApi;
         public static ContentPatcher.IContentPatcherAPI ContentPatcherApi;
         public static Framework.ModAPIs.ItemExtensions.IApi ItemExtensionsApi;
 
-        //Events
+        //-----------------Events-----------------
 
         public ButtonEvents buttonEvents;
         public CharacterEvents characterEvents;
@@ -87,17 +99,21 @@ namespace ArsVenefici
         public PlayerEvents playerEvents;
         public SpellPartEvents spellPartEvents;
 
-        //Mana bar texture
+        //-----------------Textures-----------------
 
-        private static Texture2D ManaBg;
-        private static Texture2D ManaFg;
+        //public ModTextures modTextures;
+
+        //-----------------Active Effects-----------------
 
         /// <summary>The active effects, spells, or projectiles which should be updated or drawn.</summary>
         public readonly IList<IActiveEffect> ActiveEffects = new List<IActiveEffect>();
 
+        //-----------------Booleans-----------------
         public bool isSVEInstalled;
         public bool isItemExtensionsInstalled;
         public bool isWalkOfLifeInstalled;
+
+        //-----------------Random Generation-----------------
 
         public static Random RandomGen = new Random();
 
@@ -162,13 +178,12 @@ namespace ArsVenefici
             harmonyHelper = new HarmonyHelper(this);
         }
 
-        private static void LoadAssets()
+        /// <summary>
+        /// Loads any assests needed for the mod
+        /// </summary>
+        private void LoadAssets()
         {
-            ModEntry.ManaBg = helper.ModContent.Load<Texture2D>("assets/farmer/manabg.png");
-
-            Color manaCol = new Color(0, 48, 255);
-            ModEntry.ManaFg = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1);
-            ModEntry.ManaFg.SetData(new[] { manaCol });
+            ModTextures.LoadAssets(helper);
         }
 
         /// <summary>
@@ -222,6 +237,9 @@ namespace ArsVenefici
             Monitor.Log($"Item Extensions Installed: {isItemExtensionsInstalled}", LogLevel.Trace);
         }
 
+        /// <summary>
+        /// Checks if the mod Walk Of Life is currently installed.
+        /// </summary>
         private void CheckIfWalkOfLifeIsInstalled()
         {
             isWalkOfLifeInstalled = Helper.ModRegistry.IsLoaded("DaLion.Professions");

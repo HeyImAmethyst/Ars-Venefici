@@ -30,7 +30,7 @@ namespace ArsVenefici.Framework.Util
             }
         }
 
-        //*****MATH*****
+        //-----------------ATH-----------------
 
         private const double DegToRad = Math.PI / 180;
 
@@ -65,7 +65,7 @@ namespace ArsVenefici.Framework.Util
             }
         }
 
-        //*****MOD APIs*****
+        //-----------------MOD APIs-----------------
 
         /// <summary>Get the mod API for Generic Mod Config Menu, if it's loaded and compatible.</summary>
         /// <param name="modRegistry">The mod registry to extend.</param>
@@ -76,7 +76,7 @@ namespace ArsVenefici.Framework.Util
             return modRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
         }
 
-        //*****PLAYER DATA*****
+        //-----------------PLAYER DATA-----------------
 
         public static int GetCurrentMana(this Farmer player)
         {

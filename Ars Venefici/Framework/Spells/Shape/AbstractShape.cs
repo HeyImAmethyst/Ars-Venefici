@@ -53,11 +53,19 @@ namespace ArsVenefici.Framework.Spells.Shape
 
         public abstract float ManaCost();
 
+        /// <summary>
+        /// Gets the display name based on the translation
+        /// </summary>
+        /// <returns>The translated display name</returns>
         public virtual string DisplayName()
         {
             return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.name");
         }
 
+        /// <summary>
+        /// Gets the discription based on the translation
+        /// </summary>
+        /// <returns>The translated discription</returns>
         public virtual string DisplayDiscription()
         {
             return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.description");

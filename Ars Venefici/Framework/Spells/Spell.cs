@@ -170,6 +170,7 @@ namespace ArsVenefici.Framework.Spells
             if (((Farmer)caster.entity).GetCurrentMana() < manaValue) 
                 return new SpellCastResult(SpellCastResultType.NOT_ENOUGH_MANA);
 
+            //Go through the spell parts in the spell grammar list and check if the grow spell part is there
             foreach (ISpellPart spellPart in spellStack().Parts)
             {
                 if (spellPart is Grow)
@@ -189,7 +190,8 @@ namespace ArsVenefici.Framework.Spells
                 }
             }
 
-            SpellCastResult result = spellHelper.Invoke(modEntry, this, caster, gameLocation, null, castingTicks, 0, awardXp);
+            //Attempt to cast the spell
+            SpellCastResult castResult = spellHelper.Invoke(modEntry, this, caster, gameLocation, null, castingTicks, 0, awardXp);
 
             int manaReductionAmount = (int)Math.Round(manaValue, 0, MidpointRounding.AwayFromZero) / ((Farmer)caster.entity).GetSpellBook().GetManaCostReductionAmount();
             int manaValueInt;
@@ -207,10 +209,11 @@ namespace ArsVenefici.Framework.Spells
             //modEntry.Monitor.Log("Mana Reduction Amount: " + manaReductionAmount.ToString(), StardewModdingAPI.LogLevel.Info);
             //modEntry.Monitor.Log("Final Mana Value: " + manaValueInt.ToString(), StardewModdingAPI.LogLevel.Info);
 
-            if (result.IsSuccess() && caster.entity is Farmer)
+            if (castResult.IsSuccess() && caster.entity is Farmer)
             {
                 Farmer player = (Farmer)caster.entity;
 
+                //deduct mana
                 if (modEntry.ModSaveData.InfiniteMana == false)
                 {
                     if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaConservationProfession))
@@ -229,6 +232,7 @@ namespace ArsVenefici.Framework.Spells
                     }
                 }
 
+                //give experience points
                 if (awardXp)
                 {
                     bool continuous = IsContinuous();
@@ -258,7 +262,7 @@ namespace ArsVenefici.Framework.Spells
                 }
             }
 
-            return result;
+            return castResult;
         }
 
         public List<MutableKeyValuePair<ISpellPart, List<ISpellModifier>>> PartsWithModifiers()

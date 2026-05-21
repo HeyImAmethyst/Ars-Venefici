@@ -48,7 +48,6 @@ namespace ArsVenefici.Framework.Spells.Shape
             float radius = helper.GetModifiedStat(1, new SpellPartStats(SpellPartStatType.RANGE), modifiers, spell, caster, hit, index);
             bool appliedToAtLeastOneEntity = false;
 
-
             int boundingBoxRadius = 3;
 
             switch ((int)radius)
@@ -67,6 +66,7 @@ namespace ArsVenefici.Framework.Spells.Shape
                     break;
 
             }
+
             boundingBoxRadius *= Game1.tileSize;
 
             Vector2 tilePos = new Vector2(hit.GetLocation().X - radius, hit.GetLocation().Y - radius);
@@ -75,6 +75,8 @@ namespace ArsVenefici.Framework.Spells.Shape
             Rectangle rectangle = new Rectangle((int)absoluteTilePos.X, (int)absoluteTilePos.Y, boundingBoxRadius, boundingBoxRadius);
 
             SetBoundingBox(rectangle);
+
+            //Affect all characters in radious
 
             foreach (Character e in GameLocationUtils.GetCharacters(caster, rectangle))
             {
@@ -89,6 +91,8 @@ namespace ArsVenefici.Framework.Spells.Shape
                 spellCastResult = new SpellCastResult(SpellCastResultType.SUCCESS);
                 return spellCastResult;
             }
+
+            //Affect all terrain features in radious
 
             TilePos pos  = new TilePos(hit.GetLocation());
 
@@ -107,7 +111,10 @@ namespace ArsVenefici.Framework.Spells.Shape
                 }
             }
 
-            Texture2D aoeTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/aoe/aoe.png");
+            //Spawn particle
+
+            //Texture2D aoeTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/aoe/aoe.png");
+            Texture2D aoeTexture = ModTextures.AOE;
             Vector2 local = new Vector2(boundingBox.X, boundingBox.Y);
 
             float speed = -3f;

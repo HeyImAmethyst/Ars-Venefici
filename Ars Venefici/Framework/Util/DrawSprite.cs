@@ -11,6 +11,7 @@ namespace ArsVenefici.Framework.Util
     public static class DrawSprite
     {
         static Texture2D _pointTexture;
+
         public static void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color, int lineWidth)
         {
             if (_pointTexture == null)

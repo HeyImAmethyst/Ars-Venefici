@@ -51,8 +51,7 @@ namespace ArsVenefici.Framework.Spells.Components
             if (target.GetCharacter() != null && target.GetCharacter() is Farmer farmer)
             {
 
-                //
-
+                //Create buff instance
                 Buff newBuffInstance = new Buff(
                       id: buff.id,
                       displayName: buff.displayName,
@@ -61,8 +60,6 @@ namespace ArsVenefici.Framework.Spells.Components
                       duration: duration,
                       effects: buff.id.Equals("HeyImAmethyst.ArsVenifici_Haste") ? new BuffEffects() { Speed = { modEntry.ModSaveData.HasteBaseValueAmount } } : buff.effects 
                 );
-
-                //modEntry.ModSaveData.HasteBaseValueAmount
 
                 if (newBuffInstance.id.Equals("HeyImAmethyst.ArsVenifici_ManaRegeneration"))
                 {
@@ -73,14 +70,6 @@ namespace ArsVenefici.Framework.Spells.Components
                 {
                     newBuffInstance.iconTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/buff/health_regeneration.png");
                 }
-
-                //if (newBuffInstance.id.Equals("HeyImAmethyst.ArsVenifici_Haste"))
-                //{
-                //    BuffEffects effects = new BuffEffects()
-                //    {
-                //        Speed = { modEntry.ModSaveData.HasteBaseValueAmount }
-                //    };
-                //}
 
                 if (newBuffInstance.HasAnyEffects())
                 {

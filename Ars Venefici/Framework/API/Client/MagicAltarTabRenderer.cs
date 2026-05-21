@@ -58,14 +58,22 @@ namespace ArsVenefici.Framework.API.Client
             RenderFg(spriteBatch, pMouseX, pMouseY, pPartialTicks);
         }
 
-        /**
-         * Render the background in this method.
-         */
+        /// <summary>
+        /// Render the background in this method.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="mouseX"></param>
+        /// <param name="mouseY"></param>
+        /// <param name="partialTicks"></param>
         protected abstract void RenderBg(SpriteBatch spriteBatch, int mouseX, int mouseY, float partialTicks);
 
-        /**
-         * Render the foreground in this method.
-         */
+        /// <summary>
+        /// Render the foreground in this method.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="mouseX"></param>
+        /// <param name="mouseY"></param>
+        /// <param name="partialTicks"></param>
         protected abstract void RenderFg(SpriteBatch spriteBatch, int mouseX, int mouseY, float partialTicks);
 
 

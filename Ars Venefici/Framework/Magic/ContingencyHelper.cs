@@ -23,19 +23,27 @@ using static SpaceCore.Skills;
 
 namespace ArsVenefici.Framework.Magic
 {
-
+    /// <summary>
+    /// Json object class for storing the spell part id
+    /// </summary>
     public class ContingencySpellPartJson
     {
         [JsonProperty("Spell Part")]
         public string spellPartId { get; set; }
     }
 
+    /// <summary>
+    /// Json object class for storing shape group contents
+    /// </summary>
     public class ContingencyShapeGroupJson
     {
         [JsonProperty("Contents")]
         public List<ContingencySpellPartJson> spellParts { get; set; }
     }
 
+    /// <summary>
+    /// Json object class for storing contingency spells
+    /// </summary>
     public class ContingencySpellJson
     {
         [JsonProperty("Shape Groups")]
@@ -71,6 +79,12 @@ namespace ArsVenefici.Framework.Magic
             return INSTANCE;
         }
 
+        /// <summary>
+        /// Sets the contengency to a target
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="type"></param>
+        /// <param name="spell"></param>
         public void SetContingency(Character target, ContingencyType type, ISpell spell)
         {
             if (target != null)
@@ -79,7 +93,11 @@ namespace ArsVenefici.Framework.Magic
             }
         }
 
-
+        /// <summary>
+        /// Triggers a contengency
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="type"></param>
         public void TriggerContingency(Character target, ContingencyType type)
         {
             if (target != null)
@@ -107,6 +125,10 @@ namespace ArsVenefici.Framework.Magic
             }
         }
 
+        /// <summary>
+        /// Clears a contengency
+        /// </summary>
+        /// <param name="target"></param>
         public void ClearContingency(Character target)
         {
             if (target != null)
@@ -116,6 +138,11 @@ namespace ArsVenefici.Framework.Magic
             }
         }
 
+        /// <summary>
+        /// Gets a contengency type from a target
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public ContingencyType GetContingencyType(Character target)
         {
             if(target != null && target.modData != null)
@@ -130,17 +157,15 @@ namespace ArsVenefici.Framework.Magic
             return ContingencyType.NONE;
         }
 
+        /// <summary>
+        /// Reads the Contingency Spell from a json file
+        /// </summary>
+        /// <param name="jsonString">The json string</param>
+        /// <param name="modEntry">The mod entry point object</param>
+        /// <returns></returns>
         public Contingency ReadContingencySpell(string jsonString, ModEntry modEntry)
         {
-            //modEntry.Monitor.Log(jsonString, StardewModdingAPI.LogLevel.Info);
-
-            //ContingencySpellJson contingencySpellJson = (ContingencySpellJson)JsonConvert.DeserializeObject(jsonString);
-
-            //JObject jobject = JObject.Parse(jsonString);
-            //ContingencySpellJson contingencySpellJson = jobject.SelectToken(ContingencyHelper.ContingencyKey)?.ToObject<ContingencySpellJson>();
-
-            //dynamic contingencySpellJson = JsonConvert.DeserializeObject(jsonString);
-
+            //Converts the json string into an object
             ContingencySpellJson contingencySpellJson = JsonConvert.DeserializeObject<ContingencySpellJson>(jsonString);
 
             if (contingencySpellJson != null)
@@ -149,79 +174,119 @@ namespace ArsVenefici.Framework.Magic
 
                 List<ShapeGroup> shapeGroups = new List<ShapeGroup>();
 
+                //Creates the shapegroups
                 for (int i = 0; i < contingencySpellJson.shapeGroups.Count; i++)
                 {
                     shapeGroups.Add(ShapeGroup.EMPTY);
                 }
 
-                List<ISpellPart> spellGrammerList = new List<ISpellPart>();
+                //Creates the spell grammar list
+                List<ISpellPart> spellGrammarList = new List<ISpellPart>();
 
+                //Builds the spell
+
+                //Goes through each shape group json
                 for (int i = 0; i < contingencySpellJson.shapeGroups.Count; i++)
                 {
+                    //Gets the current shape group json
                     ContingencyShapeGroupJson contingencyShapeGroup = contingencySpellJson.shapeGroups[i];
 
+                    //Gets the shape group spell part jsons
                     List<ContingencySpellPartJson> contingencyShapeGroupSpellPartJsons = contingencyShapeGroup.spellParts;
+
+                    //A list to hold the converted shape group spell part jsons to spell part objects
                     List<ISpellPart> contingencyShapeGroupSpellParts = new List<ISpellPart>();
 
-                    //modEntry.Monitor.Log(JsonConvert.SerializeObject(shapeGroupAreaJson, Formatting.Indented), LogLevel.Info);
-
+                    //Goes through the spell part jsons
                     foreach (ContingencySpellPartJson contingencySpellPart in contingencyShapeGroupSpellPartJsons)
                     {
+
                         if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
                         {
+                            //After the dictionaries are populated, checks if they have contingencySpellPart. If they do, the
+                            //corresponding spell part added to the contingencyShapeGroupSpellParts list 
+
                             if (modEntry.spellPartManager.GetSpellParts().ContainsKey(contingencySpellPart.spellPartId))
                             {
-                                if (modEntry.spellPartManager.GetSpellParts()[contingencySpellPart.spellPartId] != null)
+                                //if (modEntry.spellPartManager.GetSpellParts()[contingencySpellPart.spellPartId] != null)
+                                //{
+                                //    ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPart.spellPartId];
+                                //    contingencyShapeGroupSpellParts.Add(spellPart);
+                                //}
+
+                                if (modEntry.spellPartManager.GetSpellParts().TryGetValue(contingencySpellPart.spellPartId, out ISpellPart spellPart))
                                 {
-                                    ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPart.spellPartId];
                                     contingencyShapeGroupSpellParts.Add(spellPart);
                                 }
                             }
 
                             if (modEntry.spellPartManager.GetContentPackSpellParts().ContainsKey(contingencySpellPart.spellPartId))
                             {
-                                if(modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPart.spellPartId] != null)
+                                //if(modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPart.spellPartId] != null)
+                                //{
+                                //    ISpellPart spellPart = modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPart.spellPartId];
+                                //    contingencyShapeGroupSpellParts.Add(spellPart);
+                                //}
+
+                                if (modEntry.spellPartManager.GetContentPackSpellParts().TryGetValue(contingencySpellPart.spellPartId, out ISpellPart spellPart))
                                 {
-                                    ISpellPart spellPart = modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPart.spellPartId];
                                     contingencyShapeGroupSpellParts.Add(spellPart);
                                 }
                             }
                         }
                     }
 
+                    //Shape group is created from contingencyShapeGroupSpellParts list
                     ShapeGroup shapeGroup = ShapeGroup.Of(contingencyShapeGroupSpellParts);
 
+                    //Created shape group is added to shape group list at the current index
                     shapeGroups[i] = shapeGroup;
                 }
 
+                //Goes through each spell part json
                 foreach (ContingencySpellPartJson contingencySpellPartJson in contingencySpellJson.spellGrammerList)
                 {
                     if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
                     {
+                        //After the dictionaries are populated, checks if they have contingencySpellPart. If they do, the
+                        //corresponding spell part added to the spellGrammarList 
+
                         if (modEntry.spellPartManager.GetSpellParts().ContainsKey(contingencySpellPartJson.spellPartId))
                         {
 
-                            if (modEntry.spellPartManager.GetSpellParts()[contingencySpellPartJson.spellPartId] != null)
+                            //if (modEntry.spellPartManager.GetSpellParts()[contingencySpellPartJson.spellPartId] != null)
+                            //{
+                            //    ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPartJson.spellPartId];
+                            //    spellGrammerList.Add(spellPart);
+                            //}
+
+                            if (modEntry.spellPartManager.GetSpellParts().TryGetValue(contingencySpellPartJson.spellPartId, out ISpellPart spellPart))
                             {
-                                ISpellPart spellPart = modEntry.spellPartManager.GetSpellParts()[contingencySpellPartJson.spellPartId];
-                                spellGrammerList.Add(spellPart);
+                                spellGrammarList.Add(spellPart);
                             }
                         }
 
                         if (modEntry.spellPartManager.GetContentPackSpellParts().ContainsKey(contingencySpellPartJson.spellPartId))
                         {
-                            if (modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPartJson.spellPartId] != null)
+                            //if (modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPartJson.spellPartId] != null)
+                            //{
+                            //    ISpellPart spellPart = modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPartJson.spellPartId];
+                            //    spellGrammerList.Add(spellPart);
+                            //}
+
+                            if (modEntry.spellPartManager.GetContentPackSpellParts().TryGetValue(contingencySpellPartJson.spellPartId, out ISpellPart spellPart))
                             {
-                                ISpellPart spellPart = modEntry.spellPartManager.GetContentPackSpellParts()[contingencySpellPartJson.spellPartId];
-                                spellGrammerList.Add(spellPart);
+                                spellGrammarList.Add(spellPart);
                             }
                         }
                         
                     }
                 }
 
-                Spells.Spell spell = new Spells.Spell(modEntry, shapeGroups, SpellStack.Of(spellGrammerList));
+                //Spell is created from the populated shape group and grammar list
+                Spells.Spell spell = new Spells.Spell(modEntry, shapeGroups, SpellStack.Of(spellGrammarList));
 
+                //Sets the contingency type
                 ContingencyType cType = ContingencyType.NONE;
 
                 if (contingencySpellJson.type == "NONE")
@@ -237,6 +302,7 @@ namespace ArsVenefici.Framework.Magic
                     cType = ContingencyType.DAMAGE;
                 }
 
+                //Creates the contingency
                 Contingency contingency = new Contingency(modEntry, cType, spell, contingencySpellJson.index);
                 //Contingency contingency = new Contingency();
 
@@ -247,35 +313,51 @@ namespace ArsVenefici.Framework.Magic
                 //modEntry.Monitor.Log("contingencySpellJson null", StardewModdingAPI.LogLevel.Info);
             }
 
+            //If the initial contingency creation fails
             return new Contingency();
         }
 
+        /// <summary>
+        /// Saves the contingency to a json string
+        /// </summary>
+        /// <param name="contingency">The contengency object</param>
+        /// <returns>A json string</returns>
         public string SaveContingencySpell(Contingency contingency)//, ISpell spell, ContingencyType type, int index)
         {
+            //Create a list of shape group jsons to store
             List<ContingencyShapeGroupJson> shapeGroups = new List<ContingencyShapeGroupJson>();
 
             ISpell spell = contingency.Spell;
             ContingencyType type = contingency.Type;
             int index = contingency.Index;
 
+            //Populate the shape group jsons
             for (int i = 0; i < spell.ShapeGroups().Count; i++)
             {
                 shapeGroups.Add(new ContingencyShapeGroupJson());
             }
 
+            //Create a grammar list json to store
             List<ContingencySpellPartJson> spellGrammerList = new List<ContingencySpellPartJson>();
 
             //spellPage.GetSpellShapes().Count
+            //Goes through the spell's shape groups
             for (int i = 0; i < spell.ShapeGroups().Count; i++)
             {
+                //Gets the shape group at the current index
                 ShapeGroup shapeGroup = spell.ShapeGroups()[i];
 
+                //Get the shape group spell parts
                 List<ISpellPart> shapeGroupSpellParts = shapeGroup.Parts();
 
+                //Create a list for spell part jsons
                 List<ContingencySpellPartJson> contingencySpellParts = new List<ContingencySpellPartJson>();
 
+                //Go through the spell parts in shapeGroupSpellParts
                 foreach (ISpellPart spellParts in shapeGroupSpellParts)
                 {
+                    //Populate contingencySpellParts
+
                     ContingencySpellPartJson contingencySpellPart = new ContingencySpellPartJson
                     {
                         spellPartId = spellParts.GetId()
@@ -284,17 +366,21 @@ namespace ArsVenefici.Framework.Magic
                     contingencySpellParts.Add(contingencySpellPart);
                 }
 
+                //Create a ContingencyShapeGroupJson object
                 ContingencyShapeGroupJson contingencyShapeGroupJson = new ContingencyShapeGroupJson
                 {
                     spellParts = contingencySpellParts
                 };
 
+                //Add the ContingencyShapeGroupJson object to the shapeGroups list
                 shapeGroups[i] = contingencyShapeGroupJson;
             }
 
             //foreach (ISpellPart spellDraggable in spell.Parts().Where(x => x.GetType() == SpellPartType.COMPONENT || x.GetType() == SpellPartType.MODIFIER))
+            //Go through the spell parts in spell's spell stack (gammar list)
             foreach (ISpellPart spellPart in spell.spellStack().Parts)
             {
+                //Populate spellGrammerList
 
                 ContingencySpellPartJson contingencySpellPartJson = new ContingencySpellPartJson
                 {
@@ -304,6 +390,7 @@ namespace ArsVenefici.Framework.Magic
                 spellGrammerList.Add(contingencySpellPartJson);
             }
 
+            //Create the ContingencySpellJson object
             ContingencySpellJson contingencySpellJson = new ContingencySpellJson
             {
                 shapeGroups = shapeGroups,
@@ -313,6 +400,7 @@ namespace ArsVenefici.Framework.Magic
                 index = index
             };
 
+            //Serialize the ContingencySpellJson object to a json string
             var jsonString = JsonConvert.SerializeObject(contingencySpellJson);
 
             //ModEntry.INSTANCE.Monitor.Log(jsonString, StardewModdingAPI.LogLevel.Info);

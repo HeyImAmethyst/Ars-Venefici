@@ -93,7 +93,5 @@ namespace ArsVenefici.Framework.Magic
 
             return color;
         }
-
-
     }
 }

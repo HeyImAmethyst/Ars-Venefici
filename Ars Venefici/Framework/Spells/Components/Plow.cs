@@ -48,7 +48,7 @@ namespace ArsVenefici.Framework.Spells.Components
 
             TilePos tilePos = target.GetTilePos();
 
-            // create fake tools
+            //Create fake tools
             Hoe hoe = new();
 
             foreach (var t in new Tool[] { hoe })
@@ -61,7 +61,7 @@ namespace ArsVenefici.Framework.Spells.Components
             Vector2 tilePosVector = tilePos.GetVector();
             Vector2 toolPixel = (tilePosVector * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
 
-            // skip if blocked
+            //Skip if blocked
 
             if (gameLocation.terrainFeatures.ContainsKey(tilePosVector))
             {
@@ -74,7 +74,7 @@ namespace ArsVenefici.Framework.Spells.Components
                 }
             }
 
-            // handle artifact spot, else skip if blocked
+            //Handle artifact spot, else skip if blocked
             if (gameLocation.objects.TryGetValue(tilePosVector, out StardewValley.Object obj))
             {
                 if (obj.ParentSheetIndex == 590)
@@ -91,14 +91,14 @@ namespace ArsVenefici.Framework.Spells.Components
                     return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
             }
 
-            // till dirt
+            //Till dirt
             //if (gameLocation.doesTileHaveProperty(blockPos.GetTilePosX(), blockPos.GetTilePosY(), "Diggable", "Back") != null && !gameLocation.IsTileOccupiedBy(tile))
             if (gameLocation.doesTileHaveProperty(tilePos.GetTilePosX(), tilePos.GetTilePosY(), "Diggable", "Back") != null)
             {
                 //gameLocation.makeHoeDirt(tile);
                 //gameLocation.playSound("hoeHit", tile);
 
-                // select tool
+                //Select tool
                 Tool tool = hoe;
 
                 if (gameLocation.terrainFeatures.TryGetValue(tilePosVector, out TerrainFeature terrainFeature))

@@ -40,16 +40,37 @@ namespace ArsVenefici.Framework.Skill
             return INSTANCE;
         }
 
+        /// <summary>
+        /// Checks if the farmer knows a spell part skill
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
+        /// <param name="skillID">The spell part skill id</param>
+        /// <returns>True or false</returns>
         public bool Knows(ModEntry modEntry, Farmer player, string skillID)
         {
             return KnownSpellPartSkills.Keys.Contains(skillID);
         }
 
+        /// <summary>
+        /// Checks if the farmer knows a spell part skill
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
+        /// <param name="skill">The spell part skill object</param>
+        /// <returns>True or false</returns>
         public bool Knows(ModEntry modEntry, Farmer player, SpellPartSkill skill)
         {
             return KnownSpellPartSkills.Values.Contains(skill);
         }
 
+        /// <summary>
+        /// Checks if the farmer can learn a spell part skill
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
+        /// <param name="skill">The spell part skill object</param>
+        /// <returns></returns>
         public bool CanLearn(ModEntry modEntry, Farmer player, SpellPartSkill skill)
         {
             bool canLearn = true;
@@ -72,6 +93,12 @@ namespace ArsVenefici.Framework.Skill
             return canLearn && ((skill.Parents().Any() && skill.Parents().All(value => KnownSpellPartSkills.Values.Contains(value))) || !skill.Parents().Any());
         }
 
+        /// <summary>
+        /// Makes a player learn a spell part skill
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
+        /// <param name="skill">The spell part skill object</param>
         public void Learn(ModEntry modEntry, Farmer player, SpellPartSkill skill)
         {
             if(skill != null)
@@ -84,6 +111,12 @@ namespace ArsVenefici.Framework.Skill
             UpdateIfNeeded(modEntry, player);
         }
 
+        /// <summary>
+        /// Makes a player learn a spell part skill
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
+        /// <param name="spellPartId">The spell part skill id</param>
         public void Learn(ModEntry modEntry, Farmer player, string spellPartId)
         {
             if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
@@ -111,6 +144,11 @@ namespace ArsVenefici.Framework.Skill
             }
         }
 
+        /// <summary>
+        /// Learns all the spell part skills
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
         public void LearnAll(ModEntry modEntry, Farmer player)
         {
             if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
@@ -142,6 +180,12 @@ namespace ArsVenefici.Framework.Skill
             }
         }
 
+        /// <summary>
+        /// Makes a player forget a spell part skill
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
+        /// <param name="skill">The spell part skill object</param>
         public void Forget(ModEntry modEntry, Farmer player, SpellPartSkill skill)
         {
             if (skill != null)
@@ -154,6 +198,12 @@ namespace ArsVenefici.Framework.Skill
             UpdateIfNeeded(modEntry, player);
         }
 
+        /// <summary>
+        /// Makes a player forget a spell part skill
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
+        /// <param name="spellPartId">The spell part skill id</param>
         public void Forget(ModEntry modEntry, Farmer player, string spellPartId)
         {
             if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
@@ -182,6 +232,11 @@ namespace ArsVenefici.Framework.Skill
             }
         }
 
+        /// <summary>
+        /// Forgets all the spell part skills
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
         public void ForgetAll(ModEntry modEntry, Farmer player)
         {
             if (modEntry.spellPartManager.dictionariesPoplulated && modEntry.spellPartSkillManager.dictionariesPoplulated)
@@ -218,11 +273,20 @@ namespace ArsVenefici.Framework.Skill
             return this.KnownSpellPartSkills;
         }
 
+        /// <summary>
+        /// Updates the KnownSpellPartSkills to what is in the player mod data
+        /// </summary>
+        /// <param name="modEntry">Mod entry point object</param>
+        /// <param name="player">The player</param>
         public void UpdateIfNeeded(ModEntry modEntry, Farmer player)
         {
             this.KnownSpellPartSkills = player.modData.GetCustom(KnownSpellPartsKey, parse => this.ParseKnownSpellPartSkills(modEntry, parse), suppressError: false) ?? new Dictionary<string, SpellPartSkill>();
         }
 
+        /// <summary>
+        /// Updates the player's mod data to what is in KnownSpellPartSkills
+        /// </summary>
+        /// <param name="player"></param>
         private void SyncToPlayer(Farmer player)
         {
             player.modData.SetCustom(KnownSpellPartsKey, KnownSpellPartSkills.Values, serialize: this.SerializeSpellPartSkills);

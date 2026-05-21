@@ -83,6 +83,7 @@ namespace ArsVenefici.Framework.Spells.Components
             Character living = target.GetCharacter();
             Vector2 characterLocation = target.GetLocation();
 
+            //Get positions
             Vector2 tilePos = Utils.AbsolutePosToTilePos(Utility.clampToTile(characterLocation));
             Vector2 absolutePos = Utils.TilePosToAbsolutePos(tilePos);
             Vector2 screenPos = Utils.TilePosToScreenPos(tilePos);
@@ -101,6 +102,7 @@ namespace ArsVenefici.Framework.Spells.Components
             //if (living is Farmer && living != caster && !((ServerLevel)level).getServer().isPvpAllowed() && damage > 0)
             //    return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
 
+            //Do damage based on the target and magic type of the damage component
             if (living is Monster monster)
             {
                 if (damage < 0)
@@ -125,7 +127,6 @@ namespace ArsVenefici.Framework.Spells.Components
                         gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
 
                         modEntry.characterEvents.InvokeOnCharacterDamage(monster);
-
 
                         //Game1.Multiplayer.broadcastSprites(gameLocation, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 640, 64, 64), 40f, 8, 0, monster.Position, flicker: false, flipped: false)
                         //{
@@ -377,32 +378,7 @@ namespace ArsVenefici.Framework.Spells.Components
 
         public void SpawnParticles(ISpell spell, ModEntry modEntry, GameLocation gameLocation, Vector2 monsterPosition, ComponentDamageType type)
         {
-            //if (damageType == ComponentDamageType.Magic)
-            //{
-            //    Texture2D elementParticleTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/particle/damage_effect.png");
-            //    Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(elementParticleTexture, monsterPosition, MagicHelper.Instance().GetColorForMagicType()));
-            //}
-
-            //if (damageType == ComponentDamageType.Fire)
-            //{
-            //    Texture2D elementParticleTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/particle/damage_effect.png");
-            //    Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(elementParticleTexture, monsterPosition));
-            //}
-
-            //if (damageType == ComponentDamageType.Lightning)
-            //{
-            //    Texture2D elementParticleTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/particle/damage_effect.png");
-            //    Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(elementParticleTexture, monsterPosition));
-            //}
-
-            //if (damageType == ComponentDamageType.Frost)
-            //{
-            //    Texture2D elementParticleTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/particle/damage_effect.png");
-            //    Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(elementParticleTexture, monsterPosition));
-            //}
-
-            Texture2D elementParticleTexture = modEntry.Helper.ModContent.Load<Texture2D>("assets/particle/damage_effect.png");
-            Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(elementParticleTexture, monsterPosition, MagicHelper.Instance().GetColorForMagicType(spell)));
+            Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(ModTextures.ELEMENT_PARTICLE_TEXTURE, monsterPosition, MagicHelper.Instance().GetColorForMagicType(spell)));
         }
 
         public TemporaryAnimatedSprite SpawnParticle(Texture2D texture, Vector2 monsterPosition, Color color)

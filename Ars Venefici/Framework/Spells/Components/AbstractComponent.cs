@@ -32,13 +32,22 @@ namespace ArsVenefici.Framework.Spells.Components
         public abstract SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed);
 
         public abstract SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, TerrainFeatureHitResult target, int index, int ticksUsed);
+        
         public abstract float ManaCost();
 
+        /// <summary>
+        /// Gets the display name based on the translation
+        /// </summary>
+        /// <returns>The translated display name</returns>
         public virtual string DisplayName()
         {
             return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.name");
         }
 
+        /// <summary>
+        /// Gets the discription based on the translation
+        /// </summary>
+        /// <returns>The translated discription</returns>
         public virtual string DisplayDiscription()
         {
             return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.description");

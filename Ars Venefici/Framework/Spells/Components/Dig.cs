@@ -47,12 +47,11 @@ namespace ArsVenefici.Framework.Spells.Components
         {
             //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
 
-            TilePos tilePos = target.GetTilePos();
-
-            // create fake tools
+            //Create fake tools
             Axe axe = new();
             Pickaxe pickaxe = new();
 
+            //Set tool level based on wizardry skill
             int toolLevel = 0;
 
             if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 2 && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 4)
@@ -75,8 +74,10 @@ namespace ArsVenefici.Framework.Spells.Components
             var api = modEntry.arsVeneficiAPILoader.GetAPI();
             var helper = api.GetSpellHelper();
 
+            //Set mining level
             float miningPower = helper.GetModifiedStat(0, new SpellPartStats(SpellPartStatType.MINING_TIER), modifiers, spell, caster, target, index);
 
+            //Adjust tool level based on mining level
             if(toolLevel + (int)miningPower < 4)
             {
                 toolLevel += (int)miningPower;
@@ -86,6 +87,7 @@ namespace ArsVenefici.Framework.Spells.Components
                 toolLevel = 4;
             }
 
+            //Adjust tool properties
             foreach (var t in new Tool[] { axe, pickaxe })
             {
                 t.UpgradeLevel = toolLevel;
@@ -95,8 +97,13 @@ namespace ArsVenefici.Framework.Spells.Components
 
             //modEntry.Monitor.Log("axe:" + axe.UpgradeLevel.ToString(), LogLevel.Info);
 
+            //Get positions
+            TilePos tilePos = target.GetTilePos();
+
             Vector2 tile = tilePos.GetVector();
             Vector2 toolPixel = (tile * Game1.tileSize) + new Vector2(Game1.tileSize / 2f); // center of tile
+
+            //Perform actions with tools
 
             if (gameLocation.objects.TryGetValue(tilePos.GetVector(), out StardewValley.Object obj))
             {

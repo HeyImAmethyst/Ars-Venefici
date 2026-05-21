@@ -59,7 +59,6 @@ namespace ArsVenefici.Framework.Spells.Components
 
             if (machineData != null)
             {
-
                 foreach (var outputRule in machineData.OutputRules)
                 {
                     //modEntry.Monitor.Log(outputRule.Id, StardewModdingAPI.LogLevel.Info);
@@ -68,6 +67,7 @@ namespace ArsVenefici.Framework.Spells.Components
                     {
                         //modEntry.Monitor.Log(trigger.Id, StardewModdingAPI.LogLevel.Info);
 
+                        //Item pickup objects
                         List<Debris> objectAndResourceDepris = gameLocation.debris.Where(debris => debris.debrisType.Value == Debris.DebrisType.RESOURCE || debris.debrisType.Value == Debris.DebrisType.OBJECT).ToList();
 
                         for (int i = 0; i < objectAndResourceDepris.Count; i++)
