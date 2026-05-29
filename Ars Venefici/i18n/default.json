@@ -224,12 +224,41 @@
 	"buff.mana_regeneration.name": "Mana Regeneration",
 
 	/*********
+	** affinity
+	*********/
+
+	"affinity.none.name": "none",
+	"affinity.earth.name": "earth",
+	"affinity.water.name": "water",
+	"affinity.air.name": "air",
+	"affinity.fire.name": "fire",
+	"affinity.nature.name": "nature",
+	"affinity.ice.name": "ice",
+	"affinity.lightning.name": "lightning",
+	"affinity.life.name": "life",
+	"affinity.arcane.name": "arcane",
+	"affinity.darkness.name": "darkness",
+
+	/*********
 	** Spell Cast Warnings
 	*********/
 
 	"world.max_grow_spell_cast.message.1": "You tried to cast your grow spell,",
 	"world.max_grow_spell_cast.message.2": "but you feel your strength leaving you.",
 	"world.max_grow_spell_cast.message.3": "That's enough use of the grow component in one day!",
+
+	/*********
+	** Tome Reading Messages
+	*********/
+
+	"tome.read.error.message": "You can't seem to understand what is written in the tome",
+	"tome.read.success.message": "You have gained affinity in",
+
+	/*********
+	** Essence Message
+	*********/
+
+	"essence.acquire_first_time.message": "You found essence! You don't know what to do with it yet. Maybe the wizard knows...",
 
 	/*********
 	** UI
@@ -252,6 +281,7 @@
 	"ui.magic_altar.offense_tab.name": "Offense",
 	"ui.magic_altar.defense_tab.name": "Defense",
 	"ui.magic_altar.utility_tab.name": "Utility",
+	"ui.magic_altar.affinity_tab.name": "Affinities",
 
 	"ui.magic_altar.enlarge.name": "Enlarge",
 	"ui.magic_altar.shrink.name": "Shrink",
@@ -289,7 +319,7 @@
 	"professions.ManaCap.description": "+500 max mana",
 
 	/*********
-    ** Wizard learn-magic event
+    ** Wizard Learn Magic Event
     *********/
 
 	"event.learn_wizardry.wizard_dialogue_1": "Greetings @.",
@@ -331,5 +361,29 @@
 
 	"event.learn_wizardry.wizard_dialogue_17": "Good luck on your magic endeavors.",
 
-	"event.learn_wizardry.wizard_dialogue_abovehead": "WIZARDRY"
+	"event.learn_wizardry.wizard_dialogue_abovehead": "WIZARDRY",
+
+	/*********
+    ** Wizard Learn Affinities Event
+    *********/
+
+	"event.learn_affinities.wizard_dialogue_1": "Greetings @.",
+
+	"event.learn_affinities.wizard_dialogue_2": "How have your studies in magic been?",
+
+	"event.learn_affinities.player_choice_dialogue_1": "Its been going great!",
+	"event.learn_affinities.player_choice_dialogue_2": "Its been difficult...",
+
+	"event.learn_affinities.wizard_dialogue_3": "I sense that you have some essence on you.",
+	"event.learn_affinities.wizard_dialogue_4": "You are probably wondering what to do with the essence yes?",
+
+	"event.learn_affinities.wizard_dialogue_5": "As you cast spells that have an affinity to a specific element, you will also gain affinity in that element.",
+	"event.learn_affinities.wizard_dialogue_6": "Essences are materials are used to create tomes that can boost your affinity in an element.",
+	"event.learn_affinities.wizard_dialogue_7": "These tomes only grant a bit of affinity however.",
+	"event.learn_affinities.wizard_dialogue_8": "If you want a specific boost in an affinity, these can helpful.",
+	"event.learn_affinities.wizard_dialogue_9": "Here are some recipes you will need to make some essences on your own and to craft tomes.",
+
+	"event.learn_affinities.message_1": "The wizard gave you some new recipies!",
+
+	"event.learn_affinities.wizard_dialogue_10": "Good luck on your magic endeavors."
 }

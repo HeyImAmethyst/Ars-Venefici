@@ -1,10 +1,11 @@
-﻿using ArsVenefici.Framework.Affinity;
+﻿using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.FarmerPlayer;
 using ArsVenefici.Framework.GameSave;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Spells.Buffs;
+using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using SpaceCore;
@@ -28,9 +29,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "grow";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Nature;
+            return new HashSet<Affinity> { Affinities.NATURE.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.EARTH.Get(), 0.001f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)
@@ -46,22 +52,22 @@ namespace ArsVenefici.Framework.Spells.Components
 
             if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 6)
             {
-                modEntry.buffs.growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsLessThanLevelSix;
+                modEntry.buffs.growSickness.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsLessThanLevelSix;
                 //Game1.player.applyBuff(growSickNess);
             }
             else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 6)
             {
-                modEntry.buffs.growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix;
+                modEntry.buffs.growSickness.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix;
                 //Game1.player.applyBuff(growSickNess);
             }
             else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 8)
             {
-                modEntry.buffs.growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight;
+                modEntry.buffs.growSickness.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight;
                 //Game1.player.applyBuff(growSickNess);
             }
             else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) == 10)
             {
-                modEntry.buffs.growSickNess.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen;
+                modEntry.buffs.growSickness.millisecondsDuration = modEntry.ModSaveData.GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelTen;
                 //Game1.player.applyBuff(growSickNess);
             }
 
@@ -69,12 +75,28 @@ namespace ArsVenefici.Framework.Spells.Components
             {
 
                 Buff newBuffInstance = new Buff(
-                    id: modEntry.buffs.growSickNess.id,
-                    displayName: modEntry.buffs.growSickNess.displayName,
+                    id: modEntry.buffs.growSickness.id,
+                    displayName: modEntry.buffs.growSickness.displayName,
                     iconTexture: Game1.buffsIcons,
-                    iconSheetIndex: modEntry.buffs.growSickNess.iconSheetIndex, //34
-                    duration: modEntry.buffs.growSickNess.millisecondsDuration
+                    iconSheetIndex: modEntry.buffs.growSickness.iconSheetIndex, //34
+                    //isDebuff: true,
+                    duration: modEntry.buffs.growSickness.millisecondsDuration
                 );
+
+                //bool? growSicknessDebuff = new bool?(true);
+
+                //Buff newBuffInstance  = new Buff(
+                //    modEntry.buffs.growSickness.id,
+                //    null,
+                //    null,
+                //    modEntry.buffs.growSickness.millisecondsDuration,
+                //    Game1.buffsIcons,
+                //    modEntry.buffs.growSickness.iconSheetIndex,
+                //    null,
+                //    growSicknessDebuff,
+                //    modEntry.buffs.growSickness.displayName,
+                //    null
+                //);
 
                 Game1.player.applyBuff(newBuffInstance);
             }
@@ -163,18 +185,20 @@ namespace ArsVenefici.Framework.Spells.Components
             {
                 Crop crop = dirt.crop;
 
-                int extraCropGrowth = 25;
-                int secondExtraCropGrowth = 10;
+                //int extraCropGrowth = 25;
+                //int secondExtraCropGrowth = 10;
 
-                int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
+                //int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
 
                 crop.newDay(HoeDirt.watered);
 
-                if (randomValueBetween0And99 < extraCropGrowth)
+                //if (randomValueBetween0And99 < extraCropGrowth)
+                if (Utils.PercentChance(0.25))
                 {
                     crop.newDay(HoeDirt.watered);
 
-                    if (randomValueBetween0And99 < secondExtraCropGrowth)
+                    //if (randomValueBetween0And99 < secondExtraCropGrowth)
+                    if (Utils.PercentChance(0.10))
                     {
                         crop.newDay(HoeDirt.watered);
                     }

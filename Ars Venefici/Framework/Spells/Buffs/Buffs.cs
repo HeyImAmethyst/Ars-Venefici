@@ -13,7 +13,7 @@ namespace ArsVenefici.Framework.Spells.Buffs
     {
         ModEntry modEntry;
 
-        public Buff growSickNess;
+        public Buff growSickness;
         public Buff hasteBuff;
         public Buff regenerationBuff;
         public Buff manaRegenerationBuff;
@@ -29,13 +29,29 @@ namespace ArsVenefici.Framework.Spells.Buffs
         public void InitializeBuffs()
         {
 
-            growSickNess = new Buff(
+            growSickness = new Buff(
                 id: "HeyImAmethyst.ArsVenifici_GrowSickness",
                 displayName: modEntry.Helper.Translation.Get("debuff.grow_sickness.name"),
                 iconTexture: Game1.buffsIcons, //modEntry.Helper.ModContent.Load<Texture2D>("assets/icon/BuffsIcons.png"),
                 iconSheetIndex: 25,
+                //isDebuff: true,
                 duration: 84_000 // 84 seconds
             );
+
+            //bool? growSicknessDebuff = new bool?(true);
+
+            //growSickness = new Buff(
+            //    "HeyImAmethyst.ArsVenifici_GrowSickness",
+            //    null,
+            //    null,
+            //    84_000,
+            //    Game1.buffsIcons,
+            //    25,
+            //    null,
+            //    growSicknessDebuff,
+            //    modEntry.Helper.Translation.Get("debuff.grow_sickness.name"),
+            //    null
+            //);
 
             hasteBuff = new Buff(
                 id: "HeyImAmethyst.ArsVenifici_Haste",

@@ -11,7 +11,7 @@ using ArsVenefici.Framework.Spells.Buffs;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.Spells.Registry;
-using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -27,9 +27,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "shield";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Arcane;
+            return new HashSet<Affinity> { Affinities.ARCANE.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.ARCANE.Get(), 0.001f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

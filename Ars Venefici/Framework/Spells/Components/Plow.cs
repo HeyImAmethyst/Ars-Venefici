@@ -1,7 +1,8 @@
-﻿using ArsVenefici.Framework.Affinity;
+﻿using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using StardewValley;
@@ -32,9 +33,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "plow";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Earth;
+            return new HashSet<Affinity> { Affinities.EARTH.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.EARTH.Get(), 0.001f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

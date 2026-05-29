@@ -20,6 +20,7 @@ using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Spells.Registry;
 using ItemExtensions;
 using Newtonsoft.Json;
+using ArsVenefici.Framework.CustomObjects;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -148,6 +149,15 @@ namespace ArsVenefici.Framework.Events
                 {
                     DisplayMagicAltarMenu(farmer);
                 }
+
+                //Check for tome items
+                //if (farmer.ActiveItem is AffinityTomeObject affinityTome)
+                //{
+                //    if (input.GetState(SButton.MouseRight) == SButtonState.Pressed)
+                //    {
+                //        affinityTome.performUseAction(farmer.currentLocation);
+                //    }
+                //}
             }
         }
 

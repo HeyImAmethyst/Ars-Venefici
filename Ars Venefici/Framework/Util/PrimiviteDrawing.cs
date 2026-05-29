@@ -10,17 +10,17 @@ namespace ArsVenefici.Framework.Util
 {
     static public class PrimiviteDrawing
     {
+        static public void DrawRectangle(Texture2D whitePixel, SpriteBatch batch, Rectangle area)
+        {
+            DrawRectangle(whitePixel, batch, area, 1, Color.White);
+        }
+
         static public void DrawRectangle(Texture2D whitePixel, SpriteBatch batch, Rectangle area, int width, Color color)
         {
             batch.Draw(whitePixel, new Rectangle(area.X, area.Y, area.Width, width), color);
             batch.Draw(whitePixel, new Rectangle(area.X, area.Y, width, area.Height), color);
             batch.Draw(whitePixel, new Rectangle(area.X + area.Width - width, area.Y, width, area.Height), color);
             batch.Draw(whitePixel, new Rectangle(area.X, area.Y + area.Height - width, area.Width, width), color);
-        }
-
-        static public void DrawRectangle(Texture2D whitePixel, SpriteBatch batch, Rectangle area)
-        {
-            DrawRectangle(whitePixel, batch, area, 1, Color.White);
         }
 
         public static void DrawCircle(Texture2D whitePixel, SpriteBatch spritbatch, Vector2 center, float radius, Color color, int lineWidth = 2, int segments = 16)

@@ -1,7 +1,8 @@
-﻿using ArsVenefici.Framework.Affinity;
+﻿using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.Util;
 using StardewValley;
 using System;
@@ -15,9 +16,14 @@ namespace ArsVenefici.Framework.Spells.Shape
 {
     public class Self : AbstractShape
     {
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.None;
+            return new HashSet<Affinity>();
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float>();
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, HitResult target, int ticksUsed, int index, bool awardXp)

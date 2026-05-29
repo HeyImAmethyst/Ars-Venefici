@@ -13,7 +13,6 @@ using StardewValley.Projectiles;
 using StardewValley.TerrainFeatures;
 using ArsVenefici.Framework.Spells.Registry;
 using StardewValley.Characters;
-using ArsVenefici.Framework.Affinity;
 using ArsVenefici.Framework.Magic;
 
 namespace ArsVenefici.Framework.Spells.Effects
@@ -575,7 +574,7 @@ namespace ArsVenefici.Framework.Spells.Effects
         public override void draw(SpriteBatch b)
         {
             Vector2 drawPos = Game1.GlobalToLocal(new Vector2(getBoundingBox().X + getBoundingBox().Width / 2, getBoundingBox().Y + getBoundingBox().Height / 2));
-            b.Draw(Tex, drawPos, new Microsoft.Xna.Framework.Rectangle(0, 0, Tex.Width, Tex.Height), MagicHelper.Instance().GetColorForMagicType(spell), Direction.Value, new Vector2(Tex.Width / 2, Tex.Height / 2), 2, SpriteEffects.None, (float)((position.Y + (double)(Game1.tileSize * 3 / 2)) / 10000.0));
+            b.Draw(Tex, drawPos, new Microsoft.Xna.Framework.Rectangle(0, 0, Tex.Width, Tex.Height), spell.PrimaryAffinity().color, Direction.Value, new Vector2(Tex.Width / 2, Tex.Height / 2), 2, SpriteEffects.None, (float)((position.Y + (double)(Game1.tileSize * 3 / 2)) / 10000.0));
 
             //this.Tex ??= Game1.content.Load<Texture2D>(this.TexId.Value);
             //Vector2 bdp = Game1.GlobalToLocal(new Vector2(getBoundingBox().X, getBoundingBox().Y));

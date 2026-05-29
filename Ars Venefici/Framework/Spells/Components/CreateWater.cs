@@ -1,7 +1,8 @@
-﻿using ArsVenefici.Framework.Affinity;
+﻿using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
+using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.Spells.Shape;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
@@ -30,9 +31,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "create_water";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Water;
+            return new HashSet<Affinity> { Affinities.WATER.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.WATER.Get(), 0.001f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ArsVenefici.Framework.Util;
+using ArsVenefici.Framework.API.affinity;
 
 namespace ArsVenefici.Framework.API
 {
@@ -31,6 +32,9 @@ namespace ArsVenefici.Framework.API
 
         /// <returns>The contingency helper instance</returns>
         IContingencyHelper GetContingencyHelper();
+
+        /// <returns>The affinity helper instance.</returns>
+        IAffinityHelper GetAffinityHelper();
 
         /// <summary>
         /// Opens the occulus gui for the given farmer.

@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Affinity;
+﻿using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.API.Spell;
 using StardewModdingAPI;
 using System;
@@ -48,6 +48,8 @@ namespace ArsVenefici.Framework.Spells.Modifiers
             return ModEntry.INSTANCE.Helper.Translation.Get($"spellpart.{GetId()}.description");
         }
 
-        public abstract MagicType GetMagicType();
+        public abstract HashSet<Affinity> GetAffinities();
+
+        public abstract Dictionary<Affinity, float> GetAffinityShifts();
     }
 }

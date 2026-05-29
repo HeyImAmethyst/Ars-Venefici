@@ -1,9 +1,10 @@
-﻿using ArsVenefici.Framework.Affinity;
-using ArsVenefici.Framework.API;
+﻿using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Magic;
+using ArsVenefici.Framework.Spells.affinity;
 using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.Util;
 using ItemExtensions;
@@ -36,9 +37,9 @@ namespace ArsVenefici.Framework.Spells.Components
 
         private float manaCost;
 
-        private MagicType magicType;
+        private HashSet<Affinity> affinities;
 
-        public Damage(string id, MagicType magicType, float manaCost, ComponentDamageType damageType, Func<Character, double> damage, Predicate<Character> failIf) : base(new SpellPartStats(SpellPartStatType.DAMAGE), new SpellPartStats(SpellPartStatType.HEALING))
+        public Damage(string id, HashSet<Affinity> affinities, float manaCost, ComponentDamageType damageType, Func<Character, double> damage, Predicate<Character> failIf) : base(new SpellPartStats(SpellPartStatType.DAMAGE), new SpellPartStats(SpellPartStatType.HEALING))
         {
             this.id = id;
 
@@ -46,20 +47,20 @@ namespace ArsVenefici.Framework.Spells.Components
             this.damage = damage;
             this.failIf = failIf;
             this.damageType = damageType;
-            this.magicType = magicType;
+            this.affinities = affinities;
         }
 
-        public Damage(string id, MagicType magicType, float manaCost, ComponentDamageType damageType, Func<double> damage, Predicate<Character> failIf): this(id, magicType, manaCost, damageType, e => damage(), failIf)
+        public Damage(string id, HashSet<Affinity> affinities, float manaCost, ComponentDamageType damageType, Func<double> damage, Predicate<Character> failIf): this(id, affinities, manaCost, damageType, e => damage(), failIf)
         {
 
         }
 
-        public Damage(string id, MagicType magicType, float manaCost, ComponentDamageType damageType, Func<Character, double> damage): this(id, magicType, manaCost, damageType, damage, e => false)
+        public Damage(string id, HashSet<Affinity> affinities, float manaCost, ComponentDamageType damageType, Func<Character, double> damage): this(id, affinities, manaCost, damageType, damage, e => false)
         {
 
         }
 
-        public Damage(string id, MagicType magicType, float manaCost, ComponentDamageType damageType, Func<double> damage): this(id, magicType, manaCost, damageType, e => damage(), e => false)
+        public Damage(string id, HashSet<Affinity> affinities, float manaCost, ComponentDamageType damageType, Func<double> damage): this(id, affinities, manaCost, damageType, e => damage(), e => false)
         {
 
         }
@@ -69,9 +70,21 @@ namespace ArsVenefici.Framework.Spells.Components
             return id;
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return magicType;
+            return affinities;
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            Dictionary<Affinity, float> shifts = new Dictionary<Affinity, float>();
+
+            foreach (var aff in affinities)
+            {
+                shifts.Add(aff, 0.001f);
+            }
+
+            return shifts;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)
@@ -112,26 +125,30 @@ namespace ArsVenefici.Framework.Spells.Components
 
                 damage = helper.GetModifiedStat(damage, new SpellPartStats(SpellPartStatType.DAMAGE), modifiers, spell, caster, target, index);
 
-                if(caster.entity is Farmer f)
+                Affinity monsterAffinity = monster.GetAffinity();
+
+                foreach (var damageAffinity in GetAffinities())
+                {
+                    if (monsterAffinity.directOpposite == damageAffinity.id)
+                    {
+                        damage *= 3;
+                        break;
+                    }
+                }
+
+                if (caster.entity is Farmer f)
                 {
                     if(damageType == ComponentDamageType.Physical)
                     {
                         return gameLocation.damageMonster(monster.GetBoundingBox(), (int)damage, (int)(damage * (1f + f.buffs.AttackMultiplier)), true, f) ? new SpellCastResult(SpellCastResultType.SUCCESS) : new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
                     }
-
-                    if (damageType == ComponentDamageType.Magic)
+                    else
                     {
-                        //monster.Health -= (int)damage;
                         monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
 
                         gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
 
                         modEntry.characterEvents.InvokeOnCharacterDamage(monster);
-
-                        //Game1.Multiplayer.broadcastSprites(gameLocation, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 640, 64, 64), 40f, 8, 0, monster.Position, flicker: false, flipped: false)
-                        //{
-                        //    color = new Color(0, 48, 255, 127)
-                        //});
 
                         SpawnParticles(spell, modEntry, gameLocation, monster.Position, damageType);
 
@@ -143,101 +160,6 @@ namespace ArsVenefici.Framework.Spells.Components
 
                         return new SpellCastResult(SpellCastResultType.SUCCESS);
                     }
-
-                    if (damageType == ComponentDamageType.Frost)
-                    {
-
-                        if ( monster is LavaLurk || 
-                            monster is HotHead || 
-                            monster.Name.Equals("Magma Sprite") ||
-                            monster.Name.Equals("Magma Sparker") ||
-                            monster.Name.Equals("False Magma Cap") ||
-                            monster.Name.Equals("Magma Duggy") ||
-                            monster.Name.Equals("Lava Crab") ||
-                            monster.Name.Equals("Lava Bat"))
-                        {
-                            damage *= 3;
-                        }
-
-                        monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
-
-                        gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
-
-                        modEntry.characterEvents.InvokeOnCharacterDamage(monster);
-
-                        //Game1.Multiplayer.broadcastSprites(gameLocation, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 640, 64, 64), 40f, 8, 0, monster.Position, flicker: false, flipped: false)
-                        //{
-                        //    color = Color.LightBlue
-                        //});
-
-                        SpawnParticles(spell, modEntry, gameLocation, monster.Position, damageType);
-
-                        if (monster.Health <= 0)
-                        {
-                            modEntry.Helper.Reflection.GetMethod(gameLocation, "onMonsterKilled").Invoke(f, monster, monster.GetBoundingBox(), false);
-                            //gameLocation.onMonsterKilled(who, monster, monsterBox, isBomb);
-                        }
-
-                        return new SpellCastResult(SpellCastResultType.SUCCESS);
-                    }
-
-                    if (damageType == ComponentDamageType.Fire)
-                    {
-
-                        if (monster.Name.Equals("Dust Sprite") ||
-                            monster.Name.Equals("Frost Bat"))
-                        {
-                            damage *= 3;
-                        }
-
-                        monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
-
-                        gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
-
-                        modEntry.characterEvents.InvokeOnCharacterDamage(monster);
-
-                        //Game1.Multiplayer.broadcastSprites(gameLocation, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 640, 64, 64), 40f, 8, 0, monster.Position, flicker: false, flipped: false)
-                        //{
-                        //    color = Color.OrangeRed
-                        //});
-
-                        SpawnParticles(spell, modEntry, gameLocation, monster.Position, damageType);
-
-                        if (monster.Health <= 0)
-                        {
-                            modEntry.Helper.Reflection.GetMethod(gameLocation, "onMonsterKilled").Invoke(f, monster, monster.GetBoundingBox(), false);
-                            //gameLocation.onMonsterKilled(who, monster, monsterBox, isBomb);
-                        }
-
-                        return new SpellCastResult(SpellCastResultType.SUCCESS);
-                    }
-
-                    if (damageType == ComponentDamageType.Lightning)
-                    {
-
-                        //monster.Health -= (int)damage;
-                        monster.Health -= (int)(damage * (1f + f.buffs.AttackMultiplier));
-
-                        gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(monster.GetBoundingBox().Center.X, monster.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, monster));
-
-                        modEntry.characterEvents.InvokeOnCharacterDamage(monster);
-
-                        //Game1.Multiplayer.broadcastSprites(gameLocation, new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 640, 64, 64), 40f, 8, 0, monster.Position, flicker: false, flipped: false)
-                        //{
-                        //    color = Color.LightGoldenrodYellow
-                        //});
-
-                        SpawnParticles(spell, modEntry, gameLocation, monster.Position, damageType);
-
-                        if (monster.Health <= 0)
-                        {
-                            modEntry.Helper.Reflection.GetMethod(gameLocation, "onMonsterKilled").Invoke(f, monster, monster.GetBoundingBox(), false);
-                            //gameLocation.onMonsterKilled(who, monster, monsterBox, isBomb);
-                        }
-
-                        return new SpellCastResult(SpellCastResultType.SUCCESS);
-                    }
-
                 }
             }
 
@@ -245,6 +167,9 @@ namespace ArsVenefici.Framework.Spells.Components
             {
                 if (modEntry.ModSaveData.EnablePVP)
                 {
+                    var api = ModEntry.INSTANCE.arsVeneficiAPILoader.GetAPI();
+                    var affinityHelper = api.GetAffinityHelper();
+
                     if (damage < 0)
                     {
                         damage = helper.GetModifiedStat(damage, new SpellPartStats(SpellPartStatType.HEALING), modifiers, spell, caster, target, index);
@@ -252,19 +177,32 @@ namespace ArsVenefici.Framework.Spells.Components
 
                     damage = helper.GetModifiedStat(damage, new SpellPartStats(SpellPartStatType.DAMAGE), modifiers, spell, caster, target, index);
 
-                    //farmer.health -= (int)damage;
+                    AffinityHelper.AffinityHolder playerAffinityHolder = AffinityHelper.Instance().GetPlayerAffinityHolder(modEntry, farmer);
+                    Affinity playerAffinity = Affinities.NONE.Get();
 
-                    ////level.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(farmer.getStandingPositionstandingPixel.X + 8, standingPixel.Y), Color.Red, 1f, farmer));
-                    //gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
-                    //farmer.playNearbySoundAll("ow");
+                    foreach (var affinityHolder in Affinities.AFFINITIES.GetObjectList())
+                    {
+                        if(playerAffinityHolder.Depths().Where(x => x.Value == 1F).First().Key == affinityHolder.Get().id)
+                        {
+                            playerAffinity = affinityHolder.Get();
+                        }
+                    }
+                        
+                    foreach (var damageAffinity in GetAffinities())
+                    {
+                        if (playerAffinity.directOpposite == damageAffinity.id)
+                        {
+                            damage *= 3;
+                            break;
+                        }
+                    }
 
                     if (damageType == ComponentDamageType.Physical)
                     {
                         farmer.takeDamage((int)damage, false, null);
                         return new SpellCastResult(SpellCastResultType.SUCCESS);
                     }
-
-                    if (damageType == ComponentDamageType.Magic)
+                    else
                     {
                         farmer.health -= (int)damage;
                         gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
@@ -278,56 +216,6 @@ namespace ArsVenefici.Framework.Spells.Components
 
                         return new SpellCastResult(SpellCastResultType.SUCCESS);
                     }
-
-                    if (damageType == ComponentDamageType.Frost)
-                    {
-
-                        farmer.health -= (int)damage;
-                        gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
-                        farmer.playNearbySoundAll("ow");
-
-                        modEntry.characterEvents.InvokeOnCharacterDamage(farmer);
-
-                        SpawnParticles(spell, modEntry, gameLocation, farmer.Position, damageType);
-
-                        OnFarmerDeath(farmer);
-
-                        return new SpellCastResult(SpellCastResultType.SUCCESS);
-                    }
-
-                    if (damageType == ComponentDamageType.Fire)
-                    {
-
-                        farmer.health -= (int)damage;
-                        gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
-                        farmer.playNearbySoundAll("ow");
-
-                        modEntry.characterEvents.InvokeOnCharacterDamage(farmer);
-
-                        SpawnParticles(spell, modEntry, gameLocation, farmer.Position, damageType);
-
-                        OnFarmerDeath(farmer);
-
-                        return new SpellCastResult(SpellCastResultType.SUCCESS);
-                    }
-
-                    if (damageType == ComponentDamageType.Lightning)
-                    {
-
-                        farmer.health -= (int)damage;
-                        gameLocation.debris.Add(new Debris((int)damage, new Microsoft.Xna.Framework.Vector2(living.GetBoundingBox().Center.X, living.GetBoundingBox().Center.Y), Microsoft.Xna.Framework.Color.Red, 1f, farmer));
-                        farmer.playNearbySoundAll("ow");
-
-                        modEntry.characterEvents.InvokeOnCharacterDamage(farmer);
-
-                        SpawnParticles(spell, modEntry, gameLocation, farmer.Position, damageType);
-
-                        OnFarmerDeath(farmer);
-
-                        return new SpellCastResult(SpellCastResultType.SUCCESS);
-                    }
-
-                    return new SpellCastResult(SpellCastResultType.SUCCESS);
                 }
                 else
                 {
@@ -378,7 +266,8 @@ namespace ArsVenefici.Framework.Spells.Components
 
         public void SpawnParticles(ISpell spell, ModEntry modEntry, GameLocation gameLocation, Vector2 monsterPosition, ComponentDamageType type)
         {
-            Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(ModTextures.ELEMENT_PARTICLE_TEXTURE, monsterPosition, MagicHelper.Instance().GetColorForMagicType(spell)));
+            //Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(ModTextures.ELEMENT_PARTICLE_TEXTURE, monsterPosition, MagicHelper.Instance().GetColorForMagicType(spell)));
+            Game1.Multiplayer.broadcastSprites(gameLocation, SpawnParticle(ModTextures.ELEMENT_PARTICLE_TEXTURE, monsterPosition, spell.PrimaryAffinity().color));
         }
 
         public TemporaryAnimatedSprite SpawnParticle(Texture2D texture, Vector2 monsterPosition, Color color)

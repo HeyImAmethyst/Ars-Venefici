@@ -222,7 +222,6 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             Rectangle sourceRect = new Rectangle((int)offsetX, (int)offsetY, (int)scaledWidth, (int)scaledHeight);
 
-
             if (parent.isFullScreen)
             {
                 IClickableMenu.drawTextureBox(spriteBatch, bounds.X - 10, bounds.Y - 10, bounds.Width + 20, bounds.Height + 20, Color.White);
@@ -526,7 +525,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 var nodeTopMiddle = new Point(nodeRect.X + (nodeRect.Width / 2), nodeRect.Y);
                 //spriteBatch.DrawLine(NODE_PEN, nodeTopMiddle, new Point(nodeTopMiddle.X, nodeTopMiddle.Y - (SKILL_MARGIN_Y / 2)));
-                DrawSprite.DrawLine(spriteBatch, nodeTopMiddle.ToVector2(), new Point(nodeTopMiddle.X, nodeTopMiddle.Y - (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), lineWidth);
+                RenderUtils.DrawLine(spriteBatch, nodeTopMiddle.ToVector2(), new Point(nodeTopMiddle.X, nodeTopMiddle.Y - (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), lineWidth);
             }
 
             // draw line to children
@@ -534,7 +533,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             {
                 var nodeBottomMiddle = new Point(nodeRect.X + (nodeRect.Width / 2), nodeRect.Y + nodeRect.Height);
                 //spriteBatch.DrawLine(NODE_PEN, nodeBottomMiddle, new Point(nodeBottomMiddle.X, nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2)));
-                DrawSprite.DrawLine(spriteBatch, nodeBottomMiddle.ToVector2(), new Point(nodeBottomMiddle.X, nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), lineWidth);
+                RenderUtils.DrawLine(spriteBatch, nodeBottomMiddle.ToVector2(), new Point(nodeBottomMiddle.X, nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2)).ToVector2(), new Color(uColor), lineWidth);
 
 
                 // draw line over children
@@ -548,7 +547,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                         nodeBottomMiddle.Y + (SKILL_MARGIN_Y / 2));
 
                     //spriteBatch.DrawLine(NODE_PEN, childrenLineStart, childrenLineEnd);
-                    DrawSprite.DrawLine(spriteBatch, childrenLineStart.ToVector2(), childrenLineEnd.ToVector2(), new Color(uColor), 8);
+                    RenderUtils.DrawLine(spriteBatch, childrenLineStart.ToVector2(), childrenLineEnd.ToVector2(), new Color(uColor), 8);
                 }
             }
         }

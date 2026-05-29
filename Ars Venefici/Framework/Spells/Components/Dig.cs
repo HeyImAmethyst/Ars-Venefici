@@ -15,7 +15,7 @@ using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using ArsVenefici.Framework.Spells.Registry;
-using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -33,9 +33,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "dig";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Earth;
+            return new HashSet<Affinity> { Affinities.EARTH.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.EARTH.Get(), 0.001f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

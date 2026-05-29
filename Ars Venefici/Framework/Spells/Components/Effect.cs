@@ -8,8 +8,8 @@ using Netcode;
 using StardewValley;
 using StardewValley.Buffs;
 using ArsVenefici.Framework.Spells.Registry;
-using ArsVenefici.Framework.Affinity;
 using StardewValley.Network.NetEvents;
+using ArsVenefici.Framework.API.affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -18,14 +18,14 @@ namespace ArsVenefici.Framework.Spells.Components
         private Buff buff;
         private string id;
         private float manaCost;
-        private MagicType magicType;
+        private HashSet<Affinity> affinities;
 
-        public Effect(string id, MagicType magicType, float manaCost, Buff buff) : base(new SpellPartStats(SpellPartStatType.DURATION), new SpellPartStats(SpellPartStatType.POWER))
+        public Effect(string id, HashSet<Affinity> affinities, float manaCost, Buff buff) : base(new SpellPartStats(SpellPartStatType.DURATION), new SpellPartStats(SpellPartStatType.POWER))
         {
             this.id = id;
             this.manaCost = manaCost;
             this.buff = buff;
-            this.magicType = magicType;
+            this.affinities = affinities;
         }
 
         public override string GetId()
@@ -33,9 +33,21 @@ namespace ArsVenefici.Framework.Spells.Components
             return id;
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return magicType;
+            return affinities;
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            Dictionary<Affinity, float> shifts = new Dictionary<Affinity, float>();
+
+            foreach (var aff in affinities)
+            {
+                shifts.Add(aff, 0.001f);
+            }
+
+            return shifts;
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

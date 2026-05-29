@@ -134,13 +134,15 @@ namespace ArsVenefici.Framework.GUI.Menus
 
                 occulusTabs.Clear();
 
-                MagicAltarSkillTreeTabRenderer offenceTabRenderer = new MagicAltarSkillTreeTabRenderer(ArsSpellPartSkills.offenceTab, this);
-                MagicAltarSkillTreeTabRenderer defenceTabRenderer = new MagicAltarSkillTreeTabRenderer(ArsSpellPartSkills.defenseTab, this);
                 MagicAltarSkillTreeTabRenderer utilityTabRenderer = new MagicAltarSkillTreeTabRenderer(ArsSpellPartSkills.utilityTab, this);
+                MagicAltarSkillTreeTabRenderer defenceTabRenderer = new MagicAltarSkillTreeTabRenderer(ArsSpellPartSkills.defenseTab, this);
+                MagicAltarSkillTreeTabRenderer offenceTabRenderer = new MagicAltarSkillTreeTabRenderer(ArsSpellPartSkills.offenceTab, this);
+                MagicAltarAffinityTabRenderer affinityTabRenderer = new MagicAltarAffinityTabRenderer(ArsSpellPartSkills.affinityTab, this);
 
-                occulusTabs.Add(ArsSpellPartSkills.offenceTab, offenceTabRenderer);
-                occulusTabs.Add(ArsSpellPartSkills.defenseTab, defenceTabRenderer);
                 occulusTabs.Add(ArsSpellPartSkills.utilityTab, utilityTabRenderer);
+                occulusTabs.Add(ArsSpellPartSkills.defenseTab, defenceTabRenderer);
+                occulusTabs.Add(ArsSpellPartSkills.offenceTab, offenceTabRenderer);
+                occulusTabs.Add(ArsSpellPartSkills.affinityTab, affinityTabRenderer);
 
                 upperRightCloseButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 600, yPositionOnScreen - 150, 48, 48), Game1.mouseCursors, new Rectangle(337, 494, 12, 12), 4f)
                 {
@@ -173,13 +175,13 @@ namespace ArsVenefici.Framework.GUI.Menus
 
                     if (isFullScreen)
                     {
-                        MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 305, tab, tab.GetName(), this);
+                        MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, (xPositionOnScreen - 180) - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 305, tab, tab.GetName(), this);
                         tabButtonsFullScreen.Add(occulusTabButton);
                     }
                     else
                     {
                         //MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, 0, 0, tab, tab.GetName(), this);
-                        MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, xPositionOnScreen - (7 + tabIndex % 8 * (tabSize + 35)), yPositionOnScreen - 135, tab, tab.GetName(), this);
+                        MagicAltarTabButton occulusTabButton = new MagicAltarTabButton(tabIndex, (xPositionOnScreen + 25) - (7 + (tabIndex % 8) * (tabSize + 35)), yPositionOnScreen - 135, tab, tab.GetName(), this);
                         tabButtons.Add(occulusTabButton);
                     }
 
@@ -306,27 +308,30 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             //fullScreenToggleButton.draw(spriteBatch);
 
-            string dragLabel = modEntry.Helper.Translation.Get("ui.magic_altar.drag_label.description");
-
-            int val1 = 272;
-            if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.fr)
-                val1 = 384;
-            if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.tr)
-                val1 = 336;
-
-            //int value = Math.Max(val1, (int)Game1.dialogueFont.MeasureString(dragLabel == null ? "" : dragLabel).X);
-
-            string parsedText = Game1.parseText(dragLabel.ToString(), Game1.smallFont, val1);
-
-            if (isFullScreen)
+            if(!(activeTab is MagicAltarAffinityTabRenderer))
             {
-                IClickableMenu.drawTextureBox(spriteBatch, xPositionOnScreen - 720, yPositionOnScreen + 200, 320, 250, Color.White);
-                Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 700, yPositionOnScreen + 230), Game1.textColor);
-            }
-            else
-            {
-                IClickableMenu.drawTextureBox(spriteBatch, xPositionOnScreen - 520, yPositionOnScreen + 200, 320, 250, Color.White);
-                Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 500, yPositionOnScreen + 230), Game1.textColor);
+                string dragLabel = modEntry.Helper.Translation.Get("ui.magic_altar.drag_label.description");
+
+                int val1 = 272;
+                if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.fr)
+                    val1 = 384;
+                if (LocalizedContentManager.CurrentLanguageCode == LocalizedContentManager.LanguageCode.tr)
+                    val1 = 336;
+
+                //int value = Math.Max(val1, (int)Game1.dialogueFont.MeasureString(dragLabel == null ? "" : dragLabel).X);
+
+                string parsedText = Game1.parseText(dragLabel.ToString(), Game1.smallFont, val1);
+
+                if (isFullScreen)
+                {
+                    IClickableMenu.drawTextureBox(spriteBatch, xPositionOnScreen - 720, yPositionOnScreen + 200, 320, 250, Color.White);
+                    Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 700, yPositionOnScreen + 230), Game1.textColor);
+                }
+                else
+                {
+                    IClickableMenu.drawTextureBox(spriteBatch, xPositionOnScreen - 520, yPositionOnScreen + 200, 320, 250, Color.White);
+                    Utility.drawTextWithShadow(spriteBatch, parsedText, Game1.smallFont, new Vector2(xPositionOnScreen - 500, yPositionOnScreen + 230), Game1.textColor);
+                }
             }
             
             // draw cursor
@@ -474,7 +479,10 @@ namespace ArsVenefici.Framework.GUI.Menus
             }
 
             if (activeTab != null)
-                ((MagicAltarSkillTreeTabRenderer)activeTab).ResetOffset();
+            {
+                if(activeTab is MagicAltarSkillTreeTabRenderer)
+                    ((MagicAltarSkillTreeTabRenderer)activeTab).ResetOffset();
+            }
         }
     }
 }

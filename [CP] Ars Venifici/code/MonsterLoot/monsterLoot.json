@@ -1,0 +1,288 @@
+{
+    "Changes": [
+
+        /*----------------------------------------------------
+        Monster loot drops
+        ----------------------------------------------------*/
+
+        {
+            "LogName": "Modify monster loot",
+            "Action": "EditData",
+            "Target": "Data/Monsters",
+            "TextOperations": [
+                //Earth
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Duggy", 6 ], //6 is the index for loot, don't use quotations here.
+                    "Value": "HeyImAmethyst.ArsVenefici_Earth_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Rock Crab", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Earth_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Skeleton", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Earth_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Mummy", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Earth_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Stone Golem", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Earth_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Stone Golem", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Earth_Essence .05",
+                    "Delimiter": " "
+                },
+                //Water
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Frost Jelly", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Water_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Blue Squid", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Water_Essence .05",
+                    "Delimiter": " "
+                },
+                //Air
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Cave Fly", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Air_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Ghost", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Air_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Carbon Ghost", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Air_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Bat", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Air_Essence .05",
+                    "Delimiter": " "
+                },
+                //Fire
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Lava Lurk", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Hot Head", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Magma Sprite", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Magma Sparker", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "False Magma Cap", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Magma Duggy", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Lava Crab", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Metal Head", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Sludge", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Lava Bat", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Fire_Essence .05",
+                    "Delimiter": " "
+                },
+                //Nature
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Green Slime", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Bug", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Spider", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Stick Bug", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Pepper Rex", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Truffle Crab", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Wilderness Golem", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Serpent", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Grub", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Nature_Essence .05",
+                    "Delimiter": " "
+                },
+                //Ice
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Dust Sprite", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Ice_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Frost Bat", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Ice_Essence .05",
+                    "Delimiter": " "
+                },
+                //Arcane
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Purple Slime", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Arcane_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Iridium Bat", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Arcane_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Iridium Golem", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Arcane_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Skeleton Mage", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Arcane_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Iridium Crab", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Arcane_Essence .05",
+                    "Delimiter": " "
+                },
+                //Darkness
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Dust Sprite", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Darkness_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Shadow Shaman", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Darkness_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Shadow Sniper", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Darkness_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Haunted Skull", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Darkness_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Squid Kid", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Darkness_Essence .05",
+                    "Delimiter": " "
+                },
+                {
+                    "Operation": "Append",
+                    "Target": [ "Fields", "Shadow Brute", 6 ],
+                    "Value": "HeyImAmethyst.ArsVenefici_Darkness_Essence .05",
+                    "Delimiter": " "
+                }
+            ]
+        }
+    ]
+}

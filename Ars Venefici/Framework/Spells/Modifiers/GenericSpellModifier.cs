@@ -1,5 +1,6 @@
-﻿using ArsVenefici.Framework.Affinity;
+﻿using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.API.Spell;
+using ArsVenefici.Framework.Spells.Registry;
 using StardewModdingAPI;
 using System;
 using System.Collections.Generic;
@@ -16,18 +17,18 @@ namespace ArsVenefici.Framework.Spells.Modifiers
         float manaCost;
         IModHelper modHelper;
 
-        private MagicType magicType;
+        private HashSet<Affinity> affinities;
 
         protected Dictionary<ISpellPartStat, ISpellPartStatModifier> modifiers = new Dictionary<ISpellPartStat, ISpellPartStatModifier>();
 
-        public GenericSpellModifier(string id, MagicType magicType, IModHelper modHelper,float manaCost)
+        public GenericSpellModifier(string id, HashSet<Affinity> affinities, IModHelper modHelper,float manaCost)
         {
             this.id = id;
             this.manaCost = manaCost;
 
             this.modHelper = modHelper;
 
-            this.magicType = magicType;
+            this.affinities = affinities;
         }
 
         public override string GetId()
@@ -40,9 +41,21 @@ namespace ArsVenefici.Framework.Spells.Modifiers
             this.id = id;
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return magicType;
+            return affinities;
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            Dictionary<Affinity, float> shifts = new Dictionary<Affinity, float>();
+
+            foreach (var aff in affinities)
+            {
+                shifts.Add(aff, 0.001f);
+            }
+
+            return shifts;
         }
 
         public override ISpellPartStatModifier GetStatModifier(ISpellPartStat stat)

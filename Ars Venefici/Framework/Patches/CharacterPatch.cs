@@ -1,7 +1,14 @@
-﻿using HarmonyLib;
+﻿using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.API.ability;
+using ArsVenefici.Framework.API.affinity;
+using ArsVenefici.Framework.Spells.Components;
+using ArsVenefici.Framework.Spells.Registry;
+using ArsVenefici.Framework.Util;
+using HarmonyLib;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Monsters;
+using static ArsVenefici.Framework.Spells.affinity.AffinityHelper;
 
 namespace ArsVenefici.Framework.Patches
 {
@@ -10,8 +17,6 @@ namespace ArsVenefici.Framework.Patches
 
         // Instance of ModEntry
         private static ModEntry modEntryInstance;
-
-
 
         /// <summary>
         /// FarmerContingencyPatch Constructor
@@ -54,9 +59,28 @@ namespace ArsVenefici.Framework.Patches
                 postfix: new HarmonyMethod(GetType(), nameof(MonsterTakeDamagePostfix)));
         }
 
+        //private static void MonsterConstuctorPrefix()
+        //{
+
+        //}
+
         private static void MonsterTakeDamagePrefix(int damage, int xTrajectory, int yTrajectory, bool isBomb, double addedPrecision, Farmer who, Monster __instance, out int __state)
         {
             __state = __instance.Health;
+
+            var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
+
+            if (api.GetMagicHelper().LearnedWizardy(Game1.player))
+            {
+
+                Ability ability = Abilities.SMITE.Get();
+
+                if (ability != null && ability.Test(who) && __instance.GetAffinity().id == Affinity.FIRE)
+                {
+                    var affinityHelper = api.GetAffinityHelper();
+                    damage = (int)(damage + affinityHelper.GetAffinityDepthOrElse(who, ability.affinity, 0) * 4);
+                }
+            }
         }
 
         private static void MonsterTakeDamagePostfix(int damage, int xTrajectory, int yTrajectory, bool isBomb, double addedPrecision, Farmer who, Monster __instance, int __state)
@@ -71,6 +95,34 @@ namespace ArsVenefici.Framework.Patches
 
             if (__instance.hasBuff("HeyImAmethyst.ArsVenifici_Shield") == true)
                 __instance.temporarilyInvincible = true;
+
+            var api = modEntryInstance.arsVeneficiAPILoader.GetAPI();
+            var affinityHelper = api.GetAffinityHelper();
+
+            if (api.GetMagicHelper().LearnedWizardy(Game1.player))
+            {
+
+                Ability ability = Abilities.RESISTANCE.Get();
+
+                if (ability != null && ability.Test(__instance))
+                {
+                    damage = (int)(damage * (1 - affinityHelper.GetAffinityDepthOrElse(__instance, ability.affinity, 0) / 2));
+                }
+
+                ability = Abilities.FIRE_RESISTANCE.Get();
+
+                if (ability != null && ability.Test(__instance) && damager.GetAffinity().id == Affinity.FIRE)
+                {
+                    damage = (int)(damage * (1 - affinityHelper.GetAffinityDepthOrElse(__instance, ability.affinity, 0) / 2));
+                }
+
+                ability = Abilities.MAGIC_DAMAGE.Get();
+
+                if (ability != null && ability.Test(__instance) && damager.GetAffinity().id == Affinity.ARCANE)
+                {
+                    damage = (int)(damage * (1 + affinityHelper.GetAffinityDepthOrElse(__instance, ability.affinity, 0) / 2));
+                }
+            }
         }
 
         private static void FarmerTakeDamagePostfix(int damage, bool overrideParry, Monster damager, Farmer __instance, int __state)

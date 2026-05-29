@@ -19,6 +19,11 @@ using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.API;
 using ItemExtensions;
 using ArsVenefici.Framework.Spells.Registry;
+using ItemExtensions.Additions;
+using ArsVenefici.Framework.CustomObjects;
+using ArsVenefici.Framework.Spells.affinity;
+using ArsVenefici.Framework.API.affinity;
+using static ArsVenefici.Framework.Spells.affinity.AffinityHelper;
 
 namespace ArsVenefici.Framework.Events
 {
@@ -407,6 +412,20 @@ namespace ArsVenefici.Framework.Events
             {
                 var api = modEntryInstance.Helper.ModRegistry.GetApi<ContentPatcher.IContentPatcherAPI>("Pathoschild.ContentPatcher");
                 ModEntry.ContentPatcherApi = api;
+
+                //api.RegisterToken(modEntryInstance.ModManifest, "Affinity", () =>
+                //{
+                //    // save is loaded
+                //    if (Context.IsWorldReady)
+                //        return new[] { Game1.player.Name };
+
+                //    // or save is currently loading
+                //    if (SaveGame.loaded?.player != null)
+                //        return new[] { SaveGame.loaded.player.Name };
+
+                //    // no save loaded (e.g. on the title screen)
+                //    return null;
+                //});
             }
 
             //hook Item Extensions
@@ -443,6 +462,12 @@ namespace ArsVenefici.Framework.Events
                 
                 modEntryInstance.spellPartIconManager.PoplulateSprites();
                 modEntryInstance.arsVeneficiAPILoader.GetAPI().GetSpellPartSkillHelper().UpdateIfNeeded(modEntryInstance, Game1.player);
+
+                modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().UpdateIfNeeded(modEntryInstance, Game1.player);
+                modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().SyncToPlayer(Game1.player);
+                modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().UpdateLock(Game1.player);
+
+
             }
         }
 
@@ -514,6 +539,46 @@ namespace ArsVenefici.Framework.Events
                     //Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
 
                     modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
+
+                    modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().SyncToPlayer(Game1.player);
+                    modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().UpdateIfNeeded(modEntryInstance, Game1.player);
+                    modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().UpdateLock(Game1.player);
+                }
+
+                if (api.GetMagicHelper().LearnedAffinities(Game1.player))
+                {
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Earth_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Earth_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Water_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Water_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Air_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Air_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Fire_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Fire_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Nature_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Nature_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Life_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Life_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Darkness_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Darkness_Essence", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Essence_From_Battery"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Essence_From_Battery", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Water_Essence_From_Fish"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Water_Essence_From_Fish", 0);
                 }
 
                 SpellBook spellBook = Game1.player.GetSpellBook();
@@ -579,6 +644,30 @@ namespace ArsVenefici.Framework.Events
                     if (e.IsMultipleOf(15))
                         spellHelper.CastSpell(farmer, modEntryInstance.buttonEvents.modKeyBinds);
                 }
+
+                //Check for tome items
+
+                if (farmer.ActiveItem != null && farmer.ActiveItem.ItemId.StartsWith("HeyImAmethyst.ArsVenefici_") && farmer.ActiveItem.ItemId.EndsWith("_Tome") && !(farmer.ActiveItem is AffinityTomeObject))
+                {
+                    AffinityTomeObject affinityTomeObject = new AffinityTomeObject(farmer.ActiveItem.ItemId);
+                    affinityTomeObject.Stack = farmer.ActiveItem.Stack;
+                    affinityTomeObject.Category = -103;
+                    affinityTomeObject.Type = "asdf";
+
+                    //farmer.ActiveItem = affinityTomeObject;
+
+                    int index = farmer.Items.IndexOf(farmer.ActiveItem);
+                    farmer.Items[index] = affinityTomeObject;
+                }
+
+                //if (farmer.hasOrWillReceiveMail("artifactFound"))
+                //{
+                //    if (firstTimeGetEssence)
+                //    {
+                //        AffinityEssenceObject essence = new AffinityEssenceObject("(O)" + item.ItemId);
+                //        Game1.player.holdUpItemThenMessage(essence);
+                //    }
+                //}
 
                 // update active effects
                 for (int i = modEntryInstance.ActiveEffects.Count - 1; i >= 0; i--)

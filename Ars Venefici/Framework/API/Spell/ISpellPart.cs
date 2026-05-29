@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Affinity;
+﻿using ArsVenefici.Framework.API.affinity;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
@@ -18,7 +18,7 @@ namespace ArsVenefici.Framework.API.Spell
         /// <returns>The type of this spell part.</returns>
         SpellPartType GetType();
 
-        MagicType GetMagicType();
+        //MagicType GetMagicType();
 
         string GetId();
 
@@ -28,12 +28,25 @@ namespace ArsVenefici.Framework.API.Spell
 
         string DisplayDiscription();
 
-        /// <summary>
-        /// The types of the spell parts.
-        /// </summary>
+        //Affinity GetAffinity();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The affinities for this spell part.</returns>
+        HashSet<Affinity> GetAffinities();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The affinity shifts for this spell part.</returns>
+        Dictionary<Affinity, float> GetAffinityShifts();
     }
 
+
+    /// <summary>
+    /// The types of the spell parts.
+    /// </summary>
     public enum SpellPartType
     {
         SHAPE, COMPONENT, MODIFIER

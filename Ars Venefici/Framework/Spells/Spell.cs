@@ -9,9 +9,9 @@ using ArsVenefici.Framework.Util;
 using SpaceCore;
 using StardewValley;
 using StardewValley.Menus;
-using ArsVenefici.Framework.Spells.Registry;
-using ArsVenefici.Framework.Affinity;
-using System.Collections.Generic;
+using ArsVenefici.Framework.API.affinity;
+using xTile;
+using System.Collections.Immutable;
 
 namespace ArsVenefici.Framework.Spells
 {
@@ -213,15 +213,22 @@ namespace ArsVenefici.Framework.Spells
             {
                 Farmer player = (Farmer)caster.entity;
 
+                bool continuous = IsContinuous();
+
                 //deduct mana
                 if (modEntry.ModSaveData.InfiniteMana == false)
                 {
                     if (Game1.player.HasCustomProfession(ArsVeneficiSkill.ManaConservationProfession))
                     {
-                        int manaCostPercentage = 75;
-                        int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
+                        //int manaCostPercentage = 75;
+                        //int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
 
-                        if (randomValueBetween0And99 < manaCostPercentage)
+                        //if (randomValueBetween0And99 < manaCostPercentage)
+                        //{
+                        //    ((Farmer)caster.entity).AddMana(-manaValueInt);
+                        //}
+
+                        if (Utils.PercentChance(0.75))
                         {
                             ((Farmer)caster.entity).AddMana(-manaValueInt);
                         }
@@ -235,8 +242,6 @@ namespace ArsVenefici.Framework.Spells
                 //give experience points
                 if (awardXp)
                 {
-                    bool continuous = IsContinuous();
-
                     int xpTotal = 0;
 
                     foreach (ISpellPart part in Parts())
@@ -259,6 +264,30 @@ namespace ArsVenefici.Framework.Spells
                     if (continuous) xp /= 2;
 
                     api.GetMagicHelper().AwardXp(player, xp);
+                }
+
+                Dictionary<Affinity, double> affinityShifts = AffinityShifts();
+
+                foreach (var pair in affinityShifts)
+                {
+                    Affinity affinity = pair.Key;
+                    double shift = pair.Value;
+
+                    if (continuous)
+                    {
+                        shift /= 4;
+                    }
+
+                    //if (affinityGains)
+                    //{
+                    //    shift *= 1.1;
+                    //}
+
+                    shift *= 1.05f;
+
+                    var affinityhelper = api.GetAffinityHelper();
+                    affinityhelper.ApplyAffinityShift(player, affinity.id, (float)shift);
+                    affinityhelper.UpdateLock(player);
                 }
             }
 
@@ -353,46 +382,147 @@ namespace ArsVenefici.Framework.Spells
             return cost;
         }
 
-        public MagicType GetMagicType()
+        //public MagicType GetMagicType()
+        //{
+        //    ISpellPart spellPart;
+
+        //    List<ISpellPart> none = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.None).ToList();
+        //    List<ISpellPart> earth = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Earth).ToList();
+        //    List<ISpellPart> water = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Water).ToList();
+        //    List<ISpellPart> air = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Air).ToList();
+        //    List<ISpellPart> fire = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Fire).ToList();
+        //    List<ISpellPart> nature = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Nature).ToList();
+        //    List<ISpellPart> ice = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Ice).ToList();
+        //    List<ISpellPart> lightning = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Lightning).ToList();
+        //    List<ISpellPart> life = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Life).ToList();
+        //    List<ISpellPart> arcane = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Arcane).ToList();
+        //    List<ISpellPart> darkness = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Darkness).ToList();
+
+        //    List<ISpellPart>[] mostArray = { none , earth , water , air , fire , nature , ice , lightning , life , arcane , darkness };
+
+        //    //Sort the array with the largest first
+
+        //    for (int i = 0; i < mostArray.Count(); i++)
+        //    {
+        //        //Loop for comparing the neighboring elements
+
+        //        for (int j = 1; j < mostArray.Count() - i; j++)
+        //        {
+        //            //If the elements are not in order, swap them
+
+        //            if (mostArray[j - 1].Count() < mostArray[j].Count())
+        //            {
+        //                List<ISpellPart> temp = mostArray[j - 1];
+        //                mostArray[j - 1] = mostArray[j];
+        //                mostArray[j] = temp;
+        //            }
+        //        }
+        //    }
+
+        //    return mostArray.First().First().GetMagicType();
+
+        //}
+
+        //public Dictionary<Affinity, double> affinityShifts()
+        //{
+        //    //return PartsWithModifiers()
+        //    //        .stream()
+        //    //        .map(Pair::getFirst)
+        //    //        .map(ArsMagicaAPI.get().getSpellDataManager()::getDataForPart)
+        //    //        .filter(Objects::nonNull)
+        //    //        .map(ISpellPartData::affinityShifts)
+        //    //        .map(Map::entrySet)
+        //    //        .flatMap(Collection::stream)
+        //    //        .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.summingDouble(Map.Entry::getValue)));
+
+        //    return PartsWithModifiers()
+        //        .Select(Pair.getFirst).Select(ArsMagicaAPI.get().getSpellDataManager()getDataForPart).Where(Objects.nonNull).Select(ISpellPartData.affinityShifts).Select(Map.entrySet).flatMap(Collection.stream).collect(Collectors.groupingBy(Map.Entry.getKey, Collectors.summingDouble(Map.Entry.getValue)));
+        //}
+
+        public Dictionary<Affinity, double> AffinityShifts()
         {
-            ISpellPart spellPart;
 
-            List<ISpellPart> none = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.None).ToList();
-            List<ISpellPart> earth = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Earth).ToList();
-            List<ISpellPart> water = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Water).ToList();
-            List<ISpellPart> air = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Air).ToList();
-            List<ISpellPart> fire = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Fire).ToList();
-            List<ISpellPart> nature = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Nature).ToList();
-            List<ISpellPart> ice = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Ice).ToList();
-            List<ISpellPart> lightning = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Lightning).ToList();
-            List<ISpellPart> life = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Life).ToList();
-            List<ISpellPart> arcane = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Arcane).ToList();
-            List<ISpellPart> darkness = spellStack().Parts.Where(part => part != null && part.GetMagicType() == MagicType.Darkness).ToList();
+            //return partsWithModifiers()
+            //       .Select(pair => pair.First)
+            //       .Select(part => ArsMagicaAPI.Get().GetSpellDataManager().GetDataForPart(part))
+            //       .Where(data => data != null)
+            //       .Select(data => data.AffinityShifts())
+            //       .SelectMany(dict => dict)
+            //       .GroupBy(entry => entry.Key)
+            //       .ToDictionary(g => g.Key, g => g.Sum(entry => entry.Value));
 
-            List<ISpellPart>[] mostArray = { none , earth , water , air , fire , nature , ice , lightning , life , arcane , darkness };
+            Dictionary<Affinity, float> shifts = PartsWithModifiers()
+                .Select(pair => pair.Key)
+                .Where(data => data != null)
+                .Select(data => data.GetAffinityShifts())
+                .SelectMany(dict => dict)
+                .GroupBy(entry => entry.Key)
+                .ToDictionary(g => g.Key, g => g.Sum(entry => entry.Value));
 
-            //Sort the array with the largest first
+            Dictionary<Affinity, double> shiftsDouble = new Dictionary<Affinity, double>();
 
-            for (int i = 0; i < mostArray.Count(); i++)
+            foreach (var item in shifts)
             {
-                //Loop for comparing the neighboring elements
-
-                for (int j = 1; j < mostArray.Count() - i; j++)
-                {
-                    //If the elements are not in order, swap them
-
-                    if (mostArray[j - 1].Count() < mostArray[j].Count())
-                    {
-                        List<ISpellPart> temp = mostArray[j - 1];
-                        mostArray[j - 1] = mostArray[j];
-                        mostArray[j] = temp;
-                    }
-                }
+                shiftsDouble.Add(item.Key, item.Value);
             }
 
-            return mostArray.First().First().GetMagicType();
-
+            return shiftsDouble;
         }
+
+        public HashSet<Affinity> GetAffinities()
+        {
+            //return PartsWithModifiers()
+            //    .stream()
+            //    .map(Pair::getFirst)
+            //    .map(ArsMagicaAPI.get().getSpellDataManager()::getDataForPart)
+            //    .filter(Objects::nonNull)
+            //    .map(ISpellPartData::affinityShifts)
+            //    .map(Map::keySet)
+            //    .flatMap(Collection::stream)
+            //    .collect(Collectors.toSet());
+
+            //return PartsWithModifiers()
+            //    .Select(pair => pair.First)
+            //    .Select(part => ArsMagicaAPI.Instance.SpellDataManager.GetDataForPart(part))
+            //    .Where(data => data != null)
+            //    .Select(data => data.AffinityShifts.Keys)
+            //    .SelectMany(keys => keys)
+            //    .ToHashSet();
+
+            return PartsWithModifiers()
+                .Select(pair => pair.Key)
+                .Where(data => data != null)
+                .Select(data => data.GetAffinityShifts().Keys)
+                .SelectMany(keys => keys)
+                .ToHashSet();
+        }
+
+        public Affinity PrimaryAffinity()
+        {
+            //return affinityShifts().entrySet()
+            //        .stream()
+            //        .max(Map.Entry.comparingByValue())
+            //        .map(Map.Entry::getKey)
+            //        .orElseGet(AMAffinities.NONE::value);
+
+            //ArgumentException: At least one object must implement IComparable.
+
+            return AffinityShifts()
+                .Keys
+                .ToImmutableSortedSet()
+                .Reverse()
+                .ToHashSet()
+                .FirstOrDefault();
+
+            //return AffinityShifts()
+            //    .Keys
+            //    .ToList()
+            //    .Sort()
+            //    .Reverse()
+            //    .ToHashSet()
+            //    .FirstOrDefault();
+        }
+
 
         public List<ShapeGroup> ShapeGroups()
         {

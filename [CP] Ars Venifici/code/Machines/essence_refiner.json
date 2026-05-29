@@ -1,0 +1,315 @@
+{
+    "Changes": [
+        {
+            "Action": "EditData",
+            "Target": "Data/Machines",
+            "Entries": {
+                "(BC){{ModId}}_Rune_Table": {
+                    "HasInput": false,
+                    "HasOutput": false,
+                    "InteractMethod": null,
+                    "OutputRules": [
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Arcane_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 4
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Arcane_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Earth_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)575",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)343",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)330",
+                                    "RequiredCount": 1
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Earth_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Air_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Tarma_Root",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)444",
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Air_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Water_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Wakebloom",
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Water_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Water_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Wakebloom",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredTags": [ "category_fish" ],
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Water_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Nature_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)90",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredTags": [ "category_greens" ],
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Nature_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Ice_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)84",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)536",
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Ice_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Lightning_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)122",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)68",
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Lightning_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Life_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)176",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)613",
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Life_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Darkness_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)769",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)767",
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Darkness_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        },
+                        {
+                            "Id": "HeyImAmethyst.ArsVenefici_Fire_Essence",
+                            "Triggers": [
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O){{ModId}}_Arcane_Ash",
+                                    "RequiredCount": 1
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)382",
+                                    "RequiredCount": 2
+                                },
+                                {
+                                    "Trigger": "ItemPlacedInMachine",
+                                    "RequiredItemId": "(O)82",
+                                    "RequiredCount": 2
+                                }
+                            ],
+                            "OutputItem": [
+                                {
+                                    "ItemId": "(O)HeyImAmethyst.ArsVenefici_Fire_Essence",
+                                    "CopyQuality": false,
+                                    "CopyPrice": true
+                                }
+                            ],
+                            "MinutesUntilReady": 50
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

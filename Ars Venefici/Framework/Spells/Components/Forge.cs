@@ -20,7 +20,8 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley.Extensions;
 using static StardewValley.Debris;
 using ArsVenefici.Framework.API.Spell;
-using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.affinity;
+using ArsVenefici.Framework.Spells.Registry;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -43,9 +44,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Fire;
+            return new HashSet<Affinity> { Affinities.FIRE.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.FIRE.Get(), 0.002f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, TerrainFeatureHitResult target, int index, int ticksUsed)
@@ -91,21 +97,22 @@ namespace ArsVenefici.Framework.Spells.Components
                                         {
                                             if (trigger.RequiredItemId == debris.itemId.Value)
                                             {
-                                                int forgePercentage = 35;
-                                                int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
+                                                //int forgePercentage = 35;
+                                                //int randomValueBetween0And99 = ModEntry.RandomGen.Next(100);
 
-                                                if (randomValueBetween0And99 < forgePercentage)
+                                                //if (randomValueBetween0And99 < forgePercentage)
+                                                if (Utils.PercentChance(0.35))
                                                 {
                                                     if (debris.item == null)
                                                     {
-                                                        modEntry.Monitor.Log(debris.item == null ? "null" : "not null", StardewModdingAPI.LogLevel.Info);
+                                                        //modEntry.Monitor.Log(debris.item == null ? "null" : "not null", StardewModdingAPI.LogLevel.Info);
                                                         debris.item = ItemRegistry.Create(outputRule.OutputItem[0].ItemId);
                                                     }
 
                                                     if (debris.item != null)
                                                     {
-                                                        modEntry.Monitor.Log(debris.item == null ? "null" : "not null", StardewModdingAPI.LogLevel.Info);
-                                                        debris.item = ItemRegistry.Create(outputRule.OutputItem[0].ItemId, ModEntry.RandomGen.Next(1, debris.item.Stack));
+                                                        //modEntry.Monitor.Log(debris.item == null ? "null" : "not null", StardewModdingAPI.LogLevel.Info);
+                                                        debris.item = ItemRegistry.Create(outputRule.OutputItem[0].ItemId, Game1.random.Next(1, debris.item.Stack));
                                                     }
                                                 }
                                             }

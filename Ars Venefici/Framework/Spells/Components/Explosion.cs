@@ -5,7 +5,7 @@ using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
 using StardewValley;
 using ArsVenefici.Framework.Spells.Registry;
-using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -21,9 +21,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "explosion";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Fire;
+            return new HashSet<Affinity> { Affinities.FIRE.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.FIRE.Get(), 0.002f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

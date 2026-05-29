@@ -4,16 +4,41 @@
 		{
             "Action": "EditData",
             "Target": "Data/CraftingRecipes",
-            "Entries": 
-			{
-                "{{ModId}}_Magic_Altar": "390 10 768 5 66 1/Field/{{ModId}}_Magic_Altar 1/true/none/{{i18n:big_craftable.magic_altar.name}}",
+			"Entries": {
+				"{{ModId}}_Magic_Altar": "390 10 768 5 66 1/Field/{{ModId}}_Magic_Altar 1/true/none/{{i18n:big_craftable.magic_altar.name}}",
 				"{{ModId}}_Rune_Table": "390 10 768 5 66 1 {{ModId}}_Blank_Rune 1/Field/{{ModId}}_Rune_Table 1/true/HeyImAmethyst.Wizardry 3/{{i18n:big_craftable.rune_table.name}}",
+				//"{{ModId}}_Essence_Refiner": "390 10 768 6 66 1 769 1/Field/{{ModId}}_Essence_Refiner 1/true/none/{{i18n:big_craftable.essence_refiner.name}}",
 				"{{ModId}}_Mana_Cake": "246 1 245 1 {{ModId}}_Cerublossom 1/Field/{{ModId}}_Mana_Cake 1/false/none/{{i18n:object.mana_cake.name}}",
 				"{{ModId}}_Arcane_Compound": "768 1 769 1 390 1/Field/{{ModId}}_Arcane_Compound 1/false/none/{{i18n:object.arcane_compound.name}}",
 				"{{ModId}}_Purified_Vinteum_Dust": "{{ModId}}_Arcane_Ash 1 {{ModId}}_Cerublossom 1 {{ModId}}_Desert_Nova 1 {{ModId}}_Vinteum_Dust 1/Field/{{ModId}}_Purified_Vinteum_Dust 1/false/none/{{i18n:object.purified_vinteum_dust.name}}",
 				"{{ModId}}_Blank_Rune": "390 6/Field/{{ModId}}_Blank_Rune 1/false/none/{{i18n:object.blank_rune.name}}",
 				"{{ModId}}_Magic_Seeds": "{{ModId}}_Aum 1 {{ModId}}_Cerublossom 1 {{ModId}}_Desert_Nova 1 {{ModId}}_Tarma_Root 1 {{ModId}}_Wakebloom 1/Field/{{ModId}}_Magic_Seeds 10/false/HeyImAmethyst.Wizardry 1/{{i18n:object.magic_seeds.name}}",
-				
+
+				"{{ModId}}_Earth_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Earth_Essence 1 330 2 390 2/Field/HeyImAmethyst.ArsVenefici_Earth_Essence 2/false/none/{{i18n:object.earth_essence.name}}",
+				"{{ModId}}_Water_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Water_Essence 1 {{ModId}}_Wakebloom 2 -4 2/Field/HeyImAmethyst.ArsVenefici_Water_Essence 2/false/none/{{i18n:object.water_essence.name}}",
+				"{{ModId}}_Air_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Air_Essence 1 444 2 {{ModId}}_Tarma_Root 2/Field/HeyImAmethyst.ArsVenefici_Air_Essence 2/false/none/{{i18n:object.air_essence.name}}",
+				"{{ModId}}_Fire_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Fire_Essence 1 382 2 82 2/Field/HeyImAmethyst.ArsVenefici_Fire_Essence 2/false/none/{{i18n:object.fire_essence.name}}",
+				"{{ModId}}_Nature_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Nature_Essence 1 90 2 -81 2/Field/HeyImAmethyst.ArsVenefici_Nature_Essence 2/false/none/{{i18n:object.nature_essence.name}}",
+				"{{ModId}}_Ice_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Ice_Essence 1 84 2 536 2/Field/HeyImAmethyst.ArsVenefici_Ice_Essence 2/false/none/{{i18n:object.ice_essence.name}}",
+				"{{ModId}}_Lightning_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Lightning_Essence 1 122 2 68 2/Field/HeyImAmethyst.ArsVenefici_Lightning_Essence 2/false/none/{{i18n:object.lightning_essence.name}}",
+				"{{ModId}}_Life_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Life_Essence 1 176 2 613 2/Field/HeyImAmethyst.ArsVenefici_Life_Essence 2/false/none/{{i18n:object.life_essence.name}}",
+				"{{ModId}}_Arcane_Essence": "{{ModId}}_Arcane_Ash 8 HeyImAmethyst.ArsVenefici_Arcane_Essence 1/Field/HeyImAmethyst.ArsVenefici_Arcane_Essence 2/false/none/{{i18n:object.arcane_essence.name}}",
+				"{{ModId}}_Darkness_Essence": "{{ModId}}_Arcane_Ash 4 HeyImAmethyst.ArsVenefici_Darkness_Essence 1 769 2 767 2/Field/HeyImAmethyst.ArsVenefici_Darkness_Essence 2/false/none/{{i18n:object.darkness_essence.name}}",
+
+				"{{ModId}}_Lightning_Essence_From_Battery": "{{ModId}}_Arcane_Ash 8 787 1 122 2 68 2/Field/HeyImAmethyst.ArsVenefici_Lightning_Essence 1/false/none/{{i18n:object.lightning_essence.name}}",
+				"{{ModId}}_Water_Essence_From_Fish": "{{ModId}}_Arcane_Ash 8 -4 1/Field/HeyImAmethyst.ArsVenefici_Water_Essence 1/false/none/{{i18n:object.water_essence.name}}",
+
+				"{{ModId}}_Earth_Tome": "HeyImAmethyst.ArsVenefici_Earth_Essence 10 {{ModId}}_Brown_Rune 5/Field/HeyImAmethyst.ArsVenefici_Earth_Tome 1/false/none/{{i18n:object.earth_tome.name}}",
+				"{{ModId}}_Water_Tome": "HeyImAmethyst.ArsVenefici_Water_Essence 10 {{ModId}}_Blue_Rune 5/Field/HeyImAmethyst.ArsVenefici_Water_Tome 1/false/none/{{i18n:object.water_tome.name}}",
+				"{{ModId}}_Air_Tome": "HeyImAmethyst.ArsVenefici_Air_Essence 10 {{ModId}}_White_Rune 5/Field/HeyImAmethyst.ArsVenefici_Air_Tome 1/false/none/{{i18n:object.air_tome.name}}",
+				"{{ModId}}_Fire_Tome": "HeyImAmethyst.ArsVenefici_Fire_Essence 10 {{ModId}}_Orange_Rune 5/Field/HeyImAmethyst.ArsVenefici_Fire_Tome 1/false/none/{{i18n:object.fire_tome.name}}",
+				"{{ModId}}_Nature_Tome": "HeyImAmethyst.ArsVenefici_Nature_Essence 10 {{ModId}}_Green_Rune 5/Field/HeyImAmethyst.ArsVenefici_Nature_Tome 1/false/none/{{i18n:object.nature_tome.name}}",
+				"{{ModId}}_Ice_Tome": "HeyImAmethyst.ArsVenefici_Ice_Essence 10 {{ModId}}_Light_Blue_Rune 5/Field/HeyImAmethyst.ArsVenefici_Ice_Tome 1/false/none/{{i18n:object.ice_tome.name}}",
+				"{{ModId}}_Lightning_Tome": "HeyImAmethyst.ArsVenefici_Lightning_Essence 10 {{ModId}}_Yellow_Rune 5/Field/HeyImAmethyst.ArsVenefici_Lightning_Tome 1/false/none/{{i18n:object.lightning_tome.name}}",
+				"{{ModId}}_Life_Tome": "HeyImAmethyst.ArsVenefici_Life_Essence 10 {{ModId}}_Red_Rune 5/Field/HeyImAmethyst.ArsVenefici_Life_Tome 1/false/none/{{i18n:object.life_tome.name}}",
+				"{{ModId}}_Arcane_Tome": "HeyImAmethyst.ArsVenefici_Arcane_Essence 10 {{ModId}}_Cyan_Rune 5/Field/HeyImAmethyst.ArsVenefici_Arcane_Tome 1/false/none/{{i18n:object.arcane_tome.name}}",
+				"{{ModId}}_Darkness_Tome": "HeyImAmethyst.ArsVenefici_Darkness_Essence 10 {{ModId}}_Black_Rune 5/Field/HeyImAmethyst.ArsVenefici_Darkness_Tome 1/false/none/{{i18n:object.darkness_tome.name}}"
+
 			}
         },
 		{

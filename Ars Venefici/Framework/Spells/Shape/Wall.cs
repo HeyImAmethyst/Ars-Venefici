@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.Spells.Registry;
-using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.affinity;
 
 namespace ArsVenefici.Framework.Spells.Shape
 {
@@ -23,9 +23,14 @@ namespace ArsVenefici.Framework.Spells.Shape
 
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.None;
+            return new HashSet<Affinity>();
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float>();
         }
 
         public override string GetId()

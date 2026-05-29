@@ -27,9 +27,9 @@
 
 	"object.wakebloom.name": "觉苏莲",
 	"object.wakebloom.description": "一种充满魔法的花朵，在很多水域附近都能找到。",
-	
+
 	"object.magic_seeds.name": "Magic Seeds",
-	"object.magic_seeds.description" : "An assortment of wild magic seeds.",
+	"object.magic_seeds.description": "An assortment of wild magic seeds.",
 
 	"object.arcane_compound.name": "奥术化合物",
 	"object.arcane_compound.description": "一种由魔法试剂制成的粉末，可以加热制成灰烬。",
@@ -118,6 +118,66 @@
 	"object.spell_rune.name": "法术符文",
 	"object.spell_rune.description": "一个能够施放附着在其上的魔法的符文。",
 
+	"object.earth_essence.name": "Earth Essence",
+	"object.earth_essence.description": "An essence made of pure earth",
+
+	"object.water_essence.name": "Water Essence",
+	"object.water_essence.description": "An essence made of pure water",
+
+	"object.air_essence.name": "Air Essence",
+	"object.air_essence.description": "An essence made of pure air",
+
+	"object.fire_essence.name": "Fire Essence",
+	"object.fire_essence.description": "An essence made of pure fire",
+
+	"object.nature_essence.name": "Nature Essence",
+	"object.nature_essence.description": "An essence made of pure nature",
+
+	"object.ice_essence.name": "Ice Essence",
+	"object.ice_essence.description": "An essence made of pure ice",
+
+	"object.lightning_essence.name": "Lightning Essence",
+	"object.lightning_essence.description": "An essence made of pure lightning",
+
+	"object.life_essence.name": "Life Essence",
+	"object.life_essence.description": "An essence made of pure life",
+
+	"object.arcane_essence.name": "Arcane Essence",
+	"object.arcane_essence.description": "An essence made of pure arcane",
+
+	"object.darkness_essence.name": "Darkness Essence",
+	"object.darkness_essence.description": "An essence made of pure darkness",
+
+	"object.earth_tome.name": "Earth Tome",
+	"object.earth_tome.description": "A tome that gives 10% boost to earth affinity",
+
+	"object.water_tome.name": "Water Tome",
+	"object.water_tome.description": "A tome that gives 10% boost to water affinity",
+
+	"object.air_tome.name": "Air Tome",
+	"object.air_tome.description": "A tome that gives 10% boost to air affinity",
+
+	"object.fire_tome.name": "Fire Tome",
+	"object.fire_tome.description": "A tome that gives 10% boost to fire affinity",
+
+	"object.nature_tome.name": "Nature Tome",
+	"object.nature_tome.description": "A tome that gives 10% boost to nature affinity",
+
+	"object.ice_tome.name": "Ice Tome",
+	"object.ice_tome.description": "A tome that gives 10% boost to ice affinity",
+
+	"object.lightning_tome.name": "Lightning Tome",
+	"object.lightning_tome.description": "A tome that gives 10% boost to lightning affinity",
+
+	"object.life_tome.name": "Life Tome",
+	"object.life_tome.description": "A tome that gives 10% boost to life affinity",
+
+	"object.arcane_tome.name": "Arcane Tome",
+	"object.arcane_tome.description": "A tome that gives 10% boost to arcane affinity",
+
+	"object.darkness_tome.name": "Darkness Tome",
+	"object.darkness_tome.description": "A tome that gives 10% boost to darkness affinity",
+
 	//Big Craftables
 
 	"big_craftable.magic_altar.name": "魔法祭坛",
@@ -126,8 +186,15 @@
 	"big_craftable.rune_table.name": "符文桌",
 	"big_craftable.rune_table.description": "一张能让法师制作符文的魔法桌子。",
 
+	//"big_craftable.essence_refiner.name": "Essence Refiner",
+	//"big_craftable.essence_refiner.description": "A magical machine that refines materials into essences.",
+
 	//Mail
 
 	"mail.mana_management.title.name": "魔力管理",
-	"mail.mana_management.text": "你好 @。^^当我向你介绍咒语创作时，我忘记提到施法的一个重要部分了。施放任何魔法都会消耗魔力。如果你没有足够的魔力来施放魔法，魔法就会失败。^^随着时间的推移，你的魔力会逐渐恢复，但你经常会遇到需要快速补充魔力的情况。你可以制作一些物品来帮助你。^^我为你提供了一个蛋糕的配方，这种蛋糕可以补充少量的魔力。冒险者公会和酒馆现在也会出售制作魔力物品的配方，这些物品可以帮助你更快地补充的魔力。^^祝你在魔法之旅中好运。^-M·拉斯莫迪斯，法师"
+	"mail.mana_management.text": "你好 @。^^当我向你介绍咒语创作时，我忘记提到施法的一个重要部分了。施放任何魔法都会消耗魔力。如果你没有足够的魔力来施放魔法，魔法就会失败。^^随着时间的推移，你的魔力会逐渐恢复，但你经常会遇到需要快速补充魔力的情况。你可以制作一些物品来帮助你。^^我为你提供了一个蛋糕的配方，这种蛋糕可以补充少量的魔力。冒险者公会和酒馆现在也会出售制作魔力物品的配方，这些物品可以帮助你更快地补充的魔力。^^祝你在魔法之旅中好运。^-M·拉斯莫迪斯，法师",
+
+	//Wizard Dialogue
+	"event.learn_affinities.wizard_choice_responce_1": "Thats good to hear! I hope you continue to do well.$1",
+	"event.learn_affinities.wizard_choice_responce_2": "It's only natural for one to hit road blocks while studing magic. Keep practicing, and eventually a path forward will appear.$0"
 }

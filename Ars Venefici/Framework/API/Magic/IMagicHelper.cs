@@ -14,6 +14,10 @@ namespace ArsVenefici.Framework.API.Magic
         /// <returns>Whether the current player learned wizardry.</returns>
         bool LearnedWizardy(Farmer farmer);
 
+        /// <param name="farmer">The farmer to check.</param>
+        /// <returns>Whether the current player learned affinities.</returns>
+        bool LearnedAffinities(Farmer farmer);
+
         /// <summary>
         /// Awards the given amount of magic xp to the given player. Also handles leveling.
         /// </summary>
@@ -22,5 +26,6 @@ namespace ArsVenefici.Framework.API.Magic
         void AwardXp(Farmer farmer, int amount);
 
         int GetLearnedWizardryEventId();
+        int GetLearnedAffinitiesEventId();
     }
 }

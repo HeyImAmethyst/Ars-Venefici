@@ -26,6 +26,7 @@ using ArsVenefici.Framework.API;
 using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework;
 using ArsVenefici.Framework.ContentPacks;
+using StardewModdingAPI.Events;
 
 namespace ArsVenefici
 {
@@ -40,10 +41,6 @@ namespace ArsVenefici
     //TODO: Fix  Wave + AOE on multiplayer: starts off as a "Wall" spell animation and only activates the spell if you walk in the opposite direction of how the spell is being fired. And when it does fire, it's super glitchy/laggy
 
     //TODO: Add affinity mechanic
-
-    //Fixed github issue #4 from AlanBF1992
-    //Added more comments and summaries to code and methods to make understanding the code easier
-    //Cleaned up some code
 
     public class ModEntry : Mod
     {
@@ -95,6 +92,7 @@ namespace ArsVenefici
         public CharacterEvents characterEvents;
         public DisplayEvents displayEvents;
         public GameloopEvents gameloopEvents;
+        public WorldEvents worldEvents;
         public MultiplayerEvents multiplayerEvents;
         public PlayerEvents playerEvents;
         public SpellPartEvents spellPartEvents;
@@ -115,7 +113,7 @@ namespace ArsVenefici
 
         //-----------------Random Generation-----------------
 
-        public static Random RandomGen = new Random();
+        //public static Random RandomGen = new Random();
 
         public override void Entry(IModHelper helper)
         {
@@ -171,6 +169,7 @@ namespace ArsVenefici
             characterEvents = new CharacterEvents();
             displayEvents = new DisplayEvents(this);
             gameloopEvents = new GameloopEvents(this);
+            worldEvents = new WorldEvents(this);
             multiplayerEvents = new MultiplayerEvents(this);
             playerEvents = new PlayerEvents(this);
             spellPartEvents = new SpellPartEvents(this);
@@ -209,6 +208,8 @@ namespace ArsVenefici
             spellPartEvents.AddSpellPartSkills += spellPartEvents.OnAddSpellPartSkills;
 
             helper.Events.Player.Warped += playerEvents.OnWarped;
+            helper.Events.Player.InventoryChanged += playerEvents.OnInventoryChanged;
+            helper.Events.World.NpcListChanged += worldEvents.OnNpcListChanged;
             SpaceEvents.OnItemEaten += playerEvents.OnItemEaten;
 
             helper.Events.Multiplayer.PeerConnected += multiplayerEvents.OnPeerConnected;

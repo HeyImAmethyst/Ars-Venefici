@@ -215,7 +215,9 @@ namespace ArsVenefici.Framework.Events
                             local.X += 25;
                         }
 
-                        spriteBatch.Draw(ModTextures.BEAM, local, new Rectangle(0, 0, 198, 22), MagicHelper.Instance().GetColorForMagicType(spell), MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
+                        //spriteBatch.Draw(ModTextures.BEAM, local, new Rectangle(0, 0, 198, 22), MagicHelper.Instance().GetColorForMagicType(spell), MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
+                        //spriteBatch.Draw(ModTextures.BEAM, local, new Rectangle(0, 0, 198, 22), MagicHelper.Instance().GetColorForMagicType(spell), MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
+                        spriteBatch.Draw(ModTextures.BEAM, local, new Rectangle(0, 0, 198, 22), spell.PrimaryAffinity().color, MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
                         //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 198, 22), Color.White, MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
                         //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 28, 7), Color.White, MathHelper.ToRadians(rotation), Vector2.Zero, (float)size, SpriteEffects.None, local.Y / 10000f);
 
@@ -262,7 +264,8 @@ namespace ArsVenefici.Framework.Events
                     {
                         local = Utils.AbsolutePosToScreenPos(Utility.clampToTile(Game1.player.GetToolLocation(true)));
 
-                        spriteBatch.Draw(ModTextures.TOUCH, local, new Rectangle(0, 0, 64, 64), MagicHelper.Instance().GetColorForMagicType(spell), 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        //spriteBatch.Draw(ModTextures.TOUCH, local, new Rectangle(0, 0, 64, 64), MagicHelper.Instance().GetColorForMagicType(spell), 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        spriteBatch.Draw(ModTextures.TOUCH, local, new Rectangle(0, 0, 64, 64), spell.PrimaryAffinity().color, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                         //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
                     else if (spell.FirstShape(spell.CurrentShapeGroupIndex()) != null && spell.FirstShape(spell.CurrentShapeGroupIndex()) is EtherealTouch)
@@ -277,7 +280,8 @@ namespace ArsVenefici.Framework.Events
                         Vector2 absoluteClampedMousePos = Utility.clampToTile(cursorPosition.AbsolutePixels);
                         local = Utils.AbsolutePosToScreenPos(absoluteClampedMousePos);
 
-                        spriteBatch.Draw(ModTextures.TOUCH, local, new Rectangle(0, 0, 64, 64), MagicHelper.Instance().GetColorForMagicType(spell), 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        //spriteBatch.Draw(ModTextures.TOUCH, local, new Rectangle(0, 0, 64, 64), MagicHelper.Instance().GetColorForMagicType(spell), 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
+                        spriteBatch.Draw(ModTextures.TOUCH, local, new Rectangle(0, 0, 64, 64), spell.PrimaryAffinity().color, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                         //spriteBatch.Draw(texture, local, new Rectangle(0, 0, 64, 64), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, local.Y / 10000f);
                     }
                 }
@@ -329,18 +333,18 @@ namespace ArsVenefici.Framework.Events
             {
                 foreach (Character character in location.characters)
                 {
-                    DrawSprite.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, character.GetBoundingBox()), Color.Red, 1);
+                    RenderUtils.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, character.GetBoundingBox()), Color.Red, 1);
                 }
 
                 foreach (Farmer farmer in location.farmers)
                 {
-                    DrawSprite.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, farmer.GetBoundingBox()), Color.Red, 1);
+                    RenderUtils.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, farmer.GetBoundingBox()), Color.Red, 1);
                 }
 
                 foreach (IActiveEffect effect in modEntryInstance.ActiveEffects)
                 {
                     if (effect != null && effect is AbstractSpellEffect abstractSpellEffect)
-                        DrawSprite.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
+                        RenderUtils.DrawRectangle(spriteBatch, Game1.GlobalToLocal(Game1.viewport, abstractSpellEffect.GetBoundingBox()), Color.Red, 1);
                 }
 
                 foreach (Debris debris in location.debris)

@@ -34,6 +34,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             
             this.menu = menu;
         }
+
         public MagicAltarTabButton(int index, int x, int y, int xOffset, int yOffset, MagicAltarTab tab, string name, MagicAltarMenu menu) : base(new Rectangle(x, y, SIZE, SIZE), name)
         {
             this.index = index;
@@ -75,6 +76,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                     IClickableMenu.drawToolTip(spriteBatch, tabNameText, null, null);
             }
         }
+
         public int GetIndex()
         {
             return index;

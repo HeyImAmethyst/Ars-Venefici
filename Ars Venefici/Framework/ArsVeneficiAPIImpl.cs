@@ -1,4 +1,5 @@
 ﻿using ArsVenefici.Framework.API;
+using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.API.Magic;
 using ArsVenefici.Framework.API.Skill;
 using ArsVenefici.Framework.API.Spell;
@@ -7,6 +8,7 @@ using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Magic;
 using ArsVenefici.Framework.Skill;
 using ArsVenefici.Framework.Spells;
+using ArsVenefici.Framework.Spells.affinity;
 using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using StardewValley;
@@ -46,6 +48,11 @@ namespace ArsVenefici.Framework
         public IContingencyHelper GetContingencyHelper()
         {
             return ContingencyHelper.Instance();
+        }
+
+        public IAffinityHelper GetAffinityHelper()
+        {
+            return AffinityHelper.Instance();
         }
 
         public void OpenMagicAltarGui(Farmer farmer)

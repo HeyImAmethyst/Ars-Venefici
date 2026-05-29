@@ -81,6 +81,32 @@ namespace ArsVenefici.Framework.Util
         // Math Utils
         //---------------------------------------
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="percentage">The percent change in decimal form</param>
+        /// <returns></returns>
+        public static bool PercentChance(double percentage)
+        {
+            double randomValueBetween0And1 = Game1.random.NextDouble();
+
+            if (randomValueBetween0And1 < percentage)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //From https://stackoverflow.com/questions/3365337/best-way-to-generate-a-random-float-in-c-sharp
+        public static float NextFloat(Random random)
+        {
+            double mantissa = (random.NextDouble() * 2.0) - 1.0;
+            // choose -149 instead of -126 to also generate subnormal floats (*)
+            double exponent = Math.Pow(2.0, random.Next(-126, 128));
+            return (float)(mantissa * exponent);
+        }
+
         public static Vector2 LengthenLine(Vector2 startPoint, Vector2 endPoint, float pixelCount)
         {
             if (startPoint.Equals(endPoint))

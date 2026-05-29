@@ -1,4 +1,4 @@
-﻿using ArsVenefici.Framework.Affinity;
+﻿using ArsVenefici.Framework.API.affinity;
 using ArsVenefici.Framework.Interfaces;
 using ArsVenefici.Framework.Interfaces.Spells;
 using ArsVenefici.Framework.Util;
@@ -91,6 +91,24 @@ namespace ArsVenefici.Framework.API.Spell
         /// <returns>The spell stack for this spell.</returns>
         SpellStack spellStack();
 
-        MagicType GetMagicType();
+        //MagicType GetMagicType();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A map from affinity to double, representing the affinity shift of the spell for each affinity.</returns>
+        Dictionary<Affinity, double> AffinityShifts();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A set of affinities containing the affinities of this spell.</returns>
+        HashSet<Affinity> GetAffinities();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The affinity that the given spell has the greatest shift in.</returns>
+        Affinity PrimaryAffinity();
     }
 }

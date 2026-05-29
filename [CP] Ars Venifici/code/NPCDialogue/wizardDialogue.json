@@ -1,0 +1,13 @@
+{
+    "Changes": [
+        {
+            "Action": "EditData",
+            "Target": "Characters/Dialogue/Wizard",
+            "Entries": {
+
+                "event_learn_affinities_responce_1": "{{i18n:event.learn_affinities.wizard_choice_responce_1}}",
+                "event_learn_affinities_responce_2": "{{i18n:event.learn_affinities.wizard_choice_responce_2}}"
+            }
+        }
+    ]
+}

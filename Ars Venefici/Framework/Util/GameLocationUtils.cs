@@ -427,6 +427,90 @@ namespace ArsVenefici.Framework.Util
             return list;
         }
 
+        //public static void performLightningUpdate(int time_of_day)
+        //{
+        //    Random random = Utility.CreateRandom(Game1.uniqueIDForThisGame, Game1.stats.DaysPlayed, time_of_day);
+
+        //    if (random.NextDouble() < 0.125 + Game1.player.team.AverageDailyLuck() + Game1.player.team.AverageLuckLevel() / 100.0)
+        //    {
+        //        Farm.LightningStrikeEvent lightningEvent = new Farm.LightningStrikeEvent();
+        //        lightningEvent.bigFlash = true;
+        //        Farm farm = Game1.getFarm();
+        //        List<Vector2> lightningRods = new List<Vector2>();
+
+        //        foreach (KeyValuePair<Vector2, StardewValley.Object> v in farm.objects.Pairs)
+        //        {
+        //            if (v.Value.QualifiedItemId == "(BC)9")
+        //            {
+        //                lightningRods.Add(v.Key);
+        //            }
+        //        }
+
+        //        if (lightningRods.Count > 0)
+        //        {
+        //            for (int i = 0; i < 2; i++)
+        //            {
+        //                Vector2 v = random.ChooseFrom(lightningRods);
+        //                if (farm.objects[v].heldObject.Value == null)
+        //                {
+        //                    farm.objects[v].heldObject.Value = ItemRegistry.Create<StardewValley.Object>("(O)HeyImAmethyst.ArsVenefici_Lightning_Essence");
+        //                    farm.objects[v].MinutesUntilReady = Utility.CalculateMinutesUntilMorning(Game1.timeOfDay);
+        //                    farm.objects[v].shakeTimer = 1000;
+        //                    lightningEvent.createBolt = true;
+        //                    lightningEvent.boltPosition = v * 64f + new Vector2(32f, 0f);
+        //                    farm.lightningStrikeEvent.Fire(lightningEvent);
+        //                    return;
+        //                }
+        //            }
+        //        }
+
+        //        if (random.NextDouble() < 0.25 - Game1.player.team.AverageDailyLuck() - Game1.player.team.AverageLuckLevel() / 100.0)
+        //        {
+        //            try
+        //            {
+        //                if (Utility.TryGetRandom(farm.terrainFeatures, out var tile, out var feature))
+        //                {
+        //                    if (feature is FruitTree fruitTree)
+        //                    {
+        //                        fruitTree.struckByLightningCountdown.Value = 4;
+        //                        fruitTree.shake(tile, doEvenIfStillShaking: true);
+        //                        lightningEvent.createBolt = true;
+        //                        lightningEvent.boltPosition = tile * 64f + new Vector2(32f, -128f);
+        //                    }
+        //                    else
+        //                    {
+        //                        Crop crop = (feature as HoeDirt)?.crop;
+        //                        bool num = crop != null && !crop.dead.Value;
+        //                        if (feature.performToolAction(null, 50, tile))
+        //                        {
+        //                            lightningEvent.destroyedTerrainFeature = true;
+        //                            lightningEvent.createBolt = true;
+        //                            farm.terrainFeatures.Remove(tile);
+        //                            lightningEvent.boltPosition = tile * 64f + new Vector2(32f, -128f);
+        //                        }
+        //                        if (num && crop.dead.Value)
+        //                        {
+        //                            lightningEvent.createBolt = true;
+        //                            lightningEvent.boltPosition = tile * 64f + new Vector2(32f, 0f);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception)
+        //            {
+        //            }
+        //        }
+        //        farm.lightningStrikeEvent.Fire(lightningEvent);
+        //    }
+        //    else if (random.NextDouble() < 0.1)
+        //    {
+        //        Farm.LightningStrikeEvent lightningEvent = new Farm.LightningStrikeEvent();
+        //        lightningEvent.smallFlash = true;
+        //        Farm farm = Game1.getFarm();
+        //        farm.lightningStrikeEvent.Fire(lightningEvent);
+        //    }
+        //}
+
         public static bool LineIntersectsRect(Vector2 p1, Vector2 p2, Rectangle r, out Vector2 intersectionPoint)
         {
             return LineIntersectsLine(p1, p2, new Vector2(r.X, r.Y), new Vector2(r.X + r.Width, r.Y), out intersectionPoint) ||

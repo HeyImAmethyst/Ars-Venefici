@@ -14,7 +14,8 @@ using StardewValley.Locations;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.CustomObjects;
 using StardewValley.Objects;
-using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.affinity;
+using ArsVenefici.Framework.Spells.Registry;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -32,9 +33,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "light";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Lightning;
+            return new HashSet<Affinity> { Affinities.LIGHTNING.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.LIGHTNING.Get(), 0.002f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

@@ -6,7 +6,7 @@ using ArsVenefici.Framework.Util;
 using Microsoft.Xna.Framework;
 using StardewValley;
 using ArsVenefici.Framework.Spells.Registry;
-using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -22,9 +22,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "blink";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Darkness;
+            return new HashSet<Affinity> { Affinities.DARKNESS.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.DARKNESS.Get(), 0.002f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation gameLocation, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

@@ -26,7 +26,7 @@ namespace ArsVenefici.Framework.Commands
         {
             bool value;
 
-            string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
+            //string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
 
             if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
             {
@@ -43,11 +43,35 @@ namespace ArsVenefici.Framework.Commands
                     }
 
                     Game1.player.eventsSeen.Add(modEntry.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedWizardryEventId().ToString());
-                    
-                    CraftingRecipe craftingRecipe = new CraftingRecipe(s);
-                   
-                    if (!Game1.player.craftingRecipes.Keys.Contains(s))
-                        Game1.player.craftingRecipes.Add(s, 0);
+
+                    //CraftingRecipe craftingRecipe = new CraftingRecipe(s);
+
+                    //if (!Game1.player.craftingRecipes.Keys.Contains(s))
+                    //    Game1.player.craftingRecipes.Add(s, 0);
+
+                    string magicAltarRecipe = $"{ModEntry.ArsVenificiContentPatcherId}_Magic_Altar";
+                    CraftingRecipe craftingRecipe = new CraftingRecipe(magicAltarRecipe);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(magicAltarRecipe))
+                        Game1.player.craftingRecipes.Add(magicAltarRecipe, 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Compound"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Compound", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Purified_Vinteum_Dust"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Purified_Vinteum_Dust", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Blank_Rune"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Blank_Rune", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
+                        Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
+
+                    if (Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake") && Game1.player.mailForTomorrow.Contains("ArsVenefici.Mail.ManaManagement"))
+                        Game1.player.mailForTomorrow.Remove("ArsVenefici.Mail.ManaManagement");
+
+                    if (Game1.player.mailbox.Contains("ArsVenefici.Mail.ManaManagement") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
+                        Game1.player.mailbox.Remove("ArsVenefici.Mail.ManaManagement");
 
                     modEntry.Monitor.Log("You have learned wizardry!", LogLevel.Info);
                 }

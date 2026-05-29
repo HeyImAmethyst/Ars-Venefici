@@ -145,7 +145,7 @@ namespace ArsVenefici.Framework.Spells.Effects
                     Vector2 vec = new Vector2(r.X + x, r.Y + y);
                     Vector2 absPos = Utils.TilePosToAbsolutePos(vec);
 
-                    TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absPos, false, 1f / 500f, MagicHelper.Instance().GetColorForMagicType(spell))
+                    TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite("LooseSprites\\Cursors", new Rectangle(372, 1956, 10, 10), absPos, false, 1f / 500f, spell.PrimaryAffinity().color)
                     {
                         alphaFade = (float)(1.0 / 1000.0 - (double)speed / 300.0),
                         alpha = 0.1f,

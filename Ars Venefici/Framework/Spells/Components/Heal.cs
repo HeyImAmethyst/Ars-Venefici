@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using ArsVenefici.Framework.Events;
 using ArsVenefici.Framework.API.Spell;
 using ArsVenefici.Framework.Spells.Registry;
-using ArsVenefici.Framework.Affinity;
+using ArsVenefici.Framework.API.affinity;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -30,9 +30,14 @@ namespace ArsVenefici.Framework.Spells.Components
             return "heal";
         }
 
-        public override MagicType GetMagicType()
+        public override HashSet<Affinity> GetAffinities()
         {
-            return MagicType.Life;
+            return new HashSet<Affinity> { Affinities.LIFE.Get() };
+        }
+
+        public override Dictionary<Affinity, float> GetAffinityShifts()
+        {
+            return new Dictionary<Affinity, float> { { Affinities.LIFE.Get(), 0.002f } };
         }
 
         public override SpellCastResult Invoke(ModEntry modEntry, ISpell spell, IEntity caster, GameLocation level, List<ISpellModifier> modifiers, CharacterHitResult target, int index, int ticksUsed)

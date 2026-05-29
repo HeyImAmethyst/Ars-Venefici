@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArsVenefici.Framework.Affinity
+namespace ArsVenefici.Framework.API.affinity
 {
     public enum MagicType
     {
