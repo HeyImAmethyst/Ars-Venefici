@@ -8,6 +8,7 @@ using HarmonyLib;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Monsters;
+using System.Threading;
 using static ArsVenefici.Framework.Spells.affinity.AffinityHelper;
 
 namespace ArsVenefici.Framework.Patches
@@ -75,10 +76,15 @@ namespace ArsVenefici.Framework.Patches
 
                 Ability ability = Abilities.SMITE.Get();
 
-                if (ability != null && ability.Test(who) && __instance.GetAffinity().id == Affinity.FIRE)
+                if (ability != null && ability.Test(who))
                 {
-                    var affinityHelper = api.GetAffinityHelper();
-                    damage = (int)(damage + affinityHelper.GetAffinityDepthOrElse(who, ability.affinity, 0) * 4);
+                    if (__instance.Name.Equals("Skeleton") ||
+                        __instance.Name.Equals("Mummy") ||
+                        __instance.Name.Equals("Skeleton Mage"))
+                    {
+                        var affinityHelper = api.GetAffinityHelper();
+                        damage = (int)(damage + affinityHelper.GetAffinityDepthOrElse(who, ability.affinity, 0) * 4);
+                    }
                 }
             }
         }

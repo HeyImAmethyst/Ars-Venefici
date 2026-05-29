@@ -74,8 +74,84 @@ Version 1.10 adds a new machine called a rune table. It will allow you to make d
 
 Any item that has a color context tag that the rune table is able to make a rune for can be used. If you have [LookupAnything](https://www.nexusmods.com/stardewvalley/mods/541), the item information menu should tell you if an item can be used to make a colored rune.
 
+# Affinities
+
+Version 1.14 adds the affinity mechanic from Ars Magica 2 mod, with some changes to fit with Stardew Valley. As you cast spells with a certain affinity for an element, you will also gain affinity to that element. As you gain affinity in one element, you lose affinity in the rest. How much progress is lost is determined by the affinity's direct opposite affinity, adjacent affinities, minor opposite affinities, and major opposite affinities. You gain some new abilities or effects when you reach a certain threshold.
+
+New essence items have been added. The essences start dropping from monsters at wizardry level 3. Once you pick up any essence for the first time, you will get a notification hinting you need to go to the wizard. Go to the wizard (enter the basement if you have Stardew Valley Expanded installed) and a cutscene will play explaining affinities you should get some new recipes. 
+
+Essences are used to craft affinity tomes to boost an affinity around 10% while also reducing your progress in all other affinities by around 10%. You can get most of the essences from slaying monsters with 2 only obtainable through crafting (may change in the future its a bit clunky but its okay for now). All of the essences can be multiplied through a crafting recipe corresponding to the their affinity type.
+
+A new affinities tab has been added to the magic altar menu. You can use this tab to see which affinities you are attuned to. Once you reach 1.0 in any affinity your progress will lock and you wont be able to progress into another affinity (may change in the future. Let me know if you guys want a toggle to turn the locking on or off or to leave it off.)
+
+
+<details>
+  <summary>Affinity Behavior</summary>
+
+>EARTH
+>- Direct Opposite : AIR
+>- Major Opposites : WATER, ARCANE, LIFE, LIGHTNING
+>- Minor Opposites : NATURE, FIRE
+
+>WATER
+>- Direct Opposite : FIRE
+>- Major Opposites : LIGHTNING, EARTH, ARCANE, DARKNESS
+>- Minor Opposites : AIR, ICE
+
+>AIR
+>- Direct Opposite : EARTH
+>- Major Opposites : NATURE, FIRE, ICE, DARKNESS
+>- Minor Opposites : WATER, ARCANE
+
+>FIRE
+>- Direct Opposite : WATER
+>- Major Opposites : AIR, ICE, NATURE, LIFE
+>- Minor Opposites : EARTH, LIGHTNING
+
+>NATURE
+>- Direct Opposite : ARCANE
+>- Major Opposites : AIR, DARKNESS, LIGHTNING, FIRE
+>- Minor Opposites : LIFE, EARTH
+
+>ICE
+>- Direct Opposite : LIGHTNING
+>- Major Opposites : LIFE, FIRE, AIR, ARCANE
+>- Minor Opposites : WATER, DARKNESS
+
+>LIGHTNING
+>- Direct Opposite : ICE
+>- Major Opposites : WATER, DARKNESS, NATURE, EARTH
+>- Minor Opposites : LIFE, FIRE
+
+>LIFE
+>- Direct Opposite : DARKNESS
+>- Major Opposites : ARCANE, ICE, FIRE, EARTH
+>- Minor Opposites : NATURE, LIGHTNING
+
+>ARCANE
+>- Direct Opposite : NATURE
+>- Major Opposites : LIFE, EARTH, WATER, ICE
+>- Minor Opposites : AIR, DARKNESS
+
+>DARKNESS
+>- Direct Opposite : LIFE
+>- Major Opposites : NATURE, LIGHTNING, WATER, AIR
+>- Minor Opposites : ARCANE, ICE
+
+># Abilities and Effects
+
+>Resistance to attacks from any monster. Starts at fire affinity at 0.1. Damage reduction based on depth.
+>Resistance to attacks from any monsters with a fire affinity. Starts at fire affinity at 0.1. Damage reduction based on depth. Stacks with the resistance ability.
+>Additional damage to undead monsters (skeletons and mummies). Starts at life affinity 0.1. Additional damage based on depth.
+>Weak to attacks from monsters with an arcane affinity. Starts at arcane affinity 0.5. Additional damage based on depth.
+>Health and stamina regeneration. Starts at life affinity 0.6. Additional regeneration based on depth.
+
+</details>
 
 # Console Commands
+
+<details>
+  <summary>Commands</summary>
 
 >- player_togglewizardry  <true | false> : Toggles the player's the ability to cast spells
 >- player_learnspellpart < spellpartId > :  Allows the player to learn a spell part
@@ -101,8 +177,12 @@ Any item that has a color context tag that the rune table is able to make a rune
 >- save_enablepvp <true | false> : Toggles pvp
 
 >- save_savedata: Returns the save data values for this mod
+</details>
 
 # List of Spell Part Ids
+
+<details>
+  <summary>Ids</summary>
 
 > # Shapes
 > - self
@@ -153,6 +233,7 @@ Any item that has a color context tag that the rune table is able to make a rune
 > - duration
 > - mining_power
 > - effect_power
+</details>
 
 # Additional Notes
 
