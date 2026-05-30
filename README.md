@@ -147,6 +147,12 @@ A new affinities tab has been added to the magic altar menu. You can use this ta
 
 </details>
 
+# Adding New Spell Parts
+
+Version 1.12.0 add the ability to add custom spell parts! You would need to have some knowledge of c# and making a smapi mod to use the mod template I have created. I have placed comments inside the code to help you with the process to creating new spell parts.
+
+[Spell Part Mod Template](https://github.com/HeyImAmethyst/ArsVeneficiSpellPartModTemplate)
+
 # Console Commands
 
 <details>
@@ -233,6 +239,12 @@ A new affinities tab has been added to the magic altar menu. You can use this ta
 > - mining_power
 > - effect_power
 </details>
+
+# Translation Credits
+
+French translations by Caranud on Nexus
+Chinese translations by  Awassakura on Nexus
+Korean translations by Bamma77 on Nexus
 
 # Additional Notes
 
