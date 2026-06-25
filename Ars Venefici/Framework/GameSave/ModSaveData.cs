@@ -20,6 +20,8 @@ namespace ArsVenefici.Framework.GameSave
 
         public bool InfiniteMana { get; set; } = false;
 
+        public bool EnableGrowCastLimit { get; set; } = true;
+
         public bool EnableGrowSickness { get; set; } = true;
         public int GrowSicknessDurationMillisecondsLessThanLevelSix { get; set; } = 126000;
         public int GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix { get; set; } = 84000;
@@ -35,7 +37,9 @@ namespace ArsVenefici.Framework.GameSave
             ManaRegenRate = 2;
             InfiniteMana = false;
 
-            EnableGrowSickness = false;
+            EnableGrowCastLimit = true;
+
+            EnableGrowSickness = true;
             GrowSicknessDurationMillisecondsLessThanLevelSix = 126000;
             GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix = 84000;
             GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelEight = 42000;
@@ -53,6 +57,7 @@ namespace ArsVenefici.Framework.GameSave
             sb.AppendLine("Mana Points PerLevel: " + ManaPointsPerLevel);
             sb.AppendLine("Mana Regen Rate: " + ManaRegenRate);
             sb.AppendLine("Infinite Mana: " + InfiniteMana);
+            sb.AppendLine("Enable Grow Cast Limit: " + EnableGrowCastLimit);
             sb.AppendLine("Enable Grow Sickness: " + EnableGrowSickness);
             sb.AppendLine("Grow Sickness Duration In Milliseconds Less Than Level Six: " + GrowSicknessDurationMillisecondsLessThanLevelSix);
             sb.AppendLine("Grow Sickness Duration In Milliseconds Greater Than Or Equal To Level Six: " + GrowSicknessDurationMillisecondsGreaterThanOrEqualToLevelSix);

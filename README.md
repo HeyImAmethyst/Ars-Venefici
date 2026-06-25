@@ -14,8 +14,10 @@ The professions in this mode are also based on the professions from the magic mo
 - Make sure the game is updated to the latest version.
 - Install the latest version of [SMAPI](https://smapi.io/).
 - Install [SpaceCore](https://www.nexusmods.com/stardewvalley/mods/1348).
-- Install [Mana Bar](https://www.nexusmods.com/stardewvalley/mods/7831).
+- Install [Generic Mana Bar API](https://www.nexusmods.com/stardewvalley/mods/39117).
 - Install [Content Patcher](https://www.nexusmods.com/stardewvalley/mods/1915).
+- Install [Item Extensions](https://www.nexusmods.com/stardewvalley/mods/20357).
+- Install [Forage Crops](https://www.nexusmods.com/stardewvalley/mods/21514).
 - Install [this mod]() from Nexus.
 - Run the game using SMAPI.
 
@@ -168,6 +170,7 @@ Version 1.12.0 add the ability to add custom spell parts! You would need to have
 >- save_manapointsperlevel < numberValue > : Sets the amount of mana players have per Wizardry level
 >- save_manaregenrate < numberValue > : Sets the mana regen rate of players
 >- save_enableinfinitemana <true | false> : Toggles infinate mana
+>- save_enablegrowcastlimit <true | false> : Toggles the grow cast limit
 >- save_enablegrowsickness <true | false> : Toggles the grow sickness debuff
 
 >- save_growsicknessdurationmillisecondslessthanlevelsix < numberValue > :  Sets the grow sickness debuff duration for Wizardry levels less than level 6
@@ -249,3 +252,13 @@ Korean translations by Bamma77 on Nexus
 # Additional Notes
 
 Ars Venefici seems to roughly translates to 'The Art of Wizardry' or 'The Art of Sorcery' based on translating using google and using some latin translation sites to see if the words are acurate. I wanted to use 'Ars' in the name as a refrence to Ars Magica Legacy, the original Ars Magica Mod by AWildCanadianEh, and Ars Nouveau. If there is a more acurate translation of 'The Art of Wizardry' or 'The Art of Sorcery' that includes the word 'Ars' please let me know ^^'
+
+Sprites used for the beam and aoe shapes are by [BDragon1727](https://bdragon1727.itch.io/free-effect-and-bullet-16x16)
+
+Assets used for some of the essence orb textures
+- [karsiori](https://karsiori.itch.io/pixel-art-rock-pile-pack)
+- [ninjikin](https://ninjikin.itch.io/water)
+- [free-game-assets](https://free-game-assets.itch.io/free-pixel-art-cloud-and-sky-backgrounds)
+- [devkidd](https://devkidd.itch.io/pixel-fire-asset-pack)
+
+[Video Tutorial](https://www.youtube.com/watch?v=m18nUqzWIbE&t=282s)

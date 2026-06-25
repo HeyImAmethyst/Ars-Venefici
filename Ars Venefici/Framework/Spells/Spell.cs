@@ -176,14 +176,14 @@ namespace ArsVenefici.Framework.Spells
                 if (spellPart is Grow)
                 {
 
-                    if (Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness") == false && modEntry.dailyTracker.GetDailyGrowCastCount() >= modEntry.dailyTracker.GetMaxDailyGrowCastCount())
+                    if (modEntry.ModSaveData.EnableGrowCastLimit && Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness") == false && modEntry.dailyTracker.GetDailyGrowCastCount() > modEntry.dailyTracker.GetMaxDailyGrowCastCount())
                     {
                         string message = modEntry.Helper.Translation.Get("world.max_grow_spell_cast.message.1") + "^" + modEntry.Helper.Translation.Get("world.max_grow_spell_cast.message.2") + "^" + modEntry.Helper.Translation.Get("world.max_grow_spell_cast.message.3") + "^";
                         Game1.activeClickableMenu = new DialogueBox(message);
 
                         return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
                     }
-                    else if (Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness"))
+                    else if (modEntry.ModSaveData.EnableGrowCastLimit && Game1.player.hasBuff("HeyImAmethyst.ArsVenifici_GrowSickness"))
                     {
                         return new SpellCastResult(SpellCastResultType.EFFECT_FAILED);
                     }

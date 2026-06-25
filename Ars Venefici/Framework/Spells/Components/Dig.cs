@@ -16,6 +16,7 @@ using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using ArsVenefici.Framework.Spells.Registry;
 using ArsVenefici.Framework.API.affinity;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArsVenefici.Framework.Spells.Components
 {
@@ -55,25 +56,32 @@ namespace ArsVenefici.Framework.Spells.Components
             //Create fake tools
             Axe axe = new();
             Pickaxe pickaxe = new();
+            MeleeWeapon meleeWeapon = new("47");
+
 
             //Set tool level based on wizardry skill
             int toolLevel = 0;
+            string scytheLevel = "47";
 
             if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 2 && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 4)
             {
                 toolLevel = 1;
+                scytheLevel = "47";
             }
             else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 4 && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 6)
             {
                 toolLevel = 2;
+                scytheLevel = "53";
             }
             else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 6 && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 8)
             {
                 toolLevel = 3;
+                scytheLevel = "66";
             }
             else if (Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 8)
             {
                 toolLevel = 4;
+                scytheLevel = "66";
             }
 
             var api = modEntry.arsVeneficiAPILoader.GetAPI();
@@ -92,8 +100,18 @@ namespace ArsVenefici.Framework.Spells.Components
                 toolLevel = 4;
             }
 
+            //Adjust scythe level based on mining level
+            if ((int)miningPower < 2)
+            {
+                scytheLevel = "53";
+            }
+            else if (toolLevel + (int)miningPower > 2)
+            {
+                scytheLevel = "66";
+            }
+
             //Adjust tool properties
-            foreach (var t in new Tool[] { axe, pickaxe })
+            foreach (var t in new Tool[] { axe, pickaxe, meleeWeapon })
             {
                 t.UpgradeLevel = toolLevel;
                 t.IsEfficient = true; // don't drain stamina
@@ -110,7 +128,7 @@ namespace ArsVenefici.Framework.Spells.Components
 
             //Perform actions with tools
 
-            if (gameLocation.objects.TryGetValue(tilePos.GetVector(), out StardewValley.Object obj))
+            if (gameLocation.objects.TryGetValue(tile, out StardewValley.Object obj))
             {
                 // select tool
                 Tool tool = null;
@@ -120,12 +138,42 @@ namespace ArsVenefici.Framework.Spells.Components
                 else if (this.IsPickaxeDebris(gameLocation, obj))
                     tool = pickaxe;
 
+                if (obj is BreakableContainer)
+                {
+                    meleeWeapon.ItemId = "(W)4";
+                    meleeWeapon.type.Value = 2;
+                    tool = meleeWeapon;
+                }
+
+                // weeds
+                if (obj.Name is "Weeds" or "GreenRainWeeds0" or "GreenRainWeeds1" or "GreenRainWeeds2" or "GreenRainWeeds3" or "GreenRainWeeds4"
+                    or "GreenRainWeeds5" or "GreenRainWeeds6" or "GreenRainWeeds7")
+                {
+                    meleeWeapon.ItemId = scytheLevel;
+                    //meleeWeapon.ItemId = "66";
+                    tool = meleeWeapon;
+                }
+
                 if (tool != null)
                 {
                     //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
 
-                    ((Farmer)caster.entity).lastClick = toolPixel;
-                    tool.DoFunction(gameLocation, (int)toolPixel.X, (int)toolPixel.Y, 0, ((Farmer)caster.entity));
+                    if (tool is MeleeWeapon)
+                    {
+
+                        //MeleeWeapon weapon = (MeleeWeapon)tool;
+                        //weapon.DoDamage(gameLocation, (int)toolPixel.X, (int)toolPixel.Y, ((Farmer)caster.entity).getFacingDirection(), 1, (Farmer)caster.entity);
+                        if (obj.performToolAction(tool))
+                        {
+                            gameLocation.objects.Remove(tile);
+                        }
+                    }
+                    else
+                    {
+                        ((Farmer)caster.entity).lastClick = toolPixel;
+                        tool.DoFunction(gameLocation, (int)toolPixel.X, (int)toolPixel.Y, 0, ((Farmer)caster.entity));
+                    }
+
 
                     return new SpellCastResult(SpellCastResultType.SUCCESS);
                 }
@@ -133,20 +181,23 @@ namespace ArsVenefici.Framework.Spells.Components
             
             if (gameLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature feature) && feature is not HoeDirt or Flooring)
             {
-                if (feature is Tree)
-                {
-                    
-                }
 
-                if (feature.performToolAction(axe, 0, tile) || feature is Grass || (feature is Tree && feature.performToolAction(axe, 0, tile)))
+                if (feature.performToolAction(axe, 0, tile) || feature.performToolAction(pickaxe, 0, tile) || feature.performToolAction(meleeWeapon, 0, tile) 
+                    || feature is Grass || ((feature is Tree || feature is FruitTree) && feature.performToolAction(axe, 0, tile)))
                 {
-                   
                     //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
-
                     gameLocation.terrainFeatures.Remove(tile);
                 }
 
-                if (feature is Grass && gameLocation is Farm farm)
+                //if (feature.performToolAction(axe, 0, tile) || feature is Grass || ((feature is Tree || feature is FruitTree) && feature.performToolAction(axe, 0, tile)))
+                //{
+
+                //    //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
+
+                //    gameLocation.terrainFeatures.Remove(tile);
+                //}
+
+                if (feature is Grass grass && gameLocation is Farm farm)
                 {
                     //modEntry.Monitor.Log("Invoking Spell Part " + GetId(), StardewModdingAPI.LogLevel.Info);
 
@@ -160,6 +211,7 @@ namespace ArsVenefici.Framework.Spells.Components
                         layerDepth = (float)(1.0 - Game1.random.Next(100) / 10000.0),
                         delayBeforeAnimationStart = Game1.random.Next(350)
                     });
+
                 }
 
                 return new SpellCastResult(SpellCastResultType.SUCCESS);
@@ -212,33 +264,31 @@ namespace ArsVenefici.Framework.Spells.Components
             if (obj is not Chest or null)
             {
                 // stones
-                if (obj.Name is "Weeds" or "GreenRainWeeds0" or "GreenRainWeeds1" or "GreenRainWeeds2" or "GreenRainWeeds3" or "GreenRainWeeds4"
-                    or "GreenRainWeeds5" or "GreenRainWeeds6" or "GreenRainWeeds7" or "Stone" or "Torch")
+                if (obj.Name is "Stone" or "Torch")
+                    return true;
+
+                if (ModEntry.ItemExtensionsApi != null && ModEntry.ItemExtensionsApi.IsStone(obj.ItemId))
                     return true;
 
                 // spawned mine objects
                 if (location is MineShaft && obj.IsSpawnedObject)
                     return true;
 
-                if (ModEntry.ItemExtensionsApi != null && ModEntry.ItemExtensionsApi.IsStone(obj.ItemId))
-                    return true;
+                //if (location is MineShaft mine)
+                //{
+                //    int mineArea = mine.getMineArea();
 
-                if (location is MineShaft mine)
-                {
-                    int mineArea = mine.getMineArea();
+                //    string itemId = ((mine.GetAdditionalDifficulty() > 0) ? (((mineArea == 0 || mineArea == 10) && !mine.isDarkArea()) ? "262" : "118") : (mineArea switch
+                //    {
+                //        40 => "120",
+                //        80 => "122",
+                //        121 => "124",
+                //        _ => "118",
+                //    }));
 
-                    string itemId = ((mine.GetAdditionalDifficulty() > 0) ? (((mineArea == 0 || mineArea == 10) && !mine.isDarkArea()) ? "262" : "118") : (mineArea switch
-                    {
-                        40 => "120",
-                        80 => "122",
-                        121 => "124",
-                        _ => "118",
-                    }));
-
-                    if(obj.ItemId == itemId)
-                        return true;
-                }
-
+                //    if(obj.ItemId == itemId)
+                //        return true;
+                //}
             }
 
             return false;
@@ -256,29 +306,29 @@ namespace ArsVenefici.Framework.Spells.Components
                     return true;
 
                 // weeds
-                if (obj.Name is "Weeds" or "GreenRainWeeds0" or "GreenRainWeeds1" or "GreenRainWeeds2" or "GreenRainWeeds3" or "GreenRainWeeds4"
-                    or "GreenRainWeeds5" or "GreenRainWeeds6" or "GreenRainWeeds7" or "Torch")
-                    return true;
+                //if (obj.Name is "Weeds" or "GreenRainWeeds0" or "GreenRainWeeds1" or "GreenRainWeeds2" or "GreenRainWeeds3" or "GreenRainWeeds4"
+                //    or "GreenRainWeeds5" or "GreenRainWeeds6" or "GreenRainWeeds7" or "Torch")
+                //    return true;
 
-                // spawned mine objects
-                if (location is MineShaft && obj.IsSpawnedObject)
-                    return true;
+                //// spawned mine objects
+                //if (location is MineShaft && obj.IsSpawnedObject)
+                //    return true;
 
-                if (location is MineShaft mine)
-                {
-                    int mineArea = mine.getMineArea();
+                //if (location is MineShaft mine)
+                //{
+                //    int mineArea = mine.getMineArea();
 
-                    string itemId = ((mine.GetAdditionalDifficulty() > 0) ? (((mineArea == 0 || mineArea == 10) && !mine.isDarkArea()) ? "262" : "118") : (mineArea switch
-                    {
-                        40 => "120",
-                        80 => "122",
-                        121 => "124",
-                        _ => "118",
-                    }));
+                //    string itemId = ((mine.GetAdditionalDifficulty() > 0) ? (((mineArea == 0 || mineArea == 10) && !mine.isDarkArea()) ? "262" : "118") : (mineArea switch
+                //    {
+                //        40 => "120",
+                //        80 => "122",
+                //        121 => "124",
+                //        _ => "118",
+                //    }));
 
-                    if (obj.ItemId == itemId)
-                        return true;
-                }
+                //    if (obj.ItemId == itemId)
+                //        return true;
+                //}
             }
 
             return false;

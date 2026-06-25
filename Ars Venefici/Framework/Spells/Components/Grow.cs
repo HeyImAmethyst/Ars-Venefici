@@ -101,7 +101,7 @@ namespace ArsVenefici.Framework.Spells.Components
                 Game1.player.applyBuff(newBuffInstance);
             }
 
-            if (modEntry.dailyTracker.GetDailyGrowCastCount() < modEntry.dailyTracker.GetMaxDailyGrowCastCount())
+            if (modEntry.ModSaveData.EnableGrowCastLimit == false || modEntry.dailyTracker.GetDailyGrowCastCount() <= modEntry.dailyTracker.GetMaxDailyGrowCastCount())
             {
                 if (gameLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
                 {

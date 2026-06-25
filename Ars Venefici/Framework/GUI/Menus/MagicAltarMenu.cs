@@ -42,7 +42,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         public static int GUI_HEIGHT = 210 + borderWidth * 2 + Game1.tileSize;
 
         public MagicAltarTabRenderer activeTab;
-        public int activeTabIndex = 0;
+        public int activeTabIndex = 3;
 
         private Dictionary<MagicAltarTab, MagicAltarTabRenderer> occulusTabs = new Dictionary<MagicAltarTab, MagicAltarTabRenderer>();
         

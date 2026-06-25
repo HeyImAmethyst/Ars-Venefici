@@ -40,8 +40,6 @@ namespace ArsVenefici
     //TODO: Fix  wave shape devolves into only working on the 2nd, 3rd, 5th, and 7th tiles facing away from your character, in multiplayer
     //TODO: Fix  Wave + AOE on multiplayer: starts off as a "Wall" spell animation and only activates the spell if you walk in the opposite direction of how the spell is being fired. And when it does fire, it's super glitchy/laggy
 
-    //TODO: Add affinity mechanic
-
     public class ModEntry : Mod
     {
         public static ModEntry INSTANCE;

@@ -116,6 +116,31 @@ namespace ArsVenefici.Framework.Commands
                     }
                 });
 
+            AddCommand("save_enablegrowcastlimit", "Toggles the grow cast limit.\n\nUsage: save_enablegrowcastlimit <value>\n- value: true or false",
+                (string command, string[] args) =>
+                {
+                    bool value;
+
+                    if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
+                    {
+                        if (!Game1.IsMasterGame)
+                        {
+                            modEntryInstance.Monitor.Log("Player is not the host. Changes have not been made");
+                            return;
+                        }
+
+                        modEntryInstance.ModSaveData.EnableGrowCastLimit = value;
+
+                        modEntryInstance.Helper.Data.WriteSaveData(ModEntry.SAVEDATA, modEntryInstance.ModSaveData);
+
+                        modEntryInstance.Helper.Multiplayer.SendMessage(
+                            new ModSaveDataEntryMessage(modEntryInstance.ModSaveData),
+                            ModEntry.SAVEDATA, modIDs: new[] { modEntryInstance.ModManifest.UniqueID });
+
+                        modEntryInstance.Monitor.Log("Enable grow cast limit has been set to " + value.ToString(), LogLevel.Info);
+                    }
+                });
+
             AddCommand("save_enablegrowsickness", "Toggles the grow sickness debuff.\n\nUsage: save_enablegrowsickness <value>\n- value: true or false",
                 (string command, string[] args) =>
                 {

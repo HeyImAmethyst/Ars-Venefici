@@ -617,7 +617,7 @@ namespace ArsVenefici.Framework.Events
                 }
                 else
                 {
-                    modEntryInstance.dailyTracker.SetMaxDailyGrowCastCount(2);
+                    modEntryInstance.dailyTracker.SetMaxDailyGrowCastCount(3);
                 }
             }
         }
