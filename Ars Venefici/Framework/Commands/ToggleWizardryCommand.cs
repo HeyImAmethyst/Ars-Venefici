@@ -42,6 +42,23 @@ namespace ArsVenefici.Framework.Commands
                         modEntry.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
                     }
 
+                    if (!modEntry.isSVEInstalled)
+                    {
+                        if (!Game1.player.hasOrWillReceiveMail(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla") && !Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla"))
+                            Game1.player.mailReceived.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla");
+
+                        if(Game1.player.hasQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Magic_Interest_SVE"))
+                            Game1.player.completeQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Magic_Interest_SVE");
+                    }
+                    else
+                    {
+                        if (!Game1.player.hasOrWillReceiveMail(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE") && !Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE"))
+                            Game1.player.mailReceived.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE");
+
+                        if(Game1.player.hasQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Magic_Interest_Vanilla"))
+                            Game1.player.completeQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Magic_Interest_Vanilla");
+                    }
+
                     Game1.player.eventsSeen.Add(modEntry.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedWizardryEventId().ToString());
 
                     //CraftingRecipe craftingRecipe = new CraftingRecipe(s);
@@ -65,20 +82,53 @@ namespace ArsVenefici.Framework.Commands
                         Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Blank_Rune", 0);
 
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
-                        Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
+                        Game1.player.mailForTomorrow.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
-                    if (Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake") && Game1.player.mailForTomorrow.Contains("ArsVenefici.Mail.ManaManagement"))
-                        Game1.player.mailForTomorrow.Remove("ArsVenefici.Mail.ManaManagement");
+                    if (Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake") && Game1.player.mailForTomorrow.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management"))
+                        Game1.player.mailForTomorrow.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
-                    if (Game1.player.mailbox.Contains("ArsVenefici.Mail.ManaManagement") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
-                        Game1.player.mailbox.Remove("ArsVenefici.Mail.ManaManagement");
+                    if (Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
+                        Game1.player.mailbox.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.ManaManagement");
 
                     modEntry.Monitor.Log("You have learned wizardry!", LogLevel.Info);
                 }
                 else if (value == false)
                 {
                     Game1.player.SetMaxMana(0);
+
+                    if (Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla"))
+                    {   
+                        Game1.player.mailbox.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla");
+                    }
+
+                    if (Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE")
+                    )
+                    {   
+                        Game1.player.mailbox.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE");
+                    }
+
+                    if (Game1.player.mailForTomorrow.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla"))
+                    {   
+                        Game1.player.mailForTomorrow.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla");
+                    }
+
+                    if (Game1.player.mailForTomorrow.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE"))
+                    {   
+                        Game1.player.mailForTomorrow.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE");
+                    }
+
+                    if (Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla"))
+                    {   
+                        Game1.player.mailReceived.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla");
+                    }
+
+                    if (Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE"))
+                    {   
+                        Game1.player.mailReceived.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE");
+                    }
+
                     Game1.player.eventsSeen.Remove(modEntry.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedWizardryEventId().ToString());
+                    Game1.player.eventsSeen.Remove(modEntry.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedAffinitiesEventId().ToString());
 
                     //if (Game1.player.craftingRecipes.ContainsKey(s))
                     //    Game1.player.craftingRecipes.Remove(s);

@@ -191,8 +191,28 @@
 
 	//Mail
 
-	"mail.mana_management.title.name": "Mana Management",
+	"mail.magic_interest.title": "Magic Interest",
+	"mail.magic_interest.text": "Greetings @.^^I noticed during your visits to my tower that you seem interested in the books and magical equipment I have. I believe you have a talent for magic.^^I would like to meet with you to discuss this topic further. Please come at your earliest convenience. ^-M. Rasmodius, Wizard",
+
+	"mail.mana_management.title": "Mana Management",
 	"mail.mana_management.text": "Greetings @.^^I failed to mention one important part about casting spells when I introduced you to spell creation. Any spell will consume mana when casted. If you do not have enough mana for a spell cast, the spell will fail.^^You will regenerate mana overtime, but you may often encounter situations were you need to replenish mana quickly. There are items that you can make to help you with this.^^I am providing a recipe for a cake you can make that replenishes a bit of mana. The Adventurer's guild and the Saloon will now also sell recipes to make mana items that will help replenish more mana.^^Good luck on your magic endeavors. ^-M. Rasmodius, Wizard",
+
+	"mail.learning_affinities.title": "Learning Affinities",
+	"mail.learning_affinities.text": "Greetings @.^^I'm proud of your continued effort to improve your skill in magic.^^At your current skill now, it is time you learn about affinities.^^Please bring an essence orb and come to my tower at your earliest convenience. ^-M. Rasmodius, Wizard",
+
+	//Quests
+	"quest.magic_interest.title": "Magic Interest",
+	"quest.magic_interest.description": "The wizard wants to discuss your interest in magic. You should visit him and see what he plans to do.",
+	"quest.magic_interest.objective_instructions_vanilla": "Visit the wizard's tower.",
+	"quest.magic_interest.objective_instructions_sve": "Visit the basement in the wizard's tower.",
+
+	"quest.wizardry_level_three.title": "Learning Magic",
+	"quest.wizardry_level_three.description": "The best way improve your magic is to practice! Reach wizardry level 3.",
+
+	"quest.learning_affinities.title": "Wizardry Advancement",
+	"quest.learning_affinities.description": "The wizard noticed your improvements! You should bring him an essence orb to discuss affinities.",
+	"quest.learning_affinities.objective_instructions_vanilla": "Visit the wizard's tower with an essence orb.",
+	"quest.learning_affinities.objective_instructions_sve": "Visit the basement in the wizard's tower with an essence orb.",
 
 	//Wizard Dialogue
 	"event.learn_affinities.wizard_choice_responce_1": "Thats good to hear! I hope you continue to do well.$1",

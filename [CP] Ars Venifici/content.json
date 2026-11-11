@@ -25,6 +25,10 @@
         },
         {
             "Action": "Include",
+            "FromFile": "code/Quests/quests.json"
+        },
+        {
+            "Action": "Include",
             "FromFile": "code/Machines/furnace.json"
         },
         {

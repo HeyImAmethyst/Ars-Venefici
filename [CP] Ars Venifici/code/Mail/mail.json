@@ -7,8 +7,58 @@
 			"Target": "Data/Mail",
             "Entries": 
 			{
-				"ArsVenefici.Mail.ManaManagement": "{{i18n:mail.mana_management.text}}%item craftingRecipe HeyImAmethyst.CP.ArsVenefici_Mana_Cake %%[letterbg 2][#]{{i18n:mail.mana_management.title.name}}"
+				"{{ModId}}.Mail.Mana_Management": "{{i18n:mail.mana_management.text}}%item craftingRecipe {{ModId}}_Mana_Cake %%[letterbg 2][#]{{i18n:mail.mana_management.title}}"
+			}
+		},
+        {
+			"LogName":"Add Vanilla Specific Mail",
+			"Action": "EditData",
+			"Target": "Data/Mail",
+            "When": 
+            {
+                "HasMod:|contains= FlashShifter.StardewValleyExpandedCP": false
+            },
+            "Entries": 
+			{
+				"{{ModId}}.Mail.Magic_Interest_Vanilla": "{{i18n:mail.magic_interest.text}}%item quest {{ModId}}.Quest.Magic_Interest_Vanilla true %%[letterbg 2][#]{{i18n:mail.magic_interest.title}}",
+				"{{ModId}}.Mail.Learning_Affinities_Vanilla": "{{i18n:mail.learning_affinities.text}}%item quest {{ModId}}.Quest.Learning_Affinities_Vanilla true %%[letterbg 2][#]{{i18n:mail.learning_affinities.title}}"
+			}
+		},
+        {
+			"LogName":"Add SVE Specific Mail",
+			"Action": "EditData",
+			"Target": "Data/Mail",
+            "When": 
+            {
+                "HasMod:|contains= FlashShifter.StardewValleyExpandedCP": true
+            },
+            "Entries": 
+			{
+				"{{ModId}}.Mail.Magic_Interest_SVE": "{{i18n:mail.magic_interest.text}}%item quest {{ModId}}.Quest.Magic_Interest_SVE true %%[letterbg 2][#]{{i18n:mail.magic_interest.title}}",
+				"{{ModId}}.Mail.Learning_Affinities_SVE": "{{i18n:mail.learning_affinities.text}}%item quest {{ModId}}.Quest.Learning_Affinities_SVE true %%[letterbg 2][#]{{i18n:mail.learning_affinities.title}}"
 			}
 		}
+        // {
+        //     "LogName":"Add Mail Triggers",
+        //     "Action": "EditData",
+        //     "Target": "Data/TriggerActions",
+        //     "Entries": 
+        //     {
+        //         // "ArsVenefici.Magic_Interest_Mail_Trigger": 
+        //         // {
+        //         //     "Id": "ArsVenefici.Magic_Interest_Mail_Trigger",
+        //         //     "Trigger": "DayStarted",
+        //         //     "Condition": "PLAYER_HEARTS Current Wizard 4",
+        //         //     "Action": "AddMail Current ArsVenefici.Mail.Magic_Interest tomorrow"
+        //         // },
+		// 		// "ArsVenefici.Learning_Affinities_Mail_Trigger": 
+        //         // {
+        //         //     "Id": "ArsVenefici.Learning_Affinities_Mail_Trigger",
+        //         //     "Trigger": "DayStarted",
+        //         //     "Condition": "PLAYER_HAS_MAIL Current essenceFound Received",
+        //         //     "Action": "AddMail Current ArsVenefici.Mail.Learning_Affinities tomorrow"
+        //         // }
+        //     }
+        // }
 	]
 }

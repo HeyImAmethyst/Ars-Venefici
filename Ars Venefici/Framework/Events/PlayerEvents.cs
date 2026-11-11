@@ -89,13 +89,9 @@ namespace ArsVenefici.Framework.Events
             {
                 if (item != null && item.ItemId.StartsWith("HeyImAmethyst.ArsVenefici_") && item.ItemId.EndsWith("_Essence"))
                 {
-                    if (e.Player.hasOrWillReceiveMail("essenceFound"))
+                    if (!e.Player.mailReceived.Contains("HeyImAmethyst.ArsVenefici.First_Time_Essence_Found"))
                     {
-                        return;
-                    }
-                    else
-                    {
-                        e.Player.mailReceived.Add("essenceFound");
+                        e.Player.mailReceived.Add("HeyImAmethyst.ArsVenefici.First_Time_Essence_Found");
                         AffinityEssenceObject essence = new AffinityEssenceObject("(O)" + item.ItemId);
                         firstTimeGetEssence = true;
                         ignoreEssenceNotification = true;
@@ -132,17 +128,17 @@ namespace ArsVenefici.Framework.Events
                 eventAttributes = "skippable/ignoreCollisions farmer";
                 eventMove = "move farmer 0 -4 0/pause 500/faceDirection Wizard 1/faceDirection Wizard 2";
 
-                if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
+                if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000 && Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE"))
                     LearnWizardryEvent(eventSong, eventViewPort, eventActors, eventAttributes, eventMove, e.NewLocation);
 
                 //if (modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 3 && Game1.player.Items.Where(item => item != null && item.ItemId.StartsWith("HeyImAmethyst.ArsVenefici_") && item.ItemId.EndsWith("_Essence")).First().HasBeenInInventory)
                 //    LearnAffinitiesEvent(eventSong, eventViewPort, eventActors, eventAttributes, eventMove, e.NewLocation);
 
-                if(modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 3)
+                if(modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && !modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedAffinities(Game1.player) && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 3)
                 {
                     var list = Game1.player.Items.Where(item => item != null && item.ItemId.StartsWith("HeyImAmethyst.ArsVenefici_") && item.ItemId.EndsWith("_Essence"));
 
-                    if (list.Count() > 0)
+                    if (list.Count() > 0 && Game1.player.mailReceived.Contains("HeyImAmethyst.ArsVenefici.First_Time_Essence_Found") && Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Learning_Affinities_SVE"))
                     {
                         LearnAffinitiesEvent(eventSong, eventViewPort, eventActors, eventAttributes, eventMove, e.NewLocation);
                     }
@@ -155,17 +151,17 @@ namespace ArsVenefici.Framework.Events
                 eventAttributes = "skippable/ignoreCollisions farmer";
                 eventMove = "move farmer 0 -8 0/pause 500/faceDirection Wizard 1/faceDirection Wizard 2";
 
-                if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
+                if (!modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000 && Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla"))
                     LearnWizardryEvent(eventSong, eventViewPort, eventActors, eventAttributes, eventMove, e.NewLocation);
 
                 //if (modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 3 && Game1.player.Items.Where(item => item != null && item.ItemId.StartsWith("HeyImAmethyst.ArsVenefici_") && item.ItemId.EndsWith("_Essence")).First().HasBeenInInventory)
                 //    LearnAffinitiesEvent(eventSong, eventViewPort, eventActors, eventAttributes, eventMove, e.NewLocation);
 
-                if (modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 3)
+                if (modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedWizardy(Game1.player) && !modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().LearnedAffinities(Game1.player) && Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 3)
                 {
                     var list = Game1.player.Items.Where(item => item != null && item.ItemId.StartsWith("HeyImAmethyst.ArsVenefici_") && item.ItemId.EndsWith("_Essence"));
 
-                    if (list.Count() > 0)
+                    if (list.Count() > 0 && Game1.player.mailReceived.Contains("HeyImAmethyst.ArsVenefici.First_Time_Essence_Found") && Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Learning_Affinities_Vanilla"))
                     {
                         LearnAffinitiesEvent(eventSong, eventViewPort, eventActors, eventAttributes, eventMove, e.NewLocation);
                     }
@@ -200,10 +196,17 @@ namespace ArsVenefici.Framework.Events
                  modEntryInstance.Helper.Translation.Get("event.learn_affinities.message_1")
              );
 
-            string eventWizardDialogue4 = "speak Wizard \"{0}\"";
+            string eventWizardDialogue4 = "speak Wizard \"{0}#$b#{1}\"/pause 1500";
 
             eventWizardDialogue4 = string.Format(eventWizardDialogue4,
-                 modEntryInstance.Helper.Translation.Get("event.learn_affinities.wizard_dialogue_10")
+                 modEntryInstance.Helper.Translation.Get("event.learn_affinities.wizard_dialogue_10"),
+                 modEntryInstance.Helper.Translation.Get("event.learn_affinities.wizard_dialogue_11")
+             );
+
+            string eventWizardDialogue5 = "speak Wizard \"{0}\"";
+
+            eventWizardDialogue5 = string.Format(eventWizardDialogue5,
+                 modEntryInstance.Helper.Translation.Get("event.learn_affinities.wizard_dialogue_12")
              );
 
             string eventEnd = "pause 750/fade 750/end";
@@ -219,6 +222,7 @@ namespace ArsVenefici.Framework.Events
                 eventWizardDialogue2,
                 eventWizardDialogue3,
                 eventWizardDialogue4,
+                eventWizardDialogue5,
                 eventEnd
             );
 
@@ -385,7 +389,13 @@ namespace ArsVenefici.Framework.Events
             Game1.player.showNotCarrying();
 
             Game1.player.AddCustomSkillExperience(FarmerMagicHelper.Skill, FarmerMagicHelper.Skill.ExperienceCurve[0]);
-            modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1); // let player start using magic immediately
+            
+            // let player start using magic immediately
+            if(Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) == 0)
+                modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: 1); 
+            else
+                modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, overrideWizardryLevel: Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill)); 
+
             Game1.player.eventsSeen.Add(modEntryInstance.arsVeneficiAPILoader.GetAPI().GetMagicHelper().GetLearnedWizardryEventId().ToString());
 
             if (!Game1.player.craftingRecipes.Keys.Contains(magicAltarRecipe))
@@ -399,6 +409,14 @@ namespace ArsVenefici.Framework.Events
 
             if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Blank_Rune"))
                 Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Blank_Rune", 0);
+
+            //Check if wizardry level is less than 3 for quest
+
+            if(Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 3)
+            {
+                if(!Game1.player.hasQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Wizardry_Level_Three"))
+                    Game1.player.addQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Wizardry_Level_Three");
+            }
         }
     }
 }

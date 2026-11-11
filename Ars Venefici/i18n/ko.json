@@ -258,7 +258,7 @@
 	** Essence Message
 	*********/
 
-    "essence.acquire_first_time.message": "You found essence! You don't know what to do with it yet. Maybe the wizard knows...",
+	"essence.acquire_first_time.message": "You found essence! You feel a strange sensation from it. You don't know what to do with it yet... Maybe it could help you in your advancement in magic?",
 
     /*********
     ** UI
@@ -385,5 +385,8 @@
 
     "event.learn_affinities.message_1": "The wizard gave you some new recipies!",
 
-    "event.learn_affinities.wizard_dialogue_10": "Good luck on your magic endeavors."
+	"event.learn_affinities.wizard_dialogue_10": "Certain beings and creatures have an affinity to one or more elements. They are weak against the elements opposite to thier affinity.",
+	"event.learn_affinities.wizard_dialogue_11": "Keep this in mind when using magic around them and do be careful. You don't want to accidentally hurt an innocent stranger or a loved one.",
+
+	"event.learn_affinities.wizard_dialogue_12": "Good luck on your magic endeavors."
 }

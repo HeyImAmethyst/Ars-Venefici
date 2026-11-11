@@ -191,9 +191,29 @@
 
 	//Mail
 
-	"mail.mana_management.title.name": "魔力管理",
+	"mail.magic_interest.title": "Magic Interest",
+	"mail.magic_interest.text": "Greetings @.^^I noticed during your visits to my tower that you seem interested in the books and magical equipment I have. I believe you have a talent for magic.^^I would like to meet with you to discuss this topic further. Please come at your earliest convenience. ^-M. Rasmodius, Wizard",
+
+	"mail.mana_management.title": "魔力管理",
 	"mail.mana_management.text": "你好 @。^^当我向你介绍咒语创作时，我忘记提到施法的一个重要部分了。施放任何魔法都会消耗魔力。如果你没有足够的魔力来施放魔法，魔法就会失败。^^随着时间的推移，你的魔力会逐渐恢复，但你经常会遇到需要快速补充魔力的情况。你可以制作一些物品来帮助你。^^我为你提供了一个蛋糕的配方，这种蛋糕可以补充少量的魔力。冒险者公会和酒馆现在也会出售制作魔力物品的配方，这些物品可以帮助你更快地补充的魔力。^^祝你在魔法之旅中好运。^-M·拉斯莫迪斯，法师",
 
+	"mail.learning_affinities.title": "Learning Affinities",
+	"mail.learning_affinities.text": "Greetings @.^^I'm proud of your continued effort to improve your skill in magic.^^At your current skill now, it is time you learn about affinities.^^Please bring an essence orb and come to my tower at your earliest convenience. ^-M. Rasmodius, Wizard",
+
+	//Quests
+	"quest.magic_interest.title": "Magic Interest",
+	"quest.magic_interest.description": "The wizard wants to discuss your interest in magic. You should visit him and see what he plans to do.",
+	"quest.magic_interest.objective_instructions_vanilla": "Visit the wizard's tower.",
+	"quest.magic_interest.objective_instructions_sve": "Visit the basement in the wizard's tower.",
+
+	"quest.wizardry_level_three.title": "Learning Magic",
+	"quest.wizardry_level_three.description": "The best way improve your magic is to practice! Reach wizardry level 3.",
+
+	"quest.learning_affinities.title": "Wizardry Advancement",
+	"quest.learning_affinities.description": "The wizard noticed your improvements! You should bring him an essence orb to discuss affinities.",
+	"quest.learning_affinities.objective_instructions_vanilla": "Visit the wizard's tower with an essence orb.",
+	"quest.learning_affinities.objective_instructions_sve": "Visit the basement in the wizard's tower with an essence orb.",
+	
 	//Wizard Dialogue
 	"event.learn_affinities.wizard_choice_responce_1": "Thats good to hear! I hope you continue to do well.$1",
 	"event.learn_affinities.wizard_choice_responce_2": "It's only natural for one to hit road blocks while studing magic. Keep practicing, and eventually a path forward will appear.$0"

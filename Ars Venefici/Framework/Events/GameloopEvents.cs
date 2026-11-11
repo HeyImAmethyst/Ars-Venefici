@@ -509,8 +509,27 @@ namespace ArsVenefici.Framework.Events
                 if (Game1.activeClickableMenu != null || Game1.eventUp || !Context.IsPlayerFree)
                     return;
 
+                if (!api.GetMagicHelper().LearnedWizardy(Game1.player))
+                {
+                    if(Game1.player.friendshipData.TryGetValue("Wizard", out Friendship wizardFriendship) && wizardFriendship.Points >= 1000)
+                    {
+                        if (!modEntryInstance.isSVEInstalled)
+                        {
+                            if (!Game1.player.hasOrWillReceiveMail(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla") && !Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla"))
+                                Game1.player.mailbox.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_Vanilla");
+                        }
+                        else
+                        {
+                            if (!Game1.player.hasOrWillReceiveMail(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE") && !Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE"))
+                                Game1.player.mailbox.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Magic_Interest_SVE");
+                        }
+                    }
+                }
+
                 if (api.GetMagicHelper().LearnedWizardy(Game1.player))
                 {
+                    // Check if wizardry crafting recipies where given
+
                     string magicAltarRecipe = $"{ModEntry.ArsVenificiContentPatcherId}_Magic_Altar";
 
                     CraftingRecipe craftingRecipe = new CraftingRecipe(magicAltarRecipe);
@@ -528,15 +547,32 @@ namespace ArsVenefici.Framework.Events
                         Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Blank_Rune", 0);
 
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
-                        Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
+                        Game1.player.mailForTomorrow.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
-                    if (Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake") && Game1.player.mailForTomorrow.Contains("ArsVenefici.Mail.ManaManagement"))
-                        Game1.player.mailForTomorrow.Remove("ArsVenefici.Mail.ManaManagement");
+                    if(!Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management"))
+                        Game1.player.mailbox.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
-                    if (Game1.player.mailbox.Contains("ArsVenefici.Mail.ManaManagement") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
-                        Game1.player.mailbox.Remove("ArsVenefici.Mail.ManaManagement");
+                    // if (Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake") && Game1.player.mailForTomorrow.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management"))
+                    //     Game1.player.mailForTomorrow.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
-                    //Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.ManaManagement");
+                    // if (Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
+                    //     Game1.player.mailbox.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
+
+                    //Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.Mana_Management");
+
+                    if (Game1.player.mailReceived.Contains("HeyImAmethyst.ArsVenefici.First_Time_Essence_Found"))
+                    {
+                        if (!modEntryInstance.isSVEInstalled)
+                        {
+                            if (!Game1.player.hasOrWillReceiveMail(ModEntry.ArsVenificiContentPatcherId + ".Mail.Learning_Affinities_Vanilla") && !Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Learning_Affinities_Vanilla"))
+                                Game1.player.mailbox.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Learning_Affinities_Vanilla");
+                        }
+                        else
+                        {
+                            if (!Game1.player.hasOrWillReceiveMail(ModEntry.ArsVenificiContentPatcherId + ".Mail.Learning_Affinities_SVE") && !Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Learning_Affinities_SVE"))
+                                Game1.player.mailbox.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Learning_Affinities_SVE");
+                        }
+                    }
 
                     modEntryInstance.farmerMagicHelper.FixManaPoolIfNeeded(Game1.player, Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill));
 
@@ -545,8 +581,12 @@ namespace ArsVenefici.Framework.Events
                     modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().UpdateLock(Game1.player);
                 }
 
+                //Check if essence recipies where given
+
                 if (api.GetMagicHelper().LearnedAffinities(Game1.player))
                 {
+                    //Essences
+
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Earth_Essence"))
                         Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Earth_Essence", 0);
 
@@ -579,7 +619,38 @@ namespace ArsVenefici.Framework.Events
 
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Water_Essence_From_Fish"))
                         Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Water_Essence_From_Fish", 0);
+
+                    //Tomes
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Earth_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Earth_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Water_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Water_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Air_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Air_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Fire_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Fire_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Nature_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Nature_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Life_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Life_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Arcane_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Darkness_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Darkness_Tome", 0);
                 }
+
+                //Sync spell book
 
                 SpellBook spellBook = Game1.player.GetSpellBook();
 
@@ -658,6 +729,14 @@ namespace ArsVenefici.Framework.Events
 
                     int index = farmer.Items.IndexOf(farmer.ActiveItem);
                     farmer.Items[index] = affinityTomeObject;
+                }
+
+                //Check if wizardry level 3 has been reached for quest
+
+                if(Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) >= 3)
+                {
+                    if(Game1.player.hasQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Wizardry_Level_Three"))
+                        Game1.player.completeQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Wizardry_Level_Three");
                 }
 
                 //if (farmer.hasOrWillReceiveMail("artifactFound"))

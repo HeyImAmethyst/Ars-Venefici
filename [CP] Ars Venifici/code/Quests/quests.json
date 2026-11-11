@@ -1,0 +1,65 @@
+{
+	"Changes":
+	[
+		{
+			"LogName":"Add Quest",
+			"Action": "EditData",
+			"Target": "Data/Quests",
+            "Entries": 
+			{
+				"{{ModId}}.Quest.Wizardry_Level_Three": "Basic/{{i18n:quest.wizardry_level_three.title}}/{{i18n:quest.wizardry_level_three.description}}/null/-1/0/-1/false"
+            }
+		},
+        {
+			"LogName":"Add Vanilla Specific Quests",
+			"Action": "EditData",
+			"Target": "Data/Quests",
+            "When": 
+            {
+                "HasMod:|contains= FlashShifter.StardewValleyExpandedCP": false
+            },
+            "Entries": 
+			{
+				"{{ModId}}.Quest.Magic_Interest_Vanilla": "Location/{{i18n:quest.magic_interest.title}}/{{i18n:quest.magic_interest.description}}/{{i18n:quest.magic_interest.objective_instructions_vanilla}}/WizardHouse/-1/0/-1/false",
+                "{{ModId}}.Quest.Learning_Affinities_Vanilla": "Location/{{i18n:quest.learning_affinities.title}}/{{i18n:quest.learning_affinities.description}}/{{i18n:quest.learning_affinities.objective_instructions_vanilla}}/WizardHouse/-1/0/-1/false"
+            }
+		},
+        {
+			"LogName":"Add SVE Specific Quests",
+			"Action": "EditData",
+			"Target": "Data/Quests",
+            "When": 
+            {
+                "HasMod:|contains= FlashShifter.StardewValleyExpandedCP": true
+            },
+            "Entries": 
+			{
+				"{{ModId}}.Quest.Magic_Interest_SVE": "Location/{{i18n:quest.magic_interest.title}}/{{i18n:quest.magic_interest.description}}/{{i18n:quest.magic_interest.objective_instructions_sve}}/Custom_WizardBasement/-1/0/-1/false",
+                "{{ModId}}.Quest.Learning_Affinities_SVE": "Location/{{i18n:quest.learning_affinities.title}}/{{i18n:quest.learning_affinities.description}}/{{i18n:quest.learning_affinities.objective_instructions_sve}}/Custom_WizardBasement/-1/0/-1/false"
+			}
+
+		}
+		// {
+        //     "LogName":"Add Quest Triggers",
+        //     "Action": "EditData",
+        //     "Target": "Data/TriggerActions",
+        //     "Entries": 
+        //     {
+        //         // "ArsVenefici.Magic_Interest_Mail_Trigger": 
+        //         // {
+        //         //     "Id": "ArsVenefici.Magic_Interest_Mail_Trigger",
+        //         //     "Trigger": "DayStarted",
+        //         //     "Condition": "PLAYER_HEARTS Current Wizard 4",
+        //         //     "Action": "AddMail Current ArsVenefici.Mail.Magic_Interest tomorrow"
+        //         // },
+		// 		// "ArsVenefici.Learning_Affinities_Mail_Trigger": 
+        //         // {
+        //         //     "Id": "ArsVenefici.Learning_Affinities_Mail_Trigger",
+        //         //     "Trigger": "DayStarted",
+        //         //     "Condition": "PLAYER_HAS_MAIL Current essenceFound Received",
+        //         //     "Action": "AddMail Current ArsVenefici.Mail.Learning_Affinities tomorrow"
+        //         // }
+        //     }
+        // }
+	]
+}
