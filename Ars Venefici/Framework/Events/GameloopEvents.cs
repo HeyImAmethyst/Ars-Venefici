@@ -466,8 +466,6 @@ namespace ArsVenefici.Framework.Events
                 modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().UpdateIfNeeded(modEntryInstance, Game1.player);
                 modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().SyncToPlayer(Game1.player);
                 modEntryInstance.arsVeneficiAPILoader.GetAPI().GetAffinityHelper().UpdateLock(Game1.player);
-
-
             }
         }
 
@@ -549,14 +547,14 @@ namespace ArsVenefici.Framework.Events
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
                         Game1.player.mailForTomorrow.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
-                    if(!Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management"))
-                        Game1.player.mailbox.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
+                    // if(!Game1.player.mailReceived.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management"))
+                    //     Game1.player.mailbox.Add(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
-                    // if (Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake") && Game1.player.mailForTomorrow.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management"))
-                    //     Game1.player.mailForTomorrow.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
+                    if (Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake") && Game1.player.mailForTomorrow.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management"))
+                        Game1.player.mailForTomorrow.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
-                    // if (Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
-                    //     Game1.player.mailbox.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
+                    if (Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
+                        Game1.player.mailbox.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management");
 
                     //Game1.player.mailForTomorrow.Add("ArsVenefici.Mail.Mana_Management");
 
