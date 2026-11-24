@@ -224,7 +224,7 @@
 					"Description": "{{i18n:object.moonstone.description}}",
 					"Type": "Minerals",
 					"Category": -2,
-					"Price": 350,
+					"Price": 35,
 					"Texture": "Mods/{{ModId}}/{{ModId}}_Moonstone",
 					"SpriteIndex": 0,
 					"ContextTags": [

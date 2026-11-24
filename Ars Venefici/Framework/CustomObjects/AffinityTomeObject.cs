@@ -15,6 +15,12 @@ namespace ArsVenefici.Framework.CustomObjects
 {
     public class AffinityTomeObject : StardewValley.Object, IAffinityObject
     {
+        public AffinityTomeObject()
+        {
+            ResetParentSheetIndex();
+            ParentSheetIndex = 0;
+        }
+
         public AffinityTomeObject(string id)
         {
             string itemID = ValidateUnqualifiedItemId(id);

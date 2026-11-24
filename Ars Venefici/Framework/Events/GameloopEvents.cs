@@ -600,6 +600,9 @@ namespace ArsVenefici.Framework.Events
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Nature_Essence"))
                         Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Nature_Essence", 0);
 
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Ice_Essence"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Ice_Essence", 0);
+
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Essence"))
                         Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Essence", 0);
 
@@ -634,6 +637,9 @@ namespace ArsVenefici.Framework.Events
 
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Nature_Tome"))
                         Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Nature_Tome", 0);
+
+                    if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Ice_Tome"))
+                        Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Ice_Tome", 0);
 
                     if (!Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Tome"))
                         Game1.player.craftingRecipes.Add(ModEntry.ArsVenificiContentPatcherId + "_Lightning_Tome", 0);

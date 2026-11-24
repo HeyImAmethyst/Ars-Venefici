@@ -37,7 +37,7 @@ namespace ArsVenefici.Framework.FarmerPlayer
             var magicHelper = api.GetMagicHelper();
 
             //Skip if player hasn't learned wizardry
-            if (!magicHelper.LearnedWizardy(player) && overrideWizardryLevel is not > 0)
+            if (player != null && !magicHelper.LearnedWizardy(player) && overrideWizardryLevel is not > 0)
                 return;
 
             //Get wizardry info
@@ -60,7 +60,7 @@ namespace ArsVenefici.Framework.FarmerPlayer
 
             int expectedPoints = wizardryLevel * modEntry.ModSaveData.ManaPointsPerLevel;
 
-            if (player.GetMaxMana() != expectedPoints)
+            if (player != null && player.GetMaxMana() != expectedPoints)
             {
                 player.SetMaxMana(expectedPoints);
                 player.AddMana(expectedPoints);
