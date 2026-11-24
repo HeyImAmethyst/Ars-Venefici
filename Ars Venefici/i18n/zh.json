@@ -277,6 +277,7 @@
     "ui.spell_book.spell_grammar_area.description": "放置魔法组件（八边形）和影响这些组件的修饰符（菱形）的地方。",
 
     "ui.spell_book.spell_name_textbox.name": "魔法名称",
+	"ui.spell_book.search_textbox.name": "Search",
 
     "ui.magic_altar.offense_tab.name": "攻击",
     "ui.magic_altar.defense_tab.name": "防御",

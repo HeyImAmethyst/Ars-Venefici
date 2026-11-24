@@ -37,15 +37,27 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         private SpellBook spellBook;
 
+
+        // Spell book maijor areas
+
         private SpellPartSourceArea sourceArea;
         private SpellGrammarArea spellGrammarArea;
         private ShapeGroupListArea shapeGroupArea;
+
+        // Search box
+
+        private TextBox searchBox;
+        public ClickableComponent searchBoxCC;
+
+        // Draggables
 
         private SpellPartDraggable dragged;
         private DragArea<SpellPartDraggable> hoveredArea;
         private SpellPartDraggable hoveredPart;
 
         public List<ClickableTextureComponent> buttons = new List<ClickableTextureComponent>();
+
+        // Name box
 
         private TextBox nameBox;
         public ClickableComponent nameBoxCC;
@@ -57,6 +69,8 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         private ClickableComponent PageNumberLable;
         private ClickableComponent TotalManaCostLable;
+
+        // Scrolling
 
         private const int BasePlayId = 2000;
 
@@ -221,6 +235,22 @@ namespace ArsVenefici.Framework.GUI.Menus
                     downNeighborID = -99998
                 };
 
+                searchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
+                {
+                    X = xPositionOnScreen + 200,
+                    Y = yPositionOnScreen - 150,
+                    textLimit = 20
+                };
+
+                searchBoxCC = new ClickableComponent(new Rectangle(xPositionOnScreen + 200, yPositionOnScreen - 175, 175, 48), "", modEntry.Helper.Translation.Get("ui.spell_book.search_textbox.name"))
+                {
+                    myID = 537,
+                    upNeighborID = -99998,
+                    leftNeighborID = -99998,
+                    rightNeighborID = -99998,
+                    downNeighborID = -99998
+                };
+
                 //this.nameLabel = new ClickableComponent(new Rectangle(this.xPositionOnScreen + num1 + 16 + IClickableMenu.spaceToClearSideBorder + IClickableMenu.borderWidth + 192 + 4, this.yPositionOnScreen + IClickableMenu.borderWidth + IClickableMenu.spaceToClearTopBorder - 8, 1, 1), "Spell Name");
 
                 upperRightCloseButton = new ClickableTextureComponent(new Rectangle(xPositionOnScreen + 500, yPositionOnScreen - 150, 48, 48), Game1.mouseCursors, new Rectangle(337, 494, 12, 12), 4f)
@@ -232,6 +262,7 @@ namespace ArsVenefici.Framework.GUI.Menus
                 buttons.Add(rightPageButton);
 
                 clickables.Add(nameBoxCC);
+                clickables.Add(searchBoxCC);
 
                 //this.labels.Add(this.nameLabel);
                 TotalManaCostLable = new ClickableComponent(new Rectangle(xPositionOnScreen + 50, yPositionOnScreen + 430, 64, 64), "Total Mana Cost");
@@ -268,12 +299,13 @@ namespace ArsVenefici.Framework.GUI.Menus
 
         public override void populateClickableComponentList()
         {
-            if (dragAreas != null && buttons != null && nameBoxCC != null)
+            if (dragAreas != null && buttons != null && nameBoxCC != null && searchBoxCC != null)
             {
                 allClickableComponents = new List<ClickableComponent>(dragAreas.Count + buttons.Count + 1);
                 this.allClickableComponents.AddRange(this.dragAreas);
                 this.allClickableComponents.AddRange(this.buttons);
                 this.allClickableComponents.Add(this.nameBoxCC);
+                this.allClickableComponents.Add(this.searchBoxCC);
                 this.allClickableComponents.Add(this.upperRightCloseButton);
             }
         }
@@ -370,8 +402,11 @@ namespace ArsVenefici.Framework.GUI.Menus
             }
 
             drawTextureBox(spriteBatch, nameBoxCC.bounds.X, nameBoxCC.bounds.Y - 30, nameBoxCC.bounds.Width + 15, nameBoxCC.bounds.Height, Color.White);
+            drawTextureBox(spriteBatch, searchBoxCC.bounds.X, searchBoxCC.bounds.Y - 30, searchBoxCC.bounds.Width + 15, searchBoxCC.bounds.Height, Color.White);
 
             Utility.drawTextWithShadow(spriteBatch, nameBoxCC.label, Game1.smallFont, new Vector2(nameBoxCC.bounds.X + 18, nameBoxCC.bounds.Y - 20), Game1.textColor);
+            Utility.drawTextWithShadow(spriteBatch, searchBoxCC.label, Game1.smallFont, new Vector2(searchBoxCC.bounds.X + 18, searchBoxCC.bounds.Y - 20), Game1.textColor);
+
 
             //if (nameBoxCC.label.Length > 0)
             //    Utility.drawTextWithShadow(spriteBatch, nameBoxCC.label, Game1.smallFont, new Vector2(nameBoxCC.bounds.X + Game1.tileSize / 3 - Game1.smallFont.MeasureString(nameBoxCC.label).X / 2f, nameBoxCC.bounds.Y + Game1.tileSize / 2), Game1.textColor);
@@ -382,8 +417,10 @@ namespace ArsVenefici.Framework.GUI.Menus
 
             //draw textbox
             nameBox.Draw(spriteBatch);
+            searchBox.Draw(spriteBatch);
 
             spellBook.GetCurrentSpellPage().SetName(nameBox.Text);
+            sourceArea.SetNameFilter(searchBox.Text);
 
             string spellPartNameText = "";
             string spellPartDescriptionText = "";
@@ -601,6 +638,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             }
 
             nameBox.Update();
+            searchBox.Update();
 
             //modEntry.Monitor.Log("Mouse clicked at " + x + " , " + y, LogLevel.Info);
             SaveSpellBook(modEntry);
@@ -676,6 +714,7 @@ namespace ArsVenefici.Framework.GUI.Menus
             ChangeHoverActionScale(upperRightCloseButton, x, y, 0.01f, 0.1f);
 
             nameBox.Hover(x, y);
+            searchBox.Hover(x, y);
 
             //if (hoveredArea != null)
             //    modEntry.Monitor.Log("Mouse hovering over " + hoveredArea.name, LogLevel.Info);
@@ -718,7 +757,7 @@ namespace ArsVenefici.Framework.GUI.Menus
         {
             if (key != 0)
             {
-                if (!nameBox.Selected && Game1.options.doesInputListContain(Game1.options.menuButton, key) && readyToClose())
+                if (!nameBox.Selected && !searchBox.Selected && Game1.options.doesInputListContain(Game1.options.menuButton, key) && readyToClose())
                 {
                     exitThisMenu();
                 }

@@ -277,6 +277,7 @@
 	"ui.spell_book.spell_grammar_area.description": "Where components (octagons) and modifiers (diamonds) affecting those components are placed.",
 
 	"ui.spell_book.spell_name_textbox.name": "Spell Name",
+	"ui.spell_book.search_textbox.name": "Search",
 
 	"ui.magic_altar.offense_tab.name": "Offense",
 	"ui.magic_altar.defense_tab.name": "Defense",

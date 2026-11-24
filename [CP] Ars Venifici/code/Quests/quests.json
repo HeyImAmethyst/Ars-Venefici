@@ -7,7 +7,7 @@
 			"Target": "Data/Quests",
             "Entries": 
 			{
-				"{{ModId}}.Quest.Wizardry_Level_Three": "Basic/{{i18n:quest.wizardry_level_three.title}}/{{i18n:quest.wizardry_level_three.description}}/null/-1/0/-1/false"
+				"{{ModId}}.Quest.Wizardry_Level_Three": "Basic/{{i18n:quest.wizardry_level_three.title}}/{{i18n:quest.wizardry_level_three.description}}/{{i18n:quest.wizardry_level_three.objective_instructions}}/null/-1/0/-1/false"
             }
 		},
         {

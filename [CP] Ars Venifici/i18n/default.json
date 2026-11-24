@@ -207,7 +207,8 @@
 	"quest.magic_interest.objective_instructions_sve": "Visit the basement in the wizard's tower.",
 
 	"quest.wizardry_level_three.title": "Learning Magic",
-	"quest.wizardry_level_three.description": "The best way improve your magic is to practice! Reach wizardry level 3.",
+	"quest.wizardry_level_three.description": "The best way improve your magic is to practice!.",
+	"quest.wizardry_level_three.objective_instructions": "Reach wizardry level 3.",
 
 	"quest.learning_affinities.title": "Wizardry Advancement",
 	"quest.learning_affinities.description": "The wizard noticed your improvements! You should bring him an essence orb to discuss affinities.",

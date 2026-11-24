@@ -24,13 +24,13 @@ namespace ArsVenefici.Framework.Commands
 
         public void ToggleWizardry(string command, string[] args)
         {
-            bool value;
+            bool toggleWizardryValue;
 
             //string s = $"{ModEntry.ArsVenificiContentPatcherId}_MagicAltar";
 
-            if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out value))
+            if (args.Length > 0 && args[0] != null && bool.TryParse(args[0], out toggleWizardryValue))
             {
-                if (value)
+                if (toggleWizardryValue)
                 {
                     if(Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 1)
                     {
@@ -90,9 +90,15 @@ namespace ArsVenefici.Framework.Commands
                     if (Game1.player.mailbox.Contains(ModEntry.ArsVenificiContentPatcherId + ".Mail.Mana_Management") && Game1.player.craftingRecipes.Keys.Contains(ModEntry.ArsVenificiContentPatcherId + "_Mana_Cake"))
                         Game1.player.mailbox.Remove(ModEntry.ArsVenificiContentPatcherId + ".Mail.ManaManagement");
 
+                    if(Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 3)
+                    {
+                        if(!Game1.player.hasQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Wizardry_Level_Three"))
+                            Game1.player.addQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Wizardry_Level_Three");
+                    }
+
                     modEntry.Monitor.Log("You have learned wizardry!", LogLevel.Info);
                 }
-                else if (value == false)
+                else if (toggleWizardryValue == false)
                 {
                     Game1.player.SetMaxMana(0);
 
@@ -132,6 +138,12 @@ namespace ArsVenefici.Framework.Commands
 
                     //if (Game1.player.craftingRecipes.ContainsKey(s))
                     //    Game1.player.craftingRecipes.Remove(s);
+
+                    if(Game1.player.GetCustomSkillLevel(FarmerMagicHelper.Skill) < 3)
+                    {
+                        if(Game1.player.hasQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Wizardry_Level_Three"))
+                            Game1.player.removeQuest(ModEntry.ArsVenificiContentPatcherId + ".Quest.Wizardry_Level_Three");
+                    }
 
                     modEntry.Monitor.Log("You have forgotten wizardry!", LogLevel.Info);
                 }

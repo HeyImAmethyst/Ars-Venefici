@@ -6,7 +6,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "/run/media/HeyImAmethyst/Games/SteamLibrary/steamapps/common/Stardew Valley/StardewModdingAPI",
+      "program": "/run/media/heyimamethyst/Games/SteamLibrary/steamapps/common/Stardew Valley/StardewModdingAPI",
       "args": [],
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",

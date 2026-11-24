@@ -276,6 +276,7 @@
 	"ui.spell_book.spell_grammar_area.description": "Where components (octagons) and modifiers (diamonds) affecting those components are placed.",
 
 	"ui.spell_book.spell_name_textbox.name": "Nom du sort",
+	"ui.spell_book.search_textbox.name": "Search",
 
 	"ui.magic_altar.offense_tab.name": "Attaque",
 	"ui.magic_altar.defense_tab.name": "Défense",
